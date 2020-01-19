@@ -1,0 +1,23 @@
+{
+    "itemList": [
+        {
+            "type": "数据组别",
+            "data": {
+                "content": {
+                    "data": {
+                        "title": "视频标题",
+                        "author": {
+                            "icon": "头像",
+                            "name": "作者名"
+                        },
+                        "cover": {
+                            "detail": "封面链接"
+                        },
+                        "playUrl": "播放链接"
+                    }
+                }
+            }
+        }
+    ],
+    "nextPageUrl": "查询下一页"
+}

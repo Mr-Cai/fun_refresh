@@ -1,0 +1,42 @@
+name: fun_refresh # 项目名
+description: 趣刷 # 描述
+version: 1.0.5 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
+environment: # 语言环境
+  sdk: ">=2.2.0 <3.0.0"
+dependencies: # 拓展插件集合 https://pub.dev
+  flutter:  # 开发工具
+    sdk: flutter 
+  flutter_localizations: # 国际化
+    sdk: flutter
+  url_launcher: # 网页跳转
+  cupertino_icons: # 苹果图标
+  flutter_svg: # 矢量图加载
+  dio: # 网络请求
+  webview_flutter: # 原生网页浏览
+  shared_preferences: # 用户信息缓存
+  video_player: # 原生视频播放
+  # camera: # 相机
+  path_provider: # 文件路径提供器
+  path: # 文件路径
+  json_annotation:  # 简谱注解标签
+  flutter_staggered_grid_view: # 自适应网格
+  firebase_admob: # 谷歌广告
+  # dim: # 腾讯云聊天 
+  google_sign_in: # 谷歌登录
+  firebase_core: # 火力云核心库
+  firebase_auth: # 火力云登录验证
+  package_info: # 查询App包名
+  device_info: # 设备平台配置信息
+  flame: # 游戏引擎
+  tencent_ad: # 腾讯广告
+dev_dependencies: # 调试插件集合
+  flutter_test: # 自动化测试
+    sdk: flutter
+  build_runner: # 代码生成器
+  built_value_generator: # 生成字段
+  json_serializable: # 简谱序列化标签注解
+flutter:  # 资源配置集合
+  uses-material-design: true  # 激活材料设计
+  assets:
+    - asset/svg/ # 图标
+    - asset/image/ # 图片
