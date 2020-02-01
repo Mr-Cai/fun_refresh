@@ -24,7 +24,7 @@ class _RewardPageState extends State<RewardPage> {
             right: 0.0,
             left: 0.0,
             child: Container(
-              height: _bannerClose == true ? 0 : 62.0,
+              height: _bannerClose == true ? 0 : 64.0,
               child: UnifiedBannerAd(
                 config['bannerID'],
                 key: _bannerKey,
