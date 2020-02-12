@@ -2,8 +2,6 @@
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const GIT_ASSET =
     'https://raw.githubusercontent.com/Mr-Cai/Util-Res/master/pic/img';
-const GIRL =
-    'https://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg'; // 默认头像
 
 /// 开眼视频(日报版块)
 /// 请求头
@@ -49,3 +47,5 @@ const bannerIDTest = 0;
 const nativeIDTest = 0;
 const intersIDTest = 0;
 const splashIDTest = 0;
+
+const tencentID = '1109685869';

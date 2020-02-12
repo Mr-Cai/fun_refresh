@@ -8,7 +8,6 @@ import '../model/i18n/i18n.dart';
 import '../model/i18n/lang_kv.dart';
 import 'package:fun_refresh/model/smash_model.dart';
 import 'package:fun_refresh/page/routes/route_generator.dart';
-import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:fun_refresh/tools/pic_tool.dart';
 
@@ -61,10 +60,13 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   _buildDrawerContent(context, child) => Container(
         width: _widthAnim.value,
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Colors.cyan[300],
-          Colors.lightBlue[400],
-        ])),
+          gradient: LinearGradient(
+            colors: [
+              Colors.cyan,
+              Colors.lightBlue,
+            ],
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,16 +80,16 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                   onTap: () => setState(() {
                     switch (index) {
                       case 0:
-                        pushNamed(context, '/social');
+                        pushNamed(context, social);
                         break;
                       case 1:
-                        pushNamed(context, '/mind');
+                        pushNamed(context, mind);
                         break;
                       case 2:
-                        pushNamed(context, '/reward');
+                        pushNamed(context, reward);
                         break;
                       case 3:
-                        pushNamed(context, '/setting');
+                        pushNamed(context, setting);
                         break;
                     }
 
@@ -156,7 +158,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => pushNamed(context, '/sign'),
+        onTap: () => pushNamed(context, profile),
         borderRadius: BorderRadius.circular(32.0),
         child: Container(
           height: 124.0,
@@ -176,13 +178,9 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                               borderRadius: BorderRadius.circular(999.0)),
                           color: Colors.transparent,
                           elevation: 0.0,
-                          child: Image.network(
-                            isGoogleLoginSuccess == false
-                                ? GIRL
-                                : googleUser.photoUrl,
-                            width: 52.0,
-                            height: 52.0,
-                            fit: BoxFit.cover,
+                          child: SvgPicture.asset(
+                            iconX('user'),
+                            width: sizeW$15(context),
                           ),
                         ),
                         SizedBox(width: sizedBoxAnim.value),

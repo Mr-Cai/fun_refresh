@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
           dialogKey.currentState.showDisClaimerDialog(context);
         } else {
           Future.delayed(Duration(milliseconds: 666),
-              () => Navigator.of(context).pushReplacementNamed('/home'));
+              () => Navigator.of(context).pushReplacementNamed(home));
         }
       });
     }

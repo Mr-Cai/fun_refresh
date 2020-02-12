@@ -36,6 +36,7 @@ android {
             enable true
             reset()
             // include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+            // include 'armeabi', "armeabi-v7a", "arm64-v8a"
             universalApk false
         }
     }
@@ -51,11 +52,12 @@ android {
 
     defaultConfig {
         applicationId "intelligent.fun_refresh"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [TENCENT_APP_ID: "1109685869"]
     }
 
     signingConfigs {

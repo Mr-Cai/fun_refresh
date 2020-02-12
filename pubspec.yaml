@@ -29,6 +29,8 @@ dependencies: # 拓展插件集合 https://pub.dev
   device_info: # 设备平台配置信息
   flame: # 游戏引擎
   tencent_ad: # 腾讯广告
+  tencent_kit: # 腾讯SDK
+  toast: # 吐司字幕
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试
     sdk: flutter

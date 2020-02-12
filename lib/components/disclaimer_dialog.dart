@@ -137,7 +137,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
             _getPref(_valBool);
             Navigator.of(context).pop();
             Future.delayed(const Duration(milliseconds: 333),
-                () => Navigator.of(context).pushReplacementNamed('/home'));
+                () => Navigator.of(context).pushReplacementNamed(home));
           },
         )
       ],

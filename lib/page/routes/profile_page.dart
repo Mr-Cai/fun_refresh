@@ -1,61 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/api.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/components/common_app_bar.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
+import 'package:fun_refresh/tools/global.dart';
+import 'package:fun_refresh/tools/pic_tool.dart';
 
-// ProfilePage
 class ProfilePage extends StatefulWidget {
-  ProfilePage({this.args});
-  final args;
+  const ProfilePage({this.args});
+
+  final Map args;
+
   @override
-  createState() => _ProfilePageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  TextEditingController _nickNameC = TextEditingController();
-  TextEditingController _fullNameC = TextEditingController();
-  TextEditingController _phoneC = TextEditingController();
-  TextEditingController _emailC = TextEditingController();
-  TextEditingController _genderC = TextEditingController();
-  _addData() async {
-    http.post(
-      '$LOCAL_SERVER/database/create',
-      body: {
-        'phone': _phoneC.text,
-        'email': _emailC.text,
-      },
-    );
-  }
-
   @override
-  Widget build(BuildContext context) => ListView(
-        children: [
-          TextFormField(
-            controller: _nickNameC,
-            decoration: InputDecoration(hintText: '昵称'),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
+      body: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              backBTN(context),
+              FlatButton(
+                shape: CircleBorder(),
+                child: Icon(
+                  Icons.settings,
+                  size: 32.0,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  pushNamed(context, '/x');
+                },
+              ),
+            ],
           ),
-          TextFormField(
-            controller: _fullNameC,
-            decoration: InputDecoration(hintText: '全名'),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 8.0, color: Colors.white),
+              borderRadius: BorderRadius.circular(
+                sizeW$50(context),
+              ),
+            ),
+            margin: EdgeInsets.only(
+              bottom: sizeH$10(context) / 2,
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                picX('android_cover'),
+                height: sizeW$50(context),
+                width: sizeW$50(context),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          TextFormField(
-            controller: _phoneC,
-            decoration: InputDecoration(hintText: '手机号'),
-          ),
-          TextFormField(
-            controller: _emailC,
-            decoration: InputDecoration(hintText: '邮箱'),
-          ),
-          TextFormField(
-            controller: _genderC,
-            decoration: InputDecoration(hintText: '性别'),
-          ),
-          RaisedButton(
-            child: Text('提交'),
-            onPressed: () {
-              _addData();
-              Navigator.pop(context);
-            },
+          Text('网名'),
+          Text('签名'),
+          Text('年龄'),
+          Text('性别'),
+          SizedBox(height: 32.0),
+          FloatingActionButton.extended(
+            label: Text(
+              '       \$32   ',
+              style: TextStyle(color: Colors.lightBlueAccent),
+            ),
+            icon: Icon(
+              Icons.supervised_user_circle,
+              color: Colors.lightBlueAccent,
+              size: 32.0,
+            ),
+            backgroundColor: Colors.white,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            elevation: 4,
+            onPressed: () {},
           )
         ],
-      );
+      ),
+    );
+  }
 }

@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignInAccount googleUser;
-var isGoogleLoginSuccess = false;
+
+bool isGoogleLoginSuccess = false;
+
 final scaffoldKey = GlobalKey<ScaffoldState>();
+
 final dialogPrefKey = 'disclaimer';
+
 void showSnackBar(String text) {
   final snackbar = SnackBar(
     content: Text(text),
@@ -23,9 +27,11 @@ const targetingInfo = MobileAdTargetingInfo(
 double sizeW(context) => MediaQuery.of(context).size.width;
 double sizeW1(context) => sizeW(context) * .01;
 double sizeW$5(context) => sizeW(context) * .05;
-double sizeW10(context) => sizeW(context) * .10;
-double sizeW15(context) => sizeW(context) * .15;
-double sizeW20(context) => sizeW(context) * .20;
+double sizeW$8(context) => sizeW(context) * .08;
+double sizeW$9(context) => sizeW(context) * .09;
+double sizeW$10(context) => sizeW(context) * .10;
+double sizeW$15(context) => sizeW(context) * .15;
+double sizeW$20(context) => sizeW(context) * .20;
 double sizeW$50(context) => sizeW(context) * .50;
 // 常用高度:
 double sizeH(context) => MediaQuery.of(context).size.height;
@@ -40,3 +46,15 @@ double sizeH$18(context) => sizeH(context) * .18;
 double sizeH$20(context) => sizeH(context) * .20;
 double sizeH$25(context) => sizeH(context) * .25;
 double sizeH$50(context) => sizeH(context) * .50;
+
+// 页面名称:
+const home = '/home'; // 首页
+const detail = '/detail'; // 跳转详情
+const sign = '/sign'; // 注册登录
+const social = '/social'; // 社交
+const mind = '/mind'; // 想法
+const reward = '/reward'; // 奖励
+const setting = '/setting'; // 设置
+const chat = '/chat'; // 与人聊天
+const profile = '/profile'; // 个人资料
+const search = '/search'; // 搜索关键词

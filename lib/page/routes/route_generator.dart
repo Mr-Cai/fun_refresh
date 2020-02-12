@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../export_page_pkg.dart';
 
@@ -8,25 +9,25 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return _skipRoute(SplashPage());
-      case '/home':
+      case home:
         return _skipRoute(I18nContainer(key: i18nKey, child: HomePage()));
-      case '/detail':
+      case detail:
         return _skipRoute(DetailPage(args: args));
-      case '/sign':
+      case sign:
         return _skipRoute(SignPage());
-      case '/social':
+      case social:
         return _skipRoute(SocialPage());
-      case '/mind':
+      case mind:
         return _skipRoute(MindPage());
-      case '/reward':
+      case reward:
         return _skipRoute(RewardPage());
-      case '/setting':
+      case setting:
         return _skipRoute(SettingPage());
-      case '/chat':
+      case chat:
         return _skipRoute(ChatPage());
-      case '/profile':
+      case profile:
         return _skipRoute(ProfilePage(args: args));
-      case '/search':
+      case search:
         return _skipRoute(SearchPanel());
       default:
         return errorRoutes();
@@ -45,18 +46,18 @@ _skipRoute(Widget page) {
   );
 }
 
-pop(BuildContext context) => Navigator.of(context).pop();
+void pop(BuildContext context) => Navigator.of(context).pop();
 
-pushNamed(BuildContext context, String name, {Object args}) {
+Future pushNamed(BuildContext context, String name, {Object args}) {
   return Navigator.of(context).pushNamed(
     '$name',
     arguments: args,
   );
 }
 
-pushReplacementNamed(BuildContext context, String name, {Object arguments}) {
+Future pushReplacementNamed(BuildContext context, String name, {Object args}) {
   return Navigator.of(context).pushReplacementNamed(
     '$name',
-    arguments: arguments,
+    arguments: args,
   );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/custom_app_bar.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/model/smash_model.dart';
+import 'package:fun_refresh/tools/global.dart';
 import '../export_page_pkg.dart';
 
 class DetailPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {
                               switch (choice.title) {
                                 case '加好友':
-                                  return pushNamed(context, '/detail',
+                                  return pushNamed(context, detail,
                                       args: {'title': '加好友'});
                                   break;
                                 default:

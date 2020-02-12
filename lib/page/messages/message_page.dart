@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fun_refresh/tools/api.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fun_refresh/tools/pic_tool.dart';
 
 class MessagePage extends StatefulWidget {
   @override
@@ -27,14 +28,7 @@ class MsgItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 64.0,
-                width: 64.0,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage('$GIRL'), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(8.0)),
-              ),
+              SvgPicture.asset(iconX('github')),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(left: 8.0),
