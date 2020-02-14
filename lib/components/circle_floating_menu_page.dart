@@ -14,7 +14,7 @@ class FloatingMenuPage extends StatelessWidget {
         title: Text('CircleFloatingMenu'),
       ),
       body: Stack(
-        children: <Widget>[
+        children: [
            Positioned(
             width: 300.0,
             height: 200.0,
@@ -30,7 +30,7 @@ class FloatingMenuPage extends StatelessWidget {
                 icon: Icons.add,
                 size: 30.0,
               ),
-              subMenus: <Widget>[
+              subMenus: [
                 FloatingButton(
                   icon: Icons.widgets,
                   elevation: 0.0,

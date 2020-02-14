@@ -19,28 +19,25 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              backBTN(context),
-              FlatButton(
-                shape: CircleBorder(),
-                child: Icon(
-                  Icons.settings,
-                  size: 32.0,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  pushNamed(context, '/x');
-                },
-              ),
-            ],
+      appBar: TopBar(
+        title: '个人资料',
+        top: sizeH$2(context),
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset(
+              iconX('setting'),
+              color: Colors.white,
+            ),
+            onPressed: () => pushNamed(context, setting),
           ),
+        ],
+      ),
+      body: Column(
+        children: [
           Container(
             decoration: BoxDecoration(
-              border: Border.all(width: 8.0, color: Colors.white),
+              border:
+                  Border.all(width: sizeW$1(context) * 2, color: Colors.white),
               borderRadius: BorderRadius.circular(
                 sizeW$50(context),
               ),

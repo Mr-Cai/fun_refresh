@@ -15,7 +15,7 @@ enum MenuState {
 
 class CircleFloatingMenu extends StatefulWidget {
   final Widget floatingButton;
-  final List<Widget> subMenus;
+  final List subMenus;
   final double startAngle;
   final double endAngle;
   final Duration duration;

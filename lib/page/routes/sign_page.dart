@@ -187,7 +187,7 @@ class _SignPageState extends State<SignPage> {
                       SizedBox(height: sizeH$5(context)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
+                        children: [
                           Spacer(),
                           FloatingActionButton.extended(
                             heroTag: 0,

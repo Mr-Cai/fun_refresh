@@ -29,7 +29,7 @@ class ChatItem extends StatelessWidget {
     );
     Widget _planetValue({String value, String image}) {
       return Container(
-        child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
           Image.asset(image, height: 12.0),
           Container(width: 8.0),
           Text(planet.gravity, style: smallTextStyle),
@@ -44,7 +44,7 @@ class ChatItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment:
             horizontal ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-        children: <Widget>[
+        children: [
           Container(height: 4.0),
           Text(planet.name, style: titleTextStyle),
           Container(height: 10.0),
@@ -52,7 +52,7 @@ class ChatItem extends StatelessWidget {
           Separator(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               Expanded(
                   flex: horizontal ? 1 : 0,
                   child: _planetValue(
@@ -106,7 +106,7 @@ class ChatItem extends StatelessWidget {
             horizontal: 24.0,
           ),
           child: Stack(
-            children: <Widget>[
+            children: [
               planetCard,
               planetThumbnail,
             ],

@@ -90,7 +90,7 @@ class _RouletteState extends State<Roulette> {
             ),
             SizedBox(height: 32),
             Stack(
-              children: <Widget>[
+              children: [
                 SvgPicture.asset(
                   iconX('coins_bag'),
                   width: 128.0,
@@ -145,14 +145,14 @@ class CoinsPot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+      children: [
         Container(
           margin: EdgeInsets.symmetric(vertical: 8.0),
           child: Text('🎉🎉🎉🎉🎉', textScaleFactor: 3),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Text(
               '恭喜你获得: ${labelsMap[selected]}',
               style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),

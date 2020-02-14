@@ -15,21 +15,21 @@ void main() {
 
 class FunRefreshApp extends StatefulWidget {
   @override
-  createState() => _FunRefreshAppState();
+  _FunRefreshAppState createState() => _FunRefreshAppState();
 }
 
 class _FunRefreshAppState extends State<FunRefreshApp> {
   @override
-  void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light));
-    super.initState();
-  }
-
-  @override
-  build(BuildContext context) {
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     imageCache.clear();
     return MaterialApp(
       debugShowCheckedModeBanner: false,

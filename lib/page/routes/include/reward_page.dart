@@ -17,7 +17,7 @@ class _RewardPageState extends State<RewardPage> {
     return Scaffold(
       backgroundColor: Colors.red,
       body: Stack(
-        children: <Widget>[
+        children: [
           Roulette(),
           Positioned(
             bottom: 0.0,

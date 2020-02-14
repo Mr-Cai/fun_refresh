@@ -44,7 +44,7 @@ List<String> get coverTitles => [
       '美女',
     ];
 
-get covers => [
+List<String> get covers => [
       '$GIT_ASSET/2048.png',
       '$GIT_ASSET/snake.png',
       '$GIT_ASSET/tetris.png',
@@ -71,4 +71,11 @@ final config = defaultTargetPlatform == TargetPlatform.android
 List<Choice> get choices => [
       Choice(title: '加好友', icon: Icons.person_add),
       Choice(title: '创建群', icon: Icons.people_outline),
+    ];
+
+get settingTxT => [
+      '账号设置',
+      '版本更新',
+      '清除缓存',
+      '',
     ];

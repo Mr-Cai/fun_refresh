@@ -14,7 +14,7 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return ListView(
       physics: BouncingScrollPhysics(),
-      children: <Widget>[
+      children: [
         Container(
           height: sizeH$20(context),
           child: ListView.builder(
@@ -44,7 +44,7 @@ class GameIcon extends StatelessWidget {
         showSnackBar('text $index');
       },
       child: Column(
-        children: <Widget>[
+        children: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 4.0),
             width: sizeH$15(context),

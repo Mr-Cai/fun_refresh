@@ -25,17 +25,20 @@ const targetingInfo = MobileAdTargetingInfo(
 // 动态尺寸获取 $ <=> % ($50 == 50%)
 // 常用宽度:
 double sizeW(context) => MediaQuery.of(context).size.width;
-double sizeW1(context) => sizeW(context) * .01;
+double sizeW$1(context) => sizeW(context) * .01;
 double sizeW$5(context) => sizeW(context) * .05;
 double sizeW$8(context) => sizeW(context) * .08;
 double sizeW$9(context) => sizeW(context) * .09;
 double sizeW$10(context) => sizeW(context) * .10;
 double sizeW$15(context) => sizeW(context) * .15;
 double sizeW$20(context) => sizeW(context) * .20;
+double sizeW$25(context) => sizeW(context) * .25;
+double sizeW$30(context) => sizeW(context) * .30;
 double sizeW$50(context) => sizeW(context) * .50;
 // 常用高度:
 double sizeH(context) => MediaQuery.of(context).size.height;
 double sizeH$1(context) => sizeH(context) * .01;
+double sizeH$2(context) => sizeH(context) * .02;
 double sizeH$5(context) => sizeH(context) * .05;
 double sizeH$10(context) => sizeH(context) * .10;
 double sizeH$12(context) => sizeH(context) * .12;

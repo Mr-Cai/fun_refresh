@@ -40,10 +40,10 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
         content: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: ListBody(
-            children: <Widget>[
+            children: [
               SelectableText(disclaimerText),
               Row(
-                children: <Widget>[
+                children: [
                   Text('👉 前往查看完整版'),
                   GestureDetector(
                     child: Text(
@@ -82,7 +82,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
     if (_readed) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
+        children: [
           FlatButton(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
@@ -100,10 +100,10 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
+      children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Checkbox(
               activeColor: Theme.of(context).primaryColor,
               tristate: false,

@@ -13,7 +13,7 @@ import 'package:fun_refresh/tools/pic_tool.dart';
 
 class CollaplseDrawer extends StatefulWidget {
   @override
-  createState() => _CollaplseDrawerState();
+  _CollaplseDrawerState createState() => _CollaplseDrawerState();
 }
 
 class _CollaplseDrawerState extends State<CollaplseDrawer>
@@ -24,6 +24,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   AnimationController _animationController;
   Animation<double> _widthAnim;
   int currentIndex = 0;
+
   get drawerMenuItems => [
         ItemD(
           title: I18n.of(context).social,
@@ -42,6 +43,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
           iconPath: iconX('settings'),
         )
       ];
+
   @override
   void initState() {
     _animationController =
@@ -92,7 +94,6 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                         pushNamed(context, setting);
                         break;
                     }
-
                     return currentIndex = index;
                   }),
                   isSelected: currentIndex == index,
@@ -131,7 +132,43 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                 });
               },
             ),
-            SizedBox(height: 48.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.white38,
+                    customBorder: CircleBorder(),
+                    child: Container(
+                      margin: EdgeInsets.all(sizeW$5(context)),
+                      child: SvgPicture.asset(
+                        iconX('moon'),
+                        width: sizeW$8(context),
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.white38,
+                    customBorder: CircleBorder(),
+                    child: Container(
+                      margin: EdgeInsets.all(sizeW$5(context)),
+                      child: SvgPicture.asset(
+                        iconX('help'),
+                        width: sizeW$8(context),
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       );
@@ -241,7 +278,7 @@ class DrawerItem extends StatefulWidget {
   final bool isSelected;
   final Function onTap;
   @override
-  createState() => _DrawerItemState();
+  _DrawerItemState createState() => _DrawerItemState();
 }
 
 class _DrawerItemState extends State<DrawerItem> {
@@ -273,8 +310,10 @@ class _DrawerItemState extends State<DrawerItem> {
               SvgPicture.asset(widget.iconPath, width: 32.0, height: 32.0),
               SizedBox(width: sizedBoxAnim.value),
               widthAnim.value >= 220.0
-                  ? Text(widget.title,
-                      style: widget.isSelected ? drawerTxT1 : drawerTxT0)
+                  ? Text(
+                      widget.title,
+                      style: widget.isSelected ? drawerTxT1 : drawerTxT0,
+                    )
                   : Container()
             ],
           ),
