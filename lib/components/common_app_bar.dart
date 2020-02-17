@@ -16,8 +16,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.right,
     this.bgColor,
     this.top,
-    this.preferredSize = const Size.fromHeight(kToolbarHeight),
     this.bottom,
+    this.preferredSize = const Size.fromHeight(kToolbarHeight),
   }) : super(key: key);
 
   final String title;
@@ -25,11 +25,11 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final Color backColor;
   final Color bgColor;
   final double fontSize;
-  final List<Widget> actions;
   final double left;
   final double right;
   final double top;
   final double bottom;
+  final List<Widget> actions;
 
   @override
   createState() => _TopBarState();
@@ -42,8 +42,10 @@ class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:
-          EdgeInsets.only(top: widget.top ?? 0.0, bottom: widget.bottom ?? 0.0),
+      padding: EdgeInsets.only(
+        top: widget.top ?? sizeH$2(context),
+        bottom: widget.bottom ?? 0.0,
+      ),
       color: widget.bgColor ?? Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,10 +55,10 @@ class _TopBarState extends State<TopBar> {
           Container(
             margin: EdgeInsets.only(
               left: widget.left ?? 0.0,
-              right: widget.right ?? 0.0,
+              right: widget.right ?? sizeW$15(context),
             ),
             child: Text(
-              widget.title,
+              widget.title ?? '标题',
               style: TextStyle(
                 fontSize: widget.fontSize ?? 24.0,
                 color: widget.titleColor ?? Colors.white,

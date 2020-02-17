@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/common_app_bar.dart';
 import 'package:fun_refresh/components/wheel.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
+import 'package:fun_refresh/model/i18n/i18n.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'package:tencent_ad/banner.dart';
 
 class RewardPage extends StatefulWidget {
@@ -15,7 +17,6 @@ class _RewardPageState extends State<RewardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       body: Stack(
         children: [
           Roulette(),
@@ -41,7 +42,13 @@ class _RewardPageState extends State<RewardPage> {
               ),
             ),
           ),
-          backBTN(context),
+          Positioned(
+            top: 0.0,
+            child: TopBar(
+              title: I18n.of(context).reward,
+              left: sizeW$30(context),
+            ),
+          ),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/common_app_bar.dart';
 import 'package:fun_refresh/model/data/local_asset.dart' show settingTxT;
+import 'package:fun_refresh/model/data/theme.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:fun_refresh/tools/pic_tool.dart';
 
@@ -9,6 +10,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: divider,
       appBar: TopBar(
         title: '设置',
         bgColor: Colors.white,
@@ -26,6 +28,7 @@ class SettingPage extends StatelessWidget {
         ],
       ),
       body: ListView.separated(
+        padding: EdgeInsets.symmetric(vertical: sizeH$1(context)),
         itemCount: settingTxT.length ?? 0,
         physics: BouncingScrollPhysics(),
         separatorBuilder: (BuildContext context, int index) {

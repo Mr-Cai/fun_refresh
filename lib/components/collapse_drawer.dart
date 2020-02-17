@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_refresh/components/radial_menu.dart';
 import 'package:fun_refresh/model/data/theme.dart';
 import '../model/i18n/i18n.dart';
-import '../model/i18n/lang_kv.dart';
 import 'package:fun_refresh/model/smash_model.dart';
 import 'package:fun_refresh/page/routes/route_generator.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -25,7 +24,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   Animation<double> _widthAnim;
   int currentIndex = 0;
 
-  get drawerMenuItems => [
+  List<ItemD> get drawerMenuItems => [
         ItemD(
           title: I18n.of(context).social,
           iconPath: iconX('connection'),
@@ -54,12 +53,16 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-        animation: _animationController,
-        builder: (context, child) => _buildDrawerContent(context, child),
-      );
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        return _buildDrawerContent(context, child);
+      },
+    );
+  }
 
-  _buildDrawerContent(context, child) => Container(
+  Widget _buildDrawerContent(context, child) => Container(
         width: _widthAnim.value,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -73,13 +76,14 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 48.0),
+            SizedBox(height: sizeH$2(context)),
             CustomDrawerHeader(animationController: _animationController),
             Expanded(
               child: ListView.builder(
                 itemCount: drawerMenuItems.length,
                 itemBuilder: (context, index) => DrawerItem(
                   onTap: () => setState(() {
+                    _animationController.forward();
                     switch (index) {
                       case 0:
                         pushNamed(context, social);
@@ -104,18 +108,6 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
               ),
             ),
             RadialMenu(),
-            CupertinoButton(
-              child: Text(I18n.of(context).zh),
-              onPressed: () => i18nKey.currentState.toggleLanguage(chinese),
-            ),
-            CupertinoButton(
-              child: Text(I18n.of(context).ja),
-              onPressed: () => i18nKey.currentState.toggleLanguage(japanese),
-            ),
-            CupertinoButton(
-              child: Text(I18n.of(context).en),
-              onPressed: () => i18nKey.currentState.toggleLanguage(english),
-            ),
             IconButton(
               icon: AnimatedIcon(
                 size: 28.0,
@@ -175,10 +167,12 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 }
 
 class CustomDrawerHeader extends StatefulWidget {
-  final AnimationController animationController;
   CustomDrawerHeader({this.animationController});
+
+  final AnimationController animationController;
+
   @override
-  createState() => _CustomDrawerHeaderState();
+  _CustomDrawerHeaderState createState() => _CustomDrawerHeaderState();
 }
 
 class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
@@ -198,7 +192,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
         onTap: () => pushNamed(context, profile),
         borderRadius: BorderRadius.circular(32.0),
         child: Container(
-          height: 124.0,
+          height: sizeH$15(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -212,7 +206,8 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                         Card(
                           clipBehavior: Clip.antiAlias,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(999.0)),
+                            borderRadius: BorderRadius.circular(999.0),
+                          ),
                           color: Colors.transparent,
                           elevation: 0.0,
                           child: SvgPicture.asset(

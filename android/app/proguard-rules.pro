@@ -6,4 +6,4 @@
 -keep class io.flutter.**  { *; }
 -keep class io.flutter.plugins.**  { *; }
 -ignorewarnings
-# -keep class com.tencent.** { *; } # 腾讯聊天混淆
+-keep class com.tencent.** { *; } # 腾讯聊天混淆

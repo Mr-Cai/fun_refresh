@@ -1,9 +1,9 @@
 import 'package:flutter/rendering.dart';
 
-List get langCodes => ['en', 'zh', 'ja'];
-get chinese => Locale('zh', 'CH');
-get english => Locale('en', 'US');
-get japanese => Locale('ja', 'JP');
+List<String> get langCodes => ['en', 'zh', 'ja'];
+Locale get chinese => Locale('zh', 'CH');
+Locale get english => Locale('en', 'US');
+Locale get japanese => Locale('ja', 'JP');
 get $TxTKV => {
       'en': {
         'app_name': 'Fun Refresh',

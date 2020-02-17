@@ -5,14 +5,13 @@ import '../export_page_pkg.dart';
 
 class RouteGenerator {
   static Route<dynamic> generator(RouteSettings settings) {
-    final args = settings.arguments;
+    final Object args = settings.arguments;
+
     switch (settings.name) {
       case '/':
         return _skipRoute(SplashPage());
       case home:
         return _skipRoute(I18nContainer(key: i18nKey, child: HomePage()));
-      case detail:
-        return _skipRoute(DetailPage(args: args));
       case sign:
         return _skipRoute(SignPage());
       case social:
@@ -39,7 +38,7 @@ class RouteGenerator {
   }
 }
 
-_skipRoute(Widget page) {
+Route<dynamic> _skipRoute(Widget page) {
   return MaterialPageRoute(
     builder: (context) => page,
     fullscreenDialog: true,
@@ -48,14 +47,14 @@ _skipRoute(Widget page) {
 
 void pop(BuildContext context) => Navigator.of(context).pop();
 
-Future pushNamed(BuildContext context, String name, {Object args}) {
+Future<dynamic> pushNamed(BuildContext context, String name, {Object args}) {
   return Navigator.of(context).pushNamed(
     '$name',
     arguments: args,
   );
 }
 
-Future pushReplacementNamed(BuildContext context, String name, {Object args}) {
+Future<dynamic> pushReplace(BuildContext context, String name, {Object args}) {
   return Navigator.of(context).pushReplacementNamed(
     '$name',
     arguments: args,

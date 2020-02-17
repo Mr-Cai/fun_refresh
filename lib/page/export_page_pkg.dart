@@ -17,7 +17,6 @@ export './extension/tetris_page.dart';
 export './extension/vision_page.dart';
 export './extension/weather_page.dart';
 
-export './routes/detail_page.dart';
 export './routes/route_generator.dart';
 export './routes/search_panel.dart';
 export './routes/sign_page.dart';

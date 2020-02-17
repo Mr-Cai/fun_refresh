@@ -1,42 +1,46 @@
 name: fun_refresh # 项目名
 description: 趣刷 # 描述
 version: 1.0.5 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
+
 environment: # 语言环境
   sdk: ">=2.2.0 <3.0.0"
+
 dependencies: # 拓展插件集合 https://pub.dev
   flutter:  # 开发工具
     sdk: flutter 
   flutter_localizations: # 国际化
     sdk: flutter
-  url_launcher: # 网页跳转
-  cupertino_icons: # 苹果图标
-  flutter_svg: # 矢量图加载
-  dio: # 网络请求
-  webview_flutter: # 原生网页浏览
-  shared_preferences: # 用户信息缓存
-  video_player: # 原生视频播放
-  # camera: # 相机
-  path_provider: # 文件路径提供器
-  path: # 文件路径
-  json_annotation:  # 简谱注解标签
-  flutter_staggered_grid_view: # 自适应网格
-  firebase_admob: # 谷歌广告
-  # dim: # 腾讯云聊天 
-  google_sign_in: # 谷歌登录
-  firebase_core: # 火力云核心库
-  firebase_auth: # 火力云登录验证
-  package_info: # 查询App包名
-  device_info: # 设备平台配置信息
-  flame: # 游戏引擎
-  tencent_ad: # 腾讯广告
-  tencent_kit: # 腾讯SDK
-  toast: # 吐司字幕
+  url_launcher: ^5.4.1 # 网页跳转
+  cupertino_icons: ^0.1.3  # 苹果图标
+  flutter_svg: ^0.17.1 # 矢量图加载
+  dio: ^3.0.8 # 网络请求
+  webview_flutter: ^0.3.19+7 # 原生网页浏览
+  shared_preferences: ^0.5.6+1 # 用户信息缓存
+  video_player: ^0.10.7 # 原生视频播放
+  camera: ^0.5.7+3 # 相机
+  path_provider: ^1.6.0 # 文件路径提供器
+  path: ^1.6.4 # 文件路径
+  json_annotation: ^3.0.1  # 简谱注解标签
+  flutter_staggered_grid_view: ^0.3.0 # 自适应网格
+  firebase_admob: ^0.9.0+10 # 谷歌广告
+  dim: ^0.2.8 # 腾讯云聊天 
+  google_sign_in: ^4.1.1 # 谷歌登录
+  firebase_core: ^0.4.4 # 火力云核心库
+  firebase_auth: ^0.15.4 # 火力云登录验证
+  package_info: ^0.4.0+13 # 查询App包名
+  device_info: ^0.4.1+4 # 设备平台配置信息
+  flame: ^0.18.1 # 游戏引擎
+  tencent_ad: ^1.0.0 # 腾讯广告
+  tencent_kit: ^1.0.4 # 腾讯SDK
+  toast: ^0.1.5 # 吐司字幕
+
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试
     sdk: flutter
-  build_runner: # 代码生成器
-  built_value_generator: # 生成字段
-  json_serializable: # 简谱序列化标签注解
+  build_runner: ^1.7.4 # 代码生成器
+  built_value_generator: ^7.0.9 # 生成字段
+  json_serializable: ^3.2.5 # 简谱序列化标签注解
+  
 flutter:  # 资源配置集合
   uses-material-design: true  # 激活材料设计
   assets:

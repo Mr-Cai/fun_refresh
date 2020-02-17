@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/model/i18n/i18n.dart';
+import 'package:fun_refresh/model/i18n/lang_kv.dart';
 import 'package:fun_refresh/tools/pic_tool.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 
@@ -77,9 +79,9 @@ class RadialAnimation extends StatelessWidget {
           return Transform.rotate(
               angle: radians(rotation.value),
               child: Stack(alignment: Alignment.center, children: [
-                _buildButton(-135, icon: 'china'),
-                _buildButton(-90, icon: 'japan'),
-                _buildButton(-45, icon: 'us'),
+                _buildButton(-135, icon: 'china', index: 0),
+                _buildButton(-90, icon: 'japan', index: 1),
+                _buildButton(-45, icon: 'us', index: 2),
                 // i18nKey.currentState.toggleLanguage(japanese)
                 Transform.scale(
                   scale: scale.value - 1.5,
@@ -109,15 +111,36 @@ class RadialAnimation extends StatelessWidget {
 
   _close() => controller.reverse();
 
-  _buildButton(double angle, {String icon}) {
+  Widget _buildButton(double angle, {String icon, int index}) {
     final double rad = radians(angle);
     return Transform(
       transform: Matrix4.identity()
         ..translate(
-            (translation.value) * cos(rad), (translation.value) * sin(rad)),
-      child: SvgPicture.asset(
-        iconX(icon),
-        width: iconWidth,
+          (translation.value) * cos(rad),
+          (translation.value) * sin(rad),
+        ),
+      child: IconButton(
+        icon: SvgPicture.asset(
+          iconX(icon),
+          width: iconWidth,
+        ),
+        onPressed: () {
+          switch (index) {
+            case 0:
+              print('xxxxxxxxsfdsafsdakfsdklfjsdaklfj;sadfsald');
+              i18nKey.currentState.toggleLanguage(chinese);
+              break;
+            case 2:
+              print('xx3224;sadfsald');
+              i18nKey.currentState.toggleLanguage(english);
+              break;
+            case 3:
+              print('87873;dskdflkadkf');
+              i18nKey.currentState.toggleLanguage(japanese);
+              break;
+            default:
+          }
+        },
       ),
     );
   }

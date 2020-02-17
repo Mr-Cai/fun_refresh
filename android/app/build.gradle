@@ -52,7 +52,7 @@ android {
 
     defaultConfig {
         applicationId "intelligent.fun_refresh"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

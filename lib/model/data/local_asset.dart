@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/pic_tool.dart';
 
-import '../smash_model.dart';
-
-const disclaimerText = '''
+const String disclaimerText = '''
                     🔏 隐私政策条例
 👉 该软件使用到的视频、文字、音频、图片归版权所有人。
 👉 未经您的同意开发者不会获取、共享您的个人信息。
@@ -50,30 +48,26 @@ List<String> get covers => [
       '$GIT_ASSET/tetris.png',
     ];
 
-final config = defaultTargetPlatform == TargetPlatform.android
-    ? {
-        'appID': '1109716769',
-        'bannerID': '9040882216019714',
-        'nativeID': '4060287287437033',
-        'intersID': '7080080247106780',
-        'splashID': '7020785136977336',
-        'bgPic': 'intelligent.fun_refresh:mipmap/splash_img'
-      }
-    : {
-        'appID': '',
-        'bannerID': '',
-        'nativeID': '',
-        'intersID': '',
-        'splashID': '',
-        'bgPic': 'LaunchImage'
-      };
+Map<String, String> get config =>
+    defaultTargetPlatform == TargetPlatform.android
+        ? {
+            'appID': '1109716769',
+            'bannerID': '9040882216019714',
+            'nativeID': '4060287287437033',
+            'intersID': '7080080247106780',
+            'splashID': '7020785136977336',
+            'bgPic': 'intelligent.fun_refresh:mipmap/splash_img'
+          }
+        : {
+            'appID': '',
+            'bannerID': '',
+            'nativeID': '',
+            'intersID': '',
+            'splashID': '',
+            'bgPic': 'LaunchImage'
+          };
 
-List<Choice> get choices => [
-      Choice(title: '加好友', icon: Icons.person_add),
-      Choice(title: '创建群', icon: Icons.people_outline),
-    ];
-
-get settingTxT => [
+List<String> get settingTxT => [
       '账号设置',
       '版本更新',
       '清除缓存',
