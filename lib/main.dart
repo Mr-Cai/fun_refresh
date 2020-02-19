@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fun_refresh/tools/global.dart';
 import './model/i18n/i18n.dart';
-import 'package:fun_refresh/page/routes/route_generator.dart';
+import './page/routes/route_generator.dart';
 import 'package:tencent_ad/tencent_ad.dart';
 
 import 'model/data/local_asset.dart';
@@ -35,6 +36,7 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generator,
+      navigatorKey: ctxKey,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

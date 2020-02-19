@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fun_refresh/components/radial_menu.dart';
-import 'package:fun_refresh/model/data/theme.dart';
+import '../model/event/drawer_nav_bloc.dart';
+import '../components/radial_menu.dart';
+import '../model/data/theme.dart';
 import '../model/i18n/i18n.dart';
-import 'package:fun_refresh/model/smash_model.dart';
-import 'package:fun_refresh/page/routes/route_generator.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../model/mock/smash_model.dart';
+import '../page/routes/route_generator.dart';
+import '../tools/global.dart';
+import '../tools/pic_tool.dart';
 
 class CollaplseDrawer extends StatefulWidget {
   @override
@@ -17,12 +19,15 @@ class CollaplseDrawer extends StatefulWidget {
 
 class _CollaplseDrawerState extends State<CollaplseDrawer>
     with SingleTickerProviderStateMixin {
-  double maxWidth = 256.0;
-  double minWidth = 70.0;
-  bool isCollapse = false;
+  double maxWidth = sizeW$63(ctxKey.currentContext); // 展开宽度
+  double minWidth = sizeW$20(ctxKey.currentContext); // 折叠宽度
+
+  bool isCollapse = false; // 默认不展开
+
   AnimationController _animationController;
   Animation<double> _widthAnim;
   int currentIndex = 0;
+  NavigationBloc bloc;
 
   List<ItemD> get drawerMenuItems => [
         ItemD(
@@ -65,10 +70,25 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   Widget _buildDrawerContent(context, child) => Container(
         width: _widthAnim.value,
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white,
+              blurRadius: 8.0,
+              spreadRadius: 2.0,
+            ),
+          ],
           gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
               Colors.cyan,
               Colors.lightBlue,
+              Colors.teal,
+            ],
+            stops: [
+              0.1,
+              0.6,
+              1.0,
             ],
           ),
         ),
@@ -76,7 +96,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: sizeH$2(context)),
+            SizedBox(height: sizeH$5(context)),
             CustomDrawerHeader(animationController: _animationController),
             Expanded(
               child: ListView.builder(
@@ -84,18 +104,19 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                 itemBuilder: (context, index) => DrawerItem(
                   onTap: () => setState(() {
                     _animationController.forward();
+                    bloc = BlocProvider.of<NavigationBloc>(context);
                     switch (index) {
                       case 0:
-                        pushNamed(context, social);
+                        bloc.add(NavigationEvent.social);
                         break;
                       case 1:
-                        pushNamed(context, mind);
+                        bloc.add(NavigationEvent.mind);
                         break;
                       case 2:
-                        pushNamed(context, reward);
+                        bloc.add(NavigationEvent.reward);
                         break;
                       case 3:
-                        pushNamed(context, setting);
+                        bloc.add(NavigationEvent.setting);
                         break;
                     }
                     return currentIndex = index;
@@ -143,22 +164,24 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                     onTap: () {},
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  child: InkWell(
-                    splashColor: Colors.white38,
-                    customBorder: CircleBorder(),
-                    child: Container(
-                      margin: EdgeInsets.all(sizeW$5(context)),
-                      child: SvgPicture.asset(
-                        iconX('help'),
-                        width: sizeW$8(context),
-                      ),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
+                _widthAnim.value >= 220.0
+                    ? Material(
+                        color: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        child: InkWell(
+                          splashColor: Colors.white38,
+                          customBorder: CircleBorder(),
+                          child: Container(
+                            margin: EdgeInsets.all(sizeW$5(context)),
+                            child: SvgPicture.asset(
+                              iconX('help'),
+                              width: sizeW$8(context),
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      )
+                    : Container(),
               ],
             )
           ],

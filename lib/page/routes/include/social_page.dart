@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/model/i18n/i18n.dart';
-import '../../../components/common_app_bar.dart';
+import '../../../model/event/drawer_nav_bloc.dart';
+import '../../../model/i18n/i18n.dart';
+import '../../../components/top_bar.dart';
 
-class SocialPage extends StatefulWidget {
+class SocialPage extends StatefulWidget with NavigationState {
   @override
   _SocialPageState createState() => _SocialPageState();
 }
@@ -14,8 +15,9 @@ class _SocialPageState extends State<SocialPage> {
       backgroundColor: Colors.white,
       appBar: TopBar(
         title: I18n.of(context).social,
-        backColor: Colors.black,
+        iconColor: Colors.black,
         titleColor: Colors.black,
+        isMenu: true,
       ),
       body: Center(
         child: Text('人脉'),

@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/model/smash_model.dart';
+import '../model/event/drawer_nav_bloc.dart';
+import '../model/mock/smash_model.dart';
 
 class AnchorBar extends StatefulWidget {
   AnchorBar({
@@ -32,22 +33,46 @@ class AnchorBar extends StatefulWidget {
   final double notchMargin;
 
   @override
-  createState() => _AnchorBarState();
+  _AnchorBarState createState() => _AnchorBarState();
 }
 
 class _AnchorBarState extends State<AnchorBar> {
   int _selectedIndex = 0;
-  _updateIndex(index) {
+  NavigationBloc navContext;
+  void _updateIndex(index) {
+    navContext = BlocProvider.of<NavigationBloc>(context);
     widget.onTabSelected(index);
-    setState(() => _selectedIndex = index);
+    setState(() {
+      switch (index) {
+        case 0:
+          navContext.add(NavigationEvent.game);
+          break;
+        case 1:
+          navContext.add(NavigationEvent.video);
+          break;
+        case 2:
+          navContext.add(NavigationEvent.extend);
+          break;
+        case 3:
+          navContext.add(NavigationEvent.message);
+          break;
+        default:
+          navContext.add(NavigationEvent.game);
+      }
+      return _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(
-        widget.items.length,
-        (index) => _buildTabItems(
-            item: widget.items[index], index: index, onPressed: _updateIndex));
+      widget.items.length,
+      (index) => _buildTabItems(
+        item: widget.items[index],
+        index: index,
+        onPressed: _updateIndex,
+      ),
+    );
     items.insert(items.length >> 1, _buildMiddleTabItems());
     return BottomAppBar(
       elevation: widget.elevation,

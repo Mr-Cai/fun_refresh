@@ -1,22 +1,22 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/anchor_bar.dart';
-import 'package:fun_refresh/components/circle_floating_menu.dart';
-import 'package:fun_refresh/components/collapse_drawer.dart';
-import 'package:fun_refresh/components/floating_button.dart';
-import 'package:fun_refresh/components/marquee.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/model/smash_model.dart';
-import 'package:fun_refresh/model/weather/he_weather.dart';
-import 'package:fun_refresh/tools/net_tool.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../model/event/drawer_nav_bloc.dart';
+import '../../components/anchor_bar.dart';
+import '../../components/circle_floating_menu.dart';
+import '../../components/collapse_drawer.dart';
+import '../../components/floating_button.dart';
+import '../../components/marquee.dart';
+import '../../model/data/local_asset.dart';
+import '../../model/mock/smash_model.dart';
+import '../../model/weather/he_weather.dart';
+import '../../tools/net_tool.dart';
 import '../../model/i18n/i18n.dart';
-import 'package:fun_refresh/page/public/game_page.dart';
-import 'package:fun_refresh/tools/api.dart';
-import 'package:fun_refresh/tools/global.dart';
-import '../export_page_pkg.dart';
+import '../../tools/api.dart';
+import '../../tools/global.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget with NavigationState {
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -55,11 +55,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return BlocProvider<NavigationBloc>(
+      create: (context) => NavigationBloc(),
+      child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: CollaplseDrawer(),
-        body: _skipPage(_currentNav),
+        body: BlocBuilder<NavigationBloc, NavigationState>(
+          builder: (context, state) {
+            return state as Widget;
+          },
+        ),
         floatingActionButton: CircleFloatingMenu(
           menuSelected: (index) {},
           startAngle: degToRad(-160.0),
@@ -130,7 +137,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 
   List<NavItemBTM> get _getNavItemsBTM => [
         NavItemBTM(iconPath: _currentNavIcon(0), text: _navTitleBTM(0)),
@@ -144,19 +153,4 @@ class _HomePageState extends State<HomePage> {
   String _currentNavIcon(currentIndex) => currentIndex == _currentNav
       ? navIcons[currentIndex][1]
       : navIcons[currentIndex][0];
-
-  Widget _skipPage(index) {
-    switch (index) {
-      case 0:
-        return GamePage();
-      case 1:
-        return VideoPage();
-      case 2:
-        return ExtensionPage();
-      case 3:
-        return MessagePage();
-      default:
-        return GamePage();
-    }
-  }
 }

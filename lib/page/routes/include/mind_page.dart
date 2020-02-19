@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/common_app_bar.dart';
-import 'package:fun_refresh/model/i18n/i18n.dart';
+import '../../../model/event/drawer_nav_bloc.dart';
+import '../../../components/top_bar.dart';
+import '../../../model/i18n/i18n.dart';
 
-class MindPage extends StatefulWidget {
+class MindPage extends StatefulWidget with NavigationState {
   @override
   _MindPageState createState() => _MindPageState();
 }
@@ -15,6 +16,7 @@ class _MindPageState extends State<MindPage> {
       backgroundColor: Colors.teal,
       appBar: TopBar(
         title: I18n.of(context).mind,
+        isMenu: true,
       ),
       body: ListView.separated(
         itemCount: 9,

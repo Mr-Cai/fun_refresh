@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/components/common_app_bar.dart';
-import 'package:fun_refresh/model/data/local_asset.dart' show settingTxT;
-import 'package:fun_refresh/model/data/theme.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../../model/event/drawer_nav_bloc.dart';
+import '../../../components/top_bar.dart';
+import '../../../model/data/local_asset.dart' show settingTxT;
+import '../../../model/data/theme.dart';
+import '../../../tools/global.dart';
+import '../../../tools/pic_tool.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatelessWidget with NavigationState {
+  const SettingPage(this.isPush);
+
+  final bool isPush;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,10 +19,11 @@ class SettingPage extends StatelessWidget {
       appBar: TopBar(
         title: '设置',
         bgColor: Colors.white,
-        backColor: Colors.black,
+        iconColor: Colors.black,
         titleColor: Colors.black,
         top: sizeH$2(context),
         right: sizeW$5(context),
+        isMenu: isPush ? false : true,
         actions: [
           IconButton(
             icon: SvgPicture.asset(

@@ -6,7 +6,9 @@ GoogleSignInAccount googleUser;
 
 bool isGoogleLoginSuccess = false;
 
-final scaffoldKey = GlobalKey<ScaffoldState>();
+final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
+
+final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
 final dialogPrefKey = 'disclaimer';
 
@@ -31,14 +33,24 @@ double sizeW$8(context) => sizeW(context) * .08;
 double sizeW$9(context) => sizeW(context) * .09;
 double sizeW$10(context) => sizeW(context) * .10;
 double sizeW$15(context) => sizeW(context) * .15;
+double sizeW$18(context) => sizeW(context) * .18;
 double sizeW$20(context) => sizeW(context) * .20;
 double sizeW$25(context) => sizeW(context) * .25;
 double sizeW$30(context) => sizeW(context) * .30;
 double sizeW$50(context) => sizeW(context) * .50;
+double sizeW$60(context) => sizeW(context) * .60;
+double sizeW$62(context) => sizeW(context) * .62;
+double sizeW$63(context) => sizeW(context) * .63;
+double sizeW$65(context) => sizeW(context) * .65;
+double sizeW$70(context) => sizeW(context) * .70;
+double sizeW$80(context) => sizeW(context) * .80;
+double sizeW$90(context) => sizeW(context) * .90;
 // 常用高度:
 double sizeH(context) => MediaQuery.of(context).size.height;
 double sizeH$1(context) => sizeH(context) * .01;
 double sizeH$2(context) => sizeH(context) * .02;
+double sizeH$3(context) => sizeH(context) * .03;
+double sizeH$4(context) => sizeH(context) * .04;
 double sizeH$5(context) => sizeH(context) * .05;
 double sizeH$10(context) => sizeH(context) * .10;
 double sizeH$12(context) => sizeH(context) * .12;

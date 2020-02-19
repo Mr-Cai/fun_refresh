@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/model/i18n/i18n.dart';
-import 'package:fun_refresh/model/i18n/lang_kv.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../model/i18n/i18n.dart';
+import '../model/i18n/lang_kv.dart';
+import '../tools/pic_tool.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 
 class RadialMenu extends StatefulWidget {

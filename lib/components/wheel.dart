@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/model/field.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../model/data/field.dart';
+import '../tools/global.dart';
+import '../tools/pic_tool.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/spinning_wheel.dart';
 import '../model/data/local_asset.dart';
@@ -60,6 +60,7 @@ class _RouletteState extends State<Roulette> {
             ),
             SizedBox(height: 32),
             FloatingActionButton.extended(
+              heroTag: 'wheel',
               icon: SvgPicture.asset(
                 iconX('coins'),
                 width: 32.0,

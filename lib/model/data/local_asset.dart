@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/api.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../tools/api.dart';
+import '../../tools/pic_tool.dart';
 
 const String disclaimerText = '''
                     🔏 隐私政策条例

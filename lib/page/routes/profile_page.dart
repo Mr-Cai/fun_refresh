@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/components/common_app_bar.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../components/top_bar.dart';
+import '../../page/export_page_pkg.dart';
+import '../../tools/global.dart';
+import '../../tools/pic_tool.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.args});
@@ -60,6 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Text('性别'),
           SizedBox(height: 32.0),
           FloatingActionButton.extended(
+            heroTag: 'profile',
             label: Text(
               '       \$32   ',
               style: TextStyle(color: Colors.lightBlueAccent),

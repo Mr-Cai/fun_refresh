@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fun_refresh/components/common_app_bar.dart';
-import 'package:fun_refresh/model/smash_model.dart';
-import 'package:fun_refresh/tools/api.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../components/top_bar.dart';
+import '../../model/mock/smash_model.dart';
+import '../../tools/api.dart';
+import '../../tools/global.dart';
+import '../../tools/pic_tool.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_kit/tencent_kit.dart';
@@ -36,18 +36,10 @@ class _SignPageState extends State<SignPage> {
 
     final authResult = await _firebaseAuth.signInWithCredential(credential);
     final userDetails = authResult.user;
-    ProviderDetails providerInfo = ProviderDetails(userDetails.providerId);
 
     final providerData = List<ProviderDetails>();
-    providerData.add(providerInfo);
+    providerData.add(ProviderDetails(userDetails.providerId));
 
-    /* UserDetails details = UserDetails(
-      userDetails.providerId,
-      userDetails.displayName,
-      userDetails.photoUrl,
-      userDetails.email,
-      providerData,
-    ); */
     return userDetails;
   }
 
@@ -190,7 +182,7 @@ class _SignPageState extends State<SignPage> {
                         children: [
                           Spacer(),
                           FloatingActionButton.extended(
-                            heroTag: 0,
+                            heroTag: 'send',
                             onPressed: () {},
                             label: Text('发送'),
                             elevation: 0.0,
@@ -199,7 +191,7 @@ class _SignPageState extends State<SignPage> {
                           ),
                           Spacer(),
                           FloatingActionButton.extended(
-                            heroTag: 1,
+                            heroTag: 'register',
                             onPressed: () {
                               _savedAccount(_phoneCtrl.text, _pwdCtrl.text);
                             },

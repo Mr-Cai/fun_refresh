@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:fun_refresh/model/video/eye_video.dart';
-import 'package:fun_refresh/model/weather/he_weather.dart';
-import 'package:fun_refresh/tools/api.dart';
+import '../model/video/eye_video.dart';
+import '../model/weather/he_weather.dart';
+import '../tools/api.dart';
 
 final netool = NeTool();
 final dio = Dio();

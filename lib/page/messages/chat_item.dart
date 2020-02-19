@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/model/chat/planets.dart';
-import 'package:fun_refresh/model/data/theme.dart';
+import '../../model/chat/planets.dart';
+import '../../model/data/theme.dart';
 
 import 'chat_page.dart';
 

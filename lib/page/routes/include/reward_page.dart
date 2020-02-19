@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/common_app_bar.dart';
-import 'package:fun_refresh/components/wheel.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/model/i18n/i18n.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../../../model/event/drawer_nav_bloc.dart';
+import '../../../components/top_bar.dart';
+import '../../../components/wheel.dart';
+import '../../../model/data/local_asset.dart';
+import '../../../model/i18n/i18n.dart';
+import '../../../tools/global.dart';
 import 'package:tencent_ad/banner.dart';
 
-class RewardPage extends StatefulWidget {
+class RewardPage extends StatefulWidget with NavigationState{
   @override
   _RewardPageState createState() => _RewardPageState();
 }
@@ -47,6 +48,7 @@ class _RewardPageState extends State<RewardPage> {
             child: TopBar(
               title: I18n.of(context).reward,
               left: sizeW$30(context),
+              isMenu: true,
             ),
           ),
         ],

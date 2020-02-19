@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/components/disclaimer_dialog.dart';
+import '../../page/export_page_pkg.dart';
+import '../../components/disclaimer_dialog.dart';
 import '../../model/i18n/i18n.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../tools/global.dart';
+import '../../tools/pic_tool.dart';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,8 +31,10 @@ class _SplashPageState extends State<SplashPage> {
         if (!value) {
           dialogKey.currentState.showDisClaimerDialog(context);
         } else {
-          Future.delayed(Duration(milliseconds: 666),
-              () => Navigator.of(context).pushReplacementNamed(home));
+          Future.delayed(
+            Duration(milliseconds: 666),
+            () => pushReplace(context, home),
+          );
         }
       });
     }

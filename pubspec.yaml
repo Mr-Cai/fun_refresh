@@ -33,6 +33,7 @@ dependencies: # 拓展插件集合 https://pub.dev
   tencent_ad: ^1.0.0 # 腾讯广告
   tencent_kit: ^1.0.4 # 腾讯SDK
   toast: ^0.1.5 # 吐司字幕
+  flutter_bloc: ^3.2.0 # 业务逻辑组件模式
 
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试

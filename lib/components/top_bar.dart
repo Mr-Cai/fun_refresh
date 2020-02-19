@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../page/export_page_pkg.dart';
+import '../tools/global.dart';
+import '../tools/pic_tool.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   const TopBar({
@@ -10,7 +10,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.title,
     this.titleColor,
     this.actions,
-    this.backColor,
+    this.iconColor,
     this.fontSize,
     this.left,
     this.right,
@@ -18,11 +18,12 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.top,
     this.bottom,
     this.preferredSize = const Size.fromHeight(kToolbarHeight),
+    this.isMenu = false,
   }) : super(key: key);
 
   final String title;
   final Color titleColor;
-  final Color backColor;
+  final Color iconColor;
   final Color bgColor;
   final double fontSize;
   final double left;
@@ -30,9 +31,10 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final double top;
   final double bottom;
   final List<Widget> actions;
+  final bool isMenu;
 
   @override
-  createState() => _TopBarState();
+  _TopBarState createState() => _TopBarState();
 
   @override
   final Size preferredSize;
@@ -51,7 +53,9 @@ class _TopBarState extends State<TopBar> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          backBTN(context, color: widget.backColor),
+          widget.isMenu
+              ? menuBTN(context, color: widget.iconColor)
+              : backBTN(context, color: widget.iconColor),
           Container(
             margin: EdgeInsets.only(
               left: widget.left ?? 0.0,
@@ -97,6 +101,28 @@ Widget backBTN(
       ),
       iconSize: sizeW$8(context),
       onPressed: () => pop(context),
+    ),
+  );
+}
+
+Widget menuBTN(
+  BuildContext context, {
+  double height,
+  double width,
+  Color color,
+}) {
+  return Container(
+    margin: EdgeInsets.all(12.0),
+    width: width ?? sizeW$10(context),
+    child: IconButton(
+      icon: SvgPicture.asset(
+        iconX('app'),
+        color: color ?? Colors.white,
+      ),
+      iconSize: sizeW$8(context),
+      onPressed: () {
+        scaffoldKey.currentState.openDrawer();
+      },
     ),
   );
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../model/data/local_asset.dart';
+import '../tools/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

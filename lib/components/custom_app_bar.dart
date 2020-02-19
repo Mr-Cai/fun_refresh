@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/marquee.dart';
+import '../components/marquee.dart';
 import '../model/i18n/i18n.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../tools/global.dart';
 
 class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   GradientAppBar(

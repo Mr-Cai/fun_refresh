@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
   static Route<dynamic> generator(RouteSettings settings) {
     final Object args = settings.arguments;
-
     switch (settings.name) {
       case '/':
         return _skipRoute(SplashPage());
@@ -21,7 +20,7 @@ class RouteGenerator {
       case reward:
         return _skipRoute(RewardPage());
       case setting:
-        return _skipRoute(SettingPage());
+        return _skipRoute(SettingPage(true));
       case chat:
         return _skipRoute(ChatPage());
       case profile:

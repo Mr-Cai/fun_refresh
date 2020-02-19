@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../tools/global.dart';
 
 import 'circle_floating_menu.dart';
 import 'floating_button.dart';

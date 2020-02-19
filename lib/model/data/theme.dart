@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fun_refresh/tools/global.dart';
+import '../../tools/global.dart';
 
 // 文字样式
 $Text(String text) => Text(
@@ -14,31 +14,31 @@ final smallTextStyle = commonTextStyle.copyWith(fontSize: 9.0);
 final commonTextStyle = baseTextStyle.copyWith(
   color: const Color(0xffb6b2df),
   fontSize: 14.0,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.values[0],
 );
 
 final titleTextStyle = baseTextStyle.copyWith(
   color: Colors.white,
   fontSize: 18.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.values[0],
 );
 
 final headerTextStyle = baseTextStyle.copyWith(
   color: Colors.white,
   fontSize: 20.0,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.values[0],
 );
 
 final drawerTxT0 = TextStyle(
   color: Colors.white70,
   fontSize: 20.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.values[0],
 );
 
 final drawerTxT1 = TextStyle(
   color: Colors.white,
   fontSize: 20.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.values[0],
 );
 
 final drawerSelectedColor = Color(0xff4AC8EA);

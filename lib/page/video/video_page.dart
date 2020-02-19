@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fun_refresh/components/video_item.dart';
-import 'package:fun_refresh/model/video/eye_video.dart';
+import '../../model/event/drawer_nav_bloc.dart';
+import '../../components/video_item.dart';
+import '../../model/video/eye_video.dart';
 import '../../model/i18n/i18n.dart';
-import 'package:fun_refresh/tools/net_tool.dart';
+import '../../tools/net_tool.dart';
 
-class VideoPage extends StatefulWidget {
+class VideoPage extends StatefulWidget with NavigationState{
   @override
   _VideoPageState createState() => _VideoPageState();
 }

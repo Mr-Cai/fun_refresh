@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/curve_path.dart';
-import 'package:fun_refresh/components/swiper.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
+import '../../model/event/drawer_nav_bloc.dart';
+import '../../components/curve_path.dart';
+import '../../components/swiper.dart';
+import '../../model/data/local_asset.dart';
 
-class ExtensionPage extends StatefulWidget {
+class ExtensionPage extends StatefulWidget with NavigationState {
   @override
   createState() => _ExtensionPageState();
 }

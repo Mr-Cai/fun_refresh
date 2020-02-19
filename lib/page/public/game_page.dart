@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/page/routes/route_generator.dart';
-import 'package:fun_refresh/tools/global.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../model/event/drawer_nav_bloc.dart';
+import '../../page/routes/route_generator.dart';
+import '../../tools/global.dart';
+import '../../tools/pic_tool.dart';
 
-class GamePage extends StatefulWidget {
+class GamePage extends StatefulWidget with NavigationState{
   @override
   _GamePageState createState() => _GamePageState();
 }

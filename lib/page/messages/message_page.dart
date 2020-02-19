@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fun_refresh/tools/pic_tool.dart';
+import '../../model/event/drawer_nav_bloc.dart';
+import '../../tools/pic_tool.dart';
 
-class MessagePage extends StatefulWidget {
+class MessagePage extends StatefulWidget with NavigationState{
   @override
   createState() => _MessagePageState();
 }
