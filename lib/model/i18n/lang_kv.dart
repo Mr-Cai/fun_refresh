@@ -4,7 +4,8 @@ List<String> get langCodes => ['en', 'zh', 'ja'];
 Locale get chinese => Locale('zh', 'CH');
 Locale get english => Locale('en', 'US');
 Locale get japanese => Locale('ja', 'JP');
-get $TxTKV => {
+
+Map<String, Map<String, String>> get $TxTKV => {
       'en': {
         'app_name': 'Fun Refresh',
         'desc': 'Information | Movies | Entertainment | Chat',
@@ -21,7 +22,8 @@ get $TxTKV => {
         'en': 'english',
         'ja': 'japanese',
         'search_hint': 'Please enter a keyword...',
-        'try': 'please try again！😜'
+        'try': 'please try again！😜',
+        'profile': 'Profile'
       },
       'zh': {
         'app_name': '趣 刷',
@@ -39,7 +41,8 @@ get $TxTKV => {
         'en': '英文',
         'ja': '日语',
         'search_hint': '请输入关键词...',
-        'try': '请再试一次！😜'
+        'try': '请再试一次！😜',
+        'profile': '个人资料',
       },
       'ja': {
         'app_name': '楽 ブラシ',
@@ -57,6 +60,7 @@ get $TxTKV => {
         'en': '英語',
         'ja': '日本語',
         'search_hint': 'キーワードを入力してください...',
-        'try': 'もう一度お試しください！😜'
+        'try': 'もう一度お試しください！😜',
+        'profile': 'プロフィール'
       }
     };

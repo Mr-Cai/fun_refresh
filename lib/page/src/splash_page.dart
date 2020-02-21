@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../page/export_page_pkg.dart';
 import '../../components/disclaimer_dialog.dart';
@@ -21,6 +22,15 @@ class _SplashPageState extends State<SplashPage> {
   GlobalKey<DisclaimerMsgState> dialogKey;
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
     if (dialogKey == null) {
       dialogKey = GlobalKey<DisclaimerMsgState>();
       // 获取偏好设置存储
@@ -43,48 +53,49 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: GestureDetector(
-          onTap: () {},
-          child: Column(
-            children: [
-              DisclaimerMsg(state: this, key: dialogKey),
-              Image.asset(
-                Platform.isAndroid
-                    ? picX('android_cover')
-                    : picX('apple_cover'),
-                fit: BoxFit.cover,
-                height: MediaQuery.of(context).size.height * .85,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-                    child: SvgPicture.asset(
-                      iconX('launch_icon'),
-                      width: 58.0,
-                    ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {},
+        child: Column(
+          children: [
+            DisclaimerMsg(state: this, key: dialogKey),
+            Image.asset(
+              Platform.isAndroid
+                  ? picX('android_cover', format: 'jpeg')
+                  : picX('apple_cover'),
+              height: sizeH(context) * .85,
+              fit: BoxFit.cover,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 22.0,
+                    vertical: 18.0,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        I18n.of(context).appName,
-                        textScaleFactor: 1.4,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        I18n.of(context).desc,
-                        style: TextStyle(color: Colors.black45),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
+                  child: SvgPicture.asset(
+                    iconX('launch_icon'),
+                    width: 64.0,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(I18n.of(context).appName, textScaleFactor: 1.4),
+                    SizedBox(height: 8.0),
+                    Text(
+                      I18n.of(context).desc,
+                      style: TextStyle(color: Colors.black45),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

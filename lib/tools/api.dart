@@ -1,7 +1,6 @@
 /// 资源链接
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
-const GIT_ASSET =
-    'https://raw.githubusercontent.com/Mr-Cai/Util-Res/master/pic/img';
+const imgs_base = 'https://s2.ax1x.com/';
 
 /// 开眼视频(日报版块)
 /// 请求头

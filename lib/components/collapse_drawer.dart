@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../model/mock/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
 import '../model/data/theme.dart';
 import '../model/i18n/i18n.dart';
-import '../model/mock/smash_model.dart';
 import '../page/routes/route_generator.dart';
 import '../tools/global.dart';
 import '../tools/pic_tool.dart';
@@ -19,8 +19,8 @@ class CollaplseDrawer extends StatefulWidget {
 
 class _CollaplseDrawerState extends State<CollaplseDrawer>
     with SingleTickerProviderStateMixin {
-  double maxWidth = sizeW$63(ctxKey.currentContext); // 展开宽度
-  double minWidth = sizeW$20(ctxKey.currentContext); // 折叠宽度
+  double maxWidth = sizeW(ctxKey.currentContext) * 0.63; // 展开宽度
+  double minWidth = sizeW(ctxKey.currentContext) * 0.22; // 折叠宽度
 
   bool isCollapse = false; // 默认不展开
 
@@ -96,12 +96,19 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: sizeH$5(context)),
-            CustomDrawerHeader(animationController: _animationController),
+            SafeArea(child: SizedBox(height: 18.0)),
+            CustomDrawerHeader(
+              animationController: _animationController,
+              maxWidth: maxWidth,
+              minWidth: minWidth,
+            ),
             Expanded(
               child: ListView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: drawerMenuItems.length,
                 itemBuilder: (context, index) => DrawerItem(
+                  maxWidth: maxWidth,
+                  minWidth: minWidth,
                   onTap: () => setState(() {
                     _animationController.forward();
                     bloc = BlocProvider.of<NavigationBloc>(context);
@@ -145,44 +152,50 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                 });
               },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Material(
-                  color: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  child: InkWell(
-                    splashColor: Colors.white38,
-                    customBorder: CircleBorder(),
-                    child: Container(
-                      margin: EdgeInsets.all(sizeW$5(context)),
-                      child: SvgPicture.asset(
-                        iconX('moon'),
-                        width: sizeW$8(context),
-                      ),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                _widthAnim.value >= 220.0
-                    ? Material(
-                        color: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        child: InkWell(
-                          splashColor: Colors.white38,
-                          customBorder: CircleBorder(),
-                          child: Container(
-                            margin: EdgeInsets.all(sizeW$5(context)),
-                            child: SvgPicture.asset(
-                              iconX('help'),
-                              width: sizeW$8(context),
-                            ),
-                          ),
-                          onTap: () {},
+            SizedBox(height: 32.0),
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    child: InkWell(
+                      splashColor: Colors.white38,
+                      customBorder: CircleBorder(),
+                      child: Container(
+                        margin: _widthAnim.value >= maxWidth
+                            ? const EdgeInsets.all(16.0)
+                            : const EdgeInsets.fromLTRB(20.0, 16.0, 16.0, 16.0),
+                        child: SvgPicture.asset(
+                          iconX('moon'),
+                          width: 32.0,
                         ),
-                      )
-                    : Container(),
-              ],
+                      ),
+                      onTap: () {},
+                    ),
+                  ),
+                  _widthAnim.value >= maxWidth
+                      ? Material(
+                          color: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          child: InkWell(
+                            splashColor: Colors.white38,
+                            customBorder: CircleBorder(),
+                            child: Container(
+                              margin: const EdgeInsets.all(16.0),
+                              child: SvgPicture.asset(
+                                iconX('help'),
+                                width: 32.0,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                        )
+                      : Container(),
+                ],
+              ),
             )
           ],
         ),
@@ -190,9 +203,15 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 }
 
 class CustomDrawerHeader extends StatefulWidget {
-  CustomDrawerHeader({this.animationController});
+  const CustomDrawerHeader({
+    this.animationController,
+    this.maxWidth,
+    this.minWidth,
+  });
 
   final AnimationController animationController;
+  final double maxWidth;
+  final double minWidth;
 
   @override
   _CustomDrawerHeaderState createState() => _CustomDrawerHeaderState();
@@ -204,97 +223,109 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
   @override
   void initState() {
     super.initState();
-    widthAnim = Tween<double>(begin: 220.0, end: 70.0)
-        .animate(widget.animationController);
-    sizedBoxAnim =
-        Tween<double>(begin: 8.0, end: 0.0).animate(widget.animationController);
+    widthAnim = Tween<double>(
+      begin: widget.maxWidth,
+      end: widget.minWidth,
+    ).animate(widget.animationController);
+
+    sizedBoxAnim = Tween<double>(
+      begin: 12.0,
+      end: 0.0,
+    ).animate(widget.animationController);
   }
 
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: () => pushNamed(context, profile),
-        borderRadius: BorderRadius.circular(32.0),
-        child: Container(
-          height: sizeH$15(context),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4.0),
-                    width: widthAnim.value,
-                    child: Row(
-                      children: [
-                        Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(999.0),
-                          ),
-                          color: Colors.transparent,
-                          elevation: 0.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(12.0, 0.0, 8.0, 0.0),
+                  width: widthAnim.value,
+                  child: Row(
+                    children: [
+                      ClipOval(
+                        child: Container(
+                          width: 68.0,
+                          height: 68.0,
                           child: SvgPicture.asset(
                             iconX('user'),
-                            width: sizeW$15(context),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(width: sizedBoxAnim.value),
-                        widthAnim.value >= 220.0
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      isGoogleLoginSuccess == false
-                                          ? I18n.of(context).userName
-                                          : googleUser.displayName,
-                                      style: whiteTxT),
-                                  Text(
-                                      isGoogleLoginSuccess == false
-                                          ? 'xxxx@gmail.com'
-                                          : googleUser.email,
-                                      style: whiteTxT),
-                                ],
-                              )
-                            : Container(),
-                      ],
-                    ),
+                        clipBehavior: Clip.antiAlias,
+                      ),
+                      SizedBox(width: sizedBoxAnim.value),
+                      widthAnim.value >= widget.maxWidth
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    isGoogleLoginSuccess == false
+                                        ? I18n.of(context).userName
+                                        : googleUser.displayName,
+                                    style: whiteTxT),
+                                Text(
+                                    isGoogleLoginSuccess == false
+                                        ? 'user@gmail.com'
+                                        : googleUser.email,
+                                    style: whiteTxT),
+                              ],
+                            )
+                          : Container(),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(height: 16.0),
-              widthAnim.value <= 70.0
-                  ? IconButton(
-                      icon: Icon(Icons.more_vert,
-                          color: Colors.white, size: 28.0),
-                      onPressed: () {},
-                    )
-                  : Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8.0),
-                      alignment: Alignment.centerRight,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.black26,
-                          borderRadius: BorderRadius.circular(16.0)),
-                      child: Icon(Icons.ac_unit, color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.0),
+            widthAnim.value <= widget.minWidth
+                ? IconButton(
+                    icon: Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                      size: 28.0,
                     ),
-            ],
-          ),
+                    onPressed: () {},
+                  )
+                : Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.all(4.0 ),
+                    alignment: Alignment.centerRight,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(16.0)),
+                    child: Icon(Icons.ac_unit, color: Colors.white),
+                  ),
+          ],
         ),
       );
 }
 
 class DrawerItem extends StatefulWidget {
-  DrawerItem(
-      {@required this.title,
-      @required this.iconPath,
-      @required this.animationController,
-      this.isSelected = false,
-      this.onTap});
+  DrawerItem({
+    @required this.title,
+    @required this.iconPath,
+    @required this.animationController,
+    this.isSelected = false,
+    this.onTap,
+    this.maxWidth,
+    this.minWidth,
+  });
+
   final String title;
   final String iconPath;
   final AnimationController animationController;
   final bool isSelected;
   final Function onTap;
+  final double maxWidth;
+  final double minWidth;
+
   @override
   _DrawerItemState createState() => _DrawerItemState();
 }
@@ -305,7 +336,7 @@ class _DrawerItemState extends State<DrawerItem> {
   @override
   void initState() {
     super.initState();
-    widthAnim = Tween<double>(begin: 220.0, end: 60.0)
+    widthAnim = Tween<double>(begin: widget.maxWidth, end: widget.minWidth)
         .animate(widget.animationController);
     sizedBoxAnim =
         Tween<double>(begin: 8.0, end: 0.0).animate(widget.animationController);
@@ -315,19 +346,16 @@ class _DrawerItemState extends State<DrawerItem> {
   Widget build(BuildContext context) => InkWell(
         onTap: widget.onTap,
         child: Container(
-          margin: EdgeInsets.all(8.0),
-          padding: EdgeInsets.all(8.0),
-          width: widthAnim.value,
+          padding: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.fromLTRB(20.0, 8.0, 22.0, 8.0),
           decoration: BoxDecoration(
-              color: widget.isSelected
-                  ? Colors.transparent.withOpacity(0.3)
-                  : Colors.transparent,
+              color: widget.isSelected ? Colors.white30 : Colors.transparent,
               borderRadius: BorderRadius.circular(16.0)),
           child: Row(
             children: [
               SvgPicture.asset(widget.iconPath, width: 32.0, height: 32.0),
               SizedBox(width: sizedBoxAnim.value),
-              widthAnim.value >= 220.0
+              widthAnim.value >= widget.maxWidth
                   ? Text(
                       widget.title,
                       style: widget.isSelected ? drawerTxT1 : drawerTxT0,

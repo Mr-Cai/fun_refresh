@@ -113,26 +113,25 @@ class _SignPageState extends State<SignPage> {
                     children: [
                       backBTN(context),
                       Container(
-                        margin: EdgeInsets.only(
-                          bottom: sizeH$10(context) / 2,
+                        margin:  const EdgeInsets.only(
+                          bottom: 32.0,
                         ),
                         child: ClipOval(
                           child: snapshot.data == null
                               ? SvgPicture.asset(
                                   iconX('user'),
-                                  width: sizeW$50(context),
+                                  width: 64.0,
                                 )
                               : Image.network(
                                   snapshot.data.toString(),
-                                  height: sizeW$50(context),
-                                  width: sizeW$50(context),
+                                  height: 64.0,
+                                  width: 64.0,
                                   fit: BoxFit.cover,
                                 ),
                         ),
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: sizeW$5(context)),
+                        margin:  const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
                           controller: _phoneCtrl,
                           textCapitalization: TextCapitalization.sentences,
@@ -148,10 +147,9 @@ class _SignPageState extends State<SignPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: sizeH$1(context) * 3),
+                      SizedBox(height: 4.0 * 3),
                       Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: sizeW$5(context)),
+                        margin:  const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
                           controller: _pwdCtrl,
                           keyboardType: TextInputType.multiline,
@@ -176,7 +174,7 @@ class _SignPageState extends State<SignPage> {
                           onSaved: (value) => _pwdCtrl.text = value,
                         ),
                       ),
-                      SizedBox(height: sizeH$5(context)),
+                      SizedBox(height: 16.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -214,7 +212,7 @@ class _SignPageState extends State<SignPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: sizeH$5(context)),
+                      SizedBox(height: 16.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -226,7 +224,7 @@ class _SignPageState extends State<SignPage> {
                                   : isGoogleLoginSuccess = true;
                             }).catchError((e) => print(e)),
                           ),
-                          SizedBox(width: sizeW$5(context)),
+                          SizedBox(width: 8.0),
                           IconButton(
                             icon: SvgPicture.asset(iconX('qq')),
                             onPressed: () {
@@ -235,13 +233,13 @@ class _SignPageState extends State<SignPage> {
                               );
                             },
                           ),
-                          SizedBox(width: sizeW$5(context)),
+                          SizedBox(width: 8.0),
                           IconButton(
-                            iconSize: sizeW$9(context) - 2,
+                            iconSize: 24.0,
                             icon: SvgPicture.asset(iconX('wechat')),
                             onPressed: () {},
                           ),
-                          SizedBox(width: sizeW$5(context)),
+                          SizedBox(width: 8.0),
                           IconButton(
                             icon: SvgPicture.asset(iconX('github')),
                             onPressed: () {},

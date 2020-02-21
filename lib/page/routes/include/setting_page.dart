@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/tools/global.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 import '../../../model/data/local_asset.dart' show settingTxT;
 import '../../../model/data/theme.dart';
-import '../../../tools/global.dart';
 import '../../../tools/pic_tool.dart';
 
 class SettingPage extends StatelessWidget with NavigationState {
@@ -19,22 +19,23 @@ class SettingPage extends StatelessWidget with NavigationState {
       appBar: TopBar(
         title: '设置',
         bgColor: Colors.white,
-        iconColor: Colors.black,
-        titleColor: Colors.black,
-        top: sizeH$2(context),
-        right: sizeW$5(context),
+        themeColor: Colors.black,
+        left: sizeW(context) * 0.15,
         isMenu: isPush ? false : true,
         actions: [
-          IconButton(
-            icon: SvgPicture.asset(
-              iconX('info'),
+          Container(
+            margin: const EdgeInsets.all(6.0),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                iconX('info'),
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
           ),
         ],
       ),
       body: ListView.separated(
-        padding: EdgeInsets.symmetric(vertical: sizeH$1(context)),
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
         itemCount: settingTxT.length ?? 0,
         physics: BouncingScrollPhysics(),
         separatorBuilder: (BuildContext context, int index) {
@@ -66,7 +67,7 @@ class SettingPage extends StatelessWidget with NavigationState {
           }
           if (index == settingTxT.length - 1) {
             return Container(
-              margin: EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8.0),
               height: 40.0,
               child: FlatButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -1,23 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../components/top_bar.dart';
+import '../../model/i18n/i18n.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../tools/pic_tool.dart';
 
-class MessagePage extends StatefulWidget with NavigationState{
+class MessagePage extends StatefulWidget with NavigationState {
   @override
-  createState() => _MessagePageState();
+  _MessagePageState createState() => _MessagePageState();
 }
 
 class _MessagePageState extends State<MessagePage> {
   @override
-  Widget build(BuildContext context) => ListView.separated(
-        physics: BouncingScrollPhysics(),
-        itemCount: 20,
-        itemBuilder: (context, index) => MsgItem(),
-        separatorBuilder: (context, index) =>
-            Divider(indent: 42.0, height: 2.0),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: TopBar(
+        themeColor: Colors.black,
+        isMenu: true,
+        title: I18n.of(context).msg,
+      ),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return null;
+        },
+        displacement: 0.0,
+        child: ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemCount: 20,
+          itemBuilder: (context, index) => MsgItem(),
+          separatorBuilder: (context, index) {
+            return Divider(indent: 42.0, height: 4.0);
+          },
+        ),
+      ),
+    );
+  }
 }
 
 class MsgItem extends StatelessWidget {
@@ -25,14 +43,20 @@ class MsgItem extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () {},
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 6.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(iconX('github')),
+              SvgPicture.asset(
+                iconX('user'),
+                width: 64.0,
+              ),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(left: 8.0),
+                  margin: const EdgeInsets.only(left: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

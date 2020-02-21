@@ -16,6 +16,7 @@ class _MindPageState extends State<MindPage> {
       backgroundColor: Colors.teal,
       appBar: TopBar(
         title: I18n.of(context).mind,
+        themeColor: Colors.white,
         isMenu: true,
       ),
       body: ListView.separated(

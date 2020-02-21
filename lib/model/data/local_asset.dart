@@ -43,9 +43,9 @@ List<String> get coverTitles => [
     ];
 
 List<String> get covers => [
-      '$GIT_ASSET/2048.png',
-      '$GIT_ASSET/snake.png',
-      '$GIT_ASSET/tetris.png',
+      '$imgs_base/2020/02/21/3Knyi8.png',
+      '$imgs_base/2020/02/21/3KYiNj.png',
+      '$imgs_base/2020/02/21/3KGmR0.png',
     ];
 
 Map<String, String> get config =>

@@ -15,7 +15,7 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final planetThumbnail = Container(
-      margin: EdgeInsets.symmetric(vertical: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
       alignment:
           horizontal ? FractionalOffset.centerLeft : FractionalOffset.center,
       child: Hero(
@@ -119,7 +119,7 @@ class Separator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 8.0),
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
         height: 2.0,
         width: 18.0,
         color: Color(0xff00c6ff));

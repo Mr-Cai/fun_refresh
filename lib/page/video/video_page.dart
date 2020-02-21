@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/video_item.dart';
 import '../../model/video/eye_video.dart';
 import '../../model/i18n/i18n.dart';
 import '../../tools/net_tool.dart';
 
-class VideoPage extends StatefulWidget with NavigationState{
+class VideoPage extends StatefulWidget with NavigationState {
   @override
   _VideoPageState createState() => _VideoPageState();
 }
@@ -28,9 +29,10 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   build(context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(I18n.of(context).video, textScaleFactor: 1.3),
+        appBar: TopBar(
+          themeColor: Colors.black,
+          isMenu: true,
+          title: I18n.of(context).video,
         ),
         body: RefreshIndicator(
           onRefresh: () => netool.pullEyeVideo(),

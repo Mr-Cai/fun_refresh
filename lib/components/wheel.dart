@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../model/data/field.dart';
-import '../tools/global.dart';
 import '../tools/pic_tool.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/spinning_wheel.dart';
@@ -77,7 +76,7 @@ class _RouletteState extends State<Roulette> {
                           borderRadius: BorderRadius.circular(32.0)),
                       child: snapshot.hasData
                           ? Container(
-                              height: sizeH$25(context),
+                              height: 64.0,
                               child: CoinsPot(snapshot.data),
                             )
                           : Container(),
@@ -98,7 +97,7 @@ class _RouletteState extends State<Roulette> {
                   height: 128.0,
                 ),
                 Positioned.fill(
-                  top: sizeH$5(context) + 4,
+                  top: 32.0,
                   child: StreamBuilder(
                       stream: _dividerController.stream.asBroadcastStream(),
                       builder: (context, snapshot) {
@@ -148,7 +147,7 @@ class CoinsPot extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text('🎉🎉🎉🎉🎉', textScaleFactor: 3),
         ),
         Row(
@@ -167,7 +166,7 @@ class CoinsPot extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text('🎉🎉🎉🎉🎉', textScaleFactor: 3),
         ),
       ],

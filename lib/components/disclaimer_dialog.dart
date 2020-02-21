@@ -84,7 +84,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FlatButton(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
               '已阅读知晓',
               style: TextStyle(fontSize: 16, color: Colors.white),

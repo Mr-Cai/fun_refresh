@@ -8,9 +8,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   const TopBar({
     Key key,
     this.title,
-    this.titleColor,
+    this.themeColor,
     this.actions,
-    this.iconColor,
     this.fontSize,
     this.left,
     this.right,
@@ -22,8 +21,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   final String title;
-  final Color titleColor;
-  final Color iconColor;
+  final Color themeColor;
   final Color bgColor;
   final double fontSize;
   final double left;
@@ -45,7 +43,7 @@ class _TopBarState extends State<TopBar> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: widget.top ?? sizeH$2(context),
+        top: widget.top ?? 16.0,
         bottom: widget.bottom ?? 0.0,
       ),
       color: widget.bgColor ?? Colors.transparent,
@@ -54,25 +52,27 @@ class _TopBarState extends State<TopBar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           widget.isMenu
-              ? menuBTN(context, color: widget.iconColor)
-              : backBTN(context, color: widget.iconColor),
+              ? menuBTN(context, color: widget.themeColor)
+              : backBTN(context, color: widget.themeColor),
           Container(
             margin: EdgeInsets.only(
+              top: 4.0,
               left: widget.left ?? 0.0,
-              right: widget.right ?? sizeW$15(context),
+              right: widget.right ?? sizeW(context) * .16,
+              bottom: 2.0,
             ),
             child: Text(
               widget.title ?? '标题',
               style: TextStyle(
                 fontSize: widget.fontSize ?? 24.0,
-                color: widget.titleColor ?? Colors.white,
+                color: widget.themeColor ?? Colors.white,
                 fontWeight: FontWeight.values[0],
               ),
             ),
           ),
           widget.actions != null
               ? Container(
-                  margin: EdgeInsets.only(right: sizeW$1(context) * 2),
+                  margin: EdgeInsets.only(right: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: widget.actions,
@@ -93,13 +93,13 @@ Widget backBTN(
 }) {
   return Container(
     margin: EdgeInsets.all(12.0),
-    width: width ?? sizeW$10(context),
     child: IconButton(
       icon: SvgPicture.asset(
         iconX('back'),
         color: color ?? Colors.white,
+        width: 26.0,
+        height: 26.0,
       ),
-      iconSize: sizeW$8(context),
       onPressed: () => pop(context),
     ),
   );
@@ -112,14 +112,9 @@ Widget menuBTN(
   Color color,
 }) {
   return Container(
-    margin: EdgeInsets.all(12.0),
-    width: width ?? sizeW$10(context),
+    margin: const EdgeInsets.fromLTRB(18.0, 16.0, 0.0, 12.0),
     child: IconButton(
-      icon: SvgPicture.asset(
-        iconX('app'),
-        color: color ?? Colors.white,
-      ),
-      iconSize: sizeW$8(context),
+      icon: Icon(Icons.fingerprint, size: 32.0, color: color),
       onPressed: () {
         scaffoldKey.currentState.openDrawer();
       },
