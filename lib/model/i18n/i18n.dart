@@ -41,6 +41,7 @@ class I18n {
   String get searchHint => $TxTKV[locale.languageCode]['search_hint'];
   String get tryHint => $TxTKV[locale.languageCode]['try'];
   String get profile => $TxTKV[locale.languageCode]['profile'];
+  String get error => $TxTKV[locale.languageCode]['error'];
 }
 
 class I18nContainer extends StatefulWidget {

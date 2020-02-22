@@ -24,7 +24,7 @@ class _RunBallState extends State<RunBall> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var testFields = Column(
       children: <Widget>[
-        GestureDetector(
+        InkWell(
           child: Container(
             width: double.infinity,
             height: 200,
@@ -43,7 +43,7 @@ class _RunBallState extends State<RunBall> with TickerProviderStateMixin {
           child: Text("粒子碰撞"),
           height: 20,
         ),
-        GestureDetector(
+        InkWell(
           child: Container(
             width: double.infinity,
             height: 200,

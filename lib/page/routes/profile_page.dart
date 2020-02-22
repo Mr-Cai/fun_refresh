@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
               margin: const EdgeInsets.only(bottom: 32.0),
               child: ClipOval(
                 child: Image.asset(
-                  picX('android_cover', format: 'jpeg'),
+                  picX('header', format: 'jpg'),
                   height: sizeW(context) / 2,
                   width: sizeW(context) / 2,
                   fit: BoxFit.cover,

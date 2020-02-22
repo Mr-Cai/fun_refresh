@@ -29,7 +29,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) => InkWell(
       onTap: () => showDisClaimerDialog(context), child: Container());
 
   Future<void> showDisClaimerDialog(BuildContext context) {
@@ -45,7 +45,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
               Row(
                 children: [
                   Text('👉 前往查看完整版'),
-                  GestureDetector(
+                  InkWell(
                     child: Text(
                       '隐私政策',
                       style: TextStyle(color: Theme.of(context).primaryColor),

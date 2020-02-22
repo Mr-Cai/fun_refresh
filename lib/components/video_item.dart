@@ -36,7 +36,7 @@ class _VideoItemState extends State<VideoItem> {
         aspectRatio: 16 / 9,
         child: _controller.value.initialized
             ? _videoPlayer()
-            : GestureDetector(
+            : InkWell(
                 onTap: () {
                   setState(() {
                     coverHolder = Center(
@@ -77,7 +77,7 @@ class _VideoItemState extends State<VideoItem> {
         ],
       );
 
-  _video() => GestureDetector(
+  _video() => InkWell(
         child: VideoPlayer(_controller),
         onTap: () {
           if (!_controller.value.initialized) return;

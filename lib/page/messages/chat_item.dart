@@ -89,7 +89,7 @@ class ChatItem extends StatelessWidget {
         ],
       ),
     );
-    return GestureDetector(
+    return InkWell(
         onTap: horizontal
             ? () => Navigator.of(context).push(
                   PageRouteBuilder(

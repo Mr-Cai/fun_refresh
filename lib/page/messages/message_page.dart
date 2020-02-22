@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../page/export_page_pkg.dart';
 import '../../components/top_bar.dart';
 import '../../model/i18n/i18n.dart';
 import '../../model/event/drawer_nav_bloc.dart';
@@ -40,8 +41,10 @@ class _MessagePageState extends State<MessagePage> {
 
 class MsgItem extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: () {},
+  Widget build(BuildContext context) => InkWell(
+        onTap: () {
+          pushNamed(context, 'name');
+        },
         child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 12.0,

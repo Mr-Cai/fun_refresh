@@ -8,32 +8,33 @@ class RouteGenerator {
     final Object args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return _skipRoute(SplashPage());
+        return _skipRoute(SplashPage()); // 闪屏页面
       case home:
-        return _skipRoute(I18nContainer(key: i18nKey, child: HomePage()));
+        return _skipRoute(
+            I18nContainer(key: i18nKey, child: HomePage())); // 主页面
       case sign:
-        return _skipRoute(SignPage());
+        return _skipRoute(SignPage()); // 注册登录页面
       case social:
-        return _skipRoute(SocialPage());
+        return _skipRoute(SocialPage()); // 社交人脉页面
       case mind:
-        return _skipRoute(MindPage());
+        return _skipRoute(MindPage()); // 想法页面
       case reward:
-        return _skipRoute(RewardPage());
+        return _skipRoute(RewardPage()); // 抽奖游戏页面
       case setting:
-        return _skipRoute(SettingPage(true));
+        return _skipRoute(SettingPage(true)); // 设置页面
       case chat:
-        return _skipRoute(ChatPage());
+        return _skipRoute(ChatPage()); // 聊天页面
       case profile:
-        return _skipRoute(ProfilePage(args: args));
+        return _skipRoute(ProfilePage(args: args)); // 个人信息页面
       case search:
-        return _skipRoute(SearchPanel());
+        return _skipRoute(SearchPanel()); // 关键词搜索页面
+      case game2048:
+        return _skipRoute(Game2048()); // 2048小游戏
+      case game_tetris:
+        return _skipRoute(GameTetris()); // 俄罗斯方块
       default:
-        return errorRoutes();
+        return _skipRoute(ErrorPage()); // 出错页面
     }
-  }
-
-  static Route<dynamic> errorRoutes() {
-    return _skipRoute(Scaffold(body: Center(child: Text('跳转错误'))));
   }
 }
 

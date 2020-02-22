@@ -103,8 +103,12 @@ class _AnchorBarState extends State<AnchorBar> {
   _buildTabItems({NavItemBTM item, int index, ValueChanged<int> onPressed}) {
     Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: () => onPressed(index),
+        focusColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
         child: SizedBox(
           height: widget.height,
           child: Column(

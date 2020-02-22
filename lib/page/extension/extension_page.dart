@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
+import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
@@ -49,8 +51,20 @@ class ClipSwiper extends StatelessWidget {
                 itemColor: Colors.black26,
                 itemActiveColor: Colors.lightBlue,
               ),
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {},
+              itemBuilder: (context, index) => InkWell(
+                onTap: () {
+                  switch (index) {
+                    case 0:
+                      pushNamed(context, game2048);
+                      break;
+                    case 1:
+                      pushNamed(context, game_tetris);
+                      break;
+                    case 2:
+                      pushNamed(context, game2048);
+                      break;
+                  }
+                },
                 child: Image.network(
                   covers[index],
                   loadingBuilder: (context, child, event) {

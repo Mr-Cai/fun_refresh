@@ -53,7 +53,7 @@ class _SocialPageState extends State<SocialPage> with TickerProviderStateMixin {
         themeColor: Colors.black,
         isMenu: true,
       ),
-      body: GestureDetector(
+      body: InkWell(
         child: Container(
           width: double.infinity,
           height: 200,

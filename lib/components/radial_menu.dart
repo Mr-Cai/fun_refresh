@@ -95,7 +95,7 @@ class RadialAnimation extends StatelessWidget {
                 ),
                 Transform.scale(
                   scale: scale.value,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: _open,
                     child: SvgPicture.asset(
                       iconX('language'),

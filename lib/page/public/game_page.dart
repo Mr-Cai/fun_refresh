@@ -48,7 +48,7 @@ class GameIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         pushNamed(context, '/reward');
         showSnackBar('text $index');

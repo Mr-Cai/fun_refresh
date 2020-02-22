@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/tools/global.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/video_item.dart';
@@ -36,22 +37,24 @@ class _VideoPageState extends State<VideoPage> {
         ),
         body: RefreshIndicator(
           onRefresh: () => netool.pullEyeVideo(),
-          child: FutureBuilder<EyeVideo>(
-            future: netool.pullEyeVideo(),
+          child: StreamBuilder<EyeVideo>(
+            stream: netool.pullEyeVideo().asStream(),
             builder: (context, snapshot) {
               orientation = MediaQuery.of(context).orientation;
               if (snapshot.hasData) {
                 return orientation == Orientation.portrait
-                    ? ListView.builder(
+                    ? ListWheelScrollView(
+                        itemExtent: sizeH(context) * .4,
                         physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.only(bottom: 32.0),
-                        itemCount: snapshot.data.itemList.length ?? 0,
-                        itemBuilder: (context, index) =>
-                            snapshot.data.itemList[index].type == 'textCard' ||
-                                    snapshot.data.itemList[index].type ==
-                                        'banner'
-                                ? Container()
-                                : VideoCover(snapshot, index),
+                        children: List.generate(
+                          snapshot.data.itemList.length,
+                          (index) => snapshot.data.itemList[index].type ==
+                                      'textCard' ||
+                                  snapshot.data.itemList[index].type == 'banner'
+                              ? Container()
+                              : VideoCover(snapshot, index),
+                        ),
+                        onSelectedItemChanged: (index) {},
                       )
                     : GridView.count(
                         physics: BouncingScrollPhysics(),
@@ -86,7 +89,6 @@ class VideoCover extends StatefulWidget {
 
 class _VideoCoverState extends State<VideoCover> {
   bool _visible = false;
-  Widget _opacity = Icon(Icons.play_arrow, size: 48.0, color: Colors.white54);
   @override
   void initState() {
     SystemChrome.setPreferredOrientations(
@@ -106,31 +108,9 @@ class _VideoCoverState extends State<VideoCover> {
           video: item.playUrl,
         ),
         Positioned(
-          left: .0,
-          bottom: .0,
-          top: .0,
-          right: .0,
-          child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  Future.delayed(Duration(milliseconds: 555), () {
-                    setState(() {
-                      _opacity = Container();
-                    });
-                  });
-                  return _opacity = Center(
-                      child: Text(
-                    I18n.of(context).tryHint,
-                    style: TextStyle(color: Colors.white),
-                  ));
-                });
-              },
-              child: _opacity),
-        ),
-        Positioned(
           top: 0.0,
           left: 0.0,
-          child: GestureDetector(
+          child: InkWell(
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * .1,
@@ -142,7 +122,7 @@ class _VideoCoverState extends State<VideoCover> {
         Positioned(
           left: 0.0,
           top: 0.0,
-          child: GestureDetector(
+          child: InkWell(
             child: Container(
               width: MediaQuery.of(context).size.width * .4,
               height: MediaQuery.of(context).size.height * .25,
@@ -154,7 +134,7 @@ class _VideoCoverState extends State<VideoCover> {
         Positioned(
           right: 0.0,
           top: 0.0,
-          child: GestureDetector(
+          child: InkWell(
             child: Container(
               width: MediaQuery.of(context).size.width * .4,
               height: MediaQuery.of(context).size.height * .25,
@@ -167,7 +147,7 @@ class _VideoCoverState extends State<VideoCover> {
           top: 12.0,
           right: 64.0,
           child: AnimatedOpacity(
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {},
               child: Text(
                 item.title,
@@ -183,7 +163,7 @@ class _VideoCoverState extends State<VideoCover> {
           top: 32.0,
           right: 64.0,
           child: AnimatedOpacity(
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {},
               child: Text(
                 item.author.name,
@@ -197,7 +177,7 @@ class _VideoCoverState extends State<VideoCover> {
         Positioned(
           right: 12.0,
           top: 12.0,
-          child: GestureDetector(
+          child: InkWell(
             onTap: () {},
             child: AnimatedOpacity(
               duration: Duration(milliseconds: 333),

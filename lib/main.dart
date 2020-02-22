@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fun_refresh/tools/global.dart';
+import './page/extension/game_tetris/generated/i18n.dart';
+import './tools/global.dart';
 import './model/i18n/i18n.dart';
 import './page/routes/route_generator.dart';
 import 'package:tencent_ad/tencent_ad.dart';
@@ -56,6 +57,9 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         I18nDelegate.i18nDelegate,
+           S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [
         Locale('zh', 'CH'),

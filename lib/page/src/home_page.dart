@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black54,
           backgroundColor: Colors.white,
           selectedColor: Theme.of(context).accentColor,
-          centerItem: GestureDetector(
+          centerItem: InkWell(
             onTap: () {},
             child: Container(
               margin: EdgeInsets.only(top: 12.0),

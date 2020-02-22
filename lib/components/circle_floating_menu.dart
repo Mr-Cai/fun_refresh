@@ -65,13 +65,12 @@ class CircleFloatingState extends State<CircleFloatingMenu>
           offset: _getOffset(i),
           child: Transform.rotate(
             angle: degToRad(animations["rotate"].value * 360.0),
-            child: GestureDetector(
+            child: InkWell(
               child: widget.subMenus[i],
               onTap: () {
                 if (widget.menuSelected != null) widget.menuSelected(i);
                 toggleMenu();
               },
-              onPanStart: (_) {},
             ),
           ),
         ),
@@ -79,7 +78,7 @@ class CircleFloatingState extends State<CircleFloatingMenu>
       widgets.add(sub);
     }
     widgets.add(
-      GestureDetector(
+      InkWell(
         child: widget.floatingButton,
         onTap: toggleMenu,
       ),

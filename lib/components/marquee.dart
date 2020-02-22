@@ -129,7 +129,7 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
     );
 
     if (widget.tapToNext) {
-      _widget = GestureDetector(
+      _widget = InkWell(
         onTap: next,
         child: _widget,
       );

@@ -25,10 +25,10 @@ class _SplashPageState extends State<SplashPage> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
     if (dialogKey == null) {
@@ -48,24 +48,23 @@ class _SplashPageState extends State<SplashPage> {
         }
       });
     }
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
+      body: InkWell(
         onTap: () {},
         child: Column(
           children: [
             DisclaimerMsg(state: this, key: dialogKey),
-            Image.asset(
-              Platform.isAndroid
-                  ? picX('android_cover', format: 'jpeg')
-                  : picX('apple_cover'),
-              height: sizeH(context) * .85,
-              fit: BoxFit.cover,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: SvgPicture.asset(
+                Platform.isAndroid ? iconX('android') : picX('apple'),
+                height: sizeH(context) * .85,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
