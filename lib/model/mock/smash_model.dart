@@ -18,7 +18,6 @@ class NavItemBTM {
   final String iconPath;
 }
 
-
 class Choice {
   const Choice({this.title, this.icon});
   final String title;

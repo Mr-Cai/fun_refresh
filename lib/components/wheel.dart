@@ -11,7 +11,7 @@ import '../model/data/local_asset.dart';
 
 class Roulette extends StatefulWidget {
   @override
-  _RouletteState createState() => _RouletteState();
+  State<StatefulWidget> createState() => _RouletteState();
 }
 
 class _RouletteState extends State<Roulette> {

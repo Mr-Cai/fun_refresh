@@ -10,7 +10,7 @@ class Sound extends StatefulWidget {
   const Sound({Key key, this.child}) : super(key: key);
 
   @override
-  SoundState createState() => SoundState();
+  State<StatefulWidget> createState() => SoundState();
 
   static SoundState of(BuildContext context) {
     final state = context.ancestorStateOfType(const TypeMatcher<SoundState>());

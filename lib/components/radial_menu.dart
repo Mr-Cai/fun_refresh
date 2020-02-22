@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math.dart' show radians;
 class RadialMenu extends StatefulWidget {
   RadialMenu({this.size = 24.0});
   final double size;
-  createState() => _RadialMenuState();
+  State<StatefulWidget> createState() => _RadialMenuState();
 }
 
 class _RadialMenuState extends State<RadialMenu>

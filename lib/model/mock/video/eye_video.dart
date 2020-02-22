@@ -11,8 +11,7 @@ class EyeVideo {
   factory EyeVideo.fromJson(Map<String, dynamic> json) =>
       _$EyeVideoFromJson(json);
 
-  Map<String, dynamic> toJson(EyeVideo instance) =>
-      _$EyeVideoToJson(instance);
+  Map<String, dynamic> toJson(EyeVideo instance) => _$EyeVideoToJson(instance);
 }
 
 @JsonSerializable()
@@ -23,7 +22,7 @@ class Item {
   final String type; // 组别分类(分隔线、图片、链接)
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
- 
+
   Map<String, dynamic> toJson(Item instance) => _$ItemToJson(instance);
 }
 

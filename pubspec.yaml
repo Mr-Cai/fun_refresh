@@ -3,7 +3,7 @@ description: 趣刷 # 描述
 version: 1.0.5 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies: # 拓展插件集合 https://pub.dev
   flutter:  # 开发工具
@@ -37,7 +37,10 @@ dependencies: # 拓展插件集合 https://pub.dev
   flare_flutter: ^2.0.1 # 2D闪光动画
   overlay_support: ^1.0.2 # 全局覆盖通知
   soundpool: ^1.0.1 # 音效池
-
+  vibration: ^1.2.4 # 震动器
+  flutter_speed_dial: ^1.2.5 # 动态Material主题
+  flutter_colorpicker: ^0.3.2 # 颜色选择器
+  
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试
     sdk: flutter
@@ -52,6 +55,7 @@ flutter:  # 资源配置集合
     - asset/image/ # 图片
     - asset/animation/ # 动画
     - asset/audio/ # 音效
+    - asset/json/ # 简谱
   fonts:
     - family: StarJedi
       fonts:

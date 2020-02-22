@@ -9,7 +9,7 @@ class GameMaterial extends StatefulWidget {
   const GameMaterial({Key key, this.child}) : super(key: key);
 
   @override
-  _GameMaterialState createState() => _GameMaterialState();
+  State<StatefulWidget> createState() => _GameMaterialState();
 
   static ui.Image getMaterial(BuildContext context) {
     final _GameMaterialState state =

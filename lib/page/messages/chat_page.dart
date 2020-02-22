@@ -5,7 +5,7 @@ class ChatPage extends StatefulWidget {
   ChatPage({this.args});
   final Map args;
   @override
-  createState() => _ChatPageState();
+  State<StatefulWidget> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {

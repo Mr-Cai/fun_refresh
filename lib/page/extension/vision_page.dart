@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class VisionPage extends StatefulWidget {
   @override
-  _VisionPageState createState() => _VisionPageState();
+  State<StatefulWidget> createState() => _VisionPageState();
 }
 
 class _VisionPageState extends State<VisionPage> {

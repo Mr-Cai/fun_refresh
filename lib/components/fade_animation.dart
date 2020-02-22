@@ -8,7 +8,7 @@ class FadeAnimation extends StatefulWidget {
   final Duration duration;
 
   @override
-  _FadeAnimationState createState() => _FadeAnimationState();
+  State<StatefulWidget> createState() => _FadeAnimationState();
 }
 
 class _FadeAnimationState extends State<FadeAnimation>

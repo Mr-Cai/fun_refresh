@@ -8,7 +8,7 @@ class VideoItem extends StatefulWidget {
   final video;
   VideoItem({this.image, this.video});
   @override
-  createState() => _VideoItemState();
+  State<StatefulWidget> createState() => _VideoItemState();
 }
 
 class _VideoItemState extends State<VideoItem> {
@@ -85,7 +85,6 @@ class _VideoItemState extends State<VideoItem> {
             _videoStatusAnimation = FadeAnimation(
                 child: Icon(Icons.pause, size: 48.0, color: Colors.white));
             _controller.pause();
-          
           } else {
             _videoStatusAnimation = FadeAnimation(
                 child: Icon(Icons.play_arrow, size: 48.0, color: Colors.white));

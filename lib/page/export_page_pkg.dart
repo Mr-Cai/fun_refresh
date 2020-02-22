@@ -12,13 +12,13 @@ export './extension/extension_page.dart';
 export './extension/eliminate_page.dart';
 export './extension/girl_page.dart';
 export './extension/note_page.dart';
-export './extension/snake_page.dart';
 export './extension/sudoku_page.dart';
 export './extension/vision_page.dart';
 export './extension/weather_page.dart';
 
 export './extension/game_2048/game_2048.dart';
 export './extension/game_tetris/game_tetris.dart';
+export './extension/game_snake/snake_game.dart';
 
 export './routes/route_generator.dart';
 export './routes/search_panel.dart';

@@ -32,6 +32,8 @@ class RouteGenerator {
         return _skipRoute(Game2048()); // 2048小游戏
       case game_tetris:
         return _skipRoute(GameTetris()); // 俄罗斯方块
+      case game_snake:
+        return _skipRoute(SnakeGame()); // 贪吃蛇
       default:
         return _skipRoute(ErrorPage()); // 出错页面
     }

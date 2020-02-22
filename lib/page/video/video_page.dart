@@ -5,13 +5,13 @@ import 'package:fun_refresh/tools/global.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/video_item.dart';
-import '../../model/video/eye_video.dart';
+import '../../model/mock/video/eye_video.dart';
 import '../../model/i18n/i18n.dart';
 import '../../tools/net_tool.dart';
 
 class VideoPage extends StatefulWidget with NavigationState {
   @override
-  _VideoPageState createState() => _VideoPageState();
+  State<StatefulWidget> createState() => _VideoPageState();
 }
 
 class _VideoPageState extends State<VideoPage> {
@@ -84,7 +84,7 @@ class VideoCover extends StatefulWidget {
   final int index;
 
   @override
-  _VideoCoverState createState() => _VideoCoverState();
+  State<StatefulWidget> createState() => _VideoCoverState();
 }
 
 class _VideoCoverState extends State<VideoCover> {

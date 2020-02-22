@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SudoKuPage extends StatefulWidget {
   @override
-  _SudoKuPageState createState() => _SudoKuPageState();
+  State<StatefulWidget> createState() => _SudoKuPageState();
 }
 
 class _SudoKuPageState extends State<SudoKuPage> {

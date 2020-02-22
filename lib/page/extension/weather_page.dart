@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class WeatherPage extends StatefulWidget {
   @override
-  createState() => _WeatherPageState();
+  State<StatefulWidget> createState() => _WeatherPageState();
 }
 
 class _WeatherPageState extends State<WeatherPage> {

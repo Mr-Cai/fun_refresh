@@ -6,7 +6,7 @@ import '../../../model/i18n/i18n.dart';
 
 class MindPage extends StatefulWidget with NavigationState {
   @override
-  _MindPageState createState() => _MindPageState();
+  State<StatefulWidget> createState() => _MindPageState();
 }
 
 class _MindPageState extends State<MindPage> {

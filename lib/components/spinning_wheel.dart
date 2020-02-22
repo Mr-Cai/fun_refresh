@@ -87,7 +87,7 @@ class SpinningWheel extends StatefulWidget {
             (secondaryImageHeight <= height && secondaryImageWidth <= width));
 
   @override
-  _SpinningWheelState createState() => _SpinningWheelState();
+  State<StatefulWidget> createState() => _SpinningWheelState();
 }
 
 class _SpinningWheelState extends State<SpinningWheel>

@@ -14,7 +14,7 @@ import '../tools/pic_tool.dart';
 
 class CollaplseDrawer extends StatefulWidget {
   @override
-  _CollaplseDrawerState createState() => _CollaplseDrawerState();
+  State<StatefulWidget> createState() => _CollaplseDrawerState();
 }
 
 class _CollaplseDrawerState extends State<CollaplseDrawer>
@@ -214,7 +214,7 @@ class CustomDrawerHeader extends StatefulWidget {
   final double minWidth;
 
   @override
-  _CustomDrawerHeaderState createState() => _CustomDrawerHeaderState();
+  State<StatefulWidget> createState() => _CustomDrawerHeaderState();
 }
 
 class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
@@ -294,7 +294,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                 : Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 8.0),
-                    padding: const EdgeInsets.all(4.0 ),
+                    padding: const EdgeInsets.all(4.0),
                     alignment: Alignment.centerRight,
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -327,7 +327,7 @@ class DrawerItem extends StatefulWidget {
   final double minWidth;
 
   @override
-  _DrawerItemState createState() => _DrawerItemState();
+  State<StatefulWidget> createState() => _DrawerItemState();
 }
 
 class _DrawerItemState extends State<DrawerItem> {

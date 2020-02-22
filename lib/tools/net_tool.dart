@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import '../model/video/eye_video.dart';
-import '../model/weather/he_weather.dart';
+import '../model/mock/video/eye_video.dart';
+import '../model/mock/weather/he_weather.dart';
 import '../tools/api.dart';
 
 final netool = NeTool();

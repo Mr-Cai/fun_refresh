@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class GirlPage extends StatefulWidget {
   @override
-  createState() => _GirlPageState();
+  State<StatefulWidget> createState() => _GirlPageState();
 }
 
 class _GirlPageState extends State<GirlPage> {

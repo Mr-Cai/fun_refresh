@@ -61,7 +61,7 @@ class Shake extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ShakeState createState() => _ShakeState();
+  State<StatefulWidget> createState() => _ShakeState();
 }
 
 ///摇晃屏幕

@@ -11,7 +11,7 @@ import '../../model/data/local_asset.dart';
 
 class ExtensionPage extends StatefulWidget with NavigationState {
   @override
-  createState() => _ExtensionPageState();
+  State<StatefulWidget> createState() => _ExtensionPageState();
 }
 
 class _ExtensionPageState extends State<ExtensionPage> {
@@ -61,7 +61,7 @@ class ClipSwiper extends StatelessWidget {
                       pushNamed(context, game_tetris);
                       break;
                     case 2:
-                      pushNamed(context, game2048);
+                      pushNamed(context, game_snake);
                       break;
                   }
                 },

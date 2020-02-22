@@ -33,7 +33,7 @@ class AnchorBar extends StatefulWidget {
   final double notchMargin;
 
   @override
-  _AnchorBarState createState() => _AnchorBarState();
+  State<StatefulWidget> createState() => _AnchorBarState();
 }
 
 class _AnchorBarState extends State<AnchorBar> {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class NotePage extends StatefulWidget {
   @override
-   createState() => _NotePageState();
+  State<StatefulWidget> createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {

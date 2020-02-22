@@ -46,11 +46,10 @@ class CircleFloatingState extends State<CircleFloatingMenu>
 
   @override
   void initState() {
-    _controller =
-        AnimationController(duration: widget.duration, vsync: this)
-          ..addListener(() {
-            setState(() {});
-          });
+    _controller = AnimationController(duration: widget.duration, vsync: this)
+      ..addListener(() {
+        setState(() {});
+      });
     _initAnimations();
     super.initState();
   }

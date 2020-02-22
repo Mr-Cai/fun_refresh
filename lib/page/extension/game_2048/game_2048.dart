@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/top_bar.dart';
 import 'mycolor.dart';
 import 'tile.dart';
 import 'grid.dart';
@@ -182,7 +183,6 @@ class _Game2048State extends State<Game2048> {
     double gridWidth = (width - 80) / 4;
     double gridHeight = gridWidth;
     double height = 30 + (gridHeight * 4) + 10;
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'StarJedi'),

@@ -16,7 +16,7 @@ import 'package:toast/toast.dart';
 
 class SignPage extends StatefulWidget {
   @override
-  createState() => _SignPageState();
+  State<StatefulWidget> createState() => _SignPageState();
 }
 
 class _SignPageState extends State<SignPage> {
@@ -113,7 +113,7 @@ class _SignPageState extends State<SignPage> {
                     children: [
                       backBTN(context),
                       Container(
-                        margin:  const EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           bottom: 32.0,
                         ),
                         child: ClipOval(
@@ -131,7 +131,7 @@ class _SignPageState extends State<SignPage> {
                         ),
                       ),
                       Container(
-                        margin:  const EdgeInsets.symmetric(horizontal: 8.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
                           controller: _phoneCtrl,
                           textCapitalization: TextCapitalization.sentences,
@@ -149,7 +149,7 @@ class _SignPageState extends State<SignPage> {
                       ),
                       SizedBox(height: 4.0 * 3),
                       Container(
-                        margin:  const EdgeInsets.symmetric(horizontal: 8.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
                           controller: _pwdCtrl,
                           keyboardType: TextInputType.multiline,

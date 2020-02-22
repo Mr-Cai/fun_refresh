@@ -6,7 +6,7 @@ import 'float_ball.dart';
 
 class RunBall extends StatefulWidget {
   @override
-  _RunBallState createState() => _RunBallState();
+  State<StatefulWidget> createState() => _RunBallState();
 }
 
 class _RunBallState extends State<RunBall> with TickerProviderStateMixin {

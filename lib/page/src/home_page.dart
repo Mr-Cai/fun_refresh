@@ -10,7 +10,7 @@ import '../../components/floating_button.dart';
 import '../../components/marquee.dart';
 import '../../model/data/local_asset.dart';
 import '../../model/mock/smash_model.dart';
-import '../../model/weather/he_weather.dart';
+import '../../model/mock/weather/he_weather.dart';
 import '../../tools/net_tool.dart';
 import '../../model/i18n/i18n.dart';
 import '../../tools/api.dart';
@@ -18,7 +18,7 @@ import '../../tools/global.dart';
 
 class HomePage extends StatefulWidget with NavigationState {
   @override
-  _HomePageState createState() => _HomePageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {

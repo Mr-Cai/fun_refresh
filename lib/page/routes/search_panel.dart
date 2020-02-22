@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SearchPanel extends StatefulWidget {
   @override
-  createState() => _SearchPanelState();
+  State<StatefulWidget> createState() => _SearchPanelState();
 }
 
 class _SearchPanelState extends State<SearchPanel> {

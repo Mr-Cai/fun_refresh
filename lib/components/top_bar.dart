@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../page/export_page_pkg.dart';
 import '../tools/global.dart';
@@ -32,7 +33,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isMenu;
 
   @override
-  _TopBarState createState() => _TopBarState();
+  State<StatefulWidget> createState() => _TopBarState();
 
   @override
   final Size preferredSize;
@@ -92,6 +93,7 @@ Widget backBTN(
   Color color,
 }) {
   return Container(
+    color: Colors.transparent,
     margin: EdgeInsets.all(12.0),
     child: IconButton(
       icon: SvgPicture.asset(

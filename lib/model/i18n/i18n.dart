@@ -53,7 +53,7 @@ class I18nContainer extends StatefulWidget {
   final Widget child;
 
   @override
-  _I18nContainerState createState() => _I18nContainerState();
+  State<StatefulWidget> createState() => _I18nContainerState();
 }
 
 class _I18nContainerState extends State<I18nContainer> {

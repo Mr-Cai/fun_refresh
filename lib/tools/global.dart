@@ -45,3 +45,4 @@ const search = '/search'; // 搜索关键词
 // 小游戏
 const game2048 = '/game2048'; // 2048
 const game_tetris = '/game_tetris'; // 俄罗斯方块
+const game_snake = '/game_snake'; // 贪吃蛇

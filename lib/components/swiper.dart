@@ -282,7 +282,7 @@ class Swiper extends StatefulWidget {
   int _itemCount;
 
   @override
-  _SwiperState createState() => _SwiperState();
+  State<StatefulWidget> createState() => _SwiperState();
 }
 
 class _SwiperState extends State<Swiper>

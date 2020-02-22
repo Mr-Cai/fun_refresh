@@ -9,7 +9,7 @@ import 'package:tencent_ad/banner.dart';
 
 class RewardPage extends StatefulWidget with NavigationState {
   @override
-  _RewardPageState createState() => _RewardPageState();
+  State<StatefulWidget> createState() => _RewardPageState();
 }
 
 class _RewardPageState extends State<RewardPage> {

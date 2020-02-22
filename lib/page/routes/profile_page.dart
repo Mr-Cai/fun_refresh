@@ -12,7 +12,7 @@ class ProfilePage extends StatefulWidget {
   final Map args;
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  State<StatefulWidget> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {

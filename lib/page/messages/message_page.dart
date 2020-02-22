@@ -9,7 +9,7 @@ import '../../tools/pic_tool.dart';
 
 class MessagePage extends StatefulWidget with NavigationState {
   @override
-  _MessagePageState createState() => _MessagePageState();
+  State<StatefulWidget> createState() => _MessagePageState();
 }
 
 class _MessagePageState extends State<MessagePage> {

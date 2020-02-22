@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // 闪屏页面
 class SplashPage extends StatefulWidget {
   @override
-  _SplashPageState createState() => _SplashPageState();
+  State<StatefulWidget> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {

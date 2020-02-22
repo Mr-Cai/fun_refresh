@@ -15,13 +15,13 @@ class FloatingMenuPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-           Positioned(
+          Positioned(
             width: 300.0,
             height: 200.0,
             bottom: 10.0,
             child: CircleFloatingMenu(
               menuSelected: (index) {
-               scaffoldKey.currentState.showSnackBar(SnackBar(
+                scaffoldKey.currentState.showSnackBar(SnackBar(
                   content: Text('$index'),
                 ));
               },

@@ -9,7 +9,7 @@ import '../../../components/top_bar.dart';
 
 class SocialPage extends StatefulWidget with NavigationState {
   @override
-  _SocialPageState createState() => _SocialPageState();
+  State<StatefulWidget> createState() => _SocialPageState();
 }
 
 class _SocialPageState extends State<SocialPage> with TickerProviderStateMixin {

@@ -7,9 +7,9 @@ import '../../page/routes/route_generator.dart';
 import '../../tools/global.dart';
 import '../../tools/pic_tool.dart';
 
-class GamePage extends StatefulWidget with NavigationState{
+class GamePage extends StatefulWidget with NavigationState {
   @override
-  _GamePageState createState() => _GamePageState();
+  State<StatefulWidget> createState() => _GamePageState();
 }
 
 class _GamePageState extends State<GamePage> {

@@ -235,7 +235,7 @@ class _Button extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ButtonState createState() {
+  State<StatefulWidget> createState() {
     return new _ButtonState();
   }
 }

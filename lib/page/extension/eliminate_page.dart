@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class EliminatePage extends StatefulWidget {
   @override
-  _EliminatePageState createState() => _EliminatePageState();
+  State<StatefulWidget> createState() => _EliminatePageState();
 }
 
 class _EliminatePageState extends State<EliminatePage> {

@@ -6,7 +6,7 @@ import 'package:fun_refresh/tools/global.dart';
 
 class ErrorPage extends StatefulWidget {
   @override
-  _ErrorPageState createState() => _ErrorPageState();
+  State<StatefulWidget> createState() => _ErrorPageState();
 }
 
 class _ErrorPageState extends State<ErrorPage> {

@@ -10,7 +10,7 @@ class KeyboardController extends StatefulWidget {
   KeyboardController({this.child});
 
   @override
-  _KeyboardControllerState createState() => _KeyboardControllerState();
+  State<StatefulWidget> createState() => _KeyboardControllerState();
 }
 
 class _KeyboardControllerState extends State<KeyboardController> {

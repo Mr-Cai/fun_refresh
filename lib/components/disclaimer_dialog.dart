@@ -8,7 +8,7 @@ class DisclaimerMsg extends StatefulWidget {
   const DisclaimerMsg({Key key, this.state}) : super(key: key);
   final State state;
   @override
-  DisclaimerMsgState createState() => DisclaimerMsgState();
+  State<StatefulWidget> createState() => DisclaimerMsgState();
 }
 
 class DisclaimerMsgState extends State<DisclaimerMsg> {
@@ -29,8 +29,8 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
   }
 
   @override
-  Widget build(BuildContext context) => InkWell(
-      onTap: () => showDisClaimerDialog(context), child: Container());
+  Widget build(BuildContext context) =>
+      InkWell(onTap: () => showDisClaimerDialog(context), child: Container());
 
   Future<void> showDisClaimerDialog(BuildContext context) {
     return showDialog<void>(

@@ -12,7 +12,6 @@ class PagePortrait extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final screenW = size.width * 0.8;
-
     return SizedBox.expand(
       child: Container(
         color: BACKGROUND_COLOR,

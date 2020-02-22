@@ -17,7 +17,7 @@ void main() {
 
 class FunRefreshApp extends StatefulWidget {
   @override
-  _FunRefreshAppState createState() => _FunRefreshAppState();
+  State<StatefulWidget> createState() => _FunRefreshAppState();
 }
 
 class _FunRefreshAppState extends State<FunRefreshApp> {
@@ -57,7 +57,7 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         I18nDelegate.i18nDelegate,
-           S.delegate,
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],

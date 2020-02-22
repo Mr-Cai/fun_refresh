@@ -23,7 +23,7 @@ class Marquee extends StatefulWidget {
   final bool tapToNext;
   final MarqueeController controller;
   @override
-  createState() => _MarqueeState();
+  State<StatefulWidget> createState() => _MarqueeState();
 }
 
 class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
