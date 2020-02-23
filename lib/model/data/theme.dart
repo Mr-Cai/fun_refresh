@@ -2,32 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../tools/global.dart';
 
-// 文字样式
-$Text(String text) => Text(
+/// 文字样式
+// 默认黑色小字
+blackTxT(String text) => Text(
       text,
       style: TextStyle(color: Colors.black38),
       textScaleFactor: 0.8,
     );
+// 默认黑色细体
+slimTxT(String text) => Text(
+      text,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 18.0,
+        fontWeight: FontWeight.values[0],
+      ),
+    );
 
-final baseTextStyle = const TextStyle(fontFamily: 'Poppins');
-final smallTextStyle = commonTextStyle.copyWith(fontSize: 9.0);
-final commonTextStyle = baseTextStyle.copyWith(
-  color: const Color(0xffb6b2df),
-  fontSize: 14.0,
-  fontWeight: FontWeight.values[0],
-);
+final whiteTxT = TextStyle(color: Colors.white);
 
-final titleTextStyle = baseTextStyle.copyWith(
-  color: Colors.white,
-  fontSize: 18.0,
-  fontWeight: FontWeight.values[0],
-);
-
-final headerTextStyle = baseTextStyle.copyWith(
-  color: Colors.white,
-  fontSize: 20.0,
-  fontWeight: FontWeight.values[0],
-);
+final dividerColor = Color(0xFFF1F2F7); // 分隔线颜色
 
 final drawerTxT0 = TextStyle(
   color: Colors.white70,
@@ -40,12 +34,6 @@ final drawerTxT1 = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.values[0],
 );
-
-final drawerSelectedColor = Color(0xff4AC8EA);
-final whiteTxT = TextStyle(color: Colors.white);
-
-final primary = Color(0xff1b82d2); // 颜色
-final divider = Color(0xfff1f2f7); // 颜色
 
 /// 迷你微件
 // 关闭图标

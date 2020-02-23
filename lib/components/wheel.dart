@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../model/data/field.dart';
-import '../tools/pic_tool.dart';
+import '../tools/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/spinning_wheel.dart';
 import '../model/data/local_asset.dart';
@@ -43,7 +43,7 @@ class _RouletteState extends State<Roulette> {
           children: [
             SizedBox(height: 32),
             SpinningWheel(
-              Image.asset(picX('wheel')),
+              Image.asset(path('wheel', 3)),
               width: 310,
               height: 310,
               initialSpinAngle: _generateRandomAngle(),
@@ -52,7 +52,7 @@ class _RouletteState extends State<Roulette> {
               dividers: 8,
               onUpdate: _dividerController.add,
               onEnd: _dividerController.add,
-              secondaryImage: Image.asset(picX('pointer')),
+              secondaryImage: Image.asset(path('pointer', 3)),
               secondaryImageHeight: 110,
               secondaryImageWidth: 110,
               shouldStartOrStop: _wheelNotifier.stream,
@@ -61,7 +61,7 @@ class _RouletteState extends State<Roulette> {
             FloatingActionButton.extended(
               heroTag: 'wheel',
               icon: SvgPicture.asset(
-                iconX('coins'),
+                path('coins', 5),
                 width: 32.0,
                 height: 32.0,
               ),
@@ -92,7 +92,7 @@ class _RouletteState extends State<Roulette> {
             Stack(
               children: [
                 SvgPicture.asset(
-                  iconX('coins_bag'),
+                  path('coins_bag', 5),
                   width: 128.0,
                   height: 128.0,
                 ),
@@ -159,7 +159,7 @@ class CoinsPot extends StatelessWidget {
             ),
             SizedBox(width: 12.0),
             SvgPicture.asset(
-              iconX('coins'),
+              path('coins', 5),
               width: 32.0,
               height: 32.0,
             ),

@@ -22,13 +22,13 @@ class PagePortrait extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Spacer(),
-                  FlatButton(
+                  /* FlatButton(
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) => DonationDialog());
                       },
-                      child: Text(S.of(context).reward))
+                      child: Text(S.of(context).reward)) */
                 ],
               ),
               Spacer(),

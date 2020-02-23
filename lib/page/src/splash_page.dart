@@ -5,7 +5,6 @@ import '../../page/export_page_pkg.dart';
 import '../../components/disclaimer_dialog.dart';
 import '../../model/i18n/i18n.dart';
 import '../../tools/global.dart';
-import '../../tools/pic_tool.dart';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 12.0),
               child: SvgPicture.asset(
-                Platform.isAndroid ? iconX('android') : picX('apple'),
+                path(Platform.isAndroid ? 'android' : 'apple', 5),
                 height: sizeH(context) * .85,
               ),
             ),
@@ -75,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
                     vertical: 18.0,
                   ),
                   child: SvgPicture.asset(
-                    iconX('launch_icon'),
+                    path('launch_icon', 5),
                     width: 64.0,
                   ),
                 ),

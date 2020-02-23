@@ -3,7 +3,7 @@ description: 趣刷 # 描述
 version: 1.0.5 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies: # 拓展插件集合 https://pub.dev
   flutter:  # 开发工具
@@ -40,7 +40,8 @@ dependencies: # 拓展插件集合 https://pub.dev
   vibration: ^1.2.4 # 震动器
   flutter_speed_dial: ^1.2.5 # 动态Material主题
   flutter_colorpicker: ^0.3.2 # 颜色选择器
-  
+  cached_network_image: ^2.0.0 # 网络图片加载
+
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试
     sdk: flutter

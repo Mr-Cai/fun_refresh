@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/model/data/theme.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
-import '../../components/curve_path.dart';
+import '../../components/custom_clipper.dart';
 import '../../components/swiper.dart';
 import '../../model/data/local_asset.dart';
 
@@ -16,76 +19,204 @@ class ExtensionPage extends StatefulWidget with NavigationState {
 
 class _ExtensionPageState extends State<ExtensionPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
         isMenu: true,
         title: I18n.of(context).more,
+        titleTop: 20.0,
+        preferredSize: Size.fromHeight(sizeH(context) * .055),
       ),
-      body: ListView(
-        children: [
-          ClipSwiper(),
+      body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
+        slivers: <Widget>[
+          SliverAppBar(
+            leading: Container(),
+            floating: true,
+            elevation: 0.0,
+            flexibleSpace: ClipPath(
+              child: RatioSwiper(),
+              clipper: BezierClipper(64.0),
+            ),
+            expandedHeight: sizeH(context) * .28,
+            backgroundColor: Colors.grey[50],
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(sizeH(context) * .1),
+              child: InkWell(
+                child: Icon(
+                  Icons.remove_red_eye,
+                  size: 32.0,
+                ),
+                onTap: () {},
+                splashColor: Colors.white,
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              [
+                _buildSwiperList(title: '火爆热搜'),
+                _buildSwiperList(title: '个性推荐'),
+                _buildSwiperList(title: '最近更新'),
+                _buildSwipper(context),
+                _buildSwiperList(title: '猜你喜欢'),
+                _buildSwiperList(title: '休闲益智'),
+                _buildSwiperList(title: '人气蹿升'),
+                _buildSwiperList(title: '发现精彩'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSwipper(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        $ItemTile(
+          context,
+          title: slimTxT('我日'),
+        ),
+        Container(
+          height: sizeH(context) * .2,
+          child: Swiper(
+            indicator: CircleSwiperIndicator(),
+            autoStart: true,
+            children: <Widget>[
+              for (var i = 0; i < 9; i++)
+                Container(
+                  child: Image.asset(
+                    path('header', 3, format: 'jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSwiperList({@required String title}) {
+    return Column(
+      children: <Widget>[
+        $ItemTile(
+          context,
+          title: slimTxT(title ?? ''),
+        ),
+        Container(
+          height: sizeH(context) * .24,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 20,
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return IconItem();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class IconItem extends StatelessWidget {
+  const IconItem({
+    this.icon,
+  });
+
+  final String icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: sizeW(context) * .4,
+      height: sizeW(context) * .4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          InkWell(
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            ),
+            onTap: () {
+              pushNamed(context, '');
+            },
+            child: Container(
+              margin: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24.0),
+                child: Image.asset(
+                  icon ?? path('header', 3, format: 'jpg'),
+                ),
+              ),
+            ),
+          ),
+          slimTxT('text'),
+          slimTxT('text')
         ],
       ),
     );
   }
 }
 
-class ClipSwiper extends StatelessWidget {
+class RatioSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipPath(
-          child: AspectRatio(
-            aspectRatio:
-                MediaQuery.of(context).orientation == Orientation.landscape
-                    ? 3 / 1
-                    : 16 / 10,
-            child: Swiper.builder(
-              autoStart: true,
-              circular: true,
-              indicator: RectangleSwiperIndicator(
-                padding: const EdgeInsets.only(bottom: 26.0),
-                itemColor: Colors.black26,
-                itemActiveColor: Colors.lightBlue,
-              ),
-              itemBuilder: (context, index) => InkWell(
-                onTap: () {
-                  switch (index) {
-                    case 0:
-                      pushNamed(context, game2048);
-                      break;
-                    case 1:
-                      pushNamed(context, game_tetris);
-                      break;
-                    case 2:
-                      pushNamed(context, game_snake);
-                      break;
-                  }
-                },
-                child: Image.network(
-                  covers[index],
-                  loadingBuilder: (context, child, event) {
-                    if (event == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: event.expectedTotalBytes != null
-                            ? event.cumulativeBytesLoaded /
-                                event.expectedTotalBytes
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              childCount: covers.length ?? 0,
-            ),
+    return AspectRatio(
+      aspectRatio: MediaQuery.of(context).orientation == Orientation.landscape
+          ? 3 / 1
+          : 16 / 10,
+      child: Swiper.builder(
+        autoStart: true,
+        circular: true,
+        indicator: RectangleSwiperIndicator(
+          itemHeight: 3.0,
+          itemWidth: 8.0,
+          itemActiveColor: Colors.white,
+          padding: const EdgeInsets.only(
+            bottom: 36.0,
           ),
-          clipper: BTMCurve(42.0),
         ),
-      ],
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              switch (index) {
+                case 0:
+                  pushNamed(context, game2048);
+                  break;
+                case 1:
+                  pushNamed(context, game_tetris);
+                  break;
+                case 2:
+                  pushNamed(context, game_snake);
+                  break;
+              }
+            },
+            child: CachedNetworkImage(
+              imageUrl: covers[index],
+              placeholder: (_, __) => Center(
+                child: RefreshProgressIndicator(),
+              ),
+              errorWidget: (_, __, ___) => errorLoad(
+                context,
+                height: sizeH(context) * .2,
+              ),
+            ),
+          );
+        },
+        childCount: covers.length ?? 0,
+      ),
     );
   }
 }

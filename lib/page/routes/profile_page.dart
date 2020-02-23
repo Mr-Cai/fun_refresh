@@ -4,7 +4,6 @@ import '../../model/i18n/i18n.dart';
 import '../../components/top_bar.dart';
 import '../../page/export_page_pkg.dart';
 import '../../tools/global.dart';
-import '../../tools/pic_tool.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({this.args});
@@ -28,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
             margin: const EdgeInsets.all(6.0),
             child: IconButton(
               icon: SvgPicture.asset(
-                iconX('setting'),
+                path('setting', 5),
                 color: Colors.white,
               ),
               onPressed: () => pushNamed(context, setting),
@@ -49,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
               margin: const EdgeInsets.only(bottom: 32.0),
               child: ClipOval(
                 child: Image.asset(
-                  picX('header', format: 'jpg'),
+                  path('header', 3, format: 'jpg'),
                   height: sizeW(context) / 2,
                   width: sizeW(context) / 2,
                   fit: BoxFit.cover,

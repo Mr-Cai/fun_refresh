@@ -102,6 +102,7 @@ class RectangleSwiperIndicator extends _SwiperIndicator {
     double itemHeight = 2.0,
     Color itemColor = Colors.white70,
     Color itemActiveColor,
+    double radius = 32.0,
   }) : super(
             padding: padding,
             spacing: spacing,
@@ -109,7 +110,8 @@ class RectangleSwiperIndicator extends _SwiperIndicator {
             itemWidth: itemWidth,
             itemHeight: itemHeight,
             itemActiveColor: itemActiveColor,
-            itemShape: BoxShape.rectangle);
+            itemShape: BoxShape.rectangle,
+            radius: radius);
 }
 
 /// Circular style indicator
@@ -139,6 +141,7 @@ class _SwiperIndicator implements SwiperIndicator {
     this.itemHeight,
     this.itemShape,
     this.padding,
+    this.radius,
   });
 
   /// How much space to place between children in a run in  horizontal direction.
@@ -157,6 +160,7 @@ class _SwiperIndicator implements SwiperIndicator {
   final double itemHeight;
   final BoxShape itemShape;
   final EdgeInsetsGeometry padding;
+  final double radius;
 
   @override
   Widget build(BuildContext context, int index, int itemCount) {
@@ -174,7 +178,13 @@ class _SwiperIndicator implements SwiperIndicator {
             return Container(
               width: itemWidth,
               height: itemHeight,
-              decoration: BoxDecoration(color: color, shape: itemShape),
+              decoration: BoxDecoration(
+                color: color,
+                shape: itemShape,
+                borderRadius: itemShape == BoxShape.circle
+                    ? null
+                    : BorderRadius.circular(radius),
+              ),
             );
           }),
         ));

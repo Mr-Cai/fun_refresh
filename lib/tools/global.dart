@@ -30,6 +30,36 @@ double sizeW(context) => MediaQuery.of(context).size.width;
 // 常用高度:
 double sizeH(context) => MediaQuery.of(context).size.height;
 
+/// 文件路径快速填写
+/// `name`: 文件名称
+/// `type`: 文件类型
+/// 动画:0、音效:1、字体:2、图片:3、简谱:4、图标:5 ...
+/// `format`: 文件格式(每种文件都有默认格式, 也可自选格式)
+String path(String name, int type, {String format}) {
+  switch (type) {
+    case 0:
+      return 'asset/animation/$name.${format ?? 'flr'}';
+      break;
+    case 1:
+      return 'asset/audio/$name.${format ?? 'mp3'}';
+      break;
+    case 2:
+      return 'asset/font/$name.${format ?? 'ttf'}';
+      break;
+    case 3:
+      return 'asset/image/$name.${format ?? 'png'}';
+      break;
+    case 4:
+      return 'asset/json/$name.${format ?? 'json'}';
+      break;
+    case 5:
+      return 'asset/svg/$name.${format ?? 'svg'}';
+      break;
+    default:
+      return '';
+  }
+}
+
 // 页面名称:
 const home = '/home'; // 首页
 const detail = '/detail'; // 跳转详情

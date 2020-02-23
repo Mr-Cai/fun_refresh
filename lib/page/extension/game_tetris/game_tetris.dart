@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fun_refresh/components/top_bar.dart';
 import './gamer/gamer.dart';
 import './generated/i18n.dart';
 import './material/audios.dart';
@@ -15,7 +14,8 @@ class GameTetris extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'tetris',
+      title: '俄罗斯方块',
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../tools/global.dart';
 import '../../page/export_page_pkg.dart';
 import '../../components/top_bar.dart';
 import '../../model/i18n/i18n.dart';
 import '../../model/event/drawer_nav_bloc.dart';
-import '../../tools/pic_tool.dart';
 
 class MessagePage extends StatefulWidget with NavigationState {
   @override
@@ -54,7 +54,7 @@ class MsgItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SvgPicture.asset(
-                iconX('user'),
+                path('user', 5),
                 width: 64.0,
               ),
               Expanded(

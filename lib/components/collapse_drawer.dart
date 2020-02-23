@@ -10,7 +10,6 @@ import '../model/data/theme.dart';
 import '../model/i18n/i18n.dart';
 import '../page/routes/route_generator.dart';
 import '../tools/global.dart';
-import '../tools/pic_tool.dart';
 
 class CollaplseDrawer extends StatefulWidget {
   @override
@@ -32,19 +31,19 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   List<ItemD> get drawerMenuItems => [
         ItemD(
           title: I18n.of(context).social,
-          iconPath: iconX('connection'),
+          iconPath: path('connection', 5),
         ),
         ItemD(
           title: I18n.of(context).mind,
-          iconPath: iconX('idea'),
+          iconPath: path('idea', 5),
         ),
         ItemD(
           title: I18n.of(context).reward,
-          iconPath: iconX('reward'),
+          iconPath: path('reward', 5),
         ),
         ItemD(
           title: I18n.of(context).setting,
-          iconPath: iconX('settings'),
+          iconPath: path('settings', 5),
         )
       ];
 
@@ -169,7 +168,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                             ? const EdgeInsets.all(16.0)
                             : const EdgeInsets.fromLTRB(20.0, 16.0, 16.0, 16.0),
                         child: SvgPicture.asset(
-                          iconX('moon'),
+                          path('moon', 5),
                           width: 32.0,
                         ),
                       ),
@@ -186,7 +185,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                             child: Container(
                               margin: const EdgeInsets.all(16.0),
                               child: SvgPicture.asset(
-                                iconX('help'),
+                                path('help', 5),
                                 width: 32.0,
                               ),
                             ),
@@ -252,7 +251,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                           width: 68.0,
                           height: 68.0,
                           child: SvgPicture.asset(
-                            iconX('user'),
+                            path('user', 5),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -268,6 +267,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                                         ? I18n.of(context).userName
                                         : googleUser.displayName,
                                     style: whiteTxT),
+                                SizedBox(height: 8.0),
                                 Text(
                                     isGoogleLoginSuccess == false
                                         ? 'user@gmail.com'

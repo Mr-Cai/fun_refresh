@@ -32,7 +32,9 @@ class ChatItem extends StatelessWidget {
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Image.asset(image, height: 12.0),
           Container(width: 8.0),
-          Text(planet.gravity, style: smallTextStyle),
+          Text(
+            planet.gravity,
+        ),
         ]),
       );
     }
@@ -46,9 +48,9 @@ class ChatItem extends StatelessWidget {
             horizontal ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: [
           Container(height: 4.0),
-          Text(planet.name, style: titleTextStyle),
+          Text(planet.name),
           Container(height: 10.0),
-          Text(planet.location, style: commonTextStyle),
+          Text(planet.location),
           Separator(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

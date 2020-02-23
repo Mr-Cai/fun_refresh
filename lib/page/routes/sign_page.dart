@@ -8,7 +8,6 @@ import '../../components/top_bar.dart';
 import '../../model/mock/smash_model.dart';
 import '../../tools/api.dart';
 import '../../tools/global.dart';
-import '../../tools/pic_tool.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tencent_kit/tencent_kit.dart';
@@ -119,7 +118,7 @@ class _SignPageState extends State<SignPage> {
                         child: ClipOval(
                           child: snapshot.data == null
                               ? SvgPicture.asset(
-                                  iconX('user'),
+                                  path('user', 5),
                                   width: 64.0,
                                 )
                               : Image.network(
@@ -217,7 +216,7 @@ class _SignPageState extends State<SignPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            icon: SvgPicture.asset(iconX('google')),
+                            icon: SvgPicture.asset(path('google', 5)),
                             onPressed: () => _signIn(context).then((user) {
                               googleAuth.accessToken == null
                                   ? isGoogleLoginSuccess = false
@@ -226,7 +225,7 @@ class _SignPageState extends State<SignPage> {
                           ),
                           SizedBox(width: 8.0),
                           IconButton(
-                            icon: SvgPicture.asset(iconX('qq')),
+                            icon: SvgPicture.asset(path('qq', 5)),
                             onPressed: () {
                               _tencent.login(
                                 scope: [TencentScope.GET_SIMPLE_USERINFO],
@@ -236,12 +235,12 @@ class _SignPageState extends State<SignPage> {
                           SizedBox(width: 8.0),
                           IconButton(
                             iconSize: 24.0,
-                            icon: SvgPicture.asset(iconX('wechat')),
+                            icon: SvgPicture.asset(path('wechat', 5)),
                             onPressed: () {},
                           ),
                           SizedBox(width: 8.0),
                           IconButton(
-                            icon: SvgPicture.asset(iconX('github')),
+                            icon: SvgPicture.asset(path('github', 5)),
                             onPressed: () {},
                           ),
                         ],

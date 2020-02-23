@@ -107,6 +107,8 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           selectedColor: Theme.of(context).accentColor,
           centerItem: InkWell(
+            splashColor: Colors.white38,
+            highlightColor: Colors.white38,
             onTap: () {},
             child: Container(
               margin: EdgeInsets.only(top: 12.0),

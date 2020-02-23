@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../page/export_page_pkg.dart';
 import '../tools/global.dart';
-import '../tools/pic_tool.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   const TopBar({
@@ -19,6 +17,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.bottom,
     this.preferredSize = const Size.fromHeight(kToolbarHeight),
     this.isMenu = false,
+    this.titleTop,
+    this.titleBottom,
   }) : super(key: key);
 
   final String title;
@@ -29,6 +29,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final double right;
   final double top;
   final double bottom;
+  final double titleTop;
+  final double titleBottom;
   final List<Widget> actions;
   final bool isMenu;
 
@@ -57,11 +59,10 @@ class _TopBarState extends State<TopBar> {
               : backBTN(context, color: widget.themeColor),
           Container(
             margin: EdgeInsets.only(
-              top: 4.0,
-              left: widget.left ?? 0.0,
-              right: widget.right ?? sizeW(context) * .16,
-              bottom: 2.0,
-            ),
+                right: widget.right ?? sizeW(context) * .16,
+                left: widget.left ?? 0.0,
+                top: widget.titleTop ?? 2.0,
+                bottom: widget.titleBottom ?? 0.0),
             child: Text(
               widget.title ?? '标题',
               style: TextStyle(
@@ -96,13 +97,41 @@ Widget backBTN(
     color: Colors.transparent,
     margin: EdgeInsets.all(12.0),
     child: IconButton(
+      splashColor: Colors.white38,
+      highlightColor: Colors.white38,
       icon: SvgPicture.asset(
-        iconX('back'),
+        path('back', 5),
         color: color ?? Colors.white,
         width: 26.0,
         height: 26.0,
       ),
       onPressed: () => pop(context),
+    ),
+  );
+}
+
+Widget forwardBTN(
+  BuildContext context,
+  String route, {
+  double height,
+  double width,
+  Color color,
+}) {
+  return Container(
+    color: Colors.transparent,
+    child: IconButton(
+      splashColor: Colors.white38,
+      highlightColor: Colors.white38,
+      icon: Transform.rotate(
+        angle: 3.2,
+        child: SvgPicture.asset(
+          path('back', 5),
+          color: color ?? Colors.black,
+          width: 18.0,
+          height: 18.0,
+        ),
+      ),
+      onPressed: () => pushNamed(context, route),
     ),
   );
 }
@@ -116,6 +145,8 @@ Widget menuBTN(
   return Container(
     margin: const EdgeInsets.fromLTRB(18.0, 16.0, 0.0, 12.0),
     child: IconButton(
+      splashColor: Colors.white38,
+      highlightColor: Colors.white38,
       icon: Icon(Icons.fingerprint, size: 32.0, color: color),
       onPressed: () {
         scaffoldKey.currentState.openDrawer();

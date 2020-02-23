@@ -5,7 +5,6 @@ import 'package:fun_refresh/model/i18n/i18n.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../page/routes/route_generator.dart';
 import '../../tools/global.dart';
-import '../../tools/pic_tool.dart';
 
 class GamePage extends StatefulWidget with NavigationState {
   @override
@@ -65,7 +64,7 @@ class GameIcon extends StatelessWidget {
             ),
             child: Center(
               child: SvgPicture.asset(
-                iconX('ic_wheel'),
+                path('ic_wheel', 5),
               ),
             ),
           ),

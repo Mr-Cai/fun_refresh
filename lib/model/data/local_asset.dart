@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../tools/global.dart';
 import '../../tools/api.dart';
-import '../../tools/pic_tool.dart';
 
 const String disclaimerText = '''
                     🔏 隐私政策条例
@@ -24,10 +24,10 @@ final Map<int, String> labelsMap = {
 };
 
 List<List<String>> get navIcons => [
-      [iconX('game1'), iconX('game1')],
-      [iconX('video0'), iconX('video1')],
-      [iconX('extension0'), iconX('extension1')],
-      [iconX('chat0'), iconX('chat1')]
+      [path('game1', 5), path('game1', 5)],
+      [path('video0', 5), path('video1', 5)],
+      [path('extension0', 5), path('extension1', 5)],
+      [path('chat0', 5), path('chat1', 5)]
     ];
 
 List<String> get coverTitles => [
@@ -46,6 +46,7 @@ List<String> get covers => [
       '$imgs_base/2020/02/21/3Knyi8.png',
       '$imgs_base/2020/02/21/3KYiNj.png',
       '$imgs_base/2020/02/21/3KGmR0.png',
+      'xxx',
     ];
 
 Map<String, String> get config =>

@@ -5,7 +5,6 @@ import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 import '../../../model/data/local_asset.dart' show settingTxT;
 import '../../../model/data/theme.dart';
-import '../../../tools/pic_tool.dart';
 
 class SettingPage extends StatelessWidget with NavigationState {
   const SettingPage(this.isPush);
@@ -15,7 +14,7 @@ class SettingPage extends StatelessWidget with NavigationState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: divider,
+      backgroundColor: dividerColor,
       appBar: TopBar(
         title: '设置',
         bgColor: Colors.white,
@@ -27,7 +26,7 @@ class SettingPage extends StatelessWidget with NavigationState {
             margin: const EdgeInsets.all(6.0),
             child: IconButton(
               icon: SvgPicture.asset(
-                iconX('info'),
+                path('info', 5),
               ),
               onPressed: () {},
             ),

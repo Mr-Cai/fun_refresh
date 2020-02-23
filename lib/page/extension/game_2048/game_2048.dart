@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/top_bar.dart';
 import 'mycolor.dart';
 import 'tile.dart';
 import 'grid.dart';
@@ -345,7 +344,7 @@ class _Game2048State extends State<Game2048> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                'High Score',
+                                '最高得分',
                                 style: TextStyle(
                                     color: Colors.white70,
                                     fontWeight: FontWeight.bold),

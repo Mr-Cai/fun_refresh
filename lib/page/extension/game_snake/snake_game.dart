@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import './game_state.dart';
@@ -32,6 +31,7 @@ class _SnakeGameState extends State<SnakeGame> {
         builder: (context, gameState, _) {
           gameState = Provider.of<GameState>(context);
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Gluttonous Snake',
             theme: ThemeData(
               scaffoldBackgroundColor: Color(gameState.appBkColor),
@@ -102,7 +102,7 @@ class SnakeHomeState extends State<SnakeHome>
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.settings_applications),
-              title: Text('Color Options'),
+              title: Text('颜色选项'),
             ),
             Divider(
               color: Colors.black,
@@ -111,7 +111,7 @@ class SnakeHomeState extends State<SnakeHome>
             Card(
               child: ListTile(
                 leading: colorOptionLeading(gameState.appBkColor, 30.0),
-                title: Text('background color'),
+                title: Text('背景颜色'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsAppBkColor(context);
@@ -121,7 +121,7 @@ class SnakeHomeState extends State<SnakeHome>
             Card(
               child: ListTile(
                 leading: colorOptionLeading(gameState.leftPlayerColor, 30.0),
-                title: Text('left player color'),
+                title: Text('左侧玩家颜色'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsLeftColor(context);
@@ -131,7 +131,7 @@ class SnakeHomeState extends State<SnakeHome>
             Card(
               child: ListTile(
                 leading: colorOptionLeading(gameState.rightPlayerColor, 30.0),
-                title: Text('right player color'),
+                title: Text('右侧玩家颜色'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsRightColor(context);
@@ -142,7 +142,7 @@ class SnakeHomeState extends State<SnakeHome>
               child: ListTile(
                 leading:
                     colorOptionLeading(gameState.brickOnePlayerColor, 30.0),
-                title: Text('snake color(1 player)'),
+                title: Text('贪吃蛇颜色(1号玩家)'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsOnePlayerColor(context);
@@ -152,7 +152,7 @@ class SnakeHomeState extends State<SnakeHome>
             Card(
               child: ListTile(
                 leading: colorOptionLeading(gameState.scoreBoardColor, 30.0),
-                title: Text('score board color(1 player)'),
+                title: Text('得分板颜色(1号玩家)'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsScoreBoardColor(context);
@@ -162,7 +162,7 @@ class SnakeHomeState extends State<SnakeHome>
             Card(
               child: ListTile(
                 leading: colorOptionLeading(gameState.foodColor, 30.0),
-                title: Text('food color'),
+                title: Text('食物颜色'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.optionsFoodColor(context);
@@ -175,7 +175,7 @@ class SnakeHomeState extends State<SnakeHome>
                   Icons.save,
                   size: 30,
                 ),
-                title: Text('save color plan'),
+                title: Text('保存颜色设置'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.saveColorPlan(context);
@@ -188,7 +188,7 @@ class SnakeHomeState extends State<SnakeHome>
                   Icons.restore,
                   size: 30,
                 ),
-                title: Text('reset color plan'),
+                title: Text('重置颜色设置'),
                 onTap: () {
                   Navigator.pop(context);
                   gameState.resetColorPlan(context);
@@ -225,7 +225,7 @@ class SnakeHomeState extends State<SnakeHome>
             //     left: 0.0, top: 0.0, child: Icon(Icons.fiber_new)),
             Center(
                 child: Text(
-                    'high score: ${gameState.highScore}\nScore: ${gameState.score}')),
+                    '最高分: ${gameState.highScore}\n得分: ${gameState.score}')),
           ],
         ),
       );
@@ -283,7 +283,7 @@ class SnakeHomeState extends State<SnakeHome>
           SpeedDialChild(
             child: Icon(Icons.settings),
             backgroundColor: Colors.yellow,
-            label: 'Options',
+            label: '选项',
             labelStyle: TextStyle(fontSize: 20.0),
             onTap: () {
               gameState.setMenuFlag(false);
@@ -333,7 +333,7 @@ class SnakeHomeState extends State<SnakeHome>
           SpeedDialChild(
             child: Icon(Icons.settings),
             backgroundColor: Colors.yellow,
-            label: 'Options',
+            label: '选项',
             labelStyle: TextStyle(fontSize: 20.0),
             onTap: () {
               gameState.setPlayFlag(false);
@@ -343,7 +343,7 @@ class SnakeHomeState extends State<SnakeHome>
           SpeedDialChild(
               child: Icon(Icons.redo),
               backgroundColor: Colors.green,
-              label: 'Quick Restart',
+              label: '快速开始',
               labelStyle: TextStyle(fontSize: 20.0),
               onTap: () {
                 gameState.menuQuickRestart(context);
@@ -351,7 +351,7 @@ class SnakeHomeState extends State<SnakeHome>
           SpeedDialChild(
             child: Icon(Icons.refresh),
             backgroundColor: Colors.blue,
-            label: 'Restart',
+            label: '重新开始',
             labelStyle: TextStyle(fontSize: 20.0),
             onTap: () {
               gameState.menuRestart(context);

@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../tools/global.dart';
 import '../model/i18n/i18n.dart';
 import '../model/i18n/lang_kv.dart';
-import '../tools/pic_tool.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 
 class RadialMenu extends StatefulWidget {
@@ -87,7 +87,7 @@ class RadialAnimation extends StatelessWidget {
                   scale: scale.value - 1.5,
                   child: CupertinoButton(
                     child: SvgPicture.asset(
-                      iconX('earth'),
+                      path('earth', 5),
                       width: iconWidth,
                     ),
                     onPressed: _close,
@@ -98,7 +98,7 @@ class RadialAnimation extends StatelessWidget {
                   child: InkWell(
                     onTap: _open,
                     child: SvgPicture.asset(
-                      iconX('language'),
+                      path('language', 5),
                       width: iconWidth,
                     ),
                   ),
@@ -121,21 +121,18 @@ class RadialAnimation extends StatelessWidget {
         ),
       child: IconButton(
         icon: SvgPicture.asset(
-          iconX(icon),
+          path(icon, 5),
           width: iconWidth,
         ),
         onPressed: () {
           switch (index) {
             case 0:
-              print('xxxxxxxxsfdsafsdakfsdklfjsdaklfj;sadfsald');
               i18nKey.currentState.toggleLanguage(chinese);
               break;
             case 2:
-              print('xx3224;sadfsald');
               i18nKey.currentState.toggleLanguage(english);
               break;
             case 3:
-              print('87873;dskdflkadkf');
               i18nKey.currentState.toggleLanguage(japanese);
               break;
             default:

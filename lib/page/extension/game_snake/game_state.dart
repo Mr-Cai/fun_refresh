@@ -48,24 +48,24 @@ class GameState with ChangeNotifier {
     'RIGHT': [0, 1]
   };
 
-  var _modeTitle = 'Please choose game mode';
+  var _modeTitle = '请选择游戏模式';
   var _modeOptions = {
-    '♂️traditional(1 player)': 1,
-    '⚣battle(2 player)': 2,
+    '♂️ 经典(单人模式)': 1,
+    '⚣ 对战 (双人模式)': 2,
   };
 
-  var _sizeTitle = 'Please choose map size';
+  var _sizeTitle = '请选择地图大小';
   var _sizeOptions = {
-    '⛩️small': 30,
-    '🗻medium': 40,
-    '🗾large': 50,
+    '⛩️迷你': 30,
+    '🗻中等': 40,
+    '🗾巨大': 50,
   };
 
-  var _speedTitle = 'Please choose game difficulty';
+  var _speedTitle = '请选择游戏难度';
   var _speedOptions = {
-    '😄Easy': 250,
-    '🙂Normal': 200,
-    '🙃Hard': 120,
+    '😄简易': 250,
+    '🙂正常': 200,
+    '🙃困难': 120,
   };
 
   int get playerNum => _playerNum;
@@ -372,20 +372,20 @@ class GameState with ChangeNotifier {
   void _gameOverTwoPlayer(BuildContext context, String winner) {
     switch (winner) {
       case 'draw':
-        _gameOver(context, 'draw! ⚖️');
+        _gameOver(context, '平局! ⚖️');
         break;
       case 'left':
-        _gameOver(context, 'left player wins!🎉');
+        _gameOver(context, '左侧玩家获胜 !🎉');
         break;
       case 'right':
-        _gameOver(context, 'right player wins!🎉');
+        _gameOver(context, '右侧玩家获胜 !🎉');
         break;
       default:
     }
   }
 
   void _gameOver(BuildContext context, String title) async {
-    var overOptions = {'Return': 0, 'Restart': 1, 'Quick Restart': 2};
+    var overOptions = {'返回': 0, '重新开始': 1, '快速开始': 2};
     var option = await showDialog(
         context: context,
         barrierDismissible: false,
@@ -393,14 +393,14 @@ class GameState with ChangeNotifier {
           return configDialog(context, title, overOptions);
         });
     switch (option) {
-      case 'Return':
+      case '返回':
         //_initGame();
         //notifyListeners();
         break;
-      case 'Restart':
+      case '重新开始':
         setConfig(context);
         break;
-      case 'Quick Restart':
+      case '快速开始':
         _startGame(context);
         break;
       default:
@@ -448,9 +448,9 @@ class GameState with ChangeNotifier {
               notifyListeners();
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.setInt('highScore', _highScore);
-              _gameOver(context, 'NEW RECORD!🎉\n 🆕high score: $_highScore');
+              _gameOver(context, '新纪录!🎉\n 🆕最高分: $_highScore');
             } else {
-              _gameOver(context, 'GAME OVER 😂');
+              _gameOver(context, '游戏结束 😂');
             }
 
             return;
@@ -691,13 +691,13 @@ class GameState with ChangeNotifier {
       ),
       actions: <Widget>[
         FlatButton(
-          child: const Text('Cancel❌'),
+          child: const Text('取消'),
           onPressed: () {
             Navigator.of(context).pop(-1);
           },
         ),
         FlatButton(
-          child: const Text('Confirm✔️'),
+          child: const Text('确认'),
           onPressed: () {
             Navigator.of(context).pop(tmpColor);
           },
@@ -836,15 +836,15 @@ class GameState with ChangeNotifier {
           return configDialog(context, _speedTitle, _speedOptions);
         });
     print("game speed：${this._speed}");
-    var confirmTitle = '''Play the game under the following options?
+    var confirmTitle = '''在以下选项中开始游戏?
 
-    Game Mode: $gameMode
-    Map Size: $mapSize
-    Difficulty: $difficulty
+    游戏模式: $gameMode
+    地图大小: $mapSize
+    游戏难度: $difficulty
     ''';
     var confirmOptions = {
-      'Cancel': false,
-      'START!🎬': true,
+      '取消': false,
+      '开始游戏!🎬': true,
     };
     var startFlag = await showDialog(
         context: context,
