@@ -35,7 +35,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
       ),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
-        slivers: <Widget>[
+        slivers: [
           SliverAppBar(
             leading: Container(),
             floating: true,
@@ -83,7 +83,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
       children: <Widget>[
         $ItemTile(
           context,
-          title: slimTxT('我日'),
+          title: slimTxT('趣刷插件'),
         ),
         Container(
           height: sizeH(context) * .2,
@@ -111,6 +111,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
         $ItemTile(
           context,
           title: slimTxT(title ?? ''),
+          isSlim: true,
         ),
         Container(
           height: sizeH(context) * .24,

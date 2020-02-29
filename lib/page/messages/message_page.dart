@@ -53,9 +53,13 @@ class MsgItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(
-                path('user', 5),
-                width: 64.0,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  path('header', 3, format: 'jpg'),
+                  width: 64.0,
+                ),
               ),
               Expanded(
                 child: Container(

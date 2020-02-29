@@ -11,7 +11,8 @@ import 'model/data/local_asset.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  TencentAD.config(appID: config['appID']);
+  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
+      (_) => SplashAd(config['splashID'], bgPic: config['bgPic']).showAd());
   runApp(FunRefreshApp());
 }
 

@@ -2,6 +2,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/top_bar.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../tools/api.dart';
 import '../tools/global.dart';
 
@@ -33,39 +34,48 @@ Widget $ItemTile(
   Widget title,
   Widget subtitle,
   Widget tail,
+  bool isSlim = false,
 }) {
-  return Row(
-    children: <Widget>[
-      Flexible(
-        flex: 8,
-        fit: FlexFit.tight,
-        child: Container(
-          margin: const EdgeInsets.only(left: 16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              title ??
-                  Placeholder(
-                    fallbackHeight: 32.0,
-                    color: Colors.black,
-                    strokeWidth: 1.0,
-                  ),
-              subtitle ?? Container(),
-            ],
+  return InkWell(
+    onTap: () => pushNamed(context, ''),
+    child: Row(
+      children: [
+        Flexible(
+          flex: isSlim ? 1 : 7,
+          fit: FlexFit.tight,
+          child: Container(
+            margin: const EdgeInsets.only(left: 16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                title ??
+                    Placeholder(
+                      fallbackHeight: 32.0,
+                      color: Colors.black,
+                      strokeWidth: 1.0,
+                    ),
+                subtitle ?? Container(),
+              ],
+            ),
           ),
         ),
-      ),
-      Flexible(
-        flex: 2,
-        fit: FlexFit.loose,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            tail ?? forwardBTN(context, ''),
-          ],
-        ),
-      )
-    ],
+        Flexible(
+          flex: isSlim == null ? 1 : isSlim ? 4 : 1,
+          fit: FlexFit.loose,
+          child: Row(
+            mainAxisAlignment: isSlim == null
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 4.0),
+                child: tail ?? forwardBTN(context, ''),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
   );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/components/swiper.dart';
 import 'package:fun_refresh/tools/global.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
@@ -71,7 +72,7 @@ class _VideoPageState extends State<VideoPage> {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-              return Center(child: CircularProgressIndicator());
+              return Center(child: RefreshProgressIndicator());
             },
           ),
         ),

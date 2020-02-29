@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '6'
+    flutterVersionCode = '7'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.5'
+    flutterVersionName = '1.0.6'
 }
 
 apply plugin: 'com.android.application'
@@ -35,7 +35,7 @@ android {
         abi {
             enable true
             reset()
-            // include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+            include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
             universalApk false
         }
     }

@@ -213,9 +213,9 @@ class _Game2048State extends State<Game2048> {
                         Padding(
                           padding: EdgeInsets.only(top: 10.0, bottom: 2.0),
                           child: Text(
-                            'Score',
+                            '得分',
                             style: TextStyle(
-                                fontSize: 15.0,
+                                fontSize: 22.0,
                                 color: Colors.white70,
                                 fontWeight: FontWeight.bold),
                           ),

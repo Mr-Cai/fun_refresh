@@ -76,7 +76,7 @@ class _RouletteState extends State<Roulette> {
                           borderRadius: BorderRadius.circular(32.0)),
                       child: snapshot.hasData
                           ? Container(
-                              height: 64.0,
+                              height: 220.0,
                               child: CoinsPot(snapshot.data),
                             )
                           : Container(),

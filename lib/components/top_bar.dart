@@ -123,7 +123,7 @@ Widget forwardBTN(
       splashColor: Colors.white38,
       highlightColor: Colors.white38,
       icon: Transform.rotate(
-        angle: 3.2,
+        angle: 3.15,
         child: SvgPicture.asset(
           path('back', 5),
           color: color ?? Colors.black,

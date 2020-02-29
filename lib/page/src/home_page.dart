@@ -46,14 +46,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  MobileAd createInterstitialAd() {
-    return InterstitialAd(
-      adUnitId: intersUnit,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {},
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NavigationBloc>(
@@ -73,11 +65,7 @@ class _HomePageState extends State<HomePage> {
           endAngle: degToRad(-20.0),
           floatingButton: FloatingActionButton(
             child: Icon(Icons.add),
-            onPressed: () {
-              _interstitialAd?.dispose();
-              _interstitialAd = createInterstitialAd()..load();
-              _interstitialAd?.show();
-            },
+            onPressed: () {},
           ),
           subMenus: [
             FloatingButton(

@@ -9,13 +9,14 @@ blackTxT(String text) => Text(
       style: TextStyle(color: Colors.black38),
       textScaleFactor: 0.8,
     );
+
 // 默认黑色细体
-slimTxT(String text) => Text(
+slimTxT(String text, {double size, Color color, int no}) => Text(
       text,
       style: TextStyle(
-        color: Colors.black,
-        fontSize: 18.0,
-        fontWeight: FontWeight.values[0],
+        color: color ?? Colors.black,
+        fontSize: size ?? 18.0,
+        fontWeight: FontWeight.values[no ?? 0],
       ),
     );
 

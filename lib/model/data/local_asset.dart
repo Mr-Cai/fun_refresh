@@ -54,7 +54,7 @@ Map<String, String> get config =>
         ? {
             'appID': '1109716769',
             'bannerID': '9040882216019714',
-            'nativeID': '4060287287437033',
+            'nativeID': '8040483237917481',
             'intersID': '7080080247106780',
             'splashID': '7020785136977336',
             'bgPic': 'intelligent.fun_refresh:mipmap/splash_img'

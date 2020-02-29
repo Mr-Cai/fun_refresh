@@ -14,7 +14,6 @@ class GameTetris extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '俄罗斯方块',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         S.delegate,
