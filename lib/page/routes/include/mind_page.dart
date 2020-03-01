@@ -16,7 +16,7 @@ class MindPage extends StatefulWidget with NavigationState {
 
 class _MindPageState extends State<MindPage> {
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal.withOpacity(0.6),
       appBar: TopBar(

@@ -21,7 +21,8 @@ class GamePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
+class _GamePageState extends State<GamePage>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   var random = Random();
   double pos = 0.0;
 
@@ -57,6 +58,21 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    accelerometerEvents.listen((event) {
+      // 摇一摇阀值,不同手机能达到的最大值不同，如某品牌手机只能达到20。
+      int value = 10;
+      if (event.x >= value ||
+          event.x <= -value ||
+          event.y >= value ||
+          event.y <= -value ||
+          event.z >= value ||
+          event.z <= -value) {
+        setState(() {
+          getRanSize();
+          refreshLayout();
+        });
+      }
+    });
     setState(() {
       pos = 24 + random.nextInt(128).toDouble();
       getRanSize();
@@ -115,6 +131,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (!permission) {
       checkPermit();
     }
@@ -126,33 +143,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         title: I18n.of(context).game,
       ),
       body: GestureDetector(
-        onVerticalDragStart: (_) {
-          setState(() {
-            pos = 24 + random.nextInt(128).toDouble();
-            logoIndex = random.nextInt(1);
-            if (_first) {
-              _posCtrl.forward();
-              _fadeCtrl.forward();
-              _scaleCtrl.forward();
-              Future.delayed(Duration(seconds: 1), () {
-                _scaleCtrl.resync(this);
-                _fadeCtrl.resync(this);
-              });
-            } else {
-              _posCtrl.reverse();
-              _fadeCtrl.reverse();
-              _scaleCtrl.reverse();
-              Future.delayed(Duration(seconds: 1), () {
-                _scaleCtrl.forward();
-                _fadeCtrl.forward();
-              });
-            }
-            _first = !_first;
-          });
-        },
-        onLongPressStart: (_) {
-          Toast.show('msg', context);
-        },
         child: Stack(
           children: [
             Positioned(
@@ -217,7 +207,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             ),
             Positioned(
               bottom: sizeH(context) * .5,
-              right: sizeW(context) * .0,
+              right: sizeW(context) * .03,
               child: GameLogo(
                 fadeAnim: _fadeAnim,
                 scaleAnim: _scaleAnim,
@@ -228,18 +218,62 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             Positioned(
               bottom: 8.0,
               right: 8.0,
-              child: RotationTransition(
-                turns: _rotateAnim,
-                child: SvgPicture.asset(
-                  path('shake', 5),
-                  width: 64.0,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    refreshLayout();
+                  });
+                },
+                child: RotationTransition(
+                  turns: _rotateAnim,
+                  child: SvgPicture.asset(
+                    path('shake', 5),
+                    width: 64.0,
+                  ),
                 ),
               ),
             ),
+            /* Positioned(
+              bottom: 8.0,
+              right: 8.0,
+              child: InkWell(
+                child: SvgPicture.asset(path('refresh', 3)),
+                onTap: () {
+                  refreshLayout();
+                },
+              ),
+            ), */
           ],
         ),
       ),
     );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  void refreshLayout() {
+    getRanSize();
+    pos = 24 + random.nextInt(128).toDouble();
+    logoIndex = random.nextInt(1);
+    if (_first) {
+      _posCtrl.forward();
+      _fadeCtrl.forward();
+      _scaleCtrl.forward();
+      Future.delayed(Duration(seconds: 1), () {
+        _scaleCtrl.resync(this);
+        _fadeCtrl.resync(this);
+      });
+    } else {
+      _posCtrl.reverse();
+      _fadeCtrl.reverse();
+      _scaleCtrl.reverse();
+      Future.delayed(Duration(seconds: 1), () {
+        _scaleCtrl.forward();
+        _fadeCtrl.forward();
+      });
+    }
+    _first = !_first;
   }
 }
 
@@ -269,6 +303,20 @@ class GameLogo extends StatelessWidget {
             break;
           case 2:
             pushNamed(context, game_snake);
+            break;
+          default:
+        }
+      },
+      onLongPress: () {
+        switch (index) {
+          case 0:
+            Toast.show('2048小游戏', context);
+            break;
+          case 1:
+            Toast.show('俄罗斯方块', context);
+            break;
+          case 2:
+            Toast.show('经典贪吃蛇', context);
             break;
           default:
         }

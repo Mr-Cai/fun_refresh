@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/data/theme.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
@@ -17,7 +18,8 @@ class ExtensionPage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _ExtensionPageState();
 }
 
-class _ExtensionPageState extends State<ExtensionPage> {
+class _ExtensionPageState extends State<ExtensionPage>
+    with KeepAliveParentDataMixin, AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -25,6 +27,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
@@ -128,6 +131,15 @@ class _ExtensionPageState extends State<ExtensionPage> {
       ],
     );
   }
+
+  @override
+  void detach() {}
+
+  @override
+  bool get keptAlive => true;
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class IconItem extends StatelessWidget {

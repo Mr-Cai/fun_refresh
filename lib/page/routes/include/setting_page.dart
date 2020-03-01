@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/components/disclaimer_dialog.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:tencent_ad/banner.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
@@ -19,6 +21,8 @@ class SettingPage extends StatefulWidget with NavigationState {
 class _SettingPageState extends State<SettingPage> {
   final _bannerKey = GlobalKey<UnifiedBannerAdState>();
   bool _bannerClose = false;
+  final dialogKey = GlobalKey<DisclaimerMsgState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,78 +47,25 @@ class _SettingPageState extends State<SettingPage> {
       ),
       body: Stack(
         children: [
-          ListView.separated(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            itemCount: settingTxT.length ?? 0,
+          DisclaimerMsg(state: this, key: dialogKey),
+          ListView(
             physics: BouncingScrollPhysics(),
-            separatorBuilder: (BuildContext context, int index) {
-              if (index == 1) {
-                return Divider(
-                  height: 8.0,
-                  color: Color(0xfff1f2f7),
-                  thickness: 10.0,
-                );
-              }
-              return Divider(
-                height: 0.0,
-                color: Color(0xfff1f2f7),
-                thickness: 1.0,
-              );
-            },
-            itemBuilder: (BuildContext context, int index) {
-              if (index == settingTxT.length - 2) {
-                return Container(
-                  color: Colors.white,
-                  child: ListTile(
-                    dense: true,
-                    leading: Text(
-                      settingTxT[index],
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  ),
-                );
-              }
-              if (index == settingTxT.length - 1) {
-                return Container(
-                  margin: const EdgeInsets.all(8.0),
-                  height: 40.0,
-                  child: FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    color: Colors.red,
-                    child: Text(
-                      '退出登录',
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.values[0],
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                );
-              }
-              if (index != settingTxT.length - 1) {
-                return Container(
-                  color: Colors.white,
-                  child: ListTile(
-                    dense: true,
-                    leading: Text(
-                      settingTxT[index],
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.grey.withOpacity(0.5),
-                      size: 18.0,
-                    ),
-                  ),
-                );
-              }
-              return Container();
-            },
+            children: [
+              $HLine(),
+              ItemTile(index: 0, isTrail: true),
+              ItemTile(index: 1, isTrail: true),
+              ItemTile(index: 2, isTrail: true),
+              ItemTile(
+                index: 3,
+                onTap: () {
+                  setState(() {
+                    dialogKey.currentState.showDisClaimerDialog(context);
+                  });
+                },
+              ),
+              $HLine(),
+              _buildBTN(),
+            ],
           ),
           Positioned(
             bottom: 0.0,
@@ -139,6 +90,57 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBTN() {
+    return FlatButton(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      color: Colors.red,
+      child: Text(
+        '退出登录',
+        style: TextStyle(
+          fontSize: 22.0,
+          color: Colors.white,
+          fontWeight: FontWeight.values[0],
+        ),
+      ),
+      onPressed: () {},
+    );
+  }
+}
+
+class ItemTile extends StatelessWidget {
+  const ItemTile({this.onTap, this.isTrail, this.index});
+
+  final Function onTap;
+  final bool isTrail;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap ?? () {},
+      child: Container(
+        color: Colors.white,
+        child: ListTile(
+          dense: true,
+          leading: Text(
+            settingTxT[index],
+            style: TextStyle(fontSize: 18.0),
+          ),
+          trailing: isTrail == true
+              ? Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey.withOpacity(0.5),
+                  size: 18.0,
+                )
+              : null,
+        ),
       ),
     );
   }

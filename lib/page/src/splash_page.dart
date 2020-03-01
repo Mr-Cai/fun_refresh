@@ -54,7 +54,8 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: InkWell(
-        onTap: () {},
+        onTap: () {
+        },
         child: Column(
           children: [
             DisclaimerMsg(state: this, key: dialogKey),

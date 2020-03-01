@@ -58,7 +58,6 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         I18nDelegate.i18nDelegate,
-        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],

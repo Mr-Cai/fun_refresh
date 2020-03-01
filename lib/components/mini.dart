@@ -79,3 +79,11 @@ Widget $ItemTile(
     ),
   );
 }
+
+Widget $HLine({double height, double thick}) {
+  return Divider(
+    height: height ?? 8.0,
+    color: Color(0xfff1f2f7),
+    thickness: thick ?? 10.0,
+  );
+}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../tools/global.dart';
 import '../../page/export_page_pkg.dart';
 import '../../components/top_bar.dart';
@@ -12,9 +11,11 @@ class MessagePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _MessagePageState();
 }
 
-class _MessagePageState extends State<MessagePage> {
+class _MessagePageState extends State<MessagePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
@@ -37,6 +38,9 @@ class _MessagePageState extends State<MessagePage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class MsgItem extends StatelessWidget {

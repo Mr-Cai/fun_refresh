@@ -1,38 +1,56 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/tools/global.dart' show sizeH;
 import 'package:video_player/video_player.dart';
 
 import 'fade_animation.dart';
+import 'mini.dart';
 
 class VideoItem extends StatefulWidget {
-  final image;
-  final video;
-  VideoItem({this.image, this.video});
+  final String image;
+  final String video;
+
+  const VideoItem({this.image, this.video});
+
   @override
   State<StatefulWidget> createState() => _VideoItemState();
 }
 
-class _VideoItemState extends State<VideoItem> {
+class _VideoItemState extends State<VideoItem>
+    with SingleTickerProviderStateMixin {
   VideoPlayerController _controller;
   bool _isPlaying = false;
   var _videoStatusAnimation;
   Widget coverHolder;
+
   @override
-  initState() {
+  void initState() {
     super.initState();
     _videoStatusAnimation = Container();
     _controller = VideoPlayerController.network(widget.video);
-    coverHolder = Image.network(widget.image, fit: BoxFit.cover);
+    _controller.play();
+    coverHolder = CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: widget.image,
+      placeholder: (_, __) => Center(
+        child: RefreshProgressIndicator(),
+      ),
+      errorWidget: (_, __, ___) => errorLoad(
+        context,
+        height: sizeH(context) * .2,
+      ),
+    );
   }
 
   @override
-  dispose() {
+  void dispose() {
     _controller.pause();
     _controller.dispose();
     super.dispose();
   }
 
   @override
-  build(context) => AspectRatio(
+  Widget build(BuildContext context) => AspectRatio(
         aspectRatio: 16 / 9,
         child: _controller.value.initialized
             ? _videoPlayer()
