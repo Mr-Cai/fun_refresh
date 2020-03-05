@@ -1,4 +1,4 @@
-import 'dart:math' show Random, sqrt;
+import 'dart:math' show Random;
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';

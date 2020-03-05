@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 /// Returns a widget which displays a rotating image.
-/// This widget can be interacted with with drag gestures and could be used as a "fortune wheel".
+/// This widget can be interacted with with drag gestures and could be used as a 'fortune wheel'.
 ///
 /// Required arguments are dimensions and the image to be used as the wheel.
 ///

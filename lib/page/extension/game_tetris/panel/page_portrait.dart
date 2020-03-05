@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/top_bar.dart';
 import '../generated/i18n.dart';
 import '../income/donation_dialog.dart';
 import '../game_tetris.dart';
@@ -18,17 +19,17 @@ class PagePortrait extends StatelessWidget {
         child: Padding(
           padding: MediaQuery.of(context).padding,
           child: Column(
-            children: <Widget>[
+            children: [
               Row(
-                children: <Widget>[
+                children: [
                   Spacer(),
-                  /* FlatButton(
+                  FlatButton(
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (context) => DonationDialog());
                       },
-                      child: Text(S.of(context).reward)) */
+                      child: Text(S.of(context).reward))
                 ],
               ),
               Spacer(),

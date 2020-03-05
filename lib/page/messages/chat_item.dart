@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../model/chat/planets.dart';
-import '../../model/data/theme.dart';
 
 import 'chat_page.dart';
 
@@ -19,7 +18,7 @@ class ChatItem extends StatelessWidget {
       alignment:
           horizontal ? FractionalOffset.centerLeft : FractionalOffset.center,
       child: Hero(
-        tag: "planet-hero-${planet.id}",
+        tag: 'planet-hero-${planet.id}',
         child: Image(
           image: AssetImage(planet.image),
           height: 92.0,

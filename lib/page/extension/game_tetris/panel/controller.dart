@@ -11,7 +11,7 @@ class GameController extends StatelessWidget {
     return SizedBox(
       height: 200,
       child: Row(
-        children: <Widget>[
+        children: [
           Expanded(child: LeftController()),
           Expanded(child: DirectionController()),
         ],
@@ -33,16 +33,16 @@ class DirectionController extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
-      children: <Widget>[
+      children: [
         SizedBox.fromSize(size: _DIRECTION_BUTTON_SIZE * 2.8),
         Transform.rotate(
           angle: math.pi / 4,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   Transform.scale(
                     scale: 1.5,
                     child: Transform.rotate(
@@ -65,7 +65,7 @@ class DirectionController extends StatelessWidget {
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   Transform.scale(
                     scale: 1.5,
                     child: Transform.rotate(
@@ -93,11 +93,11 @@ class DirectionController extends StatelessWidget {
           angle: math.pi / 4,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               SizedBox(height: _DIRECTION_SPACE),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   _Button(
                       enableLongPress: false,
                       size: _DIRECTION_BUTTON_SIZE,
@@ -115,7 +115,7 @@ class DirectionController extends StatelessWidget {
               SizedBox(height: _DIRECTION_SPACE),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   _Button(
                       size: _DIRECTION_BUTTON_SIZE,
                       onTap: () {
@@ -146,7 +146,7 @@ class SystemButtonGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
+      children: [
         _Description(
           text: S.of(context).sounds,
           child: _Button(
@@ -202,7 +202,7 @@ class LeftController extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+      children: [
         SystemButtonGroup(),
         Expanded(
           child: Center(
@@ -263,23 +263,23 @@ class _Description extends StatelessWidget {
       case AxisDirection.right:
         widget = Row(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[child, SizedBox(width: 8), Text(text)]);
+            children: [child, SizedBox(width: 8), Text(text)]);
         break;
       case AxisDirection.left:
         widget = Row(
-          children: <Widget>[Text(text), SizedBox(width: 8), child],
+          children: [Text(text), SizedBox(width: 8), child],
           mainAxisSize: MainAxisSize.min,
         );
         break;
       case AxisDirection.up:
         widget = Column(
-          children: <Widget>[Text(text), SizedBox(height: 8), child],
+          children: [Text(text), SizedBox(height: 8), child],
           mainAxisSize: MainAxisSize.min,
         );
         break;
       case AxisDirection.down:
         widget = Column(
-          children: <Widget>[child, SizedBox(height: 8), Text(text)],
+          children: [child, SizedBox(height: 8), Text(text)],
           mainAxisSize: MainAxisSize.min,
         );
         break;

@@ -59,11 +59,11 @@ class CircleFloatingState extends State<CircleFloatingMenu>
     List<Widget> widgets = [];
     for (int i = 0; i < widget.subMenus.length; i++) {
       Widget sub = Transform.scale(
-        scale: animations["scale"].value,
+        scale: animations['scale'].value,
         child: Transform.translate(
           offset: _getOffset(i),
           child: Transform.rotate(
-            angle: degToRad(animations["rotate"].value * 360.0),
+            angle: degToRad(animations['rotate'].value * 360.0),
             child: InkWell(
               child: widget.subMenus[i],
               onTap: () {

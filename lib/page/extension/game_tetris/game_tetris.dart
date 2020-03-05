@@ -8,7 +8,7 @@ import './material/audios.dart';
 import './panel/page_portrait.dart';
 import './gamer/keyboard.dart';
 
-final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
+final routeObserver = RouteObserver<ModalRoute>();
 
 class GameTetris extends StatelessWidget {
   @override
@@ -43,7 +43,6 @@ const BACKGROUND_COLOR = const Color(0xffefcc19);
 class TetrisPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //only Android/iOS support land mode
     bool supportLandMode = Platform.isAndroid || Platform.isIOS;
     bool land = supportLandMode &&
         MediaQuery.of(context).orientation == Orientation.landscape;

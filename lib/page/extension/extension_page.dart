@@ -83,7 +83,7 @@ class _ExtensionPageState extends State<ExtensionPage>
 
   Widget _buildSwipper(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         $ItemTile(
           context,
           title: slimTxT('趣刷插件'),
@@ -93,7 +93,7 @@ class _ExtensionPageState extends State<ExtensionPage>
           child: Swiper(
             indicator: CircleSwiperIndicator(),
             autoStart: true,
-            children: <Widget>[
+            children: [
               for (var i = 0; i < 9; i++)
                 Container(
                   child: Image.asset(
@@ -110,7 +110,7 @@ class _ExtensionPageState extends State<ExtensionPage>
 
   Widget _buildSwiperList({@required String title}) {
     return Column(
-      children: <Widget>[
+      children: [
         $ItemTile(
           context,
           title: slimTxT(title ?? ''),
@@ -157,7 +157,7 @@ class IconItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
+        children: [
           InkWell(
             customBorder: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),

@@ -828,14 +828,14 @@ class GameState with ChangeNotifier {
         builder: (context) {
           return configDialog(context, _sizeTitle, _sizeOptions);
         });
-    print("game map size：${this._mapSize}");
+    print('game map size：${this._mapSize}');
     var difficulty = await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return configDialog(context, _speedTitle, _speedOptions);
         });
-    print("game speed：${this._speed}");
+    print('game speed：${this._speed}');
     var confirmTitle = '''在以下选项中开始游戏?
 
     游戏模式: $gameMode

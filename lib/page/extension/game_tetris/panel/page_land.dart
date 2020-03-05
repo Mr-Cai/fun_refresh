@@ -12,11 +12,11 @@ class PageLand extends StatelessWidget {
           padding: MediaQuery.of(context).padding,
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  children: [
                     Spacer(),
                     SystemButtonGroup(),
                     Spacer(),
@@ -30,17 +30,18 @@ class PageLand extends StatelessWidget {
               _ScreenDecoration(child: Screen.fromHeight(height * 0.8)),
               Expanded(
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     Row(
-                      children: <Widget>[
+                      children: [
                         Spacer(),
-                       /*  FlatButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => DonationDialog());
-                            },
-                            child: Text(S.of(context).reward)) */
+                        FlatButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => DonationDialog());
+                          },
+                          child: backBTN(context),
+                        )
                       ],
                     ),
                     Spacer(),

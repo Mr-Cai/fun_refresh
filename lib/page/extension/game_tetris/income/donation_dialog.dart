@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-const HONG_BAO = "打开支付宝首页搜“621412820”领红包，领到大红包的小伙伴赶紧使用哦！";
+const HONG_BAO = '打开支付宝首页搜“621412820”领红包，领到大红包的小伙伴赶紧使用哦！';
 
 class DonationDialog extends StatelessWidget {
   @override
@@ -10,12 +10,12 @@ class DonationDialog extends StatelessWidget {
     return SimpleDialog(
       contentPadding:
           const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 4),
-      children: <Widget>[
+      children: [
         SizedBox(width: MediaQuery.of(context).size.width),
         Container(
-            padding: const EdgeInsets.all(16), child: Text("开发不易，赞助一下开发者。")),
+            padding: const EdgeInsets.all(16), child: Text('开发不易，赞助一下开发者。')),
         _ActionTile(
-          text: "微信捐赠",
+          text: '微信捐赠',
           onTap: () async {
             await showDialog(
                 context: context,
@@ -24,7 +24,7 @@ class DonationDialog extends StatelessWidget {
           },
         ),
         _ActionTile(
-          text: "支付宝捐赠",
+          text: '支付宝捐赠',
           onTap: () async {
             await showDialog(
                 context: context,
@@ -33,12 +33,12 @@ class DonationDialog extends StatelessWidget {
           },
         ),
         _ActionTile(
-          text: "支付宝红包码",
+          text: '支付宝红包码',
           onTap: () async {
             await Clipboard.setData(ClipboardData(text: HONG_BAO));
             final data = await Clipboard.getData(Clipboard.kTextPlain);
             if (data.text == HONG_BAO) {
-              showSimpleNotification(Text("已复制到粘贴板 （≧ｙ≦＊）"));
+              showSimpleNotification(Text('已复制到粘贴板 （≧ｙ≦＊）'));
             } else {
               await showDialog(
                   context: context,
@@ -77,9 +77,9 @@ class _ReceiptDialog extends StatelessWidget {
 
   const _ReceiptDialog({Key key, this.image}) : super(key: key);
 
-  const _ReceiptDialog.weChat() : this(image: "asset/wechat.png");
+  const _ReceiptDialog.weChat() : this(image: 'asset/wechat.png');
 
-  const _ReceiptDialog.aliPay() : this(image: "asset/alipay.jpg");
+  const _ReceiptDialog.aliPay() : this(image: 'asset/alipay.jpg');
 
   static final borderRadius = BorderRadius.circular(5);
 
@@ -107,7 +107,7 @@ class _ActionTile extends StatelessWidget {
       child: Container(
         height: 40,
         child: Row(
-          children: <Widget>[
+          children: [
             SizedBox(width: 16),
             Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
           ],

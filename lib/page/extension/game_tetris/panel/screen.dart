@@ -35,7 +35,7 @@ class Screen extends StatelessWidget {
             child: BrikSize(
               size: getBrikSizeForScreenWidth(playerPanelWidth),
               child: Row(
-                children: <Widget>[
+                children: [
                   PlayerPanel(width: playerPanelWidth),
                   SizedBox(
                     width: width - playerPanelWidth,

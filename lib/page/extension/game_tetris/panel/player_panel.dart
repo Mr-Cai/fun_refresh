@@ -21,7 +21,7 @@ class PlayerPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("size : $size");
+    debugPrint('size : $size');
     return SizedBox.fromSize(
       size: size,
       child: Container(
@@ -30,7 +30,7 @@ class PlayerPanel extends StatelessWidget {
           border: Border.all(color: Colors.black),
         ),
         child: Stack(
-          children: <Widget>[
+          children: [
             _PlayerPad(),
             _GameUninitialized(),
           ],
@@ -64,11 +64,11 @@ class _GameUninitialized extends StatelessWidget {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             IconDragon(animate: true),
             SizedBox(height: 16),
             Text(
-              "俄罗斯方块",
+              '俄罗斯方块',
               style: TextStyle(fontSize: 20),
             ),
           ],

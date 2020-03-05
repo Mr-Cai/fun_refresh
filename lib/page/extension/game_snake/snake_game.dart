@@ -80,7 +80,7 @@ class SnakeHomeState extends State<SnakeHome>
               Color(gameState.controllerShadowColor)),
           _buildMainPanel(context, width, height),
           Column(
-            children: <Widget>[
+            children: [
               _scoreBoard(),
               _buildController(
                   width,
@@ -99,7 +99,7 @@ class SnakeHomeState extends State<SnakeHome>
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
-          children: <Widget>[
+          children: [
             ListTile(
               leading: Icon(Icons.settings_applications),
               title: Text('颜色选项'),
@@ -220,7 +220,7 @@ class SnakeHomeState extends State<SnakeHome>
             ),
             borderRadius: BorderRadius.circular(20.0)),
         child: Stack(
-          children: <Widget>[
+          children: [
             // Positioned(
             //     left: 0.0, top: 0.0, child: Icon(Icons.fiber_new)),
             Center(

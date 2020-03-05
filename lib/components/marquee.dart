@@ -191,7 +191,7 @@ class _MarqueePainter extends CustomPainter {
     textPainter.text = getTextSpan(current);
     textPainter.textAlign = TextAlign.center;
     textPainter.maxLines = 1;
-    textPainter.ellipsis = "...";
+    textPainter.ellipsis = '...';
     textPainter.layout(maxWidth: size.width);
     textPainter.paint(canvas, _getTextOffset(textPainter, size));
   }
@@ -200,7 +200,7 @@ class _MarqueePainter extends CustomPainter {
     textPainter.text = getTextSpan(nextPosition);
     textPainter.textAlign = TextAlign.center;
     textPainter.maxLines = 1;
-    textPainter.ellipsis = "...";
+    textPainter.ellipsis = '...';
     textPainter.layout(maxWidth: size.width);
     textPainter.paint(canvas, _getTextOffset(textPainter, size, isNext: true));
   }

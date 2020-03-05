@@ -29,25 +29,25 @@ class _Game2048State extends State<Game2048> {
         int color;
         if (num == 0) {
           color = MyColor.emptyGridBackground;
-          number = "";
+          number = '';
         } else if (num == 2 || num == 4) {
           color = MyColor.gridColorTwoFour;
-          number = "$num";
+          number = '$num';
         } else if (num == 8 || num == 64 || num == 256) {
           color = MyColor.gridColorEightSixtyFourTwoFiftySix;
-          number = "$num";
+          number = '$num';
         } else if (num == 16 || num == 32 || num == 1024) {
           color = MyColor.gridColorSixteenThirtyTwoOneZeroTwoFour;
-          number = "$num";
+          number = '$num';
         } else if (num == 128 || num == 512) {
           color = MyColor.gridColorOneTwentyEightFiveOneTwo;
-          number = "$num";
+          number = '$num';
         } else {
           color = MyColor.gridColorWin;
-          number = "$num";
+          number = '$num';
         }
         double size;
-        String n = "$number";
+        String n = '$number';
         switch (n.length) {
           case 1:
           case 2:
@@ -148,7 +148,7 @@ class _Game2048State extends State<Game2048> {
 
       bool gamewon = isGameWon(grid);
       if (gamewon) {
-        print("GAME WON");
+        print('GAME WON');
         setState(() {
           isgameWon = true;
         });
@@ -198,7 +198,7 @@ class _Game2048State extends State<Game2048> {
           child: Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(
-              children: <Widget>[
+              children: [
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Container(
@@ -209,7 +209,7 @@ class _Game2048State extends State<Game2048> {
                     ),
                     height: 82.0,
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Padding(
                           padding: EdgeInsets.only(top: 10.0, bottom: 2.0),
                           child: Text(
@@ -237,7 +237,7 @@ class _Game2048State extends State<Game2048> {
                 Container(
                   height: height,
                   child: Stack(
-                    children: <Widget>[
+                    children: [
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: GestureDetector(
@@ -306,7 +306,7 @@ class _Game2048State extends State<Game2048> {
                   padding: EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
+                    children: [
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
@@ -342,7 +342,7 @@ class _Game2048State extends State<Game2048> {
                         child: Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Column(
-                            children: <Widget>[
+                            children: [
                               Text(
                                 '最高得分',
                                 style: TextStyle(

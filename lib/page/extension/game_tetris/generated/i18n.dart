@@ -19,14 +19,14 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get cleans => "Cleans";
-  String get level => "Level";
-  String get next => "Next";
-  String get pause_resume => "PAUSE/RESUME";
-  String get points => "Points";
-  String get reset => "RESET";
-  String get reward => "Reward";
-  String get sounds => "SOUNDS";
+  String get cleans => 'Cleans';
+  String get level => 'Level';
+  String get next => 'Next';
+  String get pause_resume => 'PAUSE/RESUME';
+  String get points => 'Points';
+  String get reset => 'RESET';
+  String get reward => 'Reward';
+  String get sounds => 'SOUNDS';
 }
 
 class $en extends S {
@@ -40,21 +40,21 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get next => "下一个";
+  String get next => '下一个';
   @override
-  String get reward => "赞赏";
+  String get reward => '赞赏';
   @override
-  String get sounds => "声音";
+  String get sounds => '声音';
   @override
-  String get pause_resume => "暂停/恢复";
+  String get pause_resume => '暂停/恢复';
   @override
-  String get level => "级别";
+  String get level => '级别';
   @override
-  String get reset => "重置";
+  String get reset => '重置';
   @override
-  String get cleans => "消除";
+  String get cleans => '消除';
   @override
-  String get points => "分数";
+  String get points => '分数';
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
@@ -62,8 +62,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale("en", ""),
-      Locale("zh", "CN"),
+      Locale('en', ''),
+      Locale('zh', 'CN'),
     ];
   }
 
@@ -88,7 +88,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
       return fallback ?? supported.first;
     }
 
-    final Locale languageLocale = Locale(locale.languageCode, "");
+    final Locale languageLocale = Locale(locale.languageCode, '');
     if (supported.contains(locale)) {
       return locale;
     } else if (supported.contains(languageLocale)) {
@@ -104,9 +104,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     final String lang = getLang(locale);
     if (lang != null) {
       switch (lang) {
-        case "en":
+        case 'en':
           return SynchronousFuture<S>(const $en());
-        case "zh_CN":
+        case 'zh_CN':
           return SynchronousFuture<S>(const $zh_CN());
         default:
         // NO-OP.

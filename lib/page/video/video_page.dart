@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:tencent_ad/native.dart';
 import '../../components/video_item.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -96,7 +94,7 @@ class _VideoPageState extends State<VideoPage> {
                 },
               );
             } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
+              return Text('${snapshot.error}');
             }
             return Center(child: RefreshProgressIndicator());
           },

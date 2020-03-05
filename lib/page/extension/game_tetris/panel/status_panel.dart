@@ -14,7 +14,7 @@ class StatusPanel extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Text(S.of(context).points,
               style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 4),
@@ -102,7 +102,7 @@ class _GameStatusState extends State<_GameStatus> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[
+      children: [
         IconSound(enable: GameState.of(context).muted),
         SizedBox(width: 4),
         IconPause(enable: GameState.of(context).states == GameStates.paused),

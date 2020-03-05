@@ -25,11 +25,11 @@ class Number extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String digitalStr = number?.toString() ?? "";
+    String digitalStr = number?.toString() ?? '';
     if (digitalStr.length > length) {
       digitalStr = digitalStr.substring(digitalStr.length - length);
     }
-    digitalStr = digitalStr.padLeft(length, padWithZero ? "0" : " ");
+    digitalStr = digitalStr.padLeft(length, padWithZero ? '0' : ' ');
     List<Widget> children = [];
     for (int i = 0; i < length; i++) {
       children.add(Digital(int.tryParse(digitalStr[i])));

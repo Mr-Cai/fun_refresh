@@ -27,7 +27,7 @@ class SwiperController extends ChangeNotifier {
 
   _SwiperState get _state {
     assert(_SwiperState != null,
-        "SwiperController cannot be accessed before a Swiper is built with it");
+        'SwiperController cannot be accessed before a Swiper is built with it');
     return _swiperState;
   }
 
