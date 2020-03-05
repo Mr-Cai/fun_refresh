@@ -163,7 +163,7 @@ class IconItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(32.0),
             ),
             onTap: () {
-              pushNamed(context, '');
+              pushName(context, '');
             },
             child: Container(
               margin: const EdgeInsets.all(8.0),
@@ -206,13 +206,13 @@ class RatioSwiper extends StatelessWidget {
             onTap: () {
               switch (index) {
                 case 0:
-                  pushNamed(context, game2048);
+                  pushName(context, game2048);
                   break;
                 case 1:
-                  pushNamed(context, game_tetris);
+                  pushName(context, game_tetris);
                   break;
                 case 2:
-                  pushNamed(context, game_snake);
+                  pushName(context, game_snake);
                   break;
               }
             },

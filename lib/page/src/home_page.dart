@@ -112,11 +112,10 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       return Marquee(
                         textList: [
-                          '实时天气: ${snapshot.data[0].weather[0].now.condDesc}',
-                          '实时温度: ${snapshot.data[1].weather[0].forecast[0].tempMax} ℃ ~ ${snapshot.data[1].weather[0].forecast[0].tempMax} ℃',
-                          '当前室外: ${snapshot.data[2].weather[0].hourly[0].temp} ℃',
-                          '生活建议: ${snapshot.data[3].weather[0].lifestyle[0].desc}',
-                          '🌞 ${snapshot.data[1].weather[0].forecast[0].sunRise} ~ ${snapshot.data[1].weather[0].forecast[0].sunSet} 🌛'
+                          '${snapshot.data[0].weather[0].now.condDesc ?? ''}',
+                          '${snapshot.data[1].weather[0].forecast[0].tempMax}℃~${snapshot.data[1].weather[0].forecast[0].tempMax}℃',
+                          '${snapshot.data[2].weather[0].hourly[0].temp} ℃',
+                          '🌞${snapshot.data[1].weather[0].forecast[0].sunRise} ~ ${snapshot.data[1].weather[0].forecast[0].sunSet}🌛'
                         ],
                         fontSize: 10.0,
                         controller: _marqueeController,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/tools/global.dart';
 import 'package:tencent_ad/tencent_ad.dart';
-import '../../components/mini.dart';
 import '../../components/top_bar.dart';
 import '../../model/i18n/i18n.dart';
 
 class ErrorPage extends StatefulWidget {
+  const ErrorPage({this.args});
+
+  final Map args;
+
   @override
   State<StatefulWidget> createState() => _ErrorPageState();
 }
@@ -25,7 +28,11 @@ class _ErrorPageState extends State<ErrorPage> {
         onTap: () {},
         child: Column(
           children: [
-            errorLoad(context),
+            widget.args == null || widget.args['type'] == 'error'
+                ? errorLoad(context)
+                : widget.args['type'] == 'disconnect'
+                    ? disconnect(context, netType: widget.args['netType'])
+                    : Container(),
             Spacer(),
             Container(
               height: _bannerClose == true ? 0 : 64.0,

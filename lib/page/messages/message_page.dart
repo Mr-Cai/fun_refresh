@@ -47,7 +47,7 @@ class MsgItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: () {
-          pushNamed(context, 'name');
+          pushName(context, 'name');
         },
         child: Container(
           margin: const EdgeInsets.symmetric(

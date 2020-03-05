@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,8 +57,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: InkWell(
-        onTap: () {
-        },
+        onTap: () {},
         child: Column(
           children: [
             DisclaimerMsg(state: this, key: dialogKey),

@@ -235,7 +235,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => pushNamed(context, profile),
+        onTap: () => pushName(context, profile),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

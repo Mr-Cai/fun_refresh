@@ -131,7 +131,7 @@ Widget forwardBTN(
           height: 18.0,
         ),
       ),
-      onPressed: () => pushNamed(context, route),
+      onPressed: () => pushName(context, route),
     ),
   );
 }

@@ -296,13 +296,13 @@ class GameLogo extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            pushNamed(context, game2048);
+            pushName(context, game2048);
             break;
           case 1:
-            pushNamed(context, game_tetris);
+            pushName(context, game_tetris);
             break;
           case 2:
-            pushNamed(context, game_snake);
+            pushName(context, game_snake);
             break;
           default:
         }

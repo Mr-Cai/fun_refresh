@@ -57,7 +57,7 @@ Map<String, String> get config =>
             'nativeID': '8040483237917481',
             'intersID': '7080080247106780',
             'splashID': '7020785136977336',
-            'bgPic': 'intelligent.fun_refresh:mipmap/splash_img'
+            'bgPic': 'intelligent.fun_refresh:mipmap/white'
           }
         : {
             'appID': '',

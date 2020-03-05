@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import './page/extension/game_tetris/generated/i18n.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
 import './tools/global.dart';
 import './model/i18n/i18n.dart';
 import './page/routes/route_generator.dart';
@@ -9,10 +12,23 @@ import 'package:tencent_ad/tencent_ad.dart';
 
 import 'model/data/local_asset.dart';
 
-void main() {
+Future<void> main() async {
+  BaseOptions options = BaseOptions(
+    baseUrl: 'https://www.google.com',
+    connectTimeout: 999,
+    receiveTimeout: 999,
+  );
+  Dio dio = Dio(options);
+  String splashID = '';
+  try {
+    await dio.get('/');
+  } on DioError catch (_) {
+    // 请求谷歌超时说明是大陆网络, 配置开屏, 海外不配置
+    splashID = config['splashID'];
+  }
   WidgetsFlutterBinding.ensureInitialized();
-  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
-      (_) => SplashAd(config['splashID'], bgPic: config['bgPic']).showAd());
+  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0)
+      .then((_) => SplashAd(splashID, bgPic: config['bgPic']).showAd());
   runApp(FunRefreshApp());
 }
 
@@ -21,9 +37,23 @@ class FunRefreshApp extends StatefulWidget {
   State<StatefulWidget> createState() => _FunRefreshAppState();
 }
 
-class _FunRefreshAppState extends State<FunRefreshApp> {
+class _FunRefreshAppState extends State<FunRefreshApp>
+    with AutomaticKeepAliveClientMixin {
+  StreamSubscription connectSubs;
+  ConnectivityResult _prevResult;
+
   @override
   void initState() {
+    connectSubs = Connectivity().onConnectivityChanged.listen(
+      (result) {
+        if (result == ConnectivityResult.none) {
+          pushName(context, '', args: {'type': 'disconnect'});
+        } else if (_prevResult == ConnectivityResult.none) {
+          pushReplace(context, home);
+        }
+        _prevResult = result;
+      },
+    );
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -37,7 +67,14 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
   }
 
   @override
+  void dispose() {
+    connectSubs.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -67,4 +104,7 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

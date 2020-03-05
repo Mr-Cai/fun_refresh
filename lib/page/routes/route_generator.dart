@@ -11,7 +11,11 @@ class RouteGenerator {
         return _skipRoute(SplashPage()); // 闪屏页面
       case home:
         return _skipRoute(
-            I18nContainer(key: i18nKey, child: HomePage())); // 主页面
+          I18nContainer(
+            key: i18nKey,
+            child: HomePage(),
+          ),
+        ); // 主页面
       case sign:
         return _skipRoute(SignPage()); // 注册登录页面
       case social:
@@ -35,7 +39,7 @@ class RouteGenerator {
       case game_snake:
         return _skipRoute(SnakeGame()); // 贪吃蛇
       default:
-        return _skipRoute(ErrorPage()); // 出错页面
+        return _skipRoute(ErrorPage(args: args)); // 出错页面
     }
   }
 }
@@ -47,17 +51,17 @@ Route<dynamic> _skipRoute(Widget page) {
   );
 }
 
-void pop(BuildContext context) => Navigator.of(context).pop();
+void pop(BuildContext context) => ctxKey.currentState.pop();
 
-Future<dynamic> pushNamed(BuildContext context, String name, {Object args}) {
-  return Navigator.of(context).pushNamed(
+Future<dynamic> pushName(BuildContext context, String name, {Object args}) {
+  return ctxKey.currentState.pushNamed(
     '$name',
     arguments: args,
   );
 }
 
 Future<dynamic> pushReplace(BuildContext context, String name, {Object args}) {
-  return Navigator.of(context).pushReplacementNamed(
+  return ctxKey.currentState.pushReplacementNamed(
     '$name',
     arguments: args,
   );

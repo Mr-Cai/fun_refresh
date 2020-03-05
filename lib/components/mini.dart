@@ -29,6 +29,23 @@ Widget errorLoad(BuildContext context, {double height}) => Column(
       ],
     );
 
+Widget disconnect(BuildContext context, {double height, String netType}) =>
+    Column(
+      children: [
+        Container(
+          height: height ?? sizeH(context) * .6,
+          child: FlareActor(
+            path('disconnect', 0),
+            animation: 'no_connection',
+          ),
+        ),
+        Text(
+          '${netType ?? ''}网络已断开，请检查配置！！',
+          textScaleFactor: 1.6,
+        ),
+      ],
+    );
+
 Widget $ItemTile(
   BuildContext context, {
   Widget title,
@@ -37,7 +54,7 @@ Widget $ItemTile(
   bool isSlim = false,
 }) {
   return InkWell(
-    onTap: () => pushNamed(context, ''),
+    onTap: () => pushName(context, ''),
     child: Row(
       children: [
         Flexible(
