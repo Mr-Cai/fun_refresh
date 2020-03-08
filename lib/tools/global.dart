@@ -71,6 +71,7 @@ const setting = '/setting'; // 设置
 const chat = '/chat'; // 与人聊天
 const profile = '/profile'; // 个人资料
 const search = '/search'; // 搜索关键词
+const web_view = '/web_view'; // 浏览器
 
 // 小游戏
 const game2048 = '/game2048'; // 2048

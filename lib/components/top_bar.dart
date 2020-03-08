@@ -19,6 +19,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.isMenu = false,
     this.titleTop,
     this.titleBottom,
+    this.isGradient,
   }) : super(key: key);
 
   final String title;
@@ -33,6 +34,7 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final double titleBottom;
   final List<Widget> actions;
   final bool isMenu;
+  final bool isGradient;
 
   @override
   State<StatefulWidget> createState() => _TopBarState();
@@ -49,7 +51,22 @@ class _TopBarState extends State<TopBar> {
         top: widget.top ?? 16.0,
         bottom: widget.bottom ?? 0.0,
       ),
-      color: widget.bgColor ?? Colors.transparent,
+      decoration: BoxDecoration(
+        color: widget.bgColor == null && widget.isGradient == false
+            ? Colors.transparent
+            : widget.bgColor,
+        gradient: widget.isGradient == true
+            ? LinearGradient(
+                colors: [
+                  Colors.lightBlue,
+                  Colors.lightBlueAccent,
+                  Colors.cyan,
+                  Colors.greenAccent,
+                ],
+                transform: GradientRotation(20.0),
+              )
+            : null,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -61,7 +78,7 @@ class _TopBarState extends State<TopBar> {
             margin: EdgeInsets.only(
                 right: widget.right ?? sizeW(context) * .16,
                 left: widget.left ?? 0.0,
-                top: widget.titleTop ?? 2.0,
+                top: widget.titleTop ?? 0.0,
                 bottom: widget.titleBottom ?? 0.0),
             child: Text(
               widget.title ?? '标题',
@@ -102,8 +119,8 @@ Widget backBTN(
       icon: SvgPicture.asset(
         path('back', 5),
         color: color ?? Colors.white,
-        width: 26.0,
-        height: 26.0,
+        width: 22.0,
+        height: 22.0,
       ),
       onPressed: () => pop(context),
     ),

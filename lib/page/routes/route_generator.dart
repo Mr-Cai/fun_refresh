@@ -32,6 +32,8 @@ class RouteGenerator {
         return _skipRoute(ProfilePage(args: args)); // 个人信息页面
       case search:
         return _skipRoute(SearchPanel()); // 关键词搜索页面
+      case web_view:
+        return _skipRoute(WebViewPage(args: args)); // 关键词搜索页面
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
       case game_tetris:

@@ -1,8 +1,14 @@
+import 'dart:developer';
+import 'dart:ffi';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/theme.dart';
+import 'package:fun_refresh/page/routes/route_generator.dart';
+import 'package:fun_refresh/tools/api.dart';
 import '../model/data/local_asset.dart';
 import '../tools/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DisclaimerMsg extends StatefulWidget {
   const DisclaimerMsg({Key key, this.state}) : super(key: key);
@@ -16,6 +22,9 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
   Future<bool> _unknow;
   bool _valBool = false;
   bool _readed = false;
+  var agreementUrl;
+  var privateUrl;
+  var guideUrl;
   @override
   void initState() {
     _unknow = _pref.then(
@@ -25,6 +34,7 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
       _valBool = onValue;
       _readed = onValue;
     });
+
     super.initState();
   }
 
@@ -32,47 +42,56 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
   Widget build(BuildContext context) =>
       InkWell(onTap: () => showDisClaimerDialog(context), child: Container());
 
-  Future<void> showDisClaimerDialog(BuildContext context) {
+  showDisClaimerDialog(BuildContext context) {
     return showDialog<void>(
       barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
         content: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: ListBody(
-            children: [
-              SelectableText(disclaimerText),
-              Row(
-                children: [
-                  Text('👉 前往查看完整版'),
-                  InkWell(
-                    child: Text(
-                      '隐私政策',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                    onTap: () async {
-                      const url =
-                          'https://github.com/Mr-Cai/fun_refresh/blob/master/declaimer';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-                  ),
-                ],
-              )
-            ],
+          child: WillPopScope(
+            onWillPop: () {
+              return Future.value(false);
+            },
+            child: ListBody(
+              children: [
+                SelectableText(
+                  disclaimerText,
+                  scrollPhysics: BouncingScrollPhysics(),
+                ),
+                StreamBuilder(
+                  stream: _checkRequest().asStream(),
+                  builder: (context, snapshot) {
+                    return Wrap(
+                      runSpacing: 8.0,
+                      children: [
+                        slimTxT('《服务协议》', color: Colors.blue, onTap: () {
+                          pushName(context, web_view,
+                              args: {'url': agreementUrl});
+                        }),
+                        slimTxT('《隐私政策》', color: Colors.blue, onTap: () {
+                          pushName(context, web_view,
+                              args: {'url': privateUrl});
+                        }),
+                        slimTxT('《隐私保护指引》', color: Colors.blue, onTap: () {
+                          pushName(context, web_view, args: {'url': guideUrl});
+                        }),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        actions: <Widget>[
+        actions: [
           Container(
             width: 250.0,
             child: _buildSureItem(),
-          )
+          ),
         ],
       ),
     );
@@ -150,6 +169,25 @@ class DisclaimerMsgState extends State<DisclaimerMsg> {
     if (mounted) {
       setState(() => _unknow =
           pref.setBool(dialogPrefKey, unknow).then((bool success) => unknow));
+    }
+  }
+
+  Future<void> _checkRequest() async {
+    BaseOptions options = BaseOptions(
+      baseUrl: 'https://www.google.com',
+      connectTimeout: 999,
+      receiveTimeout: 999,
+    );
+    Dio dio = Dio(options);
+    try {
+      await dio.get('/');
+      agreementUrl = agreement1;
+      privateUrl = private1;
+      guideUrl = guide1;
+    } on DioError catch (_) {
+      agreementUrl = agreement;
+      privateUrl = private;
+      guideUrl = guide;
     }
   }
 }

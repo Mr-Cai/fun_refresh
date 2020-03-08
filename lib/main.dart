@@ -22,13 +22,30 @@ Future<void> main() async {
   String splashID = '';
   try {
     await dio.get('/');
+    splashID = null;
   } on DioError catch (_) {
     // 请求谷歌超时说明是大陆网络, 配置开屏, 海外不配置
     splashID = config['splashID'];
   }
   WidgetsFlutterBinding.ensureInitialized();
-  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0)
-      .then((_) => SplashAd(splashID, bgPic: config['bgPic']).showAd());
+  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
+    (_) => SplashAd(splashID, bgPic: config['bgPic'], callBack: (event, args) {
+      switch (event) {
+        case SplashAdEvent.onAdExposure:
+        case SplashAdEvent.onAdPresent:
+          return SystemChrome.setEnabledSystemUIOverlays(
+            [SystemUiOverlay.bottom],
+          );
+          break;
+        case SplashAdEvent.onAdClosed:
+        case SplashAdEvent.onAdDismiss:
+        case SplashAdEvent.onNoAd:
+          return SystemChrome.setEnabledSystemUIOverlays(
+              [SystemUiOverlay.values[0]]);
+        default:
+      }
+    }).showAd(),
+  );
   runApp(FunRefreshApp());
 }
 
@@ -53,15 +70,6 @@ class _FunRefreshAppState extends State<FunRefreshApp>
         }
         _prevResult = result;
       },
-    );
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
     );
     super.initState();
   }

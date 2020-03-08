@@ -2,6 +2,18 @@
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const imgs_base = 'https://s2.ax1x.com/';
 
+/// 服务声明
+// 海外
+const private1 = 'https://bit.ly/3adde';
+const guide1 = 'https://bit.ly/7dwoe';
+const agreement1 = 'https://bit.ly/32rkc';
+
+// 大陆
+const page = 'https://mr-cai.gitee.io/html';
+const private = '$page/private';
+const guide = '$page/private_guide';
+const agreement = '$page/agreement';
+
 /// 开眼视频(日报版块)
 /// 请求头
 /// { 'User-Agent': POST_MAN }

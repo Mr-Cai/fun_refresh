@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/disclaimer_dialog.dart';
 import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
+import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:tencent_ad/banner.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 import '../../../model/data/local_asset.dart' show config, settingTxT;
-import '../../../model/data/theme.dart';
+import '../../../components/theme.dart';
 
 class SettingPage extends StatefulWidget with NavigationState {
   const SettingPage(this.isPush);
@@ -53,19 +55,30 @@ class _SettingPageState extends State<SettingPage> {
             children: [
               $HLine(),
               ItemTile(index: 0, isTrail: true),
+              $HLine(),
               ItemTile(index: 1, isTrail: true),
               ItemTile(index: 2, isTrail: true),
-              ItemTile(
-                index: 3,
-                onTap: () {
-                  setState(() {
-                    dialogKey.currentState.showDisClaimerDialog(context);
-                  });
-                },
-              ),
               $HLine(),
               _buildBTN(),
             ],
+          ),
+          Align(
+            alignment: Alignment(0.0, 0.8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                slimTxT('《服务协议》', color: Colors.blue, onTap: () {
+                  pushName(context, web_view, args: {'url': agreement});
+                }),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text('|'),
+                ),
+                slimTxT('《隐私政策》', color: Colors.blue, onTap: () {
+                  pushName(context, web_view, args: {'url': private});
+                }),
+              ],
+            ),
           ),
           Positioned(
             bottom: 0.0,
@@ -95,21 +108,25 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget _buildBTN() {
-    return FlatButton(
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      color: Colors.red,
-      child: Text(
-        '退出登录',
-        style: TextStyle(
-          fontSize: 22.0,
-          color: Colors.white,
-          fontWeight: FontWeight.values[0],
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: FlatButton(
+        padding: const EdgeInsets.all(8.0),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
         ),
+        color: Colors.red,
+        child: Text(
+          '退出登录',
+          style: TextStyle(
+            fontSize: 22.0,
+            color: Colors.white,
+            fontWeight: FontWeight.values[0],
+          ),
+        ),
+        onPressed: () {},
       ),
-      onPressed: () {},
     );
   }
 }

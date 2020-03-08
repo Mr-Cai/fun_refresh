@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fun_refresh/components/mini.dart';
-import 'package:fun_refresh/model/data/theme.dart';
+import '../../components/theme.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../tools/global.dart';
+import 'package:fun_refresh/tools/global.dart';
 
 /// 文字样式
 // 默认黑色小字
@@ -11,12 +11,16 @@ blackTxT(String text) => Text(
     );
 
 // 默认黑色细体
-slimTxT(String text, {double size, Color color, int no}) => Text(
-      text,
-      style: TextStyle(
-        color: color ?? Colors.black,
-        fontSize: size ?? 18.0,
-        fontWeight: FontWeight.values[no ?? 0],
+slimTxT(String text, {double size, Color color, int no, Function onTap}) =>
+    GestureDetector(
+      onTap: onTap,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color ?? Colors.black,
+          fontSize: size ?? 18.0,
+          fontWeight: FontWeight.values[no ?? 0],
+        ),
       ),
     );
 

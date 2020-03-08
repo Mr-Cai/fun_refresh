@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../model/mock/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
-import '../model/data/theme.dart';
+import '../components/theme.dart';
 import '../model/i18n/i18n.dart';
 import '../page/routes/route_generator.dart';
 import '../tools/global.dart';

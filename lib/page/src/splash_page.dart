@@ -23,6 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   GlobalKey<DisclaimerMsgState> dialogKey;
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,

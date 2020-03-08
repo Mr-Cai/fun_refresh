@@ -1,6 +1,7 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
@@ -34,11 +35,6 @@ class _HomePageState extends State<HomePage> {
         '${I18n.of(context).more}',
         '${I18n.of(context).msg}',
       ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {

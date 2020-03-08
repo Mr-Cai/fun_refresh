@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/model/data/theme.dart';
+import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:intl/intl.dart';
 import 'package:tencent_ad/native.dart';
