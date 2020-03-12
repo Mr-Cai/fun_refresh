@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/top_bar.dart';
-import 'package:fun_refresh/tools/global.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -99,13 +98,7 @@ class _WebViewPageState extends State<WebViewPage> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: Container(
-                  height: sizeH(context) * .3,
-                  child: FlareActor(
-                    path('loading', 0),
-                    animation: 'Alarm',
-                  ),
-                ),
+                child: loadingAnim(context),
               ),
             ],
           ),

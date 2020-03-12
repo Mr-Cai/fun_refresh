@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/page/video/video_detail_page.dart';
 import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../export_page_pkg.dart';
@@ -33,7 +34,9 @@ class RouteGenerator {
       case search:
         return _skipRoute(SearchPanel()); // 关键词搜索页面
       case web_view:
-        return _skipRoute(WebViewPage(args: args)); // 关键词搜索页面
+        return _skipRoute(WebViewPage(args: args)); // 浏览器页面
+      case video_detail:
+        return _skipRoute(VideoDetailPage(args: args)); // 视频详情
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
       case game_tetris:

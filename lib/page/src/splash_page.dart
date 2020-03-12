@@ -21,6 +21,7 @@ class _SplashPageState extends State<SplashPage> {
   final _prefs = SharedPreferences.getInstance();
   Future<bool> _unknow;
   GlobalKey<DisclaimerMsgState> dialogKey;
+
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
@@ -91,7 +92,7 @@ class _SplashPageState extends State<SplashPage> {
                       style: TextStyle(color: Colors.black45),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ],

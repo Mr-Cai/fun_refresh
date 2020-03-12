@@ -59,8 +59,7 @@ class _GamePageState extends State<GamePage>
   @override
   void initState() {
     accelerometerEvents.listen((event) {
-      // 摇一摇阀值,不同手机能达到的最大值不同，如某品牌手机只能达到20。
-      int value = 10;
+      int value = 15; // 摇一摇阀值, 值越大越迟钝
       if (event.x >= value ||
           event.x <= -value ||
           event.y >= value ||
@@ -73,6 +72,7 @@ class _GamePageState extends State<GamePage>
         });
       }
     });
+
     setState(() {
       pos = 24 + random.nextInt(128).toDouble();
       getRanSize();

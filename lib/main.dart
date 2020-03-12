@@ -34,15 +34,17 @@ Future<void> main() async {
         case SplashAdEvent.onAdExposure:
         case SplashAdEvent.onAdPresent:
           return SystemChrome.setEnabledSystemUIOverlays(
-            [SystemUiOverlay.bottom],
+            [SystemUiOverlay.bottom], // 隐藏状态栏
           );
           break;
         case SplashAdEvent.onAdClosed:
         case SplashAdEvent.onAdDismiss:
         case SplashAdEvent.onNoAd:
           return SystemChrome.setEnabledSystemUIOverlays(
-              [SystemUiOverlay.values[0]]);
+              [SystemUiOverlay.values[0]]); // 显示状态栏
         default:
+          return SystemChrome.setEnabledSystemUIOverlays(
+              [SystemUiOverlay.values[0]]);
       }
     }).showAd(),
   );

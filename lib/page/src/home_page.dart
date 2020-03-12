@@ -37,6 +37,16 @@ class _HomePageState extends State<HomePage> {
       ];
 
   @override
+  void initState() {
+    Future.delayed(Duration(seconds: 1), () {
+      SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.values[0]],
+      );
+    });
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _interstitialAd?.dispose();
     super.dispose();

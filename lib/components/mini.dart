@@ -6,28 +6,42 @@ import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../tools/api.dart';
 import '../tools/global.dart';
 
-BannerAd createBannerAd({@required AdSize size}) => BannerAd(
-      adUnitId: bannerUnit,
-      size: size,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {},
-    );
+BannerAd createBannerAd({@required AdSize size}) {
+  return BannerAd(
+    adUnitId: bannerUnit,
+    size: size,
+    targetingInfo: targetingInfo,
+    listener: (MobileAdEvent event) {},
+  );
+}
 
-Widget errorLoad(BuildContext context, {double height}) => Column(
-      children: [
-        Container(
-          height: height ?? sizeH(context) * .6,
-          child: FlareActor(
-            path('404', 0),
-            animation: 'idle',
-          ),
+Widget errorLoad(BuildContext context, {double height}) {
+  return Column(
+    children: [
+      Container(
+        height: height ?? sizeH(context) * .6,
+        child: FlareActor(
+          path('404', 0),
+          animation: 'idle',
         ),
-        Text(
-          '糟糕 ! 页面找不到了 !!!',
-          textScaleFactor: 1.6,
-        ),
-      ],
-    );
+      ),
+      Text(
+        '糟糕 ! 页面找不到了 !!!',
+        textScaleFactor: 1.6,
+      ),
+    ],
+  );
+}
+
+Widget loadingAnim(BuildContext context, {double height}) {
+  return Container(
+    height: height ?? sizeH(context) * .3,
+    child: FlareActor(
+      path('loading', 0),
+      animation: 'Alarm',
+    ),
+  );
+}
 
 Widget disconnect(BuildContext context, {double height, String netType}) =>
     Column(
