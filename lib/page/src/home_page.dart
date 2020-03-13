@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _currentNav = 0;
 
   final _marqueeController = MarqueeController();
@@ -38,16 +38,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     Future.delayed(Duration(seconds: 1), () {
-      SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.values[0]],
-      );
+      SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     });
     super.initState();
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+        break;
+      case AppLifecycleState.paused:
+        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+        break;
+      default:
+        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+  
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _interstitialAd?.dispose();
     super.dispose();
   }

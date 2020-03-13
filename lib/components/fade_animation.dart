@@ -26,6 +26,9 @@ class _FadeAnimationState extends State<FadeAnimation>
       }
     });
     animationController.forward(from: 0.0);
+    if (animationController.isCompleted) {
+      animationController.stop();
+    }
   }
 
   @override

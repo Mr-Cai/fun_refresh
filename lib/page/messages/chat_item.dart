@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/chat/planets.dart';
+import '../../model/mock/chat/planets.dart';
 
 import 'chat_page.dart';
 

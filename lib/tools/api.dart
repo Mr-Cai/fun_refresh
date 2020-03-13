@@ -1,6 +1,8 @@
 /// 资源链接
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const imgs_base = 'https://s2.ax1x.com/';
+const picDemo =
+    'https://cdn.pixabay.com/photo/2020/03/03/20/31/laguna-4899802_1280.jpg';
 
 /// 服务声明
 // 海外
@@ -14,7 +16,7 @@ const private = '$page/private';
 const guide = '$page/private_guide';
 const agreement = '$page/agreement';
 
-/// 开眼视频(日报版块)
+/// 开眼视频(API)
 /// 请求头
 /// { 'User-Agent': POST_MAN }
 /// 请求参数
@@ -24,7 +26,12 @@ const agreement = '$page/agreement';
 ///   'num': 10  总页数
 /// }
 const POST_MAN = 'PostmanRuntime/7.16.1';
+
+/// 日报版块
 const EYE_DAILY = 'https://baobab.kaiyanapp.com/api/v5/index/tab/feed';
+
+/// 推荐版块
+const EYE_RELATED = 'https://baobab.kaiyanapp.com/api/v4/video/related';
 
 /// 和风天气 🌞
 const HE_WEATHER_BASE = 'https://free-api.heweather.net/s6/weather';

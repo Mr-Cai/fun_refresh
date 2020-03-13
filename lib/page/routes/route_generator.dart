@@ -56,7 +56,8 @@ Route<dynamic> _skipRoute(Widget page) {
   );
 }
 
-void pop(BuildContext context) => ctxKey.currentState.pop();
+void pop(BuildContext context, {dynamic result}) =>
+    ctxKey.currentState.pop(result);
 
 Future<dynamic> pushName(BuildContext context, String name, {Object args}) {
   return ctxKey.currentState.pushNamed(

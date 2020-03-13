@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/page/routes/route_generator.dart';
 import 'package:tencent_ad/native.dart';
@@ -30,12 +32,19 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     holder = NativeExpressAdWidget(
       config['nativeID'],
     );
     _scrollCtrl = FixedExtentScrollController(initialItem: 2);
     super.initState();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +61,24 @@ class _VideoPageState extends State<VideoPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GestureDetector(
-                onTap: () {
+                onTap: () async {
                   final data =
                       snapshot.data.itemList[currentIndex].data.content.data;
+                  if (snapshot.data == null || data == null) {
+                    showSnackBar('这是广告，请点击别的视频封面');
+                  }
                   pushName(
                     context,
                     video_detail,
                     args: {
                       'url': '${data.playUrl}',
                       'index': '$currentIndex',
+                      'avatar': '${data.author.icon}',
+                      'name': '${data.author.name}',
+                      'slogan': '${data.author.description}',
+                      'title': '${data.title}',
+                      'desc': '${data.description}',
+                      'id': data.id,
                     },
                   );
                 },
@@ -82,33 +100,65 @@ class _VideoPageState extends State<VideoPage> {
                     }
                     final data =
                         snapshot.data.itemList[index].data.content.data;
-                    return Align(
-                      alignment: Alignment.center,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: data.cover.detail,
-                          placeholder: (_, __) => Center(
-                            child: RefreshProgressIndicator(),
-                          ),
-                          errorWidget: (_, __, ___) => errorLoad(
-                            context,
-                            height: sizeH(context) * .2,
-                          ),
-                        ),
-                      ),
-                    );
+                    return CoverTile(data: data);
                   }),
                 ),
               );
             } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
+              return errorLoad(context);
             }
             return Center(child: loadingAnim(context));
           },
         ),
       ),
+    );
+  }
+}
+
+class CoverTile extends StatelessWidget {
+  const CoverTile({@required this.data});
+
+  final InnerData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: data.cover.detail,
+              placeholder: (_, __) => Center(
+                child: RefreshProgressIndicator(),
+              ),
+              errorWidget: (_, __, ___) => errorLoad(
+                context,
+                height: sizeH(context) * .2,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 8.0,
+          left: 18.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(4.0),
+              color: Colors.black.withOpacity(0.2),
+              child: slimTxT(
+                secToTime(data.duration),
+                color: Colors.white,
+                size: 14.0,
+                no: 2,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

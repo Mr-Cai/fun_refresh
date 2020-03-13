@@ -3,7 +3,7 @@ description: 趣刷 # 描述
 version: 1.0.6 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies: # 拓展插件集合 https://pub.dev
   flutter:  # 开发工具

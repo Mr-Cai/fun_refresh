@@ -33,7 +33,7 @@ class _ExtensionPageState extends State<ExtensionPage>
         themeColor: Colors.black,
         isMenu: true,
         title: I18n.of(context).more,
-        titleTop: 20.0,
+        titleTop: 8.0,
         preferredSize: Size.fromHeight(sizeH(context) * .055),
       ),
       body: CustomScrollView(

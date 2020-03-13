@@ -1,24 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'eye_video.dart';
+part of 'eye_related.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EyeVideo _$EyeVideoFromJson(Map<String, dynamic> json) {
-  return EyeVideo(
+EyeRelated _$EyeRelatedFromJson(Map<String, dynamic> json) {
+  return EyeRelated(
     (json['itemList'] as List)
         ?.map(
             (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['nextPageUrl'] as String,
   );
 }
 
-Map<String, dynamic> _$EyeVideoToJson(EyeVideo instance) => <String, dynamic>{
+Map<String, dynamic> _$EyeRelatedToJson(EyeRelated instance) =>
+    <String, dynamic>{
       'itemList': instance.itemList,
-      'nextPageUrl': instance.nextPageUrl,
     };
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
@@ -37,32 +36,9 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
 
 Data _$DataFromJson(Map<String, dynamic> json) {
   return Data(
-    json['content'] == null
-        ? null
-        : Content.fromJson(json['content'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
-      'content': instance.content,
-    };
-
-Content _$ContentFromJson(Map<String, dynamic> json) {
-  return Content(
-    json['data'] == null
-        ? null
-        : InnerData.fromJson(json['data'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$ContentToJson(Content instance) => <String, dynamic>{
-      'data': instance.data,
-    };
-
-InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
-  return InnerData(
     json['id'] as int,
     json['title'] as String,
+    json['description'] as String,
     json['author'] == null
         ? null
         : Author.fromJson(json['author'] as Map<String, dynamic>),
@@ -70,12 +46,12 @@ InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
         ? null
         : Cover.fromJson(json['cover'] as Map<String, dynamic>),
     json['playUrl'] as String,
-    json['description'] as String,
     json['duration'] as int,
+    json['date'] as num,
   );
 }
 
-Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
@@ -83,6 +59,7 @@ Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
       'cover': instance.cover,
       'playUrl': instance.playUrl,
       'duration': instance.duration,
+      'date': instance.date,
     };
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {

@@ -1,6 +1,7 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:toast/toast.dart';
 
 GoogleSignInAccount googleUser;
 
@@ -18,6 +19,10 @@ void showSnackBar(String text) {
     duration: Duration(milliseconds: 666),
   );
   scaffoldKey.currentState.showSnackBar(snackbar);
+}
+
+void tip(String txt, BuildContext context) {
+  Toast.show(txt, context);
 }
 
 const targetingInfo = MobileAdTargetingInfo(
@@ -58,6 +63,42 @@ String path(String name, int type, {String format}) {
     default:
       return '';
   }
+}
+
+String secToTime(num time) {
+  String timeStr;
+  num hour = 0;
+  num minute = 0;
+  num second = 0;
+  if (time <= 0)
+    return '00:00';
+  else {
+    minute = time / 60;
+    if (minute < 60) {
+      second = time % 60;
+      timeStr = unitFormat(minute.toInt()) + ':' + unitFormat(second.toInt());
+    } else {
+      hour = minute / 60;
+      if (hour > 99) return '99:59:59';
+      minute = minute % 60;
+      second = time - hour * 3600 - minute * 60;
+      timeStr = unitFormat(hour.toInt()) +
+          ':' +
+          unitFormat(minute.toInt()) +
+          ':' +
+          unitFormat(second.toInt());
+    }
+  }
+  return timeStr;
+}
+
+String unitFormat(num i) {
+  String retStr;
+  if (i >= 0 && i < 10)
+    retStr = '0$i';
+  else
+    retStr = '$i';
+  return retStr;
 }
 
 // 页面名称:

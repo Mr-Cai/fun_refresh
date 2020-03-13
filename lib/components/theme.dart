@@ -16,6 +16,7 @@ slimTxT(String text, {double size, Color color, int no, Function onTap}) =>
       onTap: onTap,
       child: Text(
         text,
+        softWrap: true,
         style: TextStyle(
           color: color ?? Colors.black,
           fontSize: size ?? 18.0,
