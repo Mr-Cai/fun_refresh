@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/page/video/video_detail_page.dart';
 import '../../tools/global.dart';
 import '../../model/i18n/i18n.dart';
 import '../export_page_pkg.dart';
@@ -9,8 +8,6 @@ class RouteGenerator {
     final Object args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return _skipRoute(SplashPage()); // 闪屏页面
-      case home:
         return _skipRoute(
           I18nContainer(
             key: i18nKey,
@@ -39,10 +36,12 @@ class RouteGenerator {
         return _skipRoute(VideoDetailPage(args: args)); // 视频详情
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
-      case game_tetris:
-        return _skipRoute(GameTetris()); // 俄罗斯方块
-      case game_snake:
+      case tetris:
+        return _skipRoute(Tetris()); // 俄罗斯方块
+      case snake:
         return _skipRoute(SnakeGame()); // 贪吃蛇
+      case dinosaur_run:
+        return _skipRoute(DinosaurRunGame()); // 恐龙快跑
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

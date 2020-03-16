@@ -233,16 +233,6 @@ class _GamePageState extends State<GamePage>
                 ),
               ),
             ),
-            /* Positioned(
-              bottom: 8.0,
-              right: 8.0,
-              child: InkWell(
-                child: SvgPicture.asset(path('refresh', 3)),
-                onTap: () {
-                  refreshLayout();
-                },
-              ),
-            ), */
           ],
         ),
       ),
@@ -299,10 +289,10 @@ class GameLogo extends StatelessWidget {
             pushName(context, game2048);
             break;
           case 1:
-            pushName(context, game_tetris);
+            pushName(context, tetris);
             break;
           case 2:
-            pushName(context, game_snake);
+            pushName(context, snake);
             break;
           default:
         }

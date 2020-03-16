@@ -8,15 +8,17 @@ final netool = NeTool();
 final dio = Dio();
 
 class NeTool {
+  final options = BaseOptions(baseUrl: EYE_BASE);
+
   /// 开眼API: 日报视频列表请求 GET
   /// [requestUrl] 请求地址
   /// [options] 请求头
   /// [queryParameters] 请求参数
   /// [response] 响应JSON
-  Future<EyeVideo> pullEyeVideo({String requestUrl = EYE_DAILY}) async {
-    final response = await Dio().get(
-      requestUrl,
-      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'num': 100},
+  Future<EyeVideo> pullEyeVideo() async {
+    final response = await Dio(options).get(
+      EYE_DAILY,
+      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'num': 10},
       options: Options(headers: {'User-Agent': POST_MAN}),
     );
     if (response.statusCode == 200) {
@@ -26,13 +28,10 @@ class NeTool {
     }
   }
 
-  Future<EyeRelated> pullEyeRelated({
-    String requestUrl = EYE_RELATED,
-    int id,
-  }) async {
-    final response = await Dio().get(
-      requestUrl,
-      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'id': id ?? 188951},
+  Future<EyeRelated> pullEyeRelated({int id}) async {
+    final response = await Dio(options).get(
+      EYE_RELATED,
+      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'id': id},
       options: Options(headers: {'User-Agent': POST_MAN}),
     );
     if (response.statusCode == 200) {

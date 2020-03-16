@@ -5,6 +5,8 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart' show pushReplace;
+import 'package:fun_refresh/tools/global.dart' show home;
 import 'package:vibration/vibration.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -897,7 +899,11 @@ class GameState with ChangeNotifier {
   void menuExit(BuildContext context) {
     _playFlag = false;
     saveColorPlan(context);
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    pushReplace(context, home);
   }
 
   void _generateLaunchIcon() {

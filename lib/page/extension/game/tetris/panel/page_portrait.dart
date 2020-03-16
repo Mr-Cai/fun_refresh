@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/top_bar.dart';
 import '../generated/i18n.dart';
 import '../income/donation_dialog.dart';
-import '../game_tetris.dart';
+import '../tetris.dart';
 import '../panel/controller.dart';
 import '../panel/screen.dart';
 

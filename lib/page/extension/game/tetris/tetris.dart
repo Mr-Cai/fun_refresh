@@ -10,7 +10,7 @@ import './gamer/keyboard.dart';
 
 final routeObserver = RouteObserver<ModalRoute>();
 
-class GameTetris extends StatelessWidget {
+class Tetris extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,5 +1,6 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:toast/toast.dart';
 
@@ -101,6 +102,32 @@ String unitFormat(num i) {
   return retStr;
 }
 
+void lightBar() {
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
+}
+
+void darkBar() {
+  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+}
+
 // 页面名称:
 const home = '/home'; // 首页
 const detail = '/detail'; // 跳转详情
@@ -116,6 +143,7 @@ const web_view = '/web_view'; // 浏览器
 const video_detail = '/video_detail'; // 视频详情
 
 // 小游戏
+const tetris = '/game_tetris'; // 俄罗斯方块
+const snake = '/game_snake'; // 贪吃蛇
+const dinosaur_run = '/dinosaur_run'; // 恐龙快跑
 const game2048 = '/game2048'; // 2048
-const game_tetris = '/game_tetris'; // 俄罗斯方块
-const game_snake = '/game_snake'; // 贪吃蛇

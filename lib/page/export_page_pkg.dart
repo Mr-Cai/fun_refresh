@@ -2,6 +2,8 @@ export './messages/message_page.dart';
 export './messages/chat_page.dart';
 
 export './video/video_cover_page.dart';
+export './video/video_detail_page.dart';
+
 export './public/game_page.dart';
 export './public/web_view_page.dart';
 
@@ -10,16 +12,17 @@ export './src/splash_page.dart';
 export './src/error_page.dart';
 
 export './extension/extension_page.dart';
-export './extension/eliminate_page.dart';
-export './extension/girl_page.dart';
-export './extension/note_page.dart';
-export './extension/sudoku_page.dart';
-export './extension/vision_page.dart';
-export './extension/weather_page.dart';
 
-export './extension/game_2048/game_2048.dart';
-export './extension/game_tetris/game_tetris.dart';
-export './extension/game_snake/snake_game.dart';
+export './extension/plugin/note_page.dart';
+export './extension/plugin/girl_page.dart';
+export './extension/plugin/vision_page.dart';
+export './extension/plugin/weather_page.dart';
+
+export './extension/game/eliminate_page.dart';
+export './extension/game/2048/game_2048.dart';
+export './extension/game/tetris/tetris.dart';
+export './extension/game/snake/snake_game.dart';
+export './extension/game/dinosaur_run/dinosaur_run.dart';
 
 export './routes/route_generator.dart';
 export './routes/search_panel.dart';

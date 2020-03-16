@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
@@ -23,28 +22,15 @@ class VideoPage extends StatefulWidget with NavigationState {
 
 class _VideoPageState extends State<VideoPage> {
   int currentIndex = 1;
-  Widget holder;
-  double height;
-
-  final adKey = GlobalKey<NativeExpressAdState>();
-
   FixedExtentScrollController _scrollCtrl;
+  GlobalKey<NativeExpressAdState> adKey;
 
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    holder = NativeExpressAdWidget(
-      config['nativeID'],
-    );
     _scrollCtrl = FixedExtentScrollController(initialItem: 2);
     super.initState();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +47,9 @@ class _VideoPageState extends State<VideoPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GestureDetector(
-                onTap: () async {
+                onTap: () {
                   final data =
                       snapshot.data.itemList[currentIndex].data.content.data;
-                  if (snapshot.data == null || data == null) {
-                    showSnackBar('这是广告，请点击别的视频封面');
-                  }
                   pushName(
                     context,
                     video_detail,
@@ -87,16 +70,38 @@ class _VideoPageState extends State<VideoPage> {
                   controller: _scrollCtrl,
                   physics: BouncingScrollPhysics(),
                   onSelectedItemChanged: (index) {
-                    setState(() {
-                      currentIndex = index;
-                      log('$currentIndex');
-                    });
+                    setState(() => currentIndex = index);
                   },
                   children:
                       List.generate(snapshot.data.itemList.length, (index) {
                     if (snapshot.data.itemList[index].type == 'textCard' ||
                         snapshot.data.itemList[index].type == 'banner') {
-                      return holder;
+                      return Stack(
+                        children: [
+                          NativeExpressAdWidget(
+                            config['nativeID'],
+                            adKey: adKey,
+                            adEventCallback: (event, args) {
+                              switch (event) {
+                                case NativeADEvent.onNoAD:
+                                case NativeADEvent.onRenderFail:
+                                case NativeADEvent.onADCloseOverlay:
+                                  adKey.currentState.refreshAd();
+                                  break;
+                                default:
+                              }
+                            },
+                          ),
+                          Positioned(
+                            bottom: 4.0,
+                            right: 24.0,
+                            child: SvgPicture.asset(
+                              path('ic_type', 5),
+                              width: 24.0,
+                            ),
+                          )
+                        ],
+                      );
                     }
                     final data =
                         snapshot.data.itemList[index].data.content.data;

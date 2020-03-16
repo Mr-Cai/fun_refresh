@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../gamer/block.dart';
-import '../game_tetris.dart';
+import '../tetris.dart';
 import '../material/audios.dart';
 
 ///the height of game pad

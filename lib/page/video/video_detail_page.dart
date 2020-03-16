@@ -24,43 +24,44 @@ class VideoDetailPage extends StatefulWidget {
 class _VideoDetailPageState extends State<VideoDetailPage> {
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    lightBar();
     super.initState();
   }
 
   @override
+  void dispose() {
+    darkBar();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        pop(context);
-        return SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-      },
-      child: Scaffold(
-        backgroundColor: dividerColor,
-        body: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              VideoWindow(url: widget.args['url'], args: widget.args),
-              Container(
-                height: sizeH(context),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    ProfileBar(
-                      avatar: widget.args['avatar'],
-                      name: widget.args['name'],
-                      slogan: widget.args['slogan'],
-                      desc: widget.args['desc'],
-                    ),
-                    _buildRelatedTile(context),
-                    SizedBox(height: sizeH(context) * .3)
-                  ],
-                ),
+    return Scaffold(
+      backgroundColor: dividerColor,
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            VideoWindow(url: widget.args['url'], args: widget.args),
+            Container(
+              height: sizeH(context),
+              child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  ProfileBar(
+                    avatar: widget.args['avatar'],
+                    name: widget.args['name'],
+                    slogan: widget.args['slogan'],
+                    desc: widget.args['desc'],
+                    isLike: false,
+                  ),
+                  _buildRelatedTile(context),
+                  SizedBox(height: sizeH(context) * .3)
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -119,7 +120,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             } else if (snapshot.hasError) {
               return errorLoad(context);
             }
-            return loadingAnim(context);
+            return Container(
+              margin: EdgeInsets.only(bottom: sizeH(context) * .5),
+              child: loadingAnim(context, height: sizeH(context) * .1),
+            );
           }),
     );
   }
@@ -190,6 +194,7 @@ class ProfileBar extends StatelessWidget {
     this.slogan,
     this.title,
     this.desc,
+    this.isLike,
   });
 
   final String avatar;
@@ -197,6 +202,7 @@ class ProfileBar extends StatelessWidget {
   final String slogan;
   final String title;
   final String desc;
+  final bool isLike;
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +253,10 @@ class ProfileBar extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: IconButton(
-            icon: Icon(Icons.favorite, color: Colors.grey.shade500),
+            icon: Icon(
+              Icons.favorite,
+              color: isLike ? Colors.red : Colors.grey.shade500,
+            ),
             onPressed: () {},
           ),
         ),
@@ -268,7 +277,6 @@ class VideoWindow extends StatefulWidget {
 
 class _VideoWindowState extends State<VideoWindow> {
   VideoPlayerController controller;
-
   @override
   void initState() {
     controller = VideoPlayerController.network(widget.url);
@@ -290,7 +298,9 @@ class _VideoWindowState extends State<VideoWindow> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: controller.value.aspectRatio,
+      aspectRatio: controller.value.aspectRatio < 16 / 12
+          ? 16 / 9
+          : controller.value.aspectRatio,
       child: Stack(
         children: [
           VideoPlayer(controller),
@@ -331,7 +341,7 @@ class CtrlPlayUI extends StatelessWidget {
           child: controller.value.isPlaying
               ? SizedBox.shrink()
               : Container(
-                  color: Colors.black12,
+                  color: Colors.black38,
                   child: Align(
                     child: Container(
                       margin: const EdgeInsets.only(top: 8.0),

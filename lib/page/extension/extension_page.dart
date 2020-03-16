@@ -19,7 +19,7 @@ class ExtensionPage extends StatefulWidget with NavigationState {
 }
 
 class _ExtensionPageState extends State<ExtensionPage>
-    with KeepAliveParentDataMixin, AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -133,19 +133,11 @@ class _ExtensionPageState extends State<ExtensionPage>
   }
 
   @override
-  void detach() {}
-
-  @override
-  bool get keptAlive => true;
-
-  @override
   bool get wantKeepAlive => true;
 }
 
 class IconItem extends StatelessWidget {
-  const IconItem({
-    this.icon,
-  });
+  const IconItem({this.icon});
 
   final String icon;
 
@@ -209,15 +201,19 @@ class RatioSwiper extends StatelessWidget {
                   pushName(context, game2048);
                   break;
                 case 1:
-                  pushName(context, game_tetris);
+                  pushName(context, tetris);
                   break;
                 case 2:
-                  pushName(context, game_snake);
+                  pushName(context, snake);
+                  break;
+                case 3:
+                  pushName(context, dinosaur_run);
                   break;
               }
             },
             child: CachedNetworkImage(
               imageUrl: covers[index],
+              fit: BoxFit.fill,
               placeholder: (_, __) => Center(
                 child: RefreshProgressIndicator(),
               ),

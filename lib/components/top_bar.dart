@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../page/export_page_pkg.dart';
 import '../tools/global.dart';
@@ -123,10 +122,7 @@ Widget backBTN(
         width: 22.0,
         height: 22.0,
       ),
-      onPressed: () {
-        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-        pop(context);
-      },
+      onPressed: () => pop(context),
     ),
   );
 }

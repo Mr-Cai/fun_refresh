@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'mycolor.dart';
 import 'tile.dart';
 import 'grid.dart';
@@ -164,6 +165,7 @@ class _Game2048State extends State<Game2048> {
     gridNew = blankGrid();
     addNumber(grid, gridNew);
     addNumber(grid, gridNew);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     super.initState();
   }
 

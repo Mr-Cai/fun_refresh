@@ -21,7 +21,7 @@ Future<void> main() async {
   Dio dio = Dio(options);
   String splashID = '';
   try {
-    await dio.get('/');
+    await dio.get('');
     splashID = null;
   } on DioError catch (_) {
     // 请求谷歌超时说明是大陆网络, 配置开屏, 海外不配置
@@ -56,8 +56,7 @@ class FunRefreshApp extends StatefulWidget {
   State<StatefulWidget> createState() => _FunRefreshAppState();
 }
 
-class _FunRefreshAppState extends State<FunRefreshApp>
-    with AutomaticKeepAliveClientMixin {
+class _FunRefreshAppState extends State<FunRefreshApp> {
   StreamSubscription connectSubs;
   ConnectivityResult _prevResult;
 
@@ -82,21 +81,8 @@ class _FunRefreshAppState extends State<FunRefreshApp>
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
-    imageCache.clear();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -117,6 +103,4 @@ class _FunRefreshAppState extends State<FunRefreshApp>
     );
   }
 
-  @override
-  bool get wantKeepAlive => true;
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../tools/global.dart';
-import '../../tools/api.dart';
 
 const String disclaimerText = '''
             🔏  服务协议与隐私政策
@@ -44,10 +43,10 @@ List<String> get coverTitles => [
     ];
 
 List<String> get covers => [
-      '$imgs_base/2020/02/21/3Knyi8.png',
-      '$imgs_base/2020/02/21/3KYiNj.png',
-      '$imgs_base/2020/02/21/3KGmR0.png',
-      'xxx',
+      'https://pic.downk.cc/item/5e6e11d8e83c3a1e3af405d7.jpg',
+      'https://puui.qpic.cn/fans_admin/0/3_1440820217_1584295640038/0',
+      'https://ae01.alicdn.com/kf/He1b9cf684dcd43bd81098af939b2736ci.png',
+      'https://pic.downk.cc/item/5e6e51bee83c3a1e3a0ff5e3.jpg',
     ];
 
 Map<String, String> get config =>
