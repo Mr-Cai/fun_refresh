@@ -37,11 +37,15 @@ class RouteGenerator {
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
       case tetris:
-        return _skipRoute(Tetris()); // 俄罗斯方块
+        return _skipRoute(Tetris()); // 俄罗斯方块(像素风)
       case snake:
-        return _skipRoute(SnakeGame()); // 贪吃蛇
+        return _skipRoute(SnakeGame()); // 贪吃蛇(像素风)
       case dinosaur_run:
-        return _skipRoute(DinosaurRunGame()); // 恐龙快跑
+        return _skipRoute(DinosaurRunGame()); // 恐龙快跑(像素风)
+      case flappy_bird:
+        return _skipRoute(FlappyBird()); // 飞翔的小鸟(像素风)
+      case sudoku:
+        return _skipRoute(SudokuGame()); // 飞翔的小鸟(像素风)
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

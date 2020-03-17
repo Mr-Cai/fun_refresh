@@ -43,10 +43,12 @@ List<String> get coverTitles => [
     ];
 
 List<String> get covers => [
-      'https://pic.downk.cc/item/5e6e11d8e83c3a1e3af405d7.jpg',
-      'https://puui.qpic.cn/fans_admin/0/3_1440820217_1584295640038/0',
-      'https://ae01.alicdn.com/kf/He1b9cf684dcd43bd81098af939b2736ci.png',
-      'https://pic.downk.cc/item/5e6e51bee83c3a1e3a0ff5e3.jpg',
+      'https://pic.downk.cc/item/5e6e7132e83c3a1e3a1b5d1c.jpg', // 恐龙快跑(像素风)
+      'https://pic.downk.cc/item/5e6f2d55e83c3a1e3a65ed53.jpg', // 飞翔的小鸟(像素风)
+      'https://pic.downk.cc/item/5e6e058de83c3a1e3aef1326.png', // 贪吃蛇(像素风)
+      'https://pic.downk.cc/item/5e6e11d8e83c3a1e3af405d7.jpg', // 2048
+      'https://pic.downk.cc/item/5e6e70e5e83c3a1e3a1b3462.jpg', // 俄罗斯方块(像素风)
+      'https://pic.downk.cc/item/5e70d91fe83c3a1e3a4ab3f1.jpg', // 数独
     ];
 
 Map<String, String> get config =>

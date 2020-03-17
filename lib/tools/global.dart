@@ -143,7 +143,9 @@ const web_view = '/web_view'; // 浏览器
 const video_detail = '/video_detail'; // 视频详情
 
 // 小游戏
-const tetris = '/game_tetris'; // 俄罗斯方块
-const snake = '/game_snake'; // 贪吃蛇
-const dinosaur_run = '/dinosaur_run'; // 恐龙快跑
+const tetris = '/game_tetris'; // 俄罗斯方块(像素风)
+const snake = '/game_snake'; // 贪吃蛇(像素风)
+const dinosaur_run = '/dinosaur_run'; // 恐龙快跑(像素风)
 const game2048 = '/game2048'; // 2048
+const flappy_bird = '/flappy_bird'; // 飞翔的小鸟(像素风)
+const sudoku = '/sudoku'; // 数独

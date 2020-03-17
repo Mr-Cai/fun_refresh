@@ -179,9 +179,7 @@ class RatioSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: MediaQuery.of(context).orientation == Orientation.landscape
-          ? 3 / 1
-          : 16 / 10,
+      aspectRatio: 16 / 9,
       child: Swiper.builder(
         autoStart: true,
         circular: true,
@@ -189,25 +187,29 @@ class RatioSwiper extends StatelessWidget {
           itemHeight: 3.0,
           itemWidth: 8.0,
           itemActiveColor: Colors.white,
-          padding: const EdgeInsets.only(
-            bottom: 36.0,
-          ),
+          padding: const EdgeInsets.only(bottom: 36.0),
         ),
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
               switch (index) {
-                case 0:
-                  pushName(context, game2048);
+                case 0: // 恐龙快跑(像素风)
+                  pushName(context, dinosaur_run);
                   break;
-                case 1:
-                  pushName(context, tetris);
+                case 1: // 飞翔的小鸟(像素风)
+                  pushName(context, flappy_bird);
                   break;
-                case 2:
+                case 2: // 贪吃蛇(像素风)
                   pushName(context, snake);
                   break;
-                case 3:
-                  pushName(context, dinosaur_run);
+                case 3: // 2048
+                  pushName(context, game2048);
+                  break;
+                case 4: // 俄罗斯方块(像素风)
+                  pushName(context, tetris);
+                  break;
+                case 5: // 数独
+                  pushName(context, sudoku);
                   break;
               }
             },

@@ -10,7 +10,7 @@ const guide1 = 'https://bit.ly/7dwoe';
 const agreement1 = 'https://bit.ly/32rkc';
 
 // 大陆
-const page = 'https://mr-cai.gitee.io/html';
+const page = 'https://mr-cai.gitee.io/mr-cai.github.io/html';
 const private = '$page/private';
 const guide = '$page/private_guide';
 const agreement = '$page/agreement';
