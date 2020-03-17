@@ -45,7 +45,9 @@ class RouteGenerator {
       case flappy_bird:
         return _skipRoute(FlappyBird()); // 飞翔的小鸟(像素风)
       case sudoku:
-        return _skipRoute(SudokuGame()); // 飞翔的小鸟(像素风)
+        return _skipRoute(SudokuGame()); // 数独
+      case bejeweled:
+        return _skipRoute(Bejeweled()); // 宝石迷阵
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

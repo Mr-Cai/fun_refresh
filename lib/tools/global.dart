@@ -44,22 +44,22 @@ double sizeH(context) => MediaQuery.of(context).size.height;
 String path(String name, int type, {String format}) {
   switch (type) {
     case 0:
-      return 'asset/animation/$name.${format ?? 'flr'}';
+      return 'assets/animations/$name.${format ?? 'flr'}';
       break;
     case 1:
-      return 'asset/audio/$name.${format ?? 'mp3'}';
+      return 'assets/audio/$name.${format ?? 'mp3'}';
       break;
     case 2:
-      return 'asset/font/$name.${format ?? 'ttf'}';
+      return 'assets/fonts/$name.${format ?? 'ttf'}';
       break;
     case 3:
-      return 'asset/image/$name.${format ?? 'png'}';
+      return 'assets/images/$name.${format ?? 'png'}';
       break;
     case 4:
-      return 'asset/json/$name.${format ?? 'json'}';
+      return 'assets/json/$name.${format ?? 'json'}';
       break;
     case 5:
-      return 'asset/svg/$name.${format ?? 'svg'}';
+      return 'assets/svg/$name.${format ?? 'svg'}';
       break;
     default:
       return '';
@@ -149,3 +149,5 @@ const dinosaur_run = '/dinosaur_run'; // 恐龙快跑(像素风)
 const game2048 = '/game2048'; // 2048
 const flappy_bird = '/flappy_bird'; // 飞翔的小鸟(像素风)
 const sudoku = '/sudoku'; // 数独
+const bejeweled = '/bejeweled'; // 宝石迷阵
+

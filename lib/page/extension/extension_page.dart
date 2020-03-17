@@ -211,6 +211,9 @@ class RatioSwiper extends StatelessWidget {
                 case 5: // 数独
                   pushName(context, sudoku);
                   break;
+                case 6: // 宝石迷阵
+                  pushName(context, bejeweled);
+                  break;
               }
             },
             child: CachedNetworkImage(

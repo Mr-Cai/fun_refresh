@@ -18,13 +18,13 @@ export './extension/plugin/girl_page.dart';
 export './extension/plugin/vision_page.dart';
 export './extension/plugin/weather_page.dart';
 
-export './extension/game/eliminate_page.dart';
 export './extension/game/2048/game_2048.dart';
 export './extension/game/tetris/tetris.dart';
 export './extension/game/snake/snake_game.dart';
 export './extension/game/dinosaur_run/dinosaur_run.dart';
 export './extension/game/flappy_bird/flappy_bird.dart';
 export './extension/game/sudoku/sudoku.dart';
+export './extension/game/bejeweled/bejeweled.dart';
 
 export './routes/route_generator.dart';
 export './routes/search_panel.dart';

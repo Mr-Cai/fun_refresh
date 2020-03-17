@@ -56,12 +56,25 @@ dev_dependencies: # 调试插件集合
 flutter:  # 资源配置集合
   uses-material-design: true  # 激活材料设计
   assets:
-    - asset/svg/ # 图标
-    - asset/image/ # 图片
-    - asset/animation/ # 动画
-    - asset/audio/ # 音效
-    - asset/json/ # 简谱
+    - assets/svg/ # 图标
+
+    # 图片
+    - assets/images/ 
+    - assets/images/background/
+    - assets/images/bombs/
+    - assets/images/borders/
+    - assets/images/deco/
+    - assets/images/tiles/    
+
+    - assets/animations/ # 动画
+    - assets/audio/ # 音效
+    
+    # 简谱
+    - assets/json/
+    - assets/json/api/
+    - assets/json/config/
+
   fonts:
     - family: StarJedi
       fonts:
-        - asset: asset/font/starjedi.ttf
+        - asset: assets/fonts/starjedi.ttf

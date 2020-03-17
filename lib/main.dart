@@ -12,7 +12,7 @@ import 'package:tencent_ad/tencent_ad.dart';
 
 import 'model/data/local_asset.dart';
 
-Future<void> main() async {
+void main() async {
   BaseOptions options = BaseOptions(
     baseUrl: 'https://www.google.com',
     connectTimeout: 999,
@@ -28,14 +28,13 @@ Future<void> main() async {
     splashID = config['splashID'];
   }
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([]);
   TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
     (_) => SplashAd(splashID, bgPic: config['bgPic'], callBack: (event, args) {
       switch (event) {
         case SplashAdEvent.onAdExposure:
         case SplashAdEvent.onAdPresent:
-          return SystemChrome.setEnabledSystemUIOverlays(
-            [SystemUiOverlay.bottom], // 隐藏状态栏
-          );
+          return SystemChrome.setEnabledSystemUIOverlays([]); // 隐藏状态栏
           break;
         case SplashAdEvent.onAdClosed:
         case SplashAdEvent.onAdDismiss:
@@ -102,5 +101,4 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
       ],
     );
   }
-
 }
