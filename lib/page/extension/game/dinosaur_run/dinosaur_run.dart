@@ -421,6 +421,8 @@ class _DinosaurRunState extends State<DinosaurRun>
     _dinosaurRunAnim.dispose();
     _dinosaurJumpAnimCtrl.dispose();
     _moveAnim.dispose();
+    statusBar();
+    portrait();
     super.dispose();
   }
 }

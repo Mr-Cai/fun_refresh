@@ -1,7 +1,9 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tencent_ad/tencent_ad.dart';
 import 'package:toast/toast.dart';
 
 GoogleSignInAccount googleUser;
@@ -13,6 +15,24 @@ final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
 final dialogPrefKey = 'disclaimer';
+
+void splashAD() {
+  WidgetsFlutterBinding.ensureInitialized();
+  statusBar(isHide: true);
+  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
+    (_) => SplashAd(config['splashID'], callBack: (event, args) {
+      switch (event) {
+        case SplashAdEvent.onAdClosed:
+        case SplashAdEvent.onNoAd:
+        case SplashAdEvent.onAdDismiss:
+          statusBar(isHide: false);
+          break;
+        default:
+          statusBar(isHide: true);
+      }
+    }).showAd(),
+  );
+}
 
 void showSnackBar(String text) {
   final snackbar = SnackBar(
@@ -115,6 +135,25 @@ void lightBar() {
   );
 }
 
+/// `status` : { 0: dark, 1: light }
+/// `isHide` : { true: autoHide, false: visible default }
+Future<void> statusBar({int status = 0, bool isHide = false}) async {
+  if (isHide) {
+    SystemChrome.setEnabledSystemUIOverlays([]); // 隐藏状态栏
+  } else {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+}
+
 void darkBar() {
   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   SystemChrome.setSystemUIOverlayStyle(
@@ -126,6 +165,10 @@ void darkBar() {
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
+}
+
+void portrait() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
 // 页面名称:
@@ -150,4 +193,3 @@ const game2048 = '/game2048'; // 2048
 const flappy_bird = '/flappy_bird'; // 飞翔的小鸟(像素风)
 const sudoku = '/sudoku'; // 数独
 const bejeweled = '/bejeweled'; // 宝石迷阵
-

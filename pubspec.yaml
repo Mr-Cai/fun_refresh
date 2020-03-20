@@ -43,7 +43,7 @@ dependencies: # 拓展插件集合 https://pub.dev
   cached_network_image: ^2.0.0 # 网络图片加载
   intl: ^0.16.1 # 国际化与本地化
   sensors: ^0.4.1+8 # 传感器
-  permission_handler: ^4.3.0 # 获取权限
+  permission_handler: ^4.4.0+hotfix.2 # 获取权限
   connectivity: ^0.4.8+1 # 网络状态监听
 
 dev_dependencies: # 调试插件集合

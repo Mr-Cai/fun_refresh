@@ -1,7 +1,6 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
@@ -22,7 +21,7 @@ class HomePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> {
   int _currentNav = 0;
 
   final _marqueeController = MarqueeController();
@@ -38,31 +37,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    Future.delayed(Duration(seconds: 1), () {
-      SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    });
+    statusBar();
     super.initState();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-        break;
-      case AppLifecycleState.paused:
-        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-        break;
-      default:
-        SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-  
-  @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     _interstitialAd?.dispose();
     super.dispose();
   }

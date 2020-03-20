@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
             FloatingActionButton.extended(
               heroTag: 'profile',
               label: Text(
-                '       \$32   ',
+                '\$32',
                 style: TextStyle(color: Colors.lightBlueAccent),
               ),
               icon: Icon(

@@ -1,52 +1,14 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
-import './tools/global.dart';
+import './tools/global.dart' show ctxKey, home, splashAD, statusBar;
 import './model/i18n/i18n.dart';
 import './page/routes/route_generator.dart';
-import 'package:tencent_ad/tencent_ad.dart';
 
-import 'model/data/local_asset.dart';
-
-void main() async {
-  BaseOptions options = BaseOptions(
-    baseUrl: 'https://www.google.com',
-    connectTimeout: 999,
-    receiveTimeout: 999,
-  );
-  Dio dio = Dio(options);
-  String splashID = '';
-  try {
-    await dio.get('');
-    splashID = null;
-  } on DioError catch (_) {
-    // 请求谷歌超时说明是大陆网络, 配置开屏, 海外不配置
-    splashID = config['splashID'];
-  }
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([]);
-  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
-    (_) => SplashAd(splashID, bgPic: config['bgPic'], callBack: (event, args) {
-      switch (event) {
-        case SplashAdEvent.onAdExposure:
-        case SplashAdEvent.onAdPresent:
-          return SystemChrome.setEnabledSystemUIOverlays([]); // 隐藏状态栏
-          break;
-        case SplashAdEvent.onAdClosed:
-        case SplashAdEvent.onAdDismiss:
-        case SplashAdEvent.onNoAd:
-          return SystemChrome.setEnabledSystemUIOverlays(
-              [SystemUiOverlay.values[0]]); // 显示状态栏
-        default:
-          return SystemChrome.setEnabledSystemUIOverlays(
-              [SystemUiOverlay.values[0]]);
-      }
-    }).showAd(),
-  );
+void main() {
+  // splashAD();
   runApp(FunRefreshApp());
 }
 
@@ -61,6 +23,7 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
 
   @override
   void initState() {
+    statusBar(isHide: false);
     connectSubs = Connectivity().onConnectivityChanged.listen(
       (result) {
         if (result == ConnectivityResult.none) {
