@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
         } else {
           Future.delayed(
             Duration(milliseconds: 666),
-            () => pushReplace(context, home),
+            () => pushReplace(context, '/'),
           );
         }
       });

@@ -3,7 +3,7 @@ part 'eye_video.g.dart';
 
 @JsonSerializable()
 class EyeVideo {
-  EyeVideo(this.itemList, this.nextPageUrl);
+  EyeVideo({this.itemList, this.nextPageUrl});
 
   final List<Item> itemList; // 视频列表
   final String nextPageUrl; // 每页末尾的查询下一页链接
@@ -16,7 +16,7 @@ class EyeVideo {
 
 @JsonSerializable()
 class Item {
-  Item(this.data, this.type);
+  Item({this.data, this.type});
 
   final Data data; // 集合中的条目对象
   final String type; // 组别分类(分隔线、图片、链接)
@@ -28,7 +28,7 @@ class Item {
 
 @JsonSerializable()
 class Data {
-  Data(this.content);
+  Data({this.content});
 
   final Content content;
 
@@ -39,7 +39,7 @@ class Data {
 
 @JsonSerializable()
 class Content {
-  Content(this.data);
+  Content({this.data});
 
   final InnerData data;
 
@@ -51,7 +51,7 @@ class Content {
 
 @JsonSerializable()
 class InnerData {
-  InnerData(
+  InnerData({
     this.id,
     this.title,
     this.author,
@@ -59,7 +59,7 @@ class InnerData {
     this.playUrl,
     this.description,
     this.duration,
-  );
+  });
 
   final int id;
   final String title;
@@ -78,7 +78,7 @@ class InnerData {
 
 @JsonSerializable()
 class Author {
-  Author(this.icon, this.name, this.description);
+  Author({this.icon, this.name, this.description});
 
   final String icon;
   final String name;
@@ -91,7 +91,7 @@ class Author {
 
 @JsonSerializable()
 class Cover {
-  Cover(this.detail);
+  Cover({this.detail});
 
   final String detail;
 

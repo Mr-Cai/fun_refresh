@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 path('setting', 5),
                 color: Colors.white,
               ),
-              onPressed: () => pushName(context, setting),
+              onPressed: () => pushName(context, settings),
             ),
           ),
         ],

@@ -11,16 +11,16 @@ import '../../../components/top_bar.dart';
 import '../../../model/data/local_asset.dart' show config, settingTxT;
 import '../../../components/theme.dart';
 
-class SettingPage extends StatefulWidget with NavigationState {
-  const SettingPage(this.isPush);
+class SettingsPage extends StatefulWidget with NavigationState {
+  const SettingsPage(this.isPush);
 
   final bool isPush;
 
   @override
-  State<StatefulWidget> createState() => _SettingPageState();
+  State<StatefulWidget> createState() => _SettingsPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _SettingsPageState extends State<SettingsPage> {
   final _bannerKey = GlobalKey<UnifiedBannerAdState>();
   bool _bannerClose = false;
   final dialogKey = GlobalKey<DisclaimerMsgState>();

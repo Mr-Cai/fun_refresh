@@ -8,11 +8,11 @@ part of 'eye_video.dart';
 
 EyeVideo _$EyeVideoFromJson(Map<String, dynamic> json) {
   return EyeVideo(
-    (json['itemList'] as List)
+    itemList: (json['itemList'] as List)
         ?.map(
             (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['nextPageUrl'] as String,
+    nextPageUrl: json['nextPageUrl'] as String,
   );
 }
 
@@ -23,10 +23,10 @@ Map<String, dynamic> _$EyeVideoToJson(EyeVideo instance) => <String, dynamic>{
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item(
-    json['data'] == null
+    data: json['data'] == null
         ? null
         : Data.fromJson(json['data'] as Map<String, dynamic>),
-    json['type'] as String,
+    type: json['type'] as String,
   );
 }
 
@@ -37,7 +37,7 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
 
 Data _$DataFromJson(Map<String, dynamic> json) {
   return Data(
-    json['content'] == null
+    content: json['content'] == null
         ? null
         : Content.fromJson(json['content'] as Map<String, dynamic>),
   );
@@ -49,7 +49,7 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
 
 Content _$ContentFromJson(Map<String, dynamic> json) {
   return Content(
-    json['data'] == null
+    data: json['data'] == null
         ? null
         : InnerData.fromJson(json['data'] as Map<String, dynamic>),
   );
@@ -61,17 +61,17 @@ Map<String, dynamic> _$ContentToJson(Content instance) => <String, dynamic>{
 
 InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
   return InnerData(
-    json['id'] as int,
-    json['title'] as String,
-    json['author'] == null
+    id: json['id'] as int,
+    title: json['title'] as String,
+    author: json['author'] == null
         ? null
         : Author.fromJson(json['author'] as Map<String, dynamic>),
-    json['cover'] == null
+    cover: json['cover'] == null
         ? null
         : Cover.fromJson(json['cover'] as Map<String, dynamic>),
-    json['playUrl'] as String,
-    json['description'] as String,
-    json['duration'] as int,
+    playUrl: json['playUrl'] as String,
+    description: json['description'] as String,
+    duration: json['duration'] as int,
   );
 }
 
@@ -87,9 +87,9 @@ Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {
   return Author(
-    json['icon'] as String,
-    json['name'] as String,
-    json['description'] as String,
+    icon: json['icon'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String,
   );
 }
 
@@ -101,7 +101,7 @@ Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
 
 Cover _$CoverFromJson(Map<String, dynamic> json) {
   return Cover(
-    json['detail'] as String,
+    detail: json['detail'] as String,
   );
 }
 

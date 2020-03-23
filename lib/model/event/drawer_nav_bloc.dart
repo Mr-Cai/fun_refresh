@@ -47,7 +47,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         yield RewardPage();
         break;
       case NavigationEvent.setting:
-        yield SettingPage(false);
+        yield SettingsPage(false);
         break;
     }
   }

@@ -8,7 +8,7 @@ part of 'eye_related.dart';
 
 EyeRelated _$EyeRelatedFromJson(Map<String, dynamic> json) {
   return EyeRelated(
-    (json['itemList'] as List)
+    itemList: (json['itemList'] as List)
         ?.map(
             (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -22,10 +22,10 @@ Map<String, dynamic> _$EyeRelatedToJson(EyeRelated instance) =>
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item(
-    json['data'] == null
+    data: json['data'] == null
         ? null
         : Data.fromJson(json['data'] as Map<String, dynamic>),
-    json['type'] as String,
+    type: json['type'] as String,
   );
 }
 
@@ -36,18 +36,18 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
 
 Data _$DataFromJson(Map<String, dynamic> json) {
   return Data(
-    json['id'] as int,
-    json['title'] as String,
-    json['description'] as String,
-    json['author'] == null
+    id: json['id'] as int,
+    title: json['title'] as String,
+    description: json['description'] as String,
+    author: json['author'] == null
         ? null
         : Author.fromJson(json['author'] as Map<String, dynamic>),
-    json['cover'] == null
+    cover: json['cover'] == null
         ? null
         : Cover.fromJson(json['cover'] as Map<String, dynamic>),
-    json['playUrl'] as String,
-    json['duration'] as int,
-    json['date'] as num,
+    playUrl: json['playUrl'] as String,
+    duration: json['duration'] as int,
+    date: json['date'] as num,
   );
 }
 
@@ -64,9 +64,9 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {
   return Author(
-    json['icon'] as String,
-    json['name'] as String,
-    json['description'] as String,
+    icon: json['icon'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String,
   );
 }
 
@@ -78,7 +78,7 @@ Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
 
 Cover _$CoverFromJson(Map<String, dynamic> json) {
   return Cover(
-    json['detail'] as String,
+    detail: json['detail'] as String,
   );
 }
 

@@ -137,19 +137,21 @@ Widget forwardBTN(
   return Container(
     color: Colors.transparent,
     child: IconButton(
-      splashColor: Colors.white38,
-      highlightColor: Colors.white38,
-      icon: Transform.rotate(
-        angle: 3.15,
-        child: SvgPicture.asset(
-          path('back', 5),
-          color: color ?? Colors.black,
-          width: 18.0,
-          height: 18.0,
+        splashColor: Colors.white38,
+        highlightColor: Colors.white38,
+        icon: Transform.rotate(
+          angle: 3.15,
+          child: SvgPicture.asset(
+            path('back', 5),
+            color: color ?? Colors.black,
+            width: 18.0,
+            height: 18.0,
+          ),
         ),
-      ),
-      onPressed: () => pushName(context, route),
-    ),
+        onPressed: () {
+          if (route == null) return;
+          pushName(context, route);
+        }),
   );
 }
 

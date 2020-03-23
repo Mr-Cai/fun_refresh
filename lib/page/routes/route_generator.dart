@@ -4,9 +4,9 @@ import '../../model/i18n/i18n.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generator(RouteSettings settings) {
-    final Object args = settings.arguments;
-    switch (settings.name) {
+  static Route<dynamic> generator(RouteSettings routeSettings) {
+    final Object args = routeSettings.arguments;
+    switch (routeSettings.name) {
       case '/':
         return _skipRoute(
           I18nContainer(
@@ -22,8 +22,8 @@ class RouteGenerator {
         return _skipRoute(MindPage()); // 想法页面
       case reward:
         return _skipRoute(RewardPage()); // 抽奖游戏页面
-      case setting:
-        return _skipRoute(SettingPage(true)); // 设置页面
+      case settings:
+        return _skipRoute(SettingsPage(true)); // 设置页面
       case chat:
         return _skipRoute(ChatPage()); // 聊天页面
       case profile:
@@ -54,26 +54,40 @@ class RouteGenerator {
   }
 }
 
-Route<dynamic> _skipRoute(Widget page) {
-  return MaterialPageRoute(
-    builder: (context) => page,
-    fullscreenDialog: true,
+Route _skipRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return FadeTransition(
+        opacity: animation,
+        child: page,
+      );
+    },
   );
 }
 
-void pop(BuildContext context, {dynamic result}) =>
-    ctxKey.currentState.pop(result);
+void pop(BuildContext context, {dynamic result}) {
+  ctxKey.currentState.pop(result);
+}
 
-Future<dynamic> pushName(BuildContext context, String name, {Object args}) {
+Future pushName(BuildContext context, String name, {Object args}) {
   return ctxKey.currentState.pushNamed(
     '$name',
     arguments: args,
   );
 }
 
-Future<dynamic> pushReplace(BuildContext context, String name, {Object args}) {
+Future pushReplace(BuildContext context, String name, {Object args}) {
   return ctxKey.currentState.pushReplacementNamed(
     '$name',
+    arguments: args,
+  );
+}
+
+Future pushRemove(BuildContext context, String name, String modal,
+    {Object args}) {
+  return ctxKey.currentState.pushNamedAndRemoveUntil(
+    '$name',
+    ModalRoute.withName('name'),
     arguments: args,
   );
 }

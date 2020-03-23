@@ -24,13 +24,13 @@ class VideoDetailPage extends StatefulWidget {
 class _VideoDetailPageState extends State<VideoDetailPage> {
   @override
   void initState() {
-    lightBar();
+    statusBar(status: 1);
     super.initState();
   }
 
   @override
   void dispose() {
-    darkBar();
+    statusBar();
     super.dispose();
   }
 
@@ -118,11 +118,11 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                 ),
               );
             } else if (snapshot.hasError) {
-              return errorLoad(context);
+              return holderPage(context);
             }
             return Container(
               margin: EdgeInsets.only(bottom: sizeH(context) * .5),
-              child: loadingAnim(context, height: sizeH(context) * .1),
+              child: flareAnim(context, height: sizeH(context) * .1),
             );
           }),
     );
@@ -160,7 +160,7 @@ class RelatedTile extends StatelessWidget {
                 child: RefreshProgressIndicator(),
               ),
               errorWidget: (_, __, ___) {
-                return errorLoad(context);
+                return holderPage(context);
               },
             ),
             Positioned(
@@ -175,7 +175,6 @@ class RelatedTile extends StatelessWidget {
                     secToTime(item.data.duration),
                     color: Colors.white,
                     size: 14.0,
-                    no: 2,
                   ),
                 ),
               ),

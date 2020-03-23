@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -15,60 +16,65 @@ BannerAd createBannerAd({@required AdSize size}) {
   );
 }
 
-Widget errorLoad(BuildContext context, {double height}) {
+Widget holderPage(
+  BuildContext context, {
+  Map args,
+  double width,
+  double height,
+}) {
   return Column(
     children: [
       Container(
+        width: width ?? sizeW(context),
         height: height ?? sizeH(context) * .6,
         child: FlareActor(
-          path('404', 0),
-          animation: 'idle',
+          path(args['name'], 0),
+          animation: args['anim'],
         ),
       ),
       Text(
-        '糟糕 ! 页面找不到了 !!!',
+        args['desc'],
         textScaleFactor: 1.6,
       ),
     ],
   );
 }
 
-Widget loadingAnim(BuildContext context, {double height}) {
+Widget flareAnim(
+  BuildContext context, {
+  double width,
+  double height,
+  Map args,
+}) {
+  if (args == null) {
+    args = const {
+      'name': 'loading',
+      'anim': 'Alarm',
+    };
+  }
   return Container(
+    width: width ?? sizeW(context),
     height: height ?? sizeH(context) * .3,
     child: FlareActor(
-      path('loading', 0),
-      animation: 'Alarm',
+      path(args['name'], 0),
+      animation: args['anim'],
     ),
   );
 }
-
-Widget disconnect(BuildContext context, {double height, String netType}) =>
-    Column(
-      children: [
-        Container(
-          height: height ?? sizeH(context) * .6,
-          child: FlareActor(
-            path('disconnect', 0),
-            animation: 'no_connection',
-          ),
-        ),
-        Text(
-          '${netType ?? ''}网络已断开，请检查配置！！',
-          textScaleFactor: 1.6,
-        ),
-      ],
-    );
 
 Widget $ItemTile(
   BuildContext context, {
   Widget title,
   Widget subtitle,
   Widget tail,
+  String route,
   bool isSlim = false,
 }) {
   return InkWell(
-    onTap: () => pushName(context, ''),
+    onTap: () {
+      if (route == null) return;
+      pushName(context, route);
+    },
     child: Row(
       children: [
         Flexible(
@@ -101,7 +107,7 @@ Widget $ItemTile(
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 4.0),
-                child: tail ?? forwardBTN(context, ''),
+                child: tail ?? forwardBTN(context, route),
               ),
             ],
           ),
@@ -116,5 +122,44 @@ Widget $HLine({double height, double thick}) {
     height: height ?? 8.0,
     color: Color(0xfff1f2f7),
     thickness: thick ?? 10.0,
+  );
+}
+
+Widget bank(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: flareAnim(context, height: sizeH(context)),
+    ),
+  );
+}
+
+Widget netPic({
+  String pic,
+  BoxFit fit,
+  Widget holder,
+  Widget errorH,
+}) {
+  return CachedNetworkImage(
+    imageUrl: pic,
+    imageBuilder: (context, imageProvider) => Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: imageProvider,
+          fit: fit ?? BoxFit.cover,
+        ),
+      ),
+    ),
+    placeholder: (context, url) => Center(
+      child: holder ?? RefreshProgressIndicator(),
+    ),
+    errorWidget: (context, url, error) =>
+        errorH ??
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Image.asset(
+            path('404_error', 3, format: 'jpg'),
+            fit: BoxFit.fill,
+          ),
+        ),
   );
 }

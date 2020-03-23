@@ -76,7 +76,7 @@ class PostTile extends StatelessWidget {
                 children: [
                   slimTxT('昵称', size: 22.0),
                   SizedBox(height: 8.0),
-                  slimTxT('$time', size: 15.0, no: 2, color: Colors.white),
+                  slimTxT('$time', size: 15.0, color: Colors.white),
                 ],
               ),
             ),

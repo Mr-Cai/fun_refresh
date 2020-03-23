@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:soundpool/soundpool.dart';
 
@@ -304,15 +305,45 @@ class _DinosaurRunState extends State<DinosaurRun>
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _buildMainOverlay(),
+        Positioned(
+          right: 32.0,
+          top: 32.0,
+          child: DropdownButton(
+            isDense: true,
+            items: [Icons.backspace, Icons.block, Icons.cached]
+                .map(
+                  (value) => DropdownMenuItem(
+                    value: value,
+                    child: Icon(value),
+                  ),
+                )
+                .toList(),
+            onChanged: (value) {},
+            underline: Container(),
+            icon: SvgPicture.asset(
+              path('setting', 5),
+              width: 28.0,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMainOverlay() {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: tap,
       child: Center(
         child: Container(
-          height: 150,
+          height: sizeH(context) * .5,
           child: Stack(
             alignment: Alignment.center,
-            children: <Widget>[
+            children: [
               getClouds(), // 云朵
               // 地面
               Positioned(
@@ -343,14 +374,17 @@ class _DinosaurRunState extends State<DinosaurRun>
                   ),
                 ),
               ),
-              Offstage(
-                offstage: _gameState != GameState.GAMEOVER,
-                child: Text(
-                  '游戏\t\t结束',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32,
+              Align(
+                alignment: Alignment.topCenter,
+                child: Offstage(
+                  offstage: _gameState != GameState.GAMEOVER,
+                  child: Text(
+                    '游戏\t\t结束',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32,
+                    ),
                   ),
                 ),
               )

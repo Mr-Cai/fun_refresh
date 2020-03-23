@@ -22,17 +22,22 @@ class _ErrorPageState extends State<ErrorPage> {
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
-        title: I18n.of(context).error,
+        title:
+            widget.args == null ? I18n.of(context).error : widget.args['title'],
       ),
       body: InkWell(
         onTap: () {},
         child: Column(
           children: [
-            widget.args == null || widget.args['type'] == 'error'
-                ? errorLoad(context)
-                : widget.args['type'] == 'disconnect'
-                    ? disconnect(context, netType: widget.args['netType'])
-                    : Container(),
+            holderPage(
+              context,
+              args: widget.args ??
+                  {
+                    'name': '404',
+                    'anim': 'idle',
+                    'desc': '糟糕 ! 页面找不到了 !!!',
+                  },
+            ),
             Spacer(),
             Container(
               height: _bannerClose == true ? 0 : 64.0,

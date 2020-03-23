@@ -1,6 +1,6 @@
 name: fun_refresh # 项目名
 description: 趣刷 # 描述
-version: 1.0.6 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
+version: 1.0.7 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
   sdk: ">=2.7.0 <3.0.0"

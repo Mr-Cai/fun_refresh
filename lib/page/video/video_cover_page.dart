@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
@@ -27,7 +26,6 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     _scrollCtrl = FixedExtentScrollController(initialItem: 2);
     super.initState();
   }
@@ -110,9 +108,11 @@ class _VideoPageState extends State<VideoPage> {
                 ),
               );
             } else if (snapshot.hasError) {
-              return errorLoad(context);
+              return holderPage(context);
             }
-            return Center(child: loadingAnim(context));
+            return Center(
+              child: flareAnim(context),
+            );
           },
         ),
       ),
@@ -139,7 +139,7 @@ class CoverTile extends StatelessWidget {
               placeholder: (_, __) => Center(
                 child: RefreshProgressIndicator(),
               ),
-              errorWidget: (_, __, ___) => errorLoad(
+              errorWidget: (_, __, ___) => holderPage(
                 context,
                 height: sizeH(context) * .2,
               ),
@@ -158,7 +158,6 @@ class CoverTile extends StatelessWidget {
                 secToTime(data.duration),
                 color: Colors.white,
                 size: 14.0,
-                no: 2,
               ),
             ),
           ),

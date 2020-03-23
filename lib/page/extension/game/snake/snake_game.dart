@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import './game_state.dart';
 
+// Gluttonous Snake
 class SnakeGame extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _SnakeGameState();
 }
 
 class _SnakeGameState extends State<SnakeGame> {
+  int index = 0;
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
+    landscape();
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        index = 1;
+      });
+    });
     super.initState();
   }
-
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    portrait();
+    statusBar();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -40,13 +40,17 @@ class _SnakeGameState extends State<SnakeGame> {
       child: Consumer<GameState>(
         builder: (context, gameState, _) {
           gameState = Provider.of<GameState>(context);
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Gluttonous Snake',
-            theme: ThemeData(
+          return Theme(
+            data: ThemeData(
               scaffoldBackgroundColor: Color(gameState.appBkColor),
             ),
-            home: SnakeHome(),
+            child: IndexedStack(
+              index: index,
+              children: [
+                bank(context),
+                SnakeHome(),
+              ],
+            ),
           );
         },
       ),
@@ -234,8 +238,9 @@ class SnakeHomeState extends State<SnakeHome>
             // Positioned(
             //     left: 0.0, top: 0.0, child: Icon(Icons.fiber_new)),
             Center(
-                child: Text(
-                    '最高分: ${gameState.highScore}\n得分: ${gameState.score}')),
+              child:
+                  Text('最高分: ${gameState.highScore}\n得分: ${gameState.score}'),
+            ),
           ],
         ),
       );

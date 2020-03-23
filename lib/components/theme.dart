@@ -11,16 +11,17 @@ blackTxT(String text) => Text(
     );
 
 // 默认黑色细体
-slimTxT(String text, {double size, Color color, int no, Function onTap}) =>
+slimTxT(String text, {double size, Color color, int normal, Function onTap}) =>
     GestureDetector(
       onTap: onTap,
       child: Text(
         text,
         softWrap: true,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           color: color ?? Colors.black,
           fontSize: size ?? 18.0,
-          fontWeight: FontWeight.values[no ?? 0],
+          fontWeight: normal != null ? FontWeight.normal : FontWeight.values[3],
         ),
       ),
     );

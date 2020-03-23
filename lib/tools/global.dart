@@ -59,7 +59,7 @@ double sizeH(context) => MediaQuery.of(context).size.height;
 /// 文件路径快速填写
 /// `name`: 文件名称
 /// `type`: 文件类型
-/// 动画:0、音效:1、字体:2、图片:3、简谱:4、图标:5 ...
+/// 0:动画、1:音效、2:字体、3:图片、4:简谱、5:图标 ...
 /// `format`: 文件格式(每种文件都有默认格式, 也可自选格式)
 String path(String name, int type, {String format}) {
   switch (type) {
@@ -122,20 +122,7 @@ String unitFormat(num i) {
   return retStr;
 }
 
-void lightBar() {
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.light,
-    ),
-  );
-}
-
-/// `status` : { 0: dark, 1: light }
+/// `status` : { 0: dark, else: light }
 /// `isHide` : { true: autoHide, false: visible default }
 Future<void> statusBar({int status = 0, bool isHide = false}) async {
   if (isHide) {
@@ -145,40 +132,36 @@ Future<void> statusBar({int status = 0, bool isHide = false}) async {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: status == 0 ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness:
+            status == 0 ? Brightness.dark : Brightness.light,
         systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness:
+            status == 0 ? Brightness.dark : Brightness.light,
       ),
     );
   }
-}
-
-void darkBar() {
-  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ),
-  );
 }
 
 void portrait() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
+void landscape({bool isHide}) {
+  statusBar(isHide: isHide ?? true);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.landscapeLeft,
+  ]);
+}
+
 // 页面名称:
-const home = '/home'; // 首页
 const detail = '/detail'; // 跳转详情
 const sign = '/sign'; // 注册登录
 const social = '/social'; // 社交
 const mind = '/mind'; // 想法
 const reward = '/reward'; // 奖励
-const setting = '/setting'; // 设置
+const settings = '/settings'; // 设置
 const chat = '/chat'; // 与人聊天
 const profile = '/profile'; // 个人资料
 const search = '/search'; // 搜索关键词

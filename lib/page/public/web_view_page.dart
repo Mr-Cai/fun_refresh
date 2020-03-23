@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/top_bar.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'package:toast/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -27,7 +27,7 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.values[0]]);
+    statusBar(status: 1);
     _simulateProgress();
     super.initState();
   }
@@ -38,6 +38,7 @@ class _WebViewPageState extends State<WebViewPage> {
       _timer.cancel();
       _timer = null;
     }
+    statusBar();
     super.dispose();
   }
 
@@ -98,7 +99,7 @@ class _WebViewPageState extends State<WebViewPage> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: loadingAnim(context),
+                child: flareAnim(context),
               ),
             ],
           ),

@@ -3,7 +3,7 @@ part 'eye_related.g.dart';
 
 @JsonSerializable()
 class EyeRelated {
-  EyeRelated(this.itemList);
+  EyeRelated({this.itemList});
 
   final List<Item> itemList; // 推荐视频列表
 
@@ -16,7 +16,7 @@ class EyeRelated {
 
 @JsonSerializable()
 class Item {
-  Item(this.data, this.type);
+  Item({this.data, this.type});
 
   final Data data; // 集合中的条目对象
   final String type; // 单元分类
@@ -28,7 +28,7 @@ class Item {
 
 @JsonSerializable()
 class Data {
-  Data(
+  Data({
     this.id,
     this.title,
     this.description,
@@ -37,7 +37,7 @@ class Data {
     this.playUrl,
     this.duration,
     this.date,
-  );
+  });
 
   final int id;
   final String title;
@@ -55,7 +55,7 @@ class Data {
 
 @JsonSerializable()
 class Author {
-  Author(this.icon, this.name, this.description);
+  Author({this.icon, this.name, this.description});
   final String icon;
   final String name;
   final String description;
@@ -65,7 +65,7 @@ class Author {
 
 @JsonSerializable()
 class Cover {
-  Cover(this.detail);
+  Cover({this.detail});
   final String detail;
   factory Cover.fromJson(Map<String, dynamic> json) => _$CoverFromJson(json);
   Map<String, dynamic> toJson(Cover instance) => _$CoverToJson(instance);

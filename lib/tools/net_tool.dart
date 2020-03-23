@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:fun_refresh/model/mock/extension/extension_app.dart';
 import 'package:fun_refresh/model/mock/video/eye_related.dart';
 import '../model/mock/video/eye_video.dart';
 import '../model/mock/weather/he_weather.dart';
@@ -58,5 +62,23 @@ class NeTool {
     } else {
       throw Exception();
     }
+  }
+
+  /// 和风天气API
+  /// [requestUrl] 请求地址
+  /// [queryParameters] 请求参数
+  /// [response] 响应JSON
+  Future<ExtResponse> pullExtAppData() async {
+    final options = BaseOptions(baseUrl: EXT_BASE);
+    final dio = Dio(options);
+    if (Platform.isAndroid) {
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.badCertificateCallback = (cert, host, port) => true;
+        return client;
+      };
+    }
+    final response = await dio.get<Map>('/$typeList');
+    return ExtResponse.fromJson(response.data);
   }
 }

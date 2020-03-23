@@ -10,7 +10,7 @@ const guide1 = 'https://bit.ly/7dwoe';
 const agreement1 = 'https://bit.ly/32rkc';
 
 // 大陆
-const page = 'https://mr-cai.gitee.io/mr-cai.github.io/html';
+const page = 'https://mr-cai.gitee.io/dev/html';
 const private = '$page/private';
 const guide = '$page/private_guide';
 const agreement = '$page/agreement';
@@ -41,6 +41,11 @@ const now = '$HE_WEATHER_BASE/now'; // 今日天气
 const hourly = '$HE_WEATHER_BASE/hourly'; // 实时天气
 const forecast = '$HE_WEATHER_BASE/forecast'; // 未来天气
 const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
+
+/// 扩展小程序
+const EXT_BASE = 'https://www.mocky.io/v2';
+const typeList = '5e78fd0c2d0000ab7b18ba1a';
+
 
 /// 谷歌广告密钥
 // Android 正式

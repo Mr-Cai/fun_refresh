@@ -11,7 +11,6 @@ import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/model/i18n/i18n.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:fun_refresh/tools/global.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sensors/sensors.dart';
 import 'package:toast/toast.dart';
 import '../../model/event/drawer_nav_bloc.dart';
@@ -43,18 +42,6 @@ class _GamePageState extends State<GamePage>
   bool _first = true;
   int logoIndex = 0;
   double randomSize = 0.0;
-
-  bool permission = false;
-
-  checkPermit() async {
-    var permit = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.sensors);
-    if (permit != PermissionStatus.granted) {
-      await PermissionHandler().requestPermissions([PermissionGroup.sensors]);
-    } else {
-      permission = true;
-    }
-  }
 
   @override
   void initState() {
@@ -132,10 +119,6 @@ class _GamePageState extends State<GamePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (!permission) {
-      checkPermit();
-    }
-
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
@@ -324,7 +307,7 @@ class GameLogo extends StatelessWidget {
               placeholder: (_, __) => Center(
                 child: RefreshProgressIndicator(),
               ),
-              errorWidget: (_, __, ___) => errorLoad(
+              errorWidget: (_, __, ___) => holderPage(
                 context,
                 height: sizeH(context) * .2,
               ),

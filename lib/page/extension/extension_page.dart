@@ -1,8 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/model/mock/extension/extension_app.dart';
+import 'package:fun_refresh/tools/net_tool.dart';
 import '../../components/theme.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../../tools/global.dart';
@@ -21,11 +22,6 @@ class ExtensionPage extends StatefulWidget with NavigationState {
 class _ExtensionPageState extends State<ExtensionPage>
     with AutomaticKeepAliveClientMixin {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
@@ -36,95 +32,116 @@ class _ExtensionPageState extends State<ExtensionPage>
         titleTop: 8.0,
         preferredSize: Size.fromHeight(sizeH(context) * .055),
       ),
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            leading: Container(),
-            floating: true,
-            elevation: 0.0,
-            flexibleSpace: ClipPath(
-              child: RatioSwiper(),
-              clipper: BezierClipper(64.0),
-            ),
-            expandedHeight: sizeH(context) * .28,
-            backgroundColor: Colors.grey[50],
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(sizeH(context) * .1),
-              child: InkWell(
-                child: Icon(
-                  Icons.remove_red_eye,
-                  size: 32.0,
+      body: StreamBuilder<ExtResponse>(
+        stream: netool.pullExtAppData().asStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                SliverAppBar(
+                  leading: Container(),
+                  floating: true,
+                  elevation: 0.0,
+                  flexibleSpace: ClipPath(
+                    child: RatioSwiper(),
+                    clipper: BezierClipper(64.0),
+                  ),
+                  expandedHeight: sizeH(context) * .28,
+                  backgroundColor: Colors.grey[50],
+                  bottom: PreferredSize(
+                    preferredSize: Size.fromHeight(sizeH(context) * .1),
+                    child: InkWell(
+                      child: Icon(Icons.remove_red_eye, size: 32.0),
+                      onTap: () {},
+                      splashColor: Colors.white,
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                  ),
                 ),
-                onTap: () {},
-                splashColor: Colors.white,
-                borderRadius: BorderRadius.circular(32.0),
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                _buildSwiperList(title: '火爆热搜'),
-                _buildSwiperList(title: '个性推荐'),
-                _buildSwiperList(title: '最近更新'),
-                _buildSwipper(context),
-                _buildSwiperList(title: '猜你喜欢'),
-                _buildSwiperList(title: '休闲益智'),
-                _buildSwiperList(title: '人气蹿升'),
-                _buildSwiperList(title: '发现精彩'),
+                SliverList(
+                  delegate: SliverChildListDelegate.fixed(
+                    List.generate(
+                      snapshot.data.typeList.length ?? 0,
+                      (index) {
+                        if (index == 3) {
+                          return _buildSwipper(
+                            context,
+                            title: snapshot.data.typeList[index].title,
+                            data: snapshot.data.typeList[index].data,
+                          );
+                        }
+                        return _buildSwiperList(
+                          title: snapshot.data.typeList[index].title,
+                          data: snapshot.data.typeList[index].data,
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+          return flareAnim(context, height: sizeH(context));
+        },
       ),
     );
   }
 
-  Widget _buildSwipper(BuildContext context) {
+  Widget _buildSwipper(BuildContext context,
+      {@required String title, List<Data> data}) {
     return Column(
       children: [
-        $ItemTile(
-          context,
-          title: slimTxT('趣刷插件'),
-        ),
+        $ItemTile(context, title: slimTxT(title)),
         Container(
-          height: sizeH(context) * .2,
-          child: Swiper(
-            indicator: CircleSwiperIndicator(),
-            autoStart: true,
-            children: [
-              for (var i = 0; i < 9; i++)
-                Container(
-                  child: Image.asset(
-                    path('header', 3, format: 'jpg'),
+          height: sizeH(context) * .3,
+          width: sizeW(context),
+          child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: Swiper(
+              indicator: CircleSwiperIndicator(
+                itemActiveColor: Colors.orange,
+              ),
+              autoStart: true,
+              children: List.generate(
+                data.length ?? 0,
+                (index) => netPic(
+                  pic: data[index].pic,
+                  holder: flareAnim(context),
+                  errorH: Image.asset(
+                    path('404_error', 3),
                     fit: BoxFit.cover,
                   ),
                 ),
-            ],
+              ),
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSwiperList({@required String title}) {
+  Widget _buildSwiperList({@required String title, List<Data> data}) {
     return Column(
       children: [
         $ItemTile(
           context,
-          title: slimTxT(title ?? ''),
+          title: slimTxT(title ?? '标题'),
           isSlim: true,
         ),
         Container(
           height: sizeH(context) * .24,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 20,
+            itemCount: data.length ?? 0,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return IconItem();
+              return IconItem(
+                icon: data[index].pic,
+                title: data[index].title,
+                desc: data[index].desc,
+              );
             },
           ),
         ),
@@ -137,9 +154,11 @@ class _ExtensionPageState extends State<ExtensionPage>
 }
 
 class IconItem extends StatelessWidget {
-  const IconItem({this.icon});
+  const IconItem({this.icon, this.title, this.desc});
 
   final String icon;
+  final String title;
+  final String desc;
 
   @override
   Widget build(BuildContext context) {
@@ -155,20 +174,52 @@ class IconItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(32.0),
             ),
             onTap: () {
-              pushName(context, '');
+              pushName(context, null, args: {
+                'name': 'programmer',
+                'anim': 'coding',
+                'desc': '正在开发中...',
+                'title': '敬请期待'
+              });
             },
-            child: Container(
-              margin: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24.0),
-                child: Image.asset(
-                  icon ?? path('header', 3, format: 'jpg'),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              elevation: 12.0,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                width: sizeW(context) * .3,
+                height: sizeW(context) * .3,
+                child: netPic(
+                  fit: BoxFit.fill,
+                  pic: icon,
+                  holder: flareAnim(context),
                 ),
               ),
             ),
           ),
-          slimTxT('text'),
-          slimTxT('text')
+          SizedBox(height: 6.0),
+          title == '' || title == null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Container(
+                    width: sizeW(context) * .28,
+                    height: sizeH(context) * .025,
+                    child: LinearProgressIndicator(),
+                  ),
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    slimTxT(title),
+                    slimTxT(
+                      desc,
+                      size: 15.0,
+                      color: Colors.lightBlue,
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -193,7 +244,7 @@ class RatioSwiper extends StatelessWidget {
           return InkWell(
             onTap: () {
               switch (index) {
-                case 0: // 恐龙快跑(像素风)
+                case 0: // ���龙快跑(像素风)
                   pushName(context, dinosaur_run);
                   break;
                 case 1: // 飞翔的小鸟(像素风)
@@ -214,18 +265,22 @@ class RatioSwiper extends StatelessWidget {
                 case 6: // 宝石迷阵
                   pushName(context, bejeweled);
                   break;
+                default:
+                  pushName(context, null, args: {
+                    'name': 'programmer',
+                    'anim': 'coding',
+                    'desc': '正在开发中...',
+                    'title': '敬请期待'
+                  });
               }
             },
-            child: CachedNetworkImage(
-              imageUrl: covers[index],
+            child: netPic(
+              pic: covers[index],
               fit: BoxFit.fill,
-              placeholder: (_, __) => Center(
-                child: RefreshProgressIndicator(),
-              ),
-              errorWidget: (_, __, ___) => errorLoad(
-                context,
-                height: sizeH(context) * .2,
-              ),
+              errorH: flareAnim(context, args: {
+                'name': 'programmer',
+                'anim': 'coding',
+              }),
             ),
           );
         },
