@@ -12,6 +12,12 @@
 ● 图标列表
 https://www.mocky.io/v2/5e78fd0c2d0000ab7b18ba1a
 
-
-● 即时天气
-
+● 天气预报示例
+##### 今日天气
+https://free-api.heweather.net/s6/weather/now?location=宝安&key=604c3a417ef24a61ac201b467a7ce55c
+##### 实时天气
+https://free-api.heweather.net/s6/weather/hourly?location=深圳&key=604c3a417ef24a61ac201b467a7ce55c
+##### 未来天气
+https://free-api.heweather.net/s6/weather/forecast?location=深圳&key=604c3a417ef24a61ac201b467a7ce55c
+##### 生活建议
+https://free-api.heweather.net/s6/weather/lifestyle?location=深圳&key=604c3a417ef24a61ac201b467a7ce55c

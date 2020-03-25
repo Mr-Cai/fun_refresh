@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:permission_handler/permission_handler.dart';
-import './tools/global.dart' show ctxKey, portrait, statusBar;
+import './tools/global.dart' show ctxKey, portrait, splashAD, statusBar;
 import './model/i18n/i18n.dart';
 import './page/routes/route_generator.dart';
 
 void main() {
-  // splashAD();
+  splashAD();
   runApp(FunRefreshApp());
 }
 
@@ -18,7 +18,7 @@ class FunRefreshApp extends StatefulWidget {
   State<StatefulWidget> createState() => _FunRefreshAppState();
 }
 
-class _FunRefreshAppState extends State<FunRefreshApp>  {
+class _FunRefreshAppState extends State<FunRefreshApp> {
   StreamSubscription connectSubs;
   ConnectivityResult _prevResult;
   bool permission = false;

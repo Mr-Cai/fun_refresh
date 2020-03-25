@@ -26,7 +26,7 @@ class _MindPageState extends State<MindPage> {
       ),
       body: ListView.separated(
         physics: BouncingScrollPhysics(),
-        itemCount: 99,
+        itemCount: 22,
         itemBuilder: (context, index) {
           return index % 9 == 0
               ? NativeExpressAdWidget(config['nativeID'])
@@ -47,9 +47,7 @@ class _MindPageState extends State<MindPage> {
 }
 
 class PostTile extends StatelessWidget {
-  const PostTile({
-    this.index,
-  });
+  const PostTile({this.index});
 
   final int index;
 

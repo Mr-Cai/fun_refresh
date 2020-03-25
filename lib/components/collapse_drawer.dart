@@ -23,7 +23,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 
   bool isCollapse = false; // 默认不展开
 
-  AnimationController _animationController;
+  AnimationController _animCtrl;
   Animation<double> _widthAnim;
   int currentIndex = 0;
   NavigationBloc bloc;
@@ -49,20 +49,30 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 
   @override
   void initState() {
-    _animationController =
+    _animCtrl =
         AnimationController(vsync: this, duration: Duration(milliseconds: 233));
-    _widthAnim = Tween<double>(begin: maxWidth, end: minWidth)
-        .animate(_animationController);
+    _widthAnim =
+        Tween<double>(begin: maxWidth, end: minWidth).animate(_animCtrl);
     super.initState();
   }
 
   @override
+  void dispose() {
+    switch (currentIndex) {
+      case 0:
+        statusBar(status: 0);
+        break;
+      default:
+        statusBar(status: 1);
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    scaffoldKey.currentState.isEndDrawerOpen
-        ? statusBar(status: 0)
-        : statusBar(status: 1);
+    statusBar(status: 1);
     return AnimatedBuilder(
-      animation: _animationController,
+      animation: _animCtrl,
       builder: (context, child) {
         return _buildDrawerContent(context, child);
       },
@@ -100,7 +110,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
           children: [
             SafeArea(child: SizedBox(height: 18.0)),
             CustomDrawerHeader(
-              animationController: _animationController,
+              animationController: _animCtrl,
               maxWidth: maxWidth,
               minWidth: minWidth,
             ),
@@ -112,7 +122,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                   maxWidth: maxWidth,
                   minWidth: minWidth,
                   onTap: () => setState(() {
-                    _animationController.forward();
+                    _animCtrl.forward();
                     bloc = BlocProvider.of<NavigationBloc>(context);
                     switch (index) {
                       case 0:
@@ -133,7 +143,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
                   isSelected: currentIndex == index,
                   title: drawerMenuItems[index].title,
                   iconPath: drawerMenuItems[index].iconPath,
-                  animationController: _animationController,
+                  animationController: _animCtrl,
                 ),
               ),
             ),
@@ -142,15 +152,13 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
               icon: AnimatedIcon(
                 size: 28.0,
                 icon: AnimatedIcons.close_menu,
-                progress: _animationController,
+                progress: _animCtrl,
                 color: Colors.white,
               ),
               onPressed: () {
                 setState(() {
                   isCollapse = !isCollapse;
-                  isCollapse
-                      ? _animationController.forward()
-                      : _animationController.reverse();
+                  isCollapse ? _animCtrl.forward() : _animCtrl.reverse();
                 });
               },
             ),
