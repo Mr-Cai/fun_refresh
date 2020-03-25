@@ -1,9 +1,7 @@
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tencent_ad/tencent_ad.dart';
 import 'package:toast/toast.dart';
 
 GoogleSignInAccount googleUser;
@@ -15,24 +13,6 @@ final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
 final dialogPrefKey = 'disclaimer';
-
-void splashAD() {
-  WidgetsFlutterBinding.ensureInitialized();
-  statusBar(isHide: true);
-  TencentAD.config(appID: config['appID'], phoneSTAT: 0, fineLOC: 0).then(
-    (_) => SplashAd(config['splashID'], callBack: (event, args) {
-      switch (event) {
-        case SplashAdEvent.onAdClosed:
-        case SplashAdEvent.onNoAd:
-        case SplashAdEvent.onAdDismiss:
-          statusBar(isHide: false);
-          break;
-        default:
-          statusBar(isHide: true);
-      }
-    }).showAd(),
-  );
-}
 
 void showSnackBar(String text) {
   final snackbar = SnackBar(
