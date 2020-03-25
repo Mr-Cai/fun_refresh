@@ -58,6 +58,9 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 
   @override
   Widget build(BuildContext context) {
+    scaffoldKey.currentState.isEndDrawerOpen
+        ? statusBar(status: 0)
+        : statusBar(status: 1);
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {

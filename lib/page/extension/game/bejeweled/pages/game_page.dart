@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:fun_refresh/tools/global.dart';
+
 import '../animations/animation_chain.dart';
 import '../animations/animation_combo_collapse.dart';
 import '../animations/animation_combo_three.dart';
@@ -79,6 +81,7 @@ class _GamePageState extends State<GamePage>
 
   @override
   void dispose() {
+    statusBar();
     _gameOverSubscription?.cancel();
     _gameOverSubscription = null;
     _overlayEntryAnimateSwapTiles?.remove();

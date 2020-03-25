@@ -20,8 +20,7 @@ class GamePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   var random = Random();
   double pos = 0.0;
 
@@ -118,7 +117,6 @@ class _GamePageState extends State<GamePage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
@@ -221,9 +219,6 @@ class _GamePageState extends State<GamePage>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   void refreshLayout() {
     getRanSize();

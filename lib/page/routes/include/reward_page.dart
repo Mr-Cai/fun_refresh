@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/global.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 import '../../../components/wheel.dart';
@@ -48,7 +47,6 @@ class _RewardPageState extends State<RewardPage> {
             top: 0.0,
             child: TopBar(
               title: I18n.of(context).reward,
-              left: sizeW(context) * .30,
               isMenu: true,
               themeColor: Colors.white,
             ),

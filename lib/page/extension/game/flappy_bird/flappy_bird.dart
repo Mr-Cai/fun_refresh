@@ -3,6 +3,8 @@ import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/tools/global.dart';
 import './game/game.dart';
 
 class FlappyBird extends StatefulWidget {
@@ -11,20 +13,31 @@ class FlappyBird extends StatefulWidget {
 }
 
 class _FlappyBirdState extends State<FlappyBird> {
+  FlappyBirdGame game;
+
+  @override
+  void dispose() {
+    game = null;
+    statusBar();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<FlappyBirdGame>(
       stream: initAsync().asStream(),
       builder: (context, snapshot) {
-        return Scaffold(
-          body: snapshot.data.widget,
-        );
+        if (snapshot.hasData) {
+          return Scaffold(
+            body: snapshot.data.widget,
+          );
+        }
+        return flareAnim(context);
       },
     );
   }
 
   Future<FlappyBirdGame> initAsync() async {
-    FlappyBirdGame game;
     // 初始化屏幕配置
     WidgetsFlutterBinding.ensureInitialized();
     Flame.audio.disableLog();

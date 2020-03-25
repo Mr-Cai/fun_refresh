@@ -18,7 +18,7 @@ class FunRefreshApp extends StatefulWidget {
   State<StatefulWidget> createState() => _FunRefreshAppState();
 }
 
-class _FunRefreshAppState extends State<FunRefreshApp> {
+class _FunRefreshAppState extends State<FunRefreshApp>  {
   StreamSubscription connectSubs;
   ConnectivityResult _prevResult;
   bool permission = false;

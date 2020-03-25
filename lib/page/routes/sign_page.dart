@@ -110,7 +110,7 @@ class _SignPageState extends State<SignPage> {
                   ),
                   child: Column(
                     children: [
-                      backBTN(context),
+                      menuIcon(context, icon: 'back'),
                       Container(
                         margin: const EdgeInsets.only(
                           bottom: 32.0,

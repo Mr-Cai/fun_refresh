@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../model/i18n/i18n.dart';
 import '../../components/top_bar.dart';
 import '../../page/export_page_pkg.dart';
@@ -21,18 +20,16 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.lightBlueAccent,
       appBar: TopBar(
         title: I18n.of(context).profile,
-        left: sizeW(context) * .16,
+        themeColor: Colors.white,
         actions: [
-          Container(
-            margin: const EdgeInsets.all(6.0),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                path('setting', 5),
-                color: Colors.white,
-              ),
-              onPressed: () => pushName(context, settings),
-            ),
-          ),
+          menuIcon(
+            context,
+            color: Colors.white,
+            onTap: () {
+              pushName(context, settings);
+            },
+            icon: 'setting',
+          )
         ],
       ),
       body: Container(

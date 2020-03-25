@@ -106,8 +106,7 @@ Widget $ItemTile(
                 : MainAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 4.0),
-                child: tail ?? forwardBTN(context, route),
+                child: tail ?? menuIcon(context, icon: 'next', size: 16.0),
               ),
             ],
           ),

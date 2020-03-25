@@ -24,7 +24,7 @@ class VideoDetailPage extends StatefulWidget {
 class _VideoDetailPageState extends State<VideoDetailPage> {
   @override
   void initState() {
-    statusBar(status: 1);
+    statusBar(status: 1, isHide: true);
     super.initState();
   }
 
@@ -377,10 +377,21 @@ class CtrlPlayUI extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RotatedBox(
-                quarterTurns: 3,
-                child: backBTN(context),
+              Container(
+                margin:
+                    const EdgeInsets.only(left: 12.0, top: 16.0, right: 20.0),
+                child: RotatedBox(
+                  quarterTurns: 3,
+                  child: menuIcon(
+                    context,
+                    icon: 'back',
+                    color: Colors.white,
+                    size: 22.0,
+                    onTap: () => pop(context),
+                  ),
+                ),
               ),
               slimTxT(args['title'], color: Colors.white),
               Spacer(),
