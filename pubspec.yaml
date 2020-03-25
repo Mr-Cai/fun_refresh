@@ -30,8 +30,6 @@ dependencies: # 拓展插件集合 https://pub.dev
   package_info: ^0.4.0+13 # 查询App包名
   device_info: ^0.4.1+4 # 设备平台配置信息
   flame: ^0.18.1 # 游戏引擎
-  tencent_ad: ^1.0.0 # 腾讯广告
-  tencent_kit: ^1.0.4 # 腾讯SDK
   toast: ^0.1.5 # 吐司字幕
   flutter_bloc: ^3.2.0 # 业务逻辑组件模式
   flare_flutter: ^2.0.1 # 2D闪光动画
