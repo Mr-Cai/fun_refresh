@@ -37,7 +37,7 @@ List<Planet> planets = [
             having surface features reminiscent both of the impact craters 
             of the Moon and the valleys, deserts, and polar ice caps of Earth.
           ''',
-      image: 'asset/image/mars.png',
+      image: 'assets/image/mars.png',
       picture:
           'https://www.nasa.gov/sites/default/files/thumbnails/image/pia21723-16.jpg'),
   const Planet(
@@ -57,7 +57,7 @@ List<Planet> planets = [
             distance of 30.1 astronomical units (4.50×109 km). 
             It is named after the Roman god of the sea and has 
             the astronomical symbol ♆, a stylised version of the god Neptune's trident. ''',
-      image: 'asset/image/neptune.png',
+      image: 'assets/image/neptune.png',
       picture:
           'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/images/110411main_Voyager2_280_yshires.jpg'),
   const Planet(
@@ -73,7 +73,7 @@ List<Planet> planets = [
           and the largest among planetary satellites relative to the size of 
           the planet that it orbits (its primary). Following Jupiter's satellite Io,
           the Moon is second-densest satellite among those whose densities are known.''',
-      image: 'asset/image/moon.png',
+      image: 'assets/image/moon.png',
       picture: 'https://farm5.staticflickr.com/4086/5052125139_43c31b7012.jpg'),
   const Planet(
       id: '4',
@@ -90,7 +90,7 @@ List<Planet> planets = [
           Earth revolves around the Sun in 365.26 days,
           a period known as an Earth year. During this time,
           Earth rotates about its axis about 366.26 times.''',
-      image: 'asset/image/earth.png',
+      image: 'assets/image/earth.png',
       picture:
           'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss042e340851_1.jpg'),
   const Planet(
@@ -104,7 +104,7 @@ List<Planet> planets = [
           Its orbital period around the Sun of 88 days is the shortest of all the planets
           in the Solar System. It is named after the Roman deity Mercury, 
           the messenger to the gods.''',
-      image: 'asset/image/mercury.png',
+      image: 'assets/image/mercury.png',
       picture:
           'https://c1.staticflickr.com/9/8105/8497927473_2845ae671e_b.jpg'),
 ];

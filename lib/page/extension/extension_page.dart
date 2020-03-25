@@ -19,18 +19,14 @@ class ExtensionPage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _ExtensionPageState();
 }
 
-class _ExtensionPageState extends State<ExtensionPage>
-    with AutomaticKeepAliveClientMixin {
+class _ExtensionPageState extends State<ExtensionPage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
         isMenu: true,
         title: I18n.of(context).more,
-        titleTop: 8.0,
-        preferredSize: Size.fromHeight(sizeH(context) * .055),
       ),
       body: StreamBuilder<ExtResponse>(
         stream: netool.pullExtAppData().asStream(),
@@ -96,8 +92,9 @@ class _ExtensionPageState extends State<ExtensionPage>
         Container(
           height: sizeH(context) * .3,
           width: sizeW(context),
+          margin: const EdgeInsets.symmetric(vertical: 12.0),
           child: AspectRatio(
-            aspectRatio: 16 / 9,
+            aspectRatio: 20 / 9,
             child: Swiper(
               indicator: CircleSwiperIndicator(
                 itemActiveColor: Colors.orange,
@@ -148,9 +145,6 @@ class _ExtensionPageState extends State<ExtensionPage>
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class IconItem extends StatelessWidget {
@@ -244,7 +238,7 @@ class RatioSwiper extends StatelessWidget {
           return InkWell(
             onTap: () {
               switch (index) {
-                case 0: // ���龙快跑(像素风)
+                case 0: // 恐龙快跑(像素风)
                   pushName(context, dinosaur_run);
                   break;
                 case 1: // 飞翔的小鸟(像素风)

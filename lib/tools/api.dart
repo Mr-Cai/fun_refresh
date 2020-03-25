@@ -36,7 +36,7 @@ const EYE_RELATED = '/v4/video/related';
 
 /// 和风天气 🌞
 const HE_WEATHER_BASE = 'https://free-api.heweather.net/s6/weather';
-const weatherKey = '985cb464f7ae4866a1fc35fd63e17e42'; // 和风天气密钥
+const weatherKey = '604c3a417ef24a61ac201b467a7ce55c'; // 和风天气密钥
 const now = '$HE_WEATHER_BASE/now'; // 今日天气
 const hourly = '$HE_WEATHER_BASE/hourly'; // 实时天气
 const forecast = '$HE_WEATHER_BASE/forecast'; // 未来天气

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'package:tencent_ad/tencent_ad.dart';
 import '../../components/top_bar.dart';
 import '../../model/i18n/i18n.dart';
@@ -17,6 +18,13 @@ class ErrorPage extends StatefulWidget {
 class _ErrorPageState extends State<ErrorPage> {
   final _bannerKey = GlobalKey<UnifiedBannerAdState>();
   bool _bannerClose = false;
+
+  @override
+  void dispose() {
+    statusBar(status: 0);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

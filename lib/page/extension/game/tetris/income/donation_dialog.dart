@@ -77,9 +77,9 @@ class _ReceiptDialog extends StatelessWidget {
 
   const _ReceiptDialog({Key key, this.image}) : super(key: key);
 
-  const _ReceiptDialog.weChat() : this(image: 'asset/wechat.png');
+  const _ReceiptDialog.weChat() : this(image: '');
 
-  const _ReceiptDialog.aliPay() : this(image: 'asset/alipay.jpg');
+  const _ReceiptDialog.aliPay() : this(image: '');
 
   static final borderRadius = BorderRadius.circular(5);
 

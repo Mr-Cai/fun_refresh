@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+import 'package:fun_refresh/tools/global.dart';
 
 import './bloc/bloc_provider.dart';
 import './bloc/game_bloc.dart';
@@ -15,12 +15,18 @@ class Bejeweled extends StatefulWidget {
 class _BejeweledState extends State<Bejeweled> {
   @override
   void initState() {
+    statusBar(isHide: true);
     WidgetsFlutterBinding.ensureInitialized();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Audio.init(); // 初始化音效
     });
-    SystemChrome.setEnabledSystemUIOverlays([]); // 自动隐藏状态栏
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    statusBar();
+    super.dispose();
   }
 
   @override

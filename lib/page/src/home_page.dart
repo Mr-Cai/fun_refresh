@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/components/theme.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/circle_floating_menu.dart';
@@ -102,8 +103,7 @@ class _HomePageState extends State<HomePage> {
                           netool.pullWeather('$lifestyle'),
                         ]).asStream(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
+                          if (snapshot.hasData) {
                             return Marquee(
                               textList: [
                                 '${snapshot.data[0].weather[0].now.condDesc ?? ''}',
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                               controller: _marqueeController,
                             );
                           }
-                          return Container();
+                          return Center(child: slimTxT('暂无数据', size: 12.0));
                         }),
                   ),
                 ),

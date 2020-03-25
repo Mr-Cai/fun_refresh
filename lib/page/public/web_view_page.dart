@@ -38,7 +38,6 @@ class _WebViewPageState extends State<WebViewPage> {
       _timer.cancel();
       _timer = null;
     }
-    statusBar();
     super.dispose();
   }
 
@@ -48,6 +47,8 @@ class _WebViewPageState extends State<WebViewPage> {
       appBar: TopBar(
         isGradient: true,
         title: title ?? '正在打开网页...',
+        themeColor: Colors.white,
+        isSafeArea: false,
       ),
       body: IndexedStack(
         index: stackToView,

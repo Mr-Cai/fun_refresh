@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
@@ -23,6 +22,7 @@ class _VideoPageState extends State<VideoPage> {
   int currentIndex = 1;
   FixedExtentScrollController _scrollCtrl;
   GlobalKey<NativeExpressAdState> adKey;
+  bool isADLoading = false;
 
   @override
   void initState() {
@@ -84,20 +84,25 @@ class _VideoPageState extends State<VideoPage> {
                                 case NativeADEvent.onNoAD:
                                 case NativeADEvent.onRenderFail:
                                 case NativeADEvent.onADCloseOverlay:
-                                  adKey.currentState.refreshAd();
+                                case NativeADEvent.onADClosed:
+                                case NativeADEvent.onADLeftApplication:
+                                  setState(() {
+                                    adKey.currentState.refreshAd();
+                                    return isADLoading = true;
+                                  });
+                                  break;
+                                case NativeADEvent.onRenderSuccess:
+                                  setState(() => isADLoading = false);
                                   break;
                                 default:
                               }
                             },
                           ),
-                          Positioned(
-                            bottom: 4.0,
-                            right: 24.0,
-                            child: SvgPicture.asset(
-                              path('ic_type', 5),
-                              width: 24.0,
-                            ),
-                          )
+                          Align(
+                            child: isADLoading
+                                ? RefreshProgressIndicator()
+                                : Container(),
+                          ),
                         ],
                       );
                     }

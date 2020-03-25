@@ -11,11 +11,9 @@ class MessagePage extends StatefulWidget with NavigationState {
   State<StatefulWidget> createState() => _MessagePageState();
 }
 
-class _MessagePageState extends State<MessagePage>
-    with AutomaticKeepAliveClientMixin {
+class _MessagePageState extends State<MessagePage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: TopBar(
         themeColor: Colors.black,
@@ -38,9 +36,6 @@ class _MessagePageState extends State<MessagePage>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class MsgItem extends StatelessWidget {

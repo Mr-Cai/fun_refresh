@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/disclaimer_dialog.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
@@ -27,25 +26,16 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    statusBar(status: 1);
     return Scaffold(
       backgroundColor: dividerColor,
       appBar: TopBar(
         title: '设置',
-        bgColor: Colors.white,
-        themeColor: Colors.black,
-        left: sizeW(context) * 0.15,
+        isSafeArea: false,
+        isGradient: true,
+        themeColor: Colors.white,
         isMenu: widget.isPush ? false : true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.all(6.0),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                path('info', 5),
-              ),
-              onPressed: () {},
-            ),
-          ),
-        ],
+        actions: [menuIcon(context, icon: 'info', color: Colors.white)],
       ),
       body: Stack(
         children: [

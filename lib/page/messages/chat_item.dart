@@ -58,7 +58,7 @@ class ChatItem extends StatelessWidget {
                   flex: horizontal ? 1 : 0,
                   child: _planetValue(
                       value: planet.distance,
-                      image: 'asset/image/ic_distance.png')),
+                      image: 'assets/images/ic_distance.png')),
               Container(
                 width: horizontal ? 8.0 : 32.0,
               ),
@@ -66,7 +66,7 @@ class ChatItem extends StatelessWidget {
                   flex: horizontal ? 1 : 0,
                   child: _planetValue(
                       value: planet.gravity,
-                      image: 'asset/image/ic_gravity.png'))
+                      image: 'assets/images/ic_gravity.png'))
             ],
           ),
         ],

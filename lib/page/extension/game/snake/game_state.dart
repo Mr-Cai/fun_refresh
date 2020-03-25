@@ -166,7 +166,7 @@ class GameState with ChangeNotifier {
         });
     if (saveOptions[confirm] == 1) {
       var jsonString =
-          await rootBundle.loadString('asset/json/config/default.json');
+          await rootBundle.loadString('assets/json/config/default.json');
       var config = jsonDecode(jsonString);
       _appBkColor = int.parse(config['appBk']);
       _leftPlayerColor = int.parse(config['leftPlayer']);
