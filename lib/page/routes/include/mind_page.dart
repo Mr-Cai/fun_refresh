@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:intl/intl.dart';
+import 'package:tencent_ad/native.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 import '../../../model/i18n/i18n.dart';
@@ -27,9 +29,7 @@ class _MindPageState extends State<MindPage> {
         itemCount: 22,
         itemBuilder: (context, index) {
           return index % 9 == 0
-              ? Container(
-                  // TODO: 原生广告
-                  )
+              ? NativeExpressAdWidget(config['nativeID'])
               : PostTile(index: index);
         },
         separatorBuilder: (context, index) {

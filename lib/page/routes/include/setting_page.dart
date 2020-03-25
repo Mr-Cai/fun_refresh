@@ -4,9 +4,10 @@ import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
+import 'package:tencent_ad/banner.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
-import '../../../model/data/local_asset.dart' show settingTxT;
+import '../../../model/data/local_asset.dart' show config, settingTxT;
 import '../../../components/theme.dart';
 
 class SettingsPage extends StatefulWidget with NavigationState {
@@ -19,6 +20,8 @@ class SettingsPage extends StatefulWidget with NavigationState {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final _bannerKey = GlobalKey<UnifiedBannerAdState>();
+  bool _bannerClose = false;
   final dialogKey = GlobalKey<DisclaimerMsgState>();
 
   @override
@@ -72,8 +75,22 @@ class _SettingsPageState extends State<SettingsPage> {
             right: 0.0,
             left: 0.0,
             child: Container(
-                // TODO: 横幅广告
-                ),
+              height: _bannerClose == true ? 0 : 64.0,
+              child: UnifiedBannerAd(
+                config['bannerID'],
+                key: _bannerKey,
+                refreshOnCreate: true,
+                adEventCallback: (event, args) {
+                  if (event == BannerEvent.onAdClosed) {
+                    _bannerClose = true;
+                    _bannerKey.currentState.loadAD();
+                  }
+                  if (event == BannerEvent.onNoAD) {
+                    _bannerKey.currentState.loadAD();
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),

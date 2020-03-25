@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/page/routes/route_generator.dart';
+import 'package:tencent_ad/native.dart';
 import 'package:fun_refresh/tools/global.dart';
 import '../../components/top_bar.dart';
 import '../../model/event/drawer_nav_bloc.dart';
@@ -19,6 +21,8 @@ class VideoPage extends StatefulWidget with NavigationState {
 class _VideoPageState extends State<VideoPage> {
   int currentIndex = 1;
   FixedExtentScrollController _scrollCtrl;
+  GlobalKey<NativeExpressAdState> adKey;
+  bool isADLoading = false;
 
   @override
   void initState() {
@@ -70,9 +74,37 @@ class _VideoPageState extends State<VideoPage> {
                       List.generate(snapshot.data.itemList.length, (index) {
                     if (snapshot.data.itemList[index].type == 'textCard' ||
                         snapshot.data.itemList[index].type == 'banner') {
-                      return Container(
-                          // TODO 原生广告
-                          );
+                      return Stack(
+                        children: [
+                          NativeExpressAdWidget(
+                            config['nativeID'],
+                            adKey: adKey,
+                            adEventCallback: (event, args) {
+                              switch (event) {
+                                case NativeADEvent.onNoAD:
+                                case NativeADEvent.onRenderFail:
+                                case NativeADEvent.onADCloseOverlay:
+                                case NativeADEvent.onADClosed:
+                                case NativeADEvent.onADLeftApplication:
+                                  setState(() {
+                                    adKey.currentState.refreshAd();
+                                    return isADLoading = true;
+                                  });
+                                  break;
+                                case NativeADEvent.onRenderSuccess:
+                                  setState(() => isADLoading = false);
+                                  break;
+                                default:
+                              }
+                            },
+                          ),
+                          Align(
+                            child: isADLoading
+                                ? RefreshProgressIndicator()
+                                : Container(),
+                          ),
+                        ],
+                      );
                     }
                     final data =
                         snapshot.data.itemList[index].data.content.data;

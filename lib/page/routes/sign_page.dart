@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../components/top_bar.dart';
 import '../../model/mock/smash_model.dart';
+import '../../tools/api.dart';
 import '../../tools/global.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_kit/tencent_kit.dart';
 import 'package:toast/toast.dart';
 
 class SignPage extends StatefulWidget {
@@ -44,11 +46,23 @@ class _SignPageState extends State<SignPage> {
   final _pwdCtrl = TextEditingController();
   final _scrollViewCtrl = ScrollController();
 
+  StreamSubscription<TencentLoginResp> _login;
+
+  Tencent _tencent = Tencent()..registerApp(appId: tencentID);
+  TencentLoginResp _loginResp;
+
   @override
   void initState() {
     _phoneCtrl.addListener(() => _scrollBTM());
     _pwdCtrl.addListener(() => _scrollBTM());
+    _login = _tencent.loginResp().listen(_listenLogin);
     super.initState();
+  }
+
+  void _listenLogin(TencentLoginResp resp) {
+    _loginResp = resp;
+    String content = 'login: ${resp.openid} - ${resp.accessToken}';
+    print(content);
   }
 
   @override
@@ -56,6 +70,9 @@ class _SignPageState extends State<SignPage> {
     _phoneCtrl.dispose();
     _pwdCtrl.dispose();
     _scrollViewCtrl.dispose();
+    if (_login != null) {
+      _login.cancel();
+    }
     super.dispose();
   }
 
@@ -70,152 +87,180 @@ class _SignPageState extends State<SignPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        controller: _scrollViewCtrl,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: 120.0),
-          child: Container(
-            height: sizeH(context),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.cyan,
-                  Colors.lightBlue,
-                  Colors.tealAccent,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight,
+      body: StreamBuilder<Object>(
+          stream: getAvatar().asStream(),
+          builder: (context, snapshot) {
+            return SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              controller: _scrollViewCtrl,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: 120.0),
+                child: Container(
+                  height: sizeH(context),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.cyan,
+                        Colors.lightBlue,
+                        Colors.tealAccent,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      menuIcon(context, icon: 'back'),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          bottom: 32.0,
+                        ),
+                        child: ClipOval(
+                          child: snapshot.data == null
+                              ? SvgPicture.asset(
+                                  path('user', 5),
+                                  width: 64.0,
+                                )
+                              : Image.network(
+                                  snapshot.data.toString(),
+                                  height: 64.0,
+                                  width: 64.0,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: TextFormField(
+                          controller: _phoneCtrl,
+                          textCapitalization: TextCapitalization.sentences,
+                          cursorColor: Colors.white,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: '手机｜邮箱｜网名',
+                            hintStyle: TextStyle(color: Colors.white70),
+                            icon: Icon(Icons.phone, color: Colors.greenAccent),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 4.0 * 3),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: TextFormField(
+                          controller: _pwdCtrl,
+                          keyboardType: TextInputType.multiline,
+                          cursorColor: Colors.white,
+                          cursorWidth: 2.0,
+                          cursorRadius: Radius.circular(32.0),
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(color: Colors.white70),
+                            hintText: '验证码｜密码',
+                            icon: Icon(Icons.lock, color: Colors.limeAccent),
+                            suffixIcon: Icon(
+                              Icons.visibility,
+                              color: Colors.white,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          ),
+                          validator: (value) =>
+                              value.length < 6 ? '密码太短' : null,
+                          onSaved: (value) => _pwdCtrl.text = value,
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Spacer(),
+                          FloatingActionButton.extended(
+                            heroTag: 'send',
+                            onPressed: () {},
+                            label: Text('发送'),
+                            elevation: 0.0,
+                            backgroundColor: Colors.transparent,
+                            icon: Icon(Icons.send),
+                          ),
+                          Spacer(),
+                          FloatingActionButton.extended(
+                            heroTag: 'register',
+                            onPressed: () {
+                              _savedAccount(_phoneCtrl.text, _pwdCtrl.text);
+                            },
+                            label: Text(
+                              '登录\t\t\t\t|\t\t\t\t注册',
+                              textScaleFactor: 1.1,
+                            ),
+                          ),
+                          Spacer(),
+                          FlatButton(
+                            shape: CircleBorder(),
+                            autofocus: true,
+                            child: Icon(
+                              Icons.help,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Toast.show('忘记密码', context);
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: SvgPicture.asset(path('google', 5)),
+                            onPressed: () => _signIn(context).then((user) {
+                              googleAuth.accessToken == null
+                                  ? isGoogleLoginSuccess = false
+                                  : isGoogleLoginSuccess = true;
+                            }).catchError((e) => print(e)),
+                          ),
+                          SizedBox(width: 8.0),
+                          IconButton(
+                            icon: SvgPicture.asset(path('qq', 5)),
+                            onPressed: () {
+                              _tencent.login(
+                                scope: [TencentScope.GET_SIMPLE_USERINFO],
+                              );
+                            },
+                          ),
+                          SizedBox(width: 8.0),
+                          IconButton(
+                            iconSize: 24.0,
+                            icon: SvgPicture.asset(path('wechat', 5)),
+                            onPressed: () {},
+                          ),
+                          SizedBox(width: 8.0),
+                          IconButton(
+                            icon: SvgPicture.asset(path('github', 5)),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                menuIcon(context, icon: 'back'),
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 32.0,
-                  ),
-                  child: ClipOval(
-                      // TODO 头像
-                      ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextFormField(
-                    controller: _phoneCtrl,
-                    textCapitalization: TextCapitalization.sentences,
-                    cursorColor: Colors.white,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: '手机｜邮箱｜网名',
-                      hintStyle: TextStyle(color: Colors.white70),
-                      icon: Icon(Icons.phone, color: Colors.greenAccent),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 4.0 * 3),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextFormField(
-                    controller: _pwdCtrl,
-                    keyboardType: TextInputType.multiline,
-                    cursorColor: Colors.white,
-                    cursorWidth: 2.0,
-                    cursorRadius: Radius.circular(32.0),
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(color: Colors.white70),
-                      hintText: '验证码｜密码',
-                      icon: Icon(Icons.lock, color: Colors.limeAccent),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
-                    ),
-                    validator: (value) => value.length < 6 ? '密码太短' : null,
-                    onSaved: (value) => _pwdCtrl.text = value,
-                  ),
-                ),
-                SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Spacer(),
-                    FloatingActionButton.extended(
-                      heroTag: 'send',
-                      onPressed: () {},
-                      label: Text('发送'),
-                      elevation: 0.0,
-                      backgroundColor: Colors.transparent,
-                      icon: Icon(Icons.send),
-                    ),
-                    Spacer(),
-                    FloatingActionButton.extended(
-                      heroTag: 'register',
-                      onPressed: () {
-                        _savedAccount(_phoneCtrl.text, _pwdCtrl.text);
-                      },
-                      label: Text(
-                        '登录\t\t\t\t|\t\t\t\t注册',
-                        textScaleFactor: 1.1,
-                      ),
-                    ),
-                    Spacer(),
-                    FlatButton(
-                      shape: CircleBorder(),
-                      autofocus: true,
-                      child: Icon(
-                        Icons.help,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Toast.show('忘记密码', context);
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: SvgPicture.asset(path('google', 5)),
-                      onPressed: () => _signIn(context).then((user) {
-                        googleAuth.accessToken == null
-                            ? isGoogleLoginSuccess = false
-                            : isGoogleLoginSuccess = true;
-                      }).catchError((e) => print(e)),
-                    ),
-                    SizedBox(width: 8.0),
-                    IconButton(
-                      icon: SvgPicture.asset(path('qq', 5)),
-                      onPressed: () {},
-                    ),
-                    SizedBox(width: 8.0),
-                    IconButton(
-                      iconSize: 24.0,
-                      icon: SvgPicture.asset(path('wechat', 5)),
-                      onPressed: () {},
-                    ),
-                    SizedBox(width: 8.0),
-                    IconButton(
-                      icon: SvgPicture.asset(path('github', 5)),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+            );
+          }),
     );
+  }
+
+  Future<String> getAvatar() async {
+    TencentUserInfoResp userInfo = await _tencent.getUserInfo(
+      appId: tencentID,
+      openid: _loginResp.openid,
+      accessToken: _loginResp.accessToken,
+    );
+    return userInfo.headImgUrl();
   }
 
   void _savedAccount(String account, String pwd) async {
