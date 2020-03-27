@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
@@ -23,15 +22,15 @@ class VideoDetailPage extends StatefulWidget {
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
   @override
-  void initState() {
-    statusBar(status: 1, isHide: true);
-    super.initState();
-  }
-
-  @override
   void dispose() {
     statusBar();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    statusBar(status: 1, isHide: true);
+    super.initState();
   }
 
   @override
@@ -284,7 +283,7 @@ class _VideoWindowState extends State<VideoWindow> {
     });
     controller.setLooping(true);
     controller.initialize().then((value) => setState(() {}));
-    controller.play();
+    controller.pause();
     super.initState();
   }
 
@@ -338,7 +337,13 @@ class CtrlPlayUI extends StatelessWidget {
           duration: Duration(milliseconds: 50),
           reverseDuration: Duration(milliseconds: 200),
           child: controller.value.isPlaying
-              ? SizedBox.shrink()
+              ? Center(
+                child: Icon(
+                    Icons.pause,
+                    color: Colors.white70,
+                    size: 48.0,
+                  ),
+              )
               : Container(
                   color: Colors.black38,
                   child: Align(
@@ -356,10 +361,10 @@ class CtrlPlayUI extends StatelessWidget {
         GestureDetector(
           onTap: () {
             controller.value.isPlaying ? controller.pause() : controller.play();
-            SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+            statusBar(status: 1, isHide: true);
           },
           onVerticalDragStart: (_) {
-            SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+            statusBar(status: 1, isHide: true);
           },
         ),
         controller.value.isPlaying

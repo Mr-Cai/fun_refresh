@@ -37,6 +37,12 @@ class _HomePageState extends State<HomePage> {
       ];
 
   @override
+  void initState() {
+    statusBar();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;
     return orientation == Orientation.landscape

@@ -8,7 +8,6 @@ export './public/game_page.dart';
 export './public/web_view_page.dart';
 
 export './src/home_page.dart';
-export './src/splash_page.dart';
 export './src/error_page.dart';
 
 export './extension/extension_page.dart';

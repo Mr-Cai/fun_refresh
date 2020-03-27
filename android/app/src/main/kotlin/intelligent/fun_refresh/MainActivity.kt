@@ -7,6 +7,7 @@ import android.graphics.drawable.Icon
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.N_MR1
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import io.flutter.app.FlutterActivity
@@ -51,18 +52,18 @@ class MainActivity : FlutterActivity() {
                     )
             ).build()
 
-//    override fun onPause() {
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-//        super.onPause()
-//    }
-//
-//    override fun onResume() {
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-//        super.onResume()
-//    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    override fun onPause() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        super.onPause()
     }
+
+    override fun onResume() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        super.onResume()
+    }
+
+    // override fun onWindowFocusChanged(hasFocus: Boolean) {
+    //     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    //     super.onWindowFocusChanged(hasFocus)
+    // }
 }

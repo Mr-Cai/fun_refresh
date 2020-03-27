@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/components/disclaimer_dialog.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:fun_refresh/tools/api.dart';
@@ -22,7 +21,6 @@ class SettingsPage extends StatefulWidget with NavigationState {
 class _SettingsPageState extends State<SettingsPage> {
   final _bannerKey = GlobalKey<UnifiedBannerAdState>();
   bool _bannerClose = false;
-  final dialogKey = GlobalKey<DisclaimerMsgState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Stack(
         children: [
-          DisclaimerMsg(state: this, key: dialogKey),
           ListView(
             physics: BouncingScrollPhysics(),
             children: [

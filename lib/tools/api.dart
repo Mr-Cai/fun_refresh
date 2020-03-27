@@ -25,6 +25,9 @@ const agreement = '$page/agreement';
 /// }
 const POST_MAN = 'PostmanRuntime/7.16.1';
 
+const CHROME =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36';
+
 /// 开眼视频(API)
 const EYE_BASE = 'https://baobab.kaiyanapp.com/api';
 
@@ -45,7 +48,6 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
 const typeList = '5e78fd0c2d0000ab7b18ba1a';
-
 
 /// 谷歌广告密钥
 // Android 正式
