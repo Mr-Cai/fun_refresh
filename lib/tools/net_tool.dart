@@ -45,7 +45,7 @@ class NeTool {
     }
   }
 
-  /// 和风天气API
+  /// 和风天气
   /// [requestUrl] 请求地址
   /// [queryParameters] 请求参数
   /// [response] 响应JSON
@@ -64,7 +64,7 @@ class NeTool {
     }
   }
 
-  /// 和风天气API
+  /// 扩展小程序图标信息
   /// [requestUrl] 请求地址
   /// [queryParameters] 请求参数
   /// [response] 响应JSON
