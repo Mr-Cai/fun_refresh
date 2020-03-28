@@ -18,6 +18,7 @@ slimTxT(String text, {double size, Color color, int normal, Function onTap}) =>
         text,
         softWrap: true,
         overflow: TextOverflow.ellipsis,
+        maxLines: 1,
         style: TextStyle(
           color: color ?? Colors.black,
           fontSize: size ?? 18.0,

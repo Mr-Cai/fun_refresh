@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:fun_refresh/page/routes/route_generator.dart';
 import 'package:tencent_ad/native.dart';
 import 'package:fun_refresh/tools/global.dart';
 import '../../components/top_bar.dart';
@@ -12,6 +11,7 @@ import '../../model/event/drawer_nav_bloc.dart';
 import '../../model/mock/video/eye_video.dart';
 import '../../model/i18n/i18n.dart';
 import '../../tools/net_tool.dart';
+import '../export_page_pkg.dart';
 
 class VideoPage extends StatefulWidget with NavigationState {
   @override
@@ -52,14 +52,15 @@ class _VideoPageState extends State<VideoPage> {
                     context,
                     video_detail,
                     args: {
-                      'url': '${data.playUrl}',
+                      'id': data.id,
                       'index': '$currentIndex',
+                      'cover': '${data.cover.detail}',
+                      'url': '${data.playUrl}',
                       'avatar': '${data.author.icon}',
                       'name': '${data.author.name}',
                       'slogan': '${data.author.description}',
                       'title': '${data.title}',
                       'desc': '${data.description}',
-                      'id': data.id,
                     },
                   );
                 },
@@ -106,9 +107,9 @@ class _VideoPageState extends State<VideoPage> {
                         ],
                       );
                     }
-                    final data =
-                        snapshot.data.itemList[index].data.content.data;
-                    return CoverTile(data: data);
+                    return CoverTile(
+                      data: snapshot.data.itemList[index].data.content.data,
+                    );
                   }),
                 ),
               );
@@ -135,12 +136,12 @@ class CoverTile extends StatelessWidget {
     return Stack(
       children: [
         Align(
-          alignment: Alignment.center,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: CachedNetworkImage(
               fit: BoxFit.cover,
               imageUrl: data.cover.detail,
+              width: sizeW(context) * .96,
               placeholder: (_, __) => Center(
                 child: RefreshProgressIndicator(),
               ),
@@ -152,7 +153,7 @@ class CoverTile extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 8.0,
+          top: 12.0,
           left: 18.0,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -24,6 +26,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   @override
   void dispose() {
     statusBar();
+    portrait();
     super.dispose();
   }
 
@@ -35,32 +38,38 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: dividerColor,
-      body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            VideoWindow(url: widget.args['url'], args: widget.args),
-            Container(
-              height: sizeH(context),
-              child: ListView(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                children: [
-                  ProfileBar(
-                    avatar: widget.args['avatar'],
-                    name: widget.args['name'],
-                    slogan: widget.args['slogan'],
-                    desc: widget.args['desc'],
-                    isLike: false,
-                  ),
-                  _buildRelatedTile(context),
-                  SizedBox(height: sizeH(context) * .3)
-                ],
+    return WillPopScope(
+      onWillPop: () async {
+        portrait();
+        return dirAxis(context) == Orientation.landscape ? false : true;
+      },
+      child: Scaffold(
+        backgroundColor: dividerColor,
+        body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              VideoWindow(url: widget.args['url'], args: widget.args),
+              Container(
+                height: sizeH(context),
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    ProfileBar(
+                      avatar: widget.args['avatar'],
+                      name: widget.args['name'],
+                      slogan: widget.args['slogan'],
+                      desc: widget.args['desc'],
+                      isLike: false,
+                    ),
+                    _buildRelatedTile(context),
+                    SizedBox(height: sizeH(context) * .3)
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -323,32 +332,53 @@ class _VideoWindowState extends State<VideoWindow> {
   }
 }
 
-class CtrlPlayUI extends StatelessWidget {
+class CtrlPlayUI extends StatefulWidget {
   const CtrlPlayUI(this.controller, {this.args});
 
   final VideoPlayerController controller;
   final Map args;
 
   @override
+  State<StatefulWidget> createState() => _CtrlPlayUIState();
+}
+
+class _CtrlPlayUIState extends State<CtrlPlayUI> {
+  double _opacity = 1.0;
+  @override
   Widget build(BuildContext context) {
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      _opacity = 0.0;
+      if (!widget.controller.value.isPlaying) {
+        _opacity = 1.0;
+      } else {
+        timer.cancel();
+      }
+    });
     return Stack(
       children: [
         AnimatedSwitcher(
           duration: Duration(milliseconds: 50),
           reverseDuration: Duration(milliseconds: 200),
-          child: controller.value.isPlaying
-              ? Center(
-                child: Icon(
-                    Icons.pause,
-                    color: Colors.white70,
-                    size: 48.0,
+          child: widget.controller.value.isPlaying
+              ? Opacity(
+                  opacity: _opacity,
+                  child: Container(
+                    color: Colors.black38,
+                    child: Align(
+                      child: Container(
+                        child: Icon(
+                          Icons.pause,
+                          color: Colors.white70,
+                          size: 48.0,
+                        ),
+                      ),
+                    ),
                   ),
-              )
+                )
               : Container(
                   color: Colors.black38,
                   child: Align(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 8.0),
                       child: Icon(
                         Icons.play_arrow,
                         color: Colors.white70,
@@ -360,16 +390,18 @@ class CtrlPlayUI extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
+            widget.controller.value.isPlaying
+                ? widget.controller.pause()
+                : widget.controller.play();
             statusBar(status: 1, isHide: true);
           },
           onVerticalDragStart: (_) {
             statusBar(status: 1, isHide: true);
           },
         ),
-        controller.value.isPlaying
+        widget.controller.value.isPlaying
             ? Container()
-            : buildCtrlOverlay(context, args: args),
+            : buildCtrlOverlay(context, args: widget.args),
       ],
     );
   }
@@ -381,8 +413,8 @@ class CtrlPlayUI extends StatelessWidget {
       child: Stack(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 margin:
@@ -398,8 +430,32 @@ class CtrlPlayUI extends StatelessWidget {
                   ),
                 ),
               ),
-              slimTxT(args['title'], color: Colors.white),
-              Spacer(),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: dirAxis(context) == Orientation.landscape
+                        ? sizeH(context) * .04
+                        : sizeH(context) * .018,
+                  ),
+                  child: dirAxis(context) == Orientation.landscape
+                      ? slimTxT(args['title'], color: Colors.white)
+                      : Container(
+                          width: sizeW(context) * .7,
+                          child: slimTxT(args['title'], color: Colors.white),
+                        ),
+                ),
+              ),
+              IconButton(
+                padding: const EdgeInsets.only(top: 8.0),
+                icon: Icon(
+                  Icons.more_vert,
+                  color: Colors.white,
+                  size: 26.0,
+                ),
+                tooltip: '更多',
+                onPressed: () {},
+              )
             ],
           ),
           Positioned(
@@ -409,23 +465,30 @@ class CtrlPlayUI extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /* IconButton(
+                IconButton(
                   icon: Icon(
                     Icons.thumb_up,
                     color: Colors.white70,
                   ),
-                  iconSize: 16.0,
+                  iconSize: 24.0,
                   tooltip: '点赞',
                   onPressed: () {},
                 ),
                 IconButton(
                   icon: Icon(
-                    Icons.fullscreen,
+                    dirAxis(context) == Orientation.landscape
+                        ? Icons.fullscreen_exit
+                        : Icons.fullscreen,
                     color: Colors.white70,
+                    size: 28.0,
                   ),
-                  tooltip: '��屏',
-                  onPressed: () {},
-                ), */
+                  tooltip: '横屏',
+                  onPressed: () {
+                    dirAxis(context) == Orientation.landscape
+                        ? portrait()
+                        : landscape(isHide: true);
+                  },
+                ),
               ],
             ),
           )

@@ -27,8 +27,11 @@ void splashAD() {
         case SplashAdEvent.onAdDismiss:
           statusBar(isHide: false);
           break;
-        default:
+        case SplashAdEvent.onAdExposure:
+        case SplashAdEvent.onAdPresent:
           statusBar(isHide: true);
+          break;
+        default:
       }
     }).showAd(),
   );
@@ -42,8 +45,24 @@ void showSnackBar(String text) {
   scaffoldKey.currentState.showSnackBar(snackbar);
 }
 
-void tip(String txt, BuildContext context) {
-  Toast.show(txt, context);
+void tip(
+  String txt,
+  BuildContext context, {
+  int gravity,
+  Color bgColor,
+  Color textColor,
+  double bgRadius,
+  Border border,
+}) {
+  Toast.show(
+    txt,
+    context,
+    gravity: gravity,
+    backgroundColor: bgColor,
+    textColor: textColor,
+    backgroundRadius: bgRadius,
+    border: border,
+  );
 }
 
 const targetingInfo = MobileAdTargetingInfo(
@@ -141,6 +160,10 @@ Future<void> statusBar({int status = 0, bool isHide = false}) async {
       ),
     );
   }
+}
+
+Orientation dirAxis(BuildContext context) {
+  return MediaQuery.of(context).orientation;
 }
 
 void portrait() {
