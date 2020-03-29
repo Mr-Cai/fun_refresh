@@ -5,7 +5,7 @@ part 'eye_video.g.dart';
 class EyeVideo {
   EyeVideo({this.itemList, this.nextPageUrl});
 
-  final List<Item> itemList; // 视频列表
+  final List<VideoTile> itemList; // 视频列表
   final String nextPageUrl; // 每页末尾的查询下一页链接
 
   factory EyeVideo.fromJson(Map<String, dynamic> json) =>
@@ -15,15 +15,17 @@ class EyeVideo {
 }
 
 @JsonSerializable()
-class Item {
-  Item({this.data, this.type});
+class VideoTile {
+  VideoTile({this.data, this.type});
 
   final Data data; // 集合中的条目对象
   final String type; // 组别分类(分隔线、图片、链接)
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory VideoTile.fromJson(Map<String, dynamic> json) =>
+      _$VideoTileFromJson(json);
 
-  Map<String, dynamic> toJson(Item instance) => _$ItemToJson(instance);
+  Map<String, dynamic> toJson(VideoTile instance) =>
+      _$VideoTileToJson(instance);
 }
 
 @JsonSerializable()
@@ -59,15 +61,17 @@ class InnerData {
     this.playUrl,
     this.description,
     this.duration,
+    this.date,
   });
 
   final int id;
   final String title;
   final String description;
-  final Author author;
+  final AuthorInfo author;
   final Cover cover;
   final String playUrl;
   final int duration;
+  final num date;
 
   factory InnerData.fromJson(Map<String, dynamic> json) =>
       _$InnerDataFromJson(json);
@@ -77,16 +81,18 @@ class InnerData {
 }
 
 @JsonSerializable()
-class Author {
-  Author({this.icon, this.name, this.description});
+class AuthorInfo {
+  AuthorInfo({this.icon, this.name, this.description});
 
   final String icon;
   final String name;
   final String description;
 
-  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
+  factory AuthorInfo.fromJson(Map<String, dynamic> json) =>
+      _$AuthorInfoFromJson(json);
 
-  Map<String, dynamic> toJson(Author instance) => _$AuthorToJson(instance);
+  Map<String, dynamic> toJson(AuthorInfo instance) =>
+      _$AuthorInfoToJson(instance);
 }
 
 @JsonSerializable()

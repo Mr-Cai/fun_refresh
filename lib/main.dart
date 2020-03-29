@@ -9,7 +9,7 @@ import './model/i18n/i18n.dart';
 import './page/routes/route_generator.dart';
 
 void main() {
-  splashAD();
+  // splashAD();
   runApp(FunRefreshApp());
 }
 

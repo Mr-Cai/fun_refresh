@@ -34,6 +34,8 @@ class RouteGenerator {
         return _skipRoute(WebViewPage(args: args)); // 浏览器页面
       case video_detail:
         return _skipRoute(VideoDetailPage(args: args)); // 视频详情
+      case video_author:
+        return _skipRoute(VideoAuthorPage(args: args)); // 视频作者
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
       case tetris:

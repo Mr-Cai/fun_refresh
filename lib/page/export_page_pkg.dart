@@ -3,6 +3,7 @@ export './messages/chat_page.dart';
 
 export './video/video_cover_page.dart';
 export './video/video_detail_page.dart';
+export './video/video_author_page.dart';
 
 export './public/game_page.dart';
 export './public/web_view_page.dart';

@@ -190,6 +190,7 @@ const profile = '/profile'; // 个人资料
 const search = '/search'; // 搜索关键词
 const web_view = '/web_view'; // 浏览器
 const video_detail = '/video_detail'; // 视频详情
+const video_author = '/video_author'; // 视频作者
 
 // 小游戏
 const tetris = '/game_tetris'; // 俄罗斯方块(像素风)

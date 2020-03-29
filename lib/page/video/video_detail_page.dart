@@ -7,6 +7,7 @@ import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
 import 'package:fun_refresh/model/mock/video/eye_related.dart';
+import 'package:fun_refresh/model/mock/video/eye_video.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -23,17 +24,19 @@ class VideoDetailPage extends StatefulWidget {
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
+  InnerData data;
+
+  @override
+  void initState() {
+    data = widget.args['data'];
+    super.initState();
+  }
+
   @override
   void dispose() {
     statusBar();
     portrait();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    statusBar(status: 1, isHide: true);
-    super.initState();
   }
 
   @override
@@ -47,29 +50,29 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         backgroundColor: dividerColor,
         body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              VideoWindow(url: widget.args['url'], args: widget.args),
-              Container(
-                height: sizeH(context),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
+          child: dirAxis(context) == Orientation.landscape
+              ? Container(
+                  width: sizeW(context),
+                  height: sizeH(context),
+                  child: VideoWindow(data: data),
+                )
+              : Column(
                   children: [
-                    ProfileBar(
-                      avatar: widget.args['avatar'],
-                      name: widget.args['name'],
-                      slogan: widget.args['slogan'],
-                      desc: widget.args['desc'],
-                      isLike: false,
+                    VideoWindow(data: data),
+                    Container(
+                      height: sizeH(context),
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          ProfileBar(data: data),
+                          _buildRelatedTile(context),
+                          SizedBox(height: sizeH(context) * .3)
+                        ],
+                      ),
                     ),
-                    _buildRelatedTile(context),
-                    SizedBox(height: sizeH(context) * .3)
                   ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -79,7 +82,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     return Container(
       height: sizeH(context),
       child: StreamBuilder<EyeRelated>(
-          stream: netool.pullEyeRelated(id: widget.args['id']).asStream(),
+          stream: netool.pullEyeRelated(id: data.id).asStream(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Container(
@@ -97,10 +100,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                   itemBuilder: (context, index) {
                     if (snapshot.data.itemList[index].type ==
                         'videoSmallCard') {
-                      return RelatedTile(
-                        item: snapshot.data.itemList[index],
-                        img: snapshot.data.itemList[index].data.cover.detail,
-                      );
+                      return RelatedTile(item: snapshot.data.itemList[index]);
                     }
                     return Container(
                       child: ClipRRect(
@@ -138,24 +138,16 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 }
 
 class RelatedTile extends StatelessWidget {
-  const RelatedTile({@required this.item, this.img});
+  const RelatedTile({@required this.item});
 
-  final Item item;
-  final String img;
+  final RelatedItem item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        pushReplace(context, video_detail, args: {
-          'url': item.data.playUrl,
-          'avatar': item.data.author.icon,
-          'name': item.data.author.name,
-          'slogan': item.data.author.description,
-          'title': item.data.title,
-          'desc': item.data.description,
-          'id': item.data.id,
-        });
+        statusBar(status: 1, isHide: true);
+        pushReplace(context, video_detail, args: {'data': item.data});
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),
@@ -163,7 +155,7 @@ class RelatedTile extends StatelessWidget {
           children: [
             CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl: img ?? picDemo,
+              imageUrl: item.data.cover.detail ?? picDemo,
               placeholder: (_, __) => Center(
                 child: RefreshProgressIndicator(),
               ),
@@ -195,21 +187,8 @@ class RelatedTile extends StatelessWidget {
 }
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar({
-    this.avatar,
-    this.name,
-    this.slogan,
-    this.title,
-    this.desc,
-    this.isLike,
-  });
-
-  final String avatar;
-  final String name;
-  final String slogan;
-  final String title;
-  final String desc;
-  final bool isLike;
+  const ProfileBar({this.data});
+  final InnerData data;
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +199,7 @@ class ProfileBar extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: RichText(
             text: TextSpan(
-              text: desc,
+              text: data.description,
               style: TextStyle(color: Colors.black),
             ),
             softWrap: true,
@@ -231,52 +210,56 @@ class ProfileBar extends StatelessWidget {
   }
 
   Widget _buildAuthorBar(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(8.0),
-          child: ClipOval(
-            child: Image.network(
-              avatar,
-              width: 64.0,
-              height: 64.0,
+    return InkWell(
+      onTap: () {
+        pushName(context, video_author, args: {});
+      },
+      child: Row(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(8.0),
+            child: ClipOval(
+              child: Image.network(
+                data.author.icon,
+                width: 64.0,
+                height: 64.0,
+              ),
             ),
           ),
-        ),
-        SizedBox(width: 8.0),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            slimTxT(name),
-            SizedBox(height: 4.0),
-            Container(
-              width: sizeW(context) * .66,
-              child: slimTxT(slogan, size: 13.0),
-            ),
-          ],
-        ),
-        Spacer(),
-        Align(
-          alignment: Alignment.centerRight,
-          child: IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: isLike ? Colors.red : Colors.grey.shade500,
-            ),
-            onPressed: () {},
+          SizedBox(width: 8.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              slimTxT(data.author.name),
+              SizedBox(height: 4.0),
+              Container(
+                width: sizeW(context) * .66,
+                child: slimTxT(data.author.description, size: 13.0),
+              ),
+            ],
           ),
-        ),
-      ],
+          Spacer(),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class VideoWindow extends StatefulWidget {
-  const VideoWindow({@required this.url, this.args});
+  const VideoWindow({@required this.data});
 
-  final String url;
-  final Map args;
+  final InnerData data;
 
   @override
   State<StatefulWidget> createState() => _VideoWindowState();
@@ -286,7 +269,7 @@ class _VideoWindowState extends State<VideoWindow> {
   VideoPlayerController controller;
   @override
   void initState() {
-    controller = VideoPlayerController.network(widget.url);
+    controller = VideoPlayerController.network(widget.data.playUrl);
     controller.addListener(() {
       setState(() {});
     });
@@ -305,15 +288,17 @@ class _VideoWindowState extends State<VideoWindow> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: controller.value.aspectRatio < 16 / 12
-          ? 16 / 9
-          : controller.value.aspectRatio,
+      aspectRatio: dirAxis(context) == Orientation.landscape
+          ? controller.value.aspectRatio
+          : controller.value.aspectRatio < 16 / 12
+              ? 16 / 9
+              : controller.value.aspectRatio,
       child: Stack(
         children: [
           VideoPlayer(controller),
           CtrlPlayUI(
             controller,
-            args: widget.args,
+            data: widget.data,
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -333,10 +318,10 @@ class _VideoWindowState extends State<VideoWindow> {
 }
 
 class CtrlPlayUI extends StatefulWidget {
-  const CtrlPlayUI(this.controller, {this.args});
+  const CtrlPlayUI(this.controller, {this.data});
 
   final VideoPlayerController controller;
-  final Map args;
+  final InnerData data;
 
   @override
   State<StatefulWidget> createState() => _CtrlPlayUIState();
@@ -344,16 +329,20 @@ class CtrlPlayUI extends StatefulWidget {
 
 class _CtrlPlayUIState extends State<CtrlPlayUI> {
   double _opacity = 1.0;
+  bool isLike = false;
+
   @override
   Widget build(BuildContext context) {
     Timer.periodic(Duration(seconds: 2), (timer) {
       _opacity = 0.0;
       if (!widget.controller.value.isPlaying) {
         _opacity = 1.0;
-      } else {
+      }
+      if (widget.controller.value.isPlaying) {
         timer.cancel();
       }
     });
+    statusBar(isHide: true);
     return Stack(
       children: [
         AnimatedSwitcher(
@@ -401,12 +390,12 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
         ),
         widget.controller.value.isPlaying
             ? Container()
-            : buildCtrlOverlay(context, args: widget.args),
+            : buildCtrlOverlay(context, data: widget.data),
       ],
     );
   }
 
-  Widget buildCtrlOverlay(BuildContext context, {Map args}) {
+  Widget buildCtrlOverlay(BuildContext context, {InnerData data}) {
     return Container(
       width: sizeW(context),
       height: sizeH(context),
@@ -426,7 +415,9 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                     icon: 'back',
                     color: Colors.white,
                     size: 22.0,
-                    onTap: () => pop(context),
+                    onTap: () async => dirAxis(context) == Orientation.landscape
+                        ? portrait()
+                        : pop(context),
                   ),
                 ),
               ),
@@ -439,10 +430,13 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                         : sizeH(context) * .018,
                   ),
                   child: dirAxis(context) == Orientation.landscape
-                      ? slimTxT(args['title'], color: Colors.white)
+                      ? slimTxT(data.title, size: 28.0, color: Colors.white)
                       : Container(
                           width: sizeW(context) * .7,
-                          child: slimTxT(args['title'], color: Colors.white),
+                          child: slimTxT(
+                            '\t' * 5 + data.title,
+                            color: Colors.white,
+                          ),
                         ),
                 ),
               ),
@@ -468,18 +462,24 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                 IconButton(
                   icon: Icon(
                     Icons.thumb_up,
-                    color: Colors.white70,
+                    color: isLike
+                        ? Colors.lightBlue
+                        : Colors.white.withOpacity(0.9),
                   ),
                   iconSize: 24.0,
                   tooltip: '点赞',
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() {
+                      isLike = !isLike;
+                    });
+                  },
                 ),
                 IconButton(
                   icon: Icon(
                     dirAxis(context) == Orientation.landscape
                         ? Icons.fullscreen_exit
                         : Icons.fullscreen,
-                    color: Colors.white70,
+                    color: Colors.white.withOpacity(0.9),
                     size: 28.0,
                   ),
                   tooltip: '横屏',

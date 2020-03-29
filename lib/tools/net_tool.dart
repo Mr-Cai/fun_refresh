@@ -45,6 +45,22 @@ class NeTool {
     }
   }
 
+  Future<EyeRelated> pullEyeChannel({int id}) async {
+    final response = await Dio(options).get(
+      EYE_RELATED,
+      queryParameters: {
+        'pgcId': 22,
+        'udid': '35dd199248e443f58b4022fc99c022d3a3c1a356'
+      },
+      options: Options(headers: {'User-Agent': POST_MAN}),
+    );
+    if (response.statusCode == 200) {
+      return EyeRelated.fromJson(response.data); // 从获取的JSON中解析数据
+    } else {
+      throw Exception();
+    }
+  }
+
   /// 和风天气
   /// [requestUrl] 请求地址
   /// [queryParameters] 请求参数

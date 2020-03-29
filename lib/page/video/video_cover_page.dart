@@ -46,21 +46,13 @@ class _VideoPageState extends State<VideoPage> {
             if (snapshot.hasData) {
               return GestureDetector(
                 onTap: () {
-                  final data =
-                      snapshot.data.itemList[currentIndex].data.content.data;
+                  statusBar(status: 1, isHide: true);
                   pushName(
                     context,
                     video_detail,
                     args: {
-                      'id': data.id,
-                      'index': '$currentIndex',
-                      'cover': '${data.cover.detail}',
-                      'url': '${data.playUrl}',
-                      'avatar': '${data.author.icon}',
-                      'name': '${data.author.name}',
-                      'slogan': '${data.author.description}',
-                      'title': '${data.title}',
-                      'desc': '${data.description}',
+                      'data': snapshot
+                          .data.itemList[currentIndex].data.content.data,
                     },
                   );
                 },

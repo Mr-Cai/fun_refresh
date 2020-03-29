@@ -1,3 +1,4 @@
+import 'package:fun_refresh/model/mock/video/eye_video.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'eye_related.g.dart';
 
@@ -5,7 +6,7 @@ part 'eye_related.g.dart';
 class EyeRelated {
   EyeRelated({this.itemList});
 
-  final List<Item> itemList; // 推荐视频列表
+  final List<RelatedItem> itemList; // 推荐视频列表
 
   factory EyeRelated.fromJson(Map<String, dynamic> json) =>
       _$EyeRelatedFromJson(json);
@@ -15,43 +16,51 @@ class EyeRelated {
 }
 
 @JsonSerializable()
-class Item {
-  Item({this.data, this.type});
+class RelatedItem {
+  RelatedItem({this.data, this.type});
 
-  final Data data; // 集合中的条目对象
+  final InnerData data; // 集合中的条目对象
   final String type; // 单元分类
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory RelatedItem.fromJson(Map<String, dynamic> json) =>
+      _$RelatedItemFromJson(json);
 
-  Map<String, dynamic> toJson(Item instance) => _$ItemToJson(instance);
+  Map<String, dynamic> toJson(RelatedItem instance) =>
+      _$RelatedItemToJson(instance);
 }
 
-@JsonSerializable()
-class Data {
-  Data({
-    this.id,
-    this.title,
-    this.description,
-    this.author,
-    this.cover,
-    this.playUrl,
-    this.duration,
-    this.date,
-  });
+// @JsonSerializable()
+// class Data extends InnerData {
+//   Data({
+//     this.id,
+//     this.title,
+//     this.description,
+//     this.authorCard,
+//     this.coverCard,
+//     this.playUrl,
+//     this.duration,
+//     this.date,
+//   });
 
-  final int id;
-  final String title;
-  final String description;
-  final Author author;
-  final Cover cover;
-  final String playUrl;
-  final int duration;
-  final num date;
+//   final int id;
+//   final String title;
+//   final String description;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+//   @JsonKey(name: 'author')
+//   final Author authorCard;
 
-  Map<String, dynamic> toJson(Data instance) => _$DataToJson(instance);
-}
+//   @JsonKey(name: 'cover')
+//   final Cover coverCard;
+
+//   final String playUrl;
+//   final int duration;
+//   final num date;
+
+//   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+
+//   @override
+//   Map<String, dynamic> toJson(InnerData instance) => _$DataToJson(instance);
+// }
 
 @JsonSerializable()
 class Author {
