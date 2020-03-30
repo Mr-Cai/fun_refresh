@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:fun_refresh/model/mock/extension/extension_app.dart';
+import 'package:fun_refresh/model/mock/video/eye_channel.dart';
 import 'package:fun_refresh/model/mock/video/eye_related.dart';
 import '../model/mock/video/eye_video.dart';
 import '../model/mock/weather/he_weather.dart';
@@ -45,17 +46,17 @@ class NeTool {
     }
   }
 
-  Future<EyeRelated> pullEyeChannel({int id}) async {
+  Future<EyeChannel> pullEyeChannel({int id}) async {
     final response = await Dio(options).get(
-      EYE_RELATED,
+      EYE_CHANNEL,
       queryParameters: {
-        'pgcId': 22,
+        'pgcId': id,
         'udid': '35dd199248e443f58b4022fc99c022d3a3c1a356'
       },
       options: Options(headers: {'User-Agent': POST_MAN}),
     );
     if (response.statusCode == 200) {
-      return EyeRelated.fromJson(response.data); // 从获取的JSON中解析数据
+      return EyeChannel.fromJson(response.data); // 从获取的JSON中解析数据
     } else {
       throw Exception();
     }

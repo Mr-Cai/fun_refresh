@@ -67,7 +67,7 @@ class InnerData {
   final int id;
   final String title;
   final String description;
-  final AuthorInfo author;
+  final Author author;
   final Cover cover;
   final String playUrl;
   final int duration;
@@ -81,18 +81,17 @@ class InnerData {
 }
 
 @JsonSerializable()
-class AuthorInfo {
-  AuthorInfo({this.icon, this.name, this.description});
+class Author {
+  Author({this.id, this.icon, this.name, this.description});
 
+  final int id;
   final String icon;
   final String name;
   final String description;
 
-  factory AuthorInfo.fromJson(Map<String, dynamic> json) =>
-      _$AuthorInfoFromJson(json);
+  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
 
-  Map<String, dynamic> toJson(AuthorInfo instance) =>
-      _$AuthorInfoToJson(instance);
+  Map<String, dynamic> toJson(Author instance) => _$AuthorToJson(instance);
 }
 
 @JsonSerializable()

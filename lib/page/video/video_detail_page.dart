@@ -25,10 +25,18 @@ class VideoDetailPage extends StatefulWidget {
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
   InnerData data;
-
+  VideoPlayerController controller;
   @override
   void initState() {
     data = widget.args['data'];
+    netool.pullEyeRelated(id: data.id).asStream();
+    controller = VideoPlayerController.network(data.playUrl)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..setLooping(true)
+      ..initialize().then((_) => setState(() {}))
+      ..pause();
     super.initState();
   }
 
@@ -36,6 +44,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   void dispose() {
     statusBar();
     portrait();
+    controller.dispose();
     super.dispose();
   }
 
@@ -54,18 +63,27 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               ? Container(
                   width: sizeW(context),
                   height: sizeH(context),
-                  child: VideoWindow(data: data),
+                  child: VideoWindow(
+                    data: data,
+                    controller: controller,
+                  ),
                 )
               : Column(
                   children: [
-                    VideoWindow(data: data),
+                    VideoWindow(
+                      data: data,
+                      controller: controller,
+                    ),
                     Container(
                       height: sizeH(context),
                       child: ListView(
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         children: [
-                          ProfileBar(data: data),
+                          ProfileBar(
+                            data: data,
+                            controller: controller,
+                          ),
                           _buildRelatedTile(context),
                           SizedBox(height: sizeH(context) * .3)
                         ],
@@ -187,8 +205,9 @@ class RelatedTile extends StatelessWidget {
 }
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar({this.data});
+  const ProfileBar({this.data, this.controller});
   final InnerData data;
+  final VideoPlayerController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -196,6 +215,7 @@ class ProfileBar extends StatelessWidget {
       children: [
         _buildAuthorBar(context),
         Container(
+          alignment: Alignment.centerLeft,
           padding: const EdgeInsets.all(8.0),
           child: RichText(
             text: TextSpan(
@@ -212,7 +232,9 @@ class ProfileBar extends StatelessWidget {
   Widget _buildAuthorBar(BuildContext context) {
     return InkWell(
       onTap: () {
-        pushName(context, video_author, args: {});
+        statusBar(status: 1, isHide: false);
+        controller.pause();
+        pushName(context, video_author, args: {'data': data});
       },
       child: Row(
         children: [
@@ -257,59 +279,28 @@ class ProfileBar extends StatelessWidget {
 }
 
 class VideoWindow extends StatefulWidget {
-  const VideoWindow({@required this.data});
+  const VideoWindow({Key key, this.data, this.controller}) : super(key: key);
 
   final InnerData data;
+  final VideoPlayerController controller;
 
   @override
   State<StatefulWidget> createState() => _VideoWindowState();
 }
 
 class _VideoWindowState extends State<VideoWindow> {
-  VideoPlayerController controller;
-  @override
-  void initState() {
-    controller = VideoPlayerController.network(widget.data.playUrl);
-    controller.addListener(() {
-      setState(() {});
-    });
-    controller.setLooping(true);
-    controller.initialize().then((value) => setState(() {}));
-    controller.pause();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: dirAxis(context) == Orientation.landscape
-          ? controller.value.aspectRatio
-          : controller.value.aspectRatio < 16 / 12
-              ? 16 / 9
-              : controller.value.aspectRatio,
+      aspectRatio: widget.controller.value.aspectRatio < 16 / 12
+          ? 16 / 9
+          : widget.controller.value.aspectRatio,
       child: Stack(
         children: [
-          VideoPlayer(controller),
+          VideoPlayer(widget.controller),
           CtrlPlayUI(
-            controller,
+            widget.controller,
             data: widget.data,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 8.0,
-              child: VideoProgressIndicator(
-                controller,
-                allowScrubbing: true,
-                colors: VideoProgressColors(playedColor: Colors.lightBlue),
-              ),
-            ),
           ),
         ],
       ),
@@ -330,6 +321,7 @@ class CtrlPlayUI extends StatefulWidget {
 class _CtrlPlayUIState extends State<CtrlPlayUI> {
   double _opacity = 1.0;
   bool isLike = false;
+  bool isPause = true;
 
   @override
   Widget build(BuildContext context) {
@@ -338,13 +330,14 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
       if (!widget.controller.value.isPlaying) {
         _opacity = 1.0;
       }
-      if (widget.controller.value.isPlaying) {
-        timer.cancel();
-      }
+      timer.cancel();
     });
     statusBar(isHide: true);
     return Stack(
       children: [
+        isPause
+            ? netPic(pic: widget.data.cover.detail, fit: BoxFit.cover)
+            : Container(),
         AnimatedSwitcher(
           duration: Duration(milliseconds: 50),
           reverseDuration: Duration(milliseconds: 200),
@@ -382,6 +375,9 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
             widget.controller.value.isPlaying
                 ? widget.controller.pause()
                 : widget.controller.play();
+            setState(() {
+              isPause = false;
+            });
             statusBar(status: 1, isHide: true);
           },
           onVerticalDragStart: (_) {
@@ -390,12 +386,20 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
         ),
         widget.controller.value.isPlaying
             ? Container()
-            : buildCtrlOverlay(context, data: widget.data),
+            : buildCtrlOverlay(
+                context,
+                data: widget.data,
+                controller: widget.controller,
+              ),
       ],
     );
   }
 
-  Widget buildCtrlOverlay(BuildContext context, {InnerData data}) {
+  Widget buildCtrlOverlay(
+    BuildContext context, {
+    InnerData data,
+    VideoPlayerController controller,
+  }) {
     return Container(
       width: sizeW(context),
       height: sizeH(context),
@@ -432,9 +436,10 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                   child: dirAxis(context) == Orientation.landscape
                       ? slimTxT(data.title, size: 28.0, color: Colors.white)
                       : Container(
+                          alignment: Alignment.topCenter,
                           width: sizeW(context) * .7,
                           child: slimTxT(
-                            '\t' * 5 + data.title,
+                            data.title,
                             color: Colors.white,
                           ),
                         ),
@@ -491,7 +496,18 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                 ),
               ],
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 8.0,
+              child: VideoProgressIndicator(
+                controller,
+                allowScrubbing: true,
+                colors: VideoProgressColors(playedColor: Colors.lightBlue),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -65,7 +65,7 @@ InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
     title: json['title'] as String,
     author: json['author'] == null
         ? null
-        : AuthorInfo.fromJson(json['author'] as Map<String, dynamic>),
+        : Author.fromJson(json['author'] as Map<String, dynamic>),
     cover: json['cover'] == null
         ? null
         : Cover.fromJson(json['cover'] as Map<String, dynamic>),
@@ -87,16 +87,17 @@ Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
       'date': instance.date,
     };
 
-AuthorInfo _$AuthorInfoFromJson(Map<String, dynamic> json) {
-  return AuthorInfo(
+Author _$AuthorFromJson(Map<String, dynamic> json) {
+  return Author(
+    id: json['id'] as int,
     icon: json['icon'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
   );
 }
 
-Map<String, dynamic> _$AuthorInfoToJson(AuthorInfo instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
+      'id': instance.id,
       'icon': instance.icon,
       'name': instance.name,
       'description': instance.description,

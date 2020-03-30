@@ -29,39 +29,6 @@ class RelatedItem {
       _$RelatedItemToJson(instance);
 }
 
-// @JsonSerializable()
-// class Data extends InnerData {
-//   Data({
-//     this.id,
-//     this.title,
-//     this.description,
-//     this.authorCard,
-//     this.coverCard,
-//     this.playUrl,
-//     this.duration,
-//     this.date,
-//   });
-
-//   final int id;
-//   final String title;
-//   final String description;
-
-//   @JsonKey(name: 'author')
-//   final Author authorCard;
-
-//   @JsonKey(name: 'cover')
-//   final Cover coverCard;
-
-//   final String playUrl;
-//   final int duration;
-//   final num date;
-
-//   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
-
-//   @override
-//   Map<String, dynamic> toJson(InnerData instance) => _$DataToJson(instance);
-// }
-
 @JsonSerializable()
 class Author {
   Author({this.icon, this.name, this.description});

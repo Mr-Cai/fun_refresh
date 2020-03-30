@@ -114,8 +114,8 @@ Widget menuIcon(
   Function onTap,
   double size,
 }) {
-  return GestureDetector(
-    onTap: onTap,
+  return InkWell(
+    onTap: onTap ?? () => pop(context),
     child: Container(
       margin: const EdgeInsets.only(left: 16.0, top: 2.0),
       child: SvgPicture.asset(
