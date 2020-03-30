@@ -1,3 +1,4 @@
+import 'package:fun_refresh/model/mock/video/eye_video.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'eye_channel.g.dart';
 
@@ -19,7 +20,7 @@ class EyeChannel {
 class VideoItem {
   VideoItem({this.data});
 
-  final Data data;
+  final InnerData data;
 
   factory VideoItem.fromJson(Map<String, dynamic> json) =>
       _$VideoItemFromJson(json);
@@ -28,32 +29,6 @@ class VideoItem {
       _$VideoItemToJson(instance);
 }
 
-@JsonSerializable()
-class Data {
-  Data({
-    this.id,
-    this.title,
-    this.description,
-    this.author,
-    this.cover,
-    this.playUrl,
-    this.duration,
-    this.releaseTime,
-  });
-
-  final int id;
-  final String title;
-  final String description;
-  final Author author;
-  final Cover cover;
-  final String playUrl;
-  final int duration;
-  final num releaseTime;
-
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
-
-  Map<String, dynamic> toJson(Data instance) => _$DataToJson(instance);
-}
 
 @JsonSerializable()
 class Cover {

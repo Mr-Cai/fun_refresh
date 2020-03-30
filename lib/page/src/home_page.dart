@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                               controller: _marqueeController,
                             );
                           }
-                          return Center(child: slimTxT('暂无数据', size: 12.0));
+                          return Center(child: freeTxT('暂无数据', size: 12.0));
                         }),
                   ),
                 ),

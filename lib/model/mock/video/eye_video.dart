@@ -53,7 +53,8 @@ class Content {
 
 @JsonSerializable()
 class InnerData {
-  InnerData({
+  InnerData(
+    this.releaseTime, {
     this.id,
     this.title,
     this.author,
@@ -72,6 +73,7 @@ class InnerData {
   final String playUrl;
   final int duration;
   final num date;
+  final num releaseTime;
 
   factory InnerData.fromJson(Map<String, dynamic> json) =>
       _$InnerDataFromJson(json);
@@ -82,11 +84,18 @@ class InnerData {
 
 @JsonSerializable()
 class Author {
-  Author({this.id, this.icon, this.name, this.description});
+  Author(
+    this.link, {
+    this.id,
+    this.icon,
+    this.name,
+    this.description,
+  });
 
   final int id;
   final String icon;
   final String name;
+  final String link;
   final String description;
 
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);

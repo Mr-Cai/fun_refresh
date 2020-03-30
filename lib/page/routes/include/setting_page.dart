@@ -54,16 +54,25 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                slimTxT('《服务协议》', color: Colors.blue, onTap: () {
-                  pushName(context, web_view, args: {'url': agreement});
-                }),
+                GestureDetector(
+                  child: freeTxT('《服务协议》', color: Colors.blue),
+                  onTap: () {
+                    pushName(context, web_view, args: {'url': agreement});
+                  },
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text('|'),
                 ),
-                slimTxT('《隐私政策》', color: Colors.blue, onTap: () {
-                  pushName(context, web_view, args: {'url': private});
-                }),
+                GestureDetector(
+                  child: freeTxT(
+                    '《隐私政策》',
+                    color: Colors.blue,
+                  ),
+                  onTap: () {
+                    pushName(context, web_view, args: {'url': private});
+                  },
+                ),
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../tools/api.dart';
@@ -163,3 +164,17 @@ Widget netPic({
   );
 }
 
+Widget timeTxT(num time) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(8.0),
+    child: Container(
+      padding: const EdgeInsets.all(4.0),
+      color: Colors.black.withOpacity(0.2),
+      child: freeTxT(
+        secToTime(time),
+        color: Colors.white,
+        size: 14.0,
+      ),
+    ),
+  );
+}

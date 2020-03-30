@@ -61,6 +61,7 @@ Map<String, dynamic> _$ContentToJson(Content instance) => <String, dynamic>{
 
 InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
   return InnerData(
+    json['releaseTime'] as num,
     id: json['id'] as int,
     title: json['title'] as String,
     author: json['author'] == null
@@ -85,10 +86,12 @@ Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
       'playUrl': instance.playUrl,
       'duration': instance.duration,
       'date': instance.date,
+      'releaseTime': instance.releaseTime,
     };
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {
   return Author(
+    json['link'] as String,
     id: json['id'] as int,
     icon: json['icon'] as String,
     name: json['name'] as String,
@@ -100,6 +103,7 @@ Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
       'id': instance.id,
       'icon': instance.icon,
       'name': instance.name,
+      'link': instance.link,
       'description': instance.description,
     };
 

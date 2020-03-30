@@ -10,22 +10,29 @@ blackTxT(String text) => Text(
       textScaleFactor: 0.8,
     );
 
-// 默认黑色细体
-slimTxT(String text, {double size, Color color, int normal, Function onTap}) =>
-    GestureDetector(
-      onTap: onTap,
-      child: Text(
-        text,
-        softWrap: true,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-        style: TextStyle(
-          color: color ?? Colors.black,
-          fontSize: size ?? 18.0,
-          fontWeight: normal != null ? FontWeight.normal : FontWeight.values[3],
-        ),
-      ),
-    );
+Widget freeTxT(
+  String text, {
+  double width = .1,
+  double height = .1,
+  int maxLines = 1,
+  bool isBold = false,
+  double size = 16.0,
+  bool isSlim = true,
+  Color color = Colors.black,
+  int fontValue = 2,
+}) {
+  return Text(
+    text,
+    maxLines: maxLines,
+    style: TextStyle(
+      fontSize: size,
+      color: color,
+      fontWeight: isBold
+          ? FontWeight.bold
+          : isSlim ? FontWeight.values[fontValue] : FontWeight.normal,
+    ),
+  );
+}
 
 final whiteTxT = TextStyle(color: Colors.white);
 

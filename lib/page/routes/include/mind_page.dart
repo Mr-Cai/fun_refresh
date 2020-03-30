@@ -72,9 +72,9 @@ class PostTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  slimTxT('昵称', size: 22.0),
+                  freeTxT('昵称', size: 22.0),
                   SizedBox(height: 8.0),
-                  slimTxT('$time', size: 15.0, color: Colors.white),
+                  freeTxT('$time', size: 15.0, color: Colors.white),
                 ],
               ),
             ),

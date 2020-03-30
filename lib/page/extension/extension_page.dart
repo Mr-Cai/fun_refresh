@@ -88,7 +88,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
       {@required String title, List<Data> data}) {
     return Column(
       children: [
-        $ItemTile(context, title: slimTxT(title)),
+        $ItemTile(context, title: freeTxT(title)),
         Container(
           height: sizeH(context) * .3,
           width: sizeW(context),
@@ -123,7 +123,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
       children: [
         $ItemTile(
           context,
-          title: slimTxT(title ?? '标题'),
+          title: freeTxT(title ?? '标题'),
           isSlim: true,
         ),
         Container(
@@ -206,8 +206,8 @@ class IconItem extends StatelessWidget {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    slimTxT(title),
-                    slimTxT(
+                    freeTxT(title),
+                    freeTxT(
                       desc,
                       size: 15.0,
                       color: Colors.lightBlue,

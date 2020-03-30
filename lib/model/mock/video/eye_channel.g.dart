@@ -28,40 +28,12 @@ VideoItem _$VideoItemFromJson(Map<String, dynamic> json) {
   return VideoItem(
     data: json['data'] == null
         ? null
-        : Data.fromJson(json['data'] as Map<String, dynamic>),
+        : InnerData.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$VideoItemToJson(VideoItem instance) => <String, dynamic>{
       'data': instance.data,
-    };
-
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return Data(
-    id: json['id'] as int,
-    title: json['title'] as String,
-    description: json['description'] as String,
-    author: json['author'] == null
-        ? null
-        : Author.fromJson(json['author'] as Map<String, dynamic>),
-    cover: json['cover'] == null
-        ? null
-        : Cover.fromJson(json['cover'] as Map<String, dynamic>),
-    playUrl: json['playUrl'] as String,
-    duration: json['duration'] as int,
-    releaseTime: json['releaseTime'] as num,
-  );
-}
-
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'description': instance.description,
-      'author': instance.author,
-      'cover': instance.cover,
-      'playUrl': instance.playUrl,
-      'duration': instance.duration,
-      'releaseTime': instance.releaseTime,
     };
 
 Cover _$CoverFromJson(Map<String, dynamic> json) {

@@ -1,7 +1,6 @@
 /// 资源链接
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
-const picDemo =
-    'https://cdn.pixabay.com/photo/2020/03/03/20/31/laguna-4899802_1280.jpg';
+const picDemo = 'https://pic.downk.cc/item/5e81b04f504f4bcb041f58bd.jpg';
 
 /// 服务声明
 // 海外

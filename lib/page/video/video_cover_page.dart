@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
-import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:tencent_ad/native.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -147,18 +146,7 @@ class CoverTile extends StatelessWidget {
         Positioned(
           top: 12.0,
           left: 18.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Container(
-              padding: const EdgeInsets.all(4.0),
-              color: Colors.black.withOpacity(0.2),
-              child: slimTxT(
-                secToTime(data.duration),
-                color: Colors.white,
-                size: 14.0,
-              ),
-            ),
-          ),
+          child: timeTxT(data.duration),
         ),
       ],
     );

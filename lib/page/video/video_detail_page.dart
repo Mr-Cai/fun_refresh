@@ -128,7 +128,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                           child: InkWell(
                             onTap: () {},
                             child: Center(
-                              child: slimTxT(
+                              child: freeTxT(
                                 index.isEven ? '为你推荐👉' : '查看更多👇',
                                 color: Colors.white,
                               ),
@@ -184,18 +184,7 @@ class RelatedTile extends StatelessWidget {
             Positioned(
               top: 4.0,
               right: 3.0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
-                  color: Colors.black.withOpacity(0.2),
-                  child: slimTxT(
-                    secToTime(item.data.duration),
-                    color: Colors.white,
-                    size: 14.0,
-                  ),
-                ),
-              ),
+              child: timeTxT(item.data.duration),
             ),
           ],
         ),
@@ -253,11 +242,11 @@ class ProfileBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              slimTxT(data.author.name),
+              freeTxT(data.author.name),
               SizedBox(height: 4.0),
               Container(
                 width: sizeW(context) * .66,
-                child: slimTxT(data.author.description, size: 13.0),
+                child: freeTxT(data.author.description, size: 13.0),
               ),
             ],
           ),
@@ -434,11 +423,11 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                         : sizeH(context) * .018,
                   ),
                   child: dirAxis(context) == Orientation.landscape
-                      ? slimTxT(data.title, size: 28.0, color: Colors.white)
+                      ? freeTxT(data.title, size: 22.0, color: Colors.white)
                       : Container(
                           alignment: Alignment.topCenter,
                           width: sizeW(context) * .7,
-                          child: slimTxT(
+                          child: freeTxT(
                             data.title,
                             color: Colors.white,
                           ),
