@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/mock/extension/extension_app.dart';
+import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/net_tool.dart';
 import '../../components/theme.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
@@ -70,6 +71,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
                         return _buildSwiperList(
                           title: snapshot.data.typeList[index].title,
                           data: snapshot.data.typeList[index].data,
+                          indexOut: index,
                         );
                       },
                     ),
@@ -118,7 +120,11 @@ class _ExtensionPageState extends State<ExtensionPage> {
     );
   }
 
-  Widget _buildSwiperList({@required String title, List<Data> data}) {
+  Widget _buildSwiperList({
+    @required String title,
+    @required List<Data> data,
+    @required int indexOut,
+  }) {
     return Column(
       children: [
         $ItemTile(
@@ -133,12 +139,13 @@ class _ExtensionPageState extends State<ExtensionPage> {
             itemCount: data.length ?? 0,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
+            itemBuilder: (context, indexIn) {
               return IconItem(
-                index: index,
-                icon: data[index].pic,
-                title: data[index].title,
-                desc: data[index].desc,
+                indexOut: indexOut,
+                indexIn: indexIn,
+                icon: data[indexIn].pic,
+                title: data[indexIn].title,
+                desc: data[indexIn].desc,
               );
             },
           ),
@@ -153,31 +160,33 @@ class IconItem extends StatelessWidget {
     this.icon,
     this.title,
     this.desc,
-    @required this.index,
+    @required this.indexOut,
+    @required this.indexIn,
   });
 
   final String icon;
   final String title;
   final String desc;
-  final int index;
+  final int indexIn;
+  final int indexOut;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: sizeW(context) * .4,
-      height: sizeW(context) * .4,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          InkWell(
-            customBorder: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32.0),
-            ),
-            onTap: () {
-              toggleApp(context, index: index);
-            },
-            child: Card(
+    return InkWell(
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32.0),
+      ),
+      onTap: () {
+        toggleApp(context, indexOut: indexOut, indexIn: indexIn);
+      },
+      child: Container(
+        width: sizeW(context) * .4,
+        height: sizeW(context) * .4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
@@ -193,47 +202,70 @@ class IconItem extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 6.0),
-          title == '' || title == null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Container(
-                    width: sizeW(context) * .28,
-                    height: sizeH(context) * .025,
-                    child: LinearProgressIndicator(),
-                  ),
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    freeTxT(title),
-                    freeTxT(
-                      desc,
-                      size: 15.0,
-                      color: Colors.lightBlue,
+            SizedBox(height: 6.0),
+            title == '' || title == null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Container(
+                      width: sizeW(context) * .28,
+                      height: sizeH(context) * .025,
+                      child: LinearProgressIndicator(),
                     ),
-                  ],
-                ),
-        ],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      freeTxT(title),
+                      freeTxT(
+                        desc,
+                        size: 15.0,
+                        color: Colors.lightBlue,
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
 
-  void toggleApp(BuildContext context, {@required index}) {
+  void toggleApp(BuildContext context, {@required int indexOut, int indexIn}) {
     Map defaultArgs = {
       'name': 'programmer',
       'anim': 'coding',
       'desc': '正在开发中...',
       'title': '敬请期待'
     };
-    switch (index) {
-      case 0:
+    switch (indexOut) {
+      case 0: // 火爆热搜
+        switch (indexIn) {
+          case 1:
+            pushName(context, girl);
+            break;
+          case 3:
+            pushName(context, web_view, args: {'url': article});
+            break;
+          default:
+            pushName(context, null, args: defaultArgs);
+        }
+        break;
+      case 1: // 个性推荐
+        switch (indexIn) {
+          case 0:
+            pushName(context, dinosaur_run);
+            break;
+          case 1:
+            pushName(context, web_view, args: {'url': timeIs});
+            break;
+          case 2:
+            pushName(context, web_view, args: {'url': article});
+            break;
+          default:
+            pushName(context, null, args: defaultArgs);
+        }
+        break;
+      default:
         pushName(context, null, args: defaultArgs);
-        break;
-      case 1:
-        pushName(context, girl);
-        break;
     }
   }
 }

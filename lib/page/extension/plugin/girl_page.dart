@@ -13,7 +13,6 @@ class GirlPage extends StatefulWidget {
 class _GirlPageState extends State<GirlPage> {
   @override
   void initState() {
-    statusBar(status: 1, isHide: true);
     autoScreenDir();
     super.initState();
   }
@@ -40,7 +39,7 @@ class _GirlPageState extends State<GirlPage> {
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {
-              pushName(context, photos, args: {'data': girlPhotos});
+              pushName(context, photos, args: {'data': girlPhotos[index]});
             },
             child: Container(
               width: sizeW(context),

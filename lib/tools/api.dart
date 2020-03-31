@@ -2,6 +2,13 @@
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const picDemo = 'https://pic.downk.cc/item/5e81b04f504f4bcb041f58bd.jpg';
 
+/// 网站
+// 时间校准
+const timeIs = 'https://time.is';
+// 每日一文
+const article = 'https://meiriyiwen.com';
+
+
 /// 服务声明
 // 海外
 const private1 = 'https://bit.ly/3adde';
@@ -50,7 +57,7 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
-const typeList = '5e83190b3100008107e640a0';
+const typeList = '5e834e883100006e00e64643';
 
 /// 谷歌广告密钥
 // Android 正式

@@ -116,6 +116,8 @@ Widget menuIcon(
 }) {
   return InkWell(
     onTap: onTap ?? () => pop(context),
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     child: Container(
       margin: const EdgeInsets.only(left: 16.0, top: 2.0),
       child: SvgPicture.asset(
