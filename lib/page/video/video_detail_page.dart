@@ -223,7 +223,7 @@ class ProfileBar extends StatelessWidget {
       onTap: () {
         statusBar(status: 1, isHide: false);
         controller.pause();
-        pushName(context, video_author, args: {'data': data});
+        pushReplace(context, video_author, args: {'data': data});
       },
       child: Row(
         children: [
