@@ -49,130 +49,6 @@ class _VideoAuthorPageState extends State<VideoAuthorPage>
                     coverImgUrl: picDemo,
                   ),
                 ),
-
-                /*    SliverAppBar(
-                  leading: IconButton(
-                    iconSize: 1.0,
-                    icon: SvgPicture.asset(
-                      path('back', 5),
-                      width: 22.0,
-                      height: 22.0,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      pop(context);
-                    },
-                  ),
-                  actions: [
-                     Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          color: Colors.white,
-                          iconSize: 26.0,
-                          icon: Icon(Icons.more_vert),
-                          onPressed: () {},
-                        ),
-                      ),
-                  ],
-                  floating: true,
-                  elevation: 0.0,
-                  flexibleSpace: Stack(
-                    children: [
-                      netPic(pic: picDemo),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Container(
-                                width: sizeW(context) * .2,
-                                height: sizeW(context) * .2,
-                                child: netPic(pic: data.author.icon),
-                              ),
-                            ),
-                            SizedBox(height: 8.0),
-                            Text(
-                              '${snapshot.data.pgcInfo.name}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            Text(
-                              '${snapshot.data.pgcInfo.description}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                     
-                    ],
-                  ),
-                  expandedHeight: sizeH(context) * .28,
-                  backgroundColor: Colors.grey[50],
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(0),
-                    child: Container(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black38,
-                          ],
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          buildIcon(
-                            snapshot: snapshot,
-                            context: context,
-                            text: '社交平台',
-                            icon: Icons.link,
-                          ),
-                          buildIcon(
-                            snapshot: snapshot,
-                            context: context,
-                            count: snapshot.data.pgcInfo.followCount,
-                            text: ' 位订阅者',
-                            icon: Icons.favorite_border,
-                          ),
-                          buildIcon(
-                            snapshot: snapshot,
-                            context: context,
-                            count: snapshot.data.pgcInfo.videoCount,
-                            text: ' 个视频',
-                            icon: Icons.video_library,
-                          ),
-                          buildIcon(
-                            snapshot: snapshot,
-                            context: context,
-                            count: snapshot.data.pgcInfo.shareCount,
-                            text: ' 次分享',
-                            icon: Icons.share,
-                          ),
-                          buildIcon(
-                            snapshot: snapshot,
-                            context: context,
-                            count: snapshot.data.pgcInfo.collectCount,
-                            text: ' 次收藏',
-                            icon: Icons.collections_bookmark,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-             */
                 SliverFixedExtentList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -180,7 +56,7 @@ class _VideoAuthorPageState extends State<VideoAuthorPage>
                     },
                     childCount: snapshot.data.itemList.length,
                   ),
-                  itemExtent: sizeH(context) * .24,
+                  itemExtent: sizeH(context) * .18,
                 ),
               ],
             );
@@ -202,8 +78,11 @@ class _VideoAuthorPageState extends State<VideoAuthorPage>
 
     return InkWell(
       onTap: () {
-        pushReplace(context, video_detail,
-            args: {'data': snapshot.data.itemList[index].data});
+        pushReplace(
+          context,
+          video_detail,
+          args: {'data': snapshot.data.itemList[index].data},
+        );
       },
       child: Container(
         height: sizeH(context) * .2,
@@ -344,7 +223,7 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     updateStatusBarBrightness(shrinkOffset);
     return Container(
       height: maxExtent,
-      width: MediaQuery.of(context).size.width,
+      width: sizeW(context),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -443,14 +322,17 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
           shrinkOffset > 100.0
               ? Container()
               : Container(
-                  margin: EdgeInsets.only(bottom: sizeH(context) * .07),
+                  width: sizeW(context) * .4,
                   alignment: Alignment.bottomCenter,
-                  child: Text(
-                    '${snapshot.data.pgcInfo.description}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                    ),
+                  margin: EdgeInsets.only(
+                    bottom: sizeH(context) * .07,
+                    left: 32.0,
+                    right: 32.0,
+                  ),
+                  child: freeTxT(
+                    '${snapshot.data.pgcInfo.description}'.replaceAll('\n', ''),
+                    color: Colors.white,
+                    size: 14.0,
                   ),
                 ),
           shrinkOffset > 200.0

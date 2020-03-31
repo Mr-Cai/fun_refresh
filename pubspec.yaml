@@ -1,6 +1,6 @@
 name: fun_refresh # 项目名
 description: 趣刷 # 描述
-version: 1.0.8 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
+version: 1.0.9 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
   sdk: ">=2.7.0 <3.0.0"
@@ -45,6 +45,7 @@ dependencies: # 拓展插件集合 https://pub.dev
   sensors: ^0.4.1+8 # 传感器
   permission_handler: ^4.4.0+hotfix.2 # 获取权限
   connectivity: ^0.4.8+1 # 网络状态监听
+  photo_view: ^0.9.2 # 图片浏览
 
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试

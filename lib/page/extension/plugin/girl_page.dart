@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/components/top_bar.dart';
+import 'package:fun_refresh/page/export_page_pkg.dart';
+import 'package:fun_refresh/tools/global.dart';
 
 class GirlPage extends StatefulWidget {
   @override
@@ -8,5 +12,54 @@ class GirlPage extends StatefulWidget {
 
 class _GirlPageState extends State<GirlPage> {
   @override
-  Widget build(BuildContext context) => Center(child: Text('美女'));
+  void initState() {
+    statusBar(status: 1, isHide: true);
+    autoScreenDir();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    statusBar();
+    portrait();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: TopBar(
+        themeColor: Colors.black,
+        title: '美女宝典',
+      ),
+      backgroundColor: Colors.white,
+      body: ListView.builder(
+        itemCount: 146,
+        scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              pushName(context, photos, args: {'data': girlPhotos});
+            },
+            child: Container(
+              width: sizeW(context),
+              height: sizeH(context),
+              child: netPic(
+                pic: girlPhotos[index],
+                fit: dirAxis(context) == Orientation.landscape
+                    ? BoxFit.contain
+                    : BoxFit.fitWidth,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  List<String> get girlPhotos => [
+        for (var i = 0; i < 145; i++)
+          'https://qiniu.easyapi.com/photo/girl$i.jpg',
+      ];
 }

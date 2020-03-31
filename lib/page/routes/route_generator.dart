@@ -32,6 +32,8 @@ class RouteGenerator {
         return _skipRoute(SearchPanel()); // 关键词搜索页面
       case web_view:
         return _skipRoute(WebViewPage(args: args)); // 浏览器页面
+      case photos:
+        return _skipRoute(PhotoViewPage(args: args)); // 图片查看器
       case video_detail:
         return _skipRoute(VideoDetailPage(args: args)); // 视频详情
       case video_author:
@@ -50,6 +52,9 @@ class RouteGenerator {
         return _skipRoute(SudokuGame()); // 数独
       case bejeweled:
         return _skipRoute(Bejeweled()); // 宝石迷阵
+      // 插件APP
+      case girl:
+        return _skipRoute(GirlPage()); // 美女宝典
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

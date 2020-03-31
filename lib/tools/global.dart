@@ -14,7 +14,6 @@ final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
-
 final dialogPrefKey = 'disclaimer';
 
 void splashAD() {
@@ -171,6 +170,10 @@ void portrait() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
 
+void autoScreenDir() {
+  SystemChrome.setPreferredOrientations([]);
+}
+
 void landscape({bool isHide}) {
   statusBar(isHide: isHide ?? true);
   SystemChrome.setPreferredOrientations([
@@ -179,25 +182,3 @@ void landscape({bool isHide}) {
   ]);
 }
 
-// 页面名称:
-const detail = '/detail'; // 跳转详情
-const sign = '/sign'; // 注册登录
-const social = '/social'; // 社交
-const mind = '/mind'; // 想法
-const reward = '/reward'; // 奖励
-const settings = '/settings'; // 设置
-const chat = '/chat'; // 与人聊天
-const profile = '/profile'; // 个人资料
-const search = '/search'; // 搜索关键词
-const web_view = '/web_view'; // 浏览器
-const video_detail = '/video_detail'; // 视频详情
-const video_author = '/video_author'; // 视频作者
-
-// 小游戏
-const tetris = '/game_tetris'; // 俄罗斯方块(像素风)
-const snake = '/game_snake'; // 贪吃蛇(像素风)
-const dinosaur_run = '/dinosaur_run'; // 恐龙快跑(像素风)
-const game2048 = '/game2048'; // 2048
-const flappy_bird = '/flappy_bird'; // 飞翔的小鸟(像素风)
-const sudoku = '/sudoku'; // 数独
-const bejeweled = '/bejeweled'; // 宝石迷阵

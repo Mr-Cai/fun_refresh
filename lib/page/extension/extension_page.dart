@@ -135,6 +135,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return IconItem(
+                index: index,
                 icon: data[index].pic,
                 title: data[index].title,
                 desc: data[index].desc,
@@ -148,11 +149,17 @@ class _ExtensionPageState extends State<ExtensionPage> {
 }
 
 class IconItem extends StatelessWidget {
-  const IconItem({this.icon, this.title, this.desc});
+  const IconItem({
+    this.icon,
+    this.title,
+    this.desc,
+    @required this.index,
+  });
 
   final String icon;
   final String title;
   final String desc;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -168,12 +175,7 @@ class IconItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(32.0),
             ),
             onTap: () {
-              pushName(context, null, args: {
-                'name': 'programmer',
-                'anim': 'coding',
-                'desc': '正在开发中...',
-                'title': '敬请期待'
-              });
+              toggleApp(context, index: index);
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -182,7 +184,6 @@ class IconItem extends StatelessWidget {
               elevation: 12.0,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: Container(
-                padding: const EdgeInsets.all(12.0),
                 width: sizeW(context) * .3,
                 height: sizeW(context) * .3,
                 child: netPic(
@@ -218,6 +219,23 @@ class IconItem extends StatelessWidget {
       ),
     );
   }
+
+  void toggleApp(BuildContext context, {@required index}) {
+    Map defaultArgs = {
+      'name': 'programmer',
+      'anim': 'coding',
+      'desc': '正在开发中...',
+      'title': '敬请期待'
+    };
+    switch (index) {
+      case 0:
+        pushName(context, null, args: defaultArgs);
+        break;
+      case 1:
+        pushName(context, girl);
+        break;
+    }
+  }
 }
 
 class RatioSwiper extends StatelessWidget {
@@ -241,7 +259,7 @@ class RatioSwiper extends StatelessWidget {
                 case 0: // 恐龙快跑(像素风)
                   pushName(context, dinosaur_run);
                   break;
-                case 1: // 飞翔的小鸟(像素风)
+                case 1: // 飞翔的小鸟(��素风)
                   pushName(context, flappy_bird);
                   break;
                 case 2: // 贪吃蛇(像素风)

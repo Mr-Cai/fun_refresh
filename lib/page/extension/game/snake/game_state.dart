@@ -11,6 +11,8 @@ import 'package:vibration/vibration.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../export_page_pkg.dart';
+
 class GameState with ChangeNotifier {
   int _playerNum = 1;
   int _mapSize = 50;

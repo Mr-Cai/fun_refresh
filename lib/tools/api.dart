@@ -50,7 +50,7 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
-const typeList = '5e78fd0c2d0000ab7b18ba1a';
+const typeList = '5e83190b3100008107e640a0';
 
 /// 谷歌广告密钥
 // Android 正式
