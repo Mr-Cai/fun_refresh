@@ -80,35 +80,29 @@ class _HomePageState extends State<HomePage> {
                   return state as Widget;
                 },
               ),
-              floatingActionButton: CircleFloatingMenu(
-                menuSelected: (index) {},
-                startAngle: degToRad(-160.0),
-                endAngle: degToRad(-20.0),
-                floatingButton: FloatingActionButton.extended(
-                  onPressed: () {},
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  label: Stack(
-                    children: [
-                      DisclaimerMsg(state: this, key: dialogKey),
-                      Icon(Icons.add),
+              floatingActionButton: Stack(
+                children: [
+                  CircleFloatingMenu(
+                    startAngle: degToRad(-160.0),
+                    endAngle: degToRad(-20.0),
+                    menuSelected: (index) {},
+                    floatingButton: FloatingButton(
+                      icon: Icons.add,
+                    ),
+                    subMenus: [
+                      FloatingButton(
+                        icon: Icons.widgets,
+                      ),
+                      FloatingButton(
+                        icon: Icons.translate,
+                      ),
+                      FloatingButton(
+                        icon: Icons.alarm_add,
+                      ),
+                      FloatingButton(
+                        icon: Icons.bluetooth,
+                      ),
                     ],
-                  ),
-                ),
-                subMenus: [
-                  FloatingButton(
-                    icon: Icons.widgets,
-                  ),
-                  FloatingButton(
-                    icon: Icons.book,
-                  ),
-                  FloatingButton(
-                    icon: Icons.translate,
-                  ),
-                  FloatingButton(
-                    icon: Icons.alarm_add,
-                  ),
-                  FloatingButton(
-                    icon: Icons.bluetooth,
                   ),
                 ],
               ),
@@ -126,31 +120,36 @@ class _HomePageState extends State<HomePage> {
                   splashColor: Colors.white38,
                   highlightColor: Colors.white38,
                   onTap: () {},
-                  child: Container(
-                    margin: EdgeInsets.only(top: 12.0),
-                    height: 24.0,
-                    child: StreamBuilder<List<HeWeather>>(
-                        stream: Future.wait([
-                          netool.pullWeather('$now'),
-                          netool.pullWeather('$forecast'),
-                          netool.pullWeather('$hourly'),
-                          netool.pullWeather('$lifestyle'),
-                        ]).asStream(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Marquee(
-                              textList: [
-                                '${snapshot.data[0].weather[0].now.condDesc ?? ''}',
-                                '${snapshot.data[1].weather[0].forecast[0].tempMax}℃~${snapshot.data[1].weather[0].forecast[0].tempMax}℃',
-                                '${snapshot.data[2].weather[0].hourly[0].temp} ℃',
-                                '🌞${snapshot.data[1].weather[0].forecast[0].sunRise} ~ ${snapshot.data[1].weather[0].forecast[0].sunSet}🌛'
-                              ],
-                              fontSize: 10.0,
-                              controller: _marqueeController,
-                            );
-                          }
-                          return Center(child: freeTxT('暂无数据', size: 12.0));
-                        }),
+                  child: Stack(
+                    children: [
+                      DisclaimerMsg(state: this, key: dialogKey),
+                      Container(
+                        margin: EdgeInsets.only(top: 12.0),
+                        height: 24.0,
+                        child: StreamBuilder<List<HeWeather>>(
+                            stream: Future.wait([
+                              netool.pullWeather('$now'),
+                              netool.pullWeather('$forecast'),
+                              netool.pullWeather('$hourly'),
+                              netool.pullWeather('$lifestyle'),
+                            ]).asStream(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Marquee(
+                                  textList: [
+                                    '${snapshot.data[0].weather[0].now.condDesc ?? ''}',
+                                    '${snapshot.data[1].weather[0].forecast[0].tempMax}℃~${snapshot.data[1].weather[0].forecast[0].tempMax}℃',
+                                    '${snapshot.data[2].weather[0].hourly[0].temp} ℃',
+                                    '🌞${snapshot.data[1].weather[0].forecast[0].sunRise} ~ ${snapshot.data[1].weather[0].forecast[0].sunSet}🌛'
+                                  ],
+                                  fontSize: 10.0,
+                                  controller: _marqueeController,
+                                );
+                              }
+                              return Center(child: freeTxT('暂无数据', size: 12.0));
+                            }),
+                      ),
+                    ],
                   ),
                 ),
               ),

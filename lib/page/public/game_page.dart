@@ -21,27 +21,6 @@ class GamePage extends StatefulWidget with NavigationState {
 }
 
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
-  var random = Random();
-  double pos = 0.0;
-
-  final relativeRectTween = RelativeRectTween(
-    begin: RelativeRect.fromLTRB(40, 40, 0, 0),
-    end: RelativeRect.fromLTRB(0, 0, 40, 40),
-  );
-
-  AnimationController _posCtrl;
-  AnimationController _scaleCtrl;
-  AnimationController _fadeCtrl;
-  AnimationController _rotateCtrl;
-
-  Animation<double> _scaleAnim;
-  Animation<double> _fadeAnim;
-  Animation<double> _rotateAnim;
-
-  bool _first = true;
-  int logoIndex = 0;
-  double randomSize = 0.0;
-
   @override
   void initState() {
     accelerometerEvents.listen((event) {
@@ -51,68 +30,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           event.y >= value ||
           event.y <= -value ||
           event.z >= value ||
-          event.z <= -value) {
-        setState(() {
-          getRanSize();
-          refreshLayout();
-        });
-      }
+          event.z <= -value) {}
     });
-
-    setState(() {
-      pos = 24 + random.nextInt(128).toDouble();
-      getRanSize();
-    });
-
-    _posCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    _scaleCtrl = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-      value: 0.1,
-    );
-
-    _rotateCtrl = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-
-    _fadeCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    _scaleAnim = CurvedAnimation(
-      parent: _scaleCtrl,
-      curve: Curves.slowMiddle,
-    );
-
-    _fadeAnim = Tween(begin: 0.0, end: 1.0).animate(_fadeCtrl);
-
-    _rotateAnim = CurvedAnimation(
-      parent: _rotateCtrl,
-      curve: Curves.easeInOut,
-    ).drive(Tween(begin: 0, end: 0.1));
-
-    _scaleCtrl.forward();
-    _fadeCtrl.forward();
-    _rotateCtrl.repeat();
-
     super.initState();
-  }
-
-  double getRanSize() => randomSize = 48 + random.nextInt(66).toDouble();
-
-  @override
-  void dispose() {
-    _posCtrl.dispose();
-    _scaleCtrl.dispose();
-    _fadeCtrl.dispose();
-    _rotateCtrl.dispose();
-    super.dispose();
   }
 
   @override
@@ -123,141 +43,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         isMenu: true,
         title: I18n.of(context).game,
       ),
-      body: GestureDetector(
-        child: Stack(
-          children: [
-            Positioned(
-              top: sizeH(context) * .2,
-              left: sizeW(context) * .1,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(1) + logoIndex,
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              top: sizeH(context) * .4,
-              left: sizeW(context) * .3,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(2) + logoIndex,
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              top: sizeH(context) * .6,
-              left: sizeW(context) * .3,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(3) - logoIndex,
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              top: sizeH(context) * .1,
-              right: sizeW(context) * .1,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(3),
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              bottom: sizeH(context) * .1,
-              left: sizeW(context) * .05,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(3),
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              bottom: sizeH(context) * .3,
-              right: sizeW(context) * .05,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(3),
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              bottom: sizeH(context) * .5,
-              right: sizeW(context) * .03,
-              child: GameLogo(
-                fadeAnim: _fadeAnim,
-                scaleAnim: _scaleAnim,
-                index: random.nextInt(3),
-                randomSize: getRanSize(),
-              ),
-            ),
-            Positioned(
-              bottom: 8.0,
-              right: 8.0,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    refreshLayout();
-                  });
-                },
-                child: RotationTransition(
-                  turns: _rotateAnim,
-                  child: SvgPicture.asset(
-                    path('shake', 5),
-                    width: 64.0,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [],
       ),
     );
-  }
-
-  void refreshLayout() {
-    getRanSize();
-    pos = 24 + random.nextInt(128).toDouble();
-    logoIndex = random.nextInt(1);
-    if (_first) {
-      _posCtrl.forward();
-      _fadeCtrl.forward();
-      _scaleCtrl.forward();
-      Future.delayed(Duration(seconds: 1), () {
-        _scaleCtrl.resync(this);
-        _fadeCtrl.resync(this);
-      });
-    } else {
-      _posCtrl.reverse();
-      _fadeCtrl.reverse();
-      _scaleCtrl.reverse();
-      Future.delayed(Duration(seconds: 1), () {
-        _scaleCtrl.forward();
-        _fadeCtrl.forward();
-      });
-    }
-    _first = !_first;
   }
 }
 
 class GameLogo extends StatelessWidget {
-  const GameLogo({
-    @required Animation<double> fadeAnim,
-    @required Animation<double> scaleAnim,
-    @required this.index,
-    this.randomSize,
-  })  : _fadeAnim = fadeAnim,
-        _scaleAnim = scaleAnim;
+  const GameLogo({this.index});
 
-  final Animation<double> _fadeAnim;
-  final Animation<double> _scaleAnim;
   final int index;
-  final double randomSize;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -289,26 +86,10 @@ class GameLogo extends StatelessWidget {
           default:
         }
       },
-      child: FadeTransition(
-        opacity: _fadeAnim,
-        child: ScaleTransition(
-          scale: _scaleAnim,
-          child: ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: covers[index],
-              width: randomSize ?? 128.0,
-              height: randomSize ?? 128.0,
-              fit: BoxFit.cover,
-              placeholder: (_, __) => Center(
-                child: RefreshProgressIndicator(),
-              ),
-              errorWidget: (_, __, ___) => holderPage(
-                context,
-                height: sizeH(context) * .2,
-              ),
-            ),
-          ),
-        ),
+      child: Container(
+        width: 32.0,
+        height: 32.0,
+        child: netPic(pic: ''),
       ),
     );
   }

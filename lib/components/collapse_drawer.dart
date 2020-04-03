@@ -274,17 +274,9 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    isGoogleLoginSuccess == false
-                                        ? I18n.of(context).userName
-                                        : googleUser.displayName,
-                                    style: whiteTxT),
+                                Text(I18n.of(context).userName),
                                 SizedBox(height: 8.0),
-                                Text(
-                                    isGoogleLoginSuccess == false
-                                        ? 'user@gmail.com'
-                                        : googleUser.email,
-                                    style: whiteTxT),
+                                Text('user@gmail.com'),
                               ],
                             )
                           : Container(),

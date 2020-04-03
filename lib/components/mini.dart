@@ -1,21 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
 import 'package:fun_refresh/page/export_page_pkg.dart';
-import '../tools/api.dart';
 import '../tools/global.dart';
-
-BannerAd createBannerAd({@required AdSize size}) {
-  return BannerAd(
-    adUnitId: bannerUnit,
-    size: size,
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {},
-  );
-}
 
 Widget holderPage(
   BuildContext context, {

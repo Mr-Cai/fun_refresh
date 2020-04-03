@@ -1,12 +1,8 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tencent_ad/tencent_ad.dart';
 import 'package:toast/toast.dart';
-
-GoogleSignInAccount googleUser;
 
 bool isGoogleLoginSuccess = false;
 
@@ -65,10 +61,6 @@ void tip(
   );
 }
 
-const targetingInfo = MobileAdTargetingInfo(
-  childDirected: true,
-  nonPersonalizedAds: true,
-);
 // 动态尺寸获取 $ <=> % ($50 == 50%)
 // 常用宽度:
 double sizeW(context) => MediaQuery.of(context).size.width;
@@ -181,4 +173,3 @@ void landscape({bool isHide}) {
     DeviceOrientation.landscapeLeft,
   ]);
 }
-

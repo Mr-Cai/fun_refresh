@@ -22,16 +22,8 @@ dependencies: # 拓展插件集合 https://pub.dev
   path: ^1.6.4 # 文件路径
   json_annotation: ^3.0.1  # 简谱注解标签
   flutter_staggered_grid_view: ^0.3.0 # 自适应网格
-  firebase_admob: ^0.9.0+10 # 谷歌广告
-  dim: ^0.2.8 # 腾讯云聊天 
-  google_sign_in: ^4.1.1 # 谷歌登录
-  firebase_core: ^0.4.4 # 火力云核心库
-  firebase_auth: ^0.15.4 # 火力云登录验证
-  package_info: ^0.4.0+13 # 查询App包名
-  device_info: ^0.4.1+4 # 设备平台配置信息
   flame: ^0.18.1 # 游戏引擎
   tencent_ad: ^1.0.0 # 腾讯广告
-  tencent_kit: ^1.0.4 # 腾讯SDK
   toast: ^0.1.5 # 吐司字幕
   flutter_bloc: ^3.2.0 # 业务逻辑组件模式
   flare_flutter: ^2.0.1 # 2D闪光动画

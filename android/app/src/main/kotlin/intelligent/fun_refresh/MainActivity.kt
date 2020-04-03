@@ -61,9 +61,4 @@ class MainActivity : FlutterActivity() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onResume()
     }
-
-    // override fun onWindowFocusChanged(hasFocus: Boolean) {
-    //     window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    //     super.onWindowFocusChanged(hasFocus)
-    // }
 }
