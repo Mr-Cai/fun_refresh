@@ -129,7 +129,7 @@ Widget netPic({
   Widget errorH,
 }) {
   return CachedNetworkImage(
-    imageUrl: pic,
+    imageUrl: pic ?? '',
     imageBuilder: (context, imageProvider) => Container(
       decoration: BoxDecoration(
         image: DecorationImage(
