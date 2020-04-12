@@ -10,13 +10,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import io.flutter.app.FlutterActivity
-import io.flutter.plugins.GeneratedPluginRegistrant
+import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        GeneratedPluginRegistrant.registerWith(this)
         if (SDK_INT >= N_MR1) {
             addShortCutMenu()
         }
@@ -32,9 +30,7 @@ class MainActivity : FlutterActivity() {
                 shortIcon(iconID = R.drawable.snake, label = "贪吃蛇", route = "game_snake"),
                 shortIcon(iconID = R.drawable.ic_tetris, label = "俄罗斯方块", route = "game_tetris"),
                 shortIcon(iconID = R.drawable.flappy, label = "飞翔的小鸟", route = "flappy_bird"),
-                shortIcon(iconID = R.drawable.game2048, label = "2048", route = "game2048"),
-                shortIcon(iconID = R.drawable.sudoku, label = "数独", route = "sudoku"),
-                shortIcon(iconID = R.drawable.bejeweled, label = "宝石迷阵", route = "bejeweled")
+                shortIcon(iconID = R.drawable.game2048, label = "2048", route = "game2048")
             )
     }
 

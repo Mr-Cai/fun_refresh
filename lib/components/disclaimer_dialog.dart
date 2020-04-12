@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/theme.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
-import 'package:fun_refresh/page/routes/route_generator.dart';
+import 'package:fun_refresh/pages/export_page_pkg.dart';
+import 'package:fun_refresh/pages/routes/route_generator.dart';
 import 'package:fun_refresh/tools/api.dart';
 import '../model/data/local_asset.dart';
 import '../tools/global.dart';

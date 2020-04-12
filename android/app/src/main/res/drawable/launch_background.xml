@@ -5,7 +5,9 @@
         android:drawable="@drawable/gradient"
         android:gravity="fill" />
 
-    <item
-        android:drawable="@drawable/launcher"
-        android:gravity="center" />
+    <item android:gravity="center">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/launcher" />
+    </item>
 </layer-list>

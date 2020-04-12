@@ -45,19 +45,13 @@ class _AnchorBarState extends State<AnchorBar> {
     setState(() {
       switch (index) {
         case 0:
-          navContext.add(NavigationEvent.game);
+          navContext.add(NavigationEvent.extend);
           break;
         case 1:
           navContext.add(NavigationEvent.video);
           break;
-        case 2:
-          navContext.add(NavigationEvent.extend);
-          break;
-        case 3:
-          navContext.add(NavigationEvent.message);
-          break;
         default:
-          navContext.add(NavigationEvent.game);
+          navContext.add(NavigationEvent.extend);
       }
       return _selectedIndex = index;
     });

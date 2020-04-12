@@ -23,7 +23,7 @@ class NeTool {
   Future<EyeVideo> pullEyeVideo() async {
     final response = await Dio(options).get(
       EYE_DAILY,
-      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'num': 10},
+      queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'num': 100},
       options: Options(headers: {'User-Agent': POST_MAN}),
     );
     if (response.statusCode == 200) {

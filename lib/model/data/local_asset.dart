@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../tools/global.dart';
 
 const String disclaimerText = '''
             🔏  服务协议与隐私政策
@@ -23,12 +22,12 @@ final Map<int, String> labelsMap = {
   8: '100',
 };
 
-List<List<String>> get navIcons => [
-      [path('game1', 5), path('game1', 5)],
-      [path('video0', 5), path('video1', 5)],
-      [path('extension0', 5), path('extension1', 5)],
-      [path('chat0', 5), path('chat1', 5)]
-    ];
+Map defaultArgs = {
+  'name': 'programmer',
+  'anim': 'coding',
+  'desc': '正在开发中...',
+  'title': '敬请期待'
+};
 
 const picHome = 'https://pic.downk.cc/item';
 

@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
+import 'package:fun_refresh/pages/export_page_pkg.dart';
 import '../model/mock/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
 import '../components/theme.dart';
-import '../model/i18n/i18n.dart';
-import '../page/routes/route_generator.dart';
+import '../pages/routes/route_generator.dart';
 import '../tools/global.dart';
 
 class CollaplseDrawer extends StatefulWidget {
@@ -30,22 +29,10 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   NavigationBloc bloc;
 
   List<ItemD> get drawerMenuItems => [
-        ItemD(
-          title: I18n.of(context).social,
-          iconPath: path('connection', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).mind,
-          iconPath: path('idea', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).reward,
-          iconPath: path('reward', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).setting,
-          iconPath: path('settings', 5),
-        )
+        ItemD(title: '人脉', iconPath: path('connection', 5)),
+        ItemD(title: '想法', iconPath: path('idea', 5)),
+        ItemD(title: '奖励', iconPath: path('reward', 5)),
+        ItemD(title: '设置', iconPath: path('settings', 5))
       ];
 
   @override
@@ -274,9 +261,9 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(I18n.of(context).userName),
+                                freeTxT('用户名', color: Colors.white),
                                 SizedBox(height: 8.0),
-                                Text('user@gmail.com'),
+                                freeTxT('user@gmail.com', color: Colors.white),
                               ],
                             )
                           : Container(),
