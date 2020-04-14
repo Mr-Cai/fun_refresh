@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../tools/global.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
@@ -70,19 +69,16 @@ Route _skipRoute(Widget page) {
   );
 }
 
-void pop(BuildContext context, {dynamic result}) {
-  ctxKey.currentState.pop(result);
-}
 
 Future pushName(BuildContext context, String name, {Object args}) {
-  return ctxKey.currentState.pushNamed(
+  return Navigator.of(context).pushNamed(
     '$name',
     arguments: args,
   );
 }
 
 Future pushReplace(BuildContext context, String name, {Object args}) {
-  return ctxKey.currentState.pushReplacementNamed(
+  return Navigator.of(context).pushReplacementNamed(
     '$name',
     arguments: args,
   );
@@ -90,7 +86,7 @@ Future pushReplace(BuildContext context, String name, {Object args}) {
 
 Future pushRemove(BuildContext context, String name, String modal,
     {Object args}) {
-  return ctxKey.currentState.pushNamedAndRemoveUntil(
+  return Navigator.of(context).pushNamedAndRemoveUntil(
     '$name',
     ModalRoute.withName('name'),
     arguments: args,

@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_refresh/components/circle_floating_menu.dart';
-import 'package:fun_refresh/components/disclaimer_dialog.dart';
 import 'package:fun_refresh/components/floating_button.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/collapse_drawer.dart';
@@ -27,26 +25,13 @@ class _HomePageState extends State<HomePage> {
   int _currentNav = 0;
   final _marqueeController = MarqueeController();
   Orientation orientation;
-  final _prefs = SharedPreferences.getInstance();
-  Future<bool> _unknow;
-  GlobalKey<DisclaimerMsgState> dialogKey;
-
   List<String> get navTexts => ['娱乐', '视频'];
 
   @override
   void initState() {
     statusBar();
     portrait();
-    if (dialogKey == null) {
-      dialogKey = GlobalKey<DisclaimerMsgState>();
-      // 获取偏好设置存储
-      _unknow = _prefs.then((SharedPreferences prefs) {
-        return (prefs.getBool(dialogPrefKey) ?? false);
-      });
-      _unknow.then((bool value) {
-        dialogKey.currentState.showDisClaimerDialog(context);
-      });
-    }
+    judgeShowPrivacy(context);
     super.initState();
   }
 
@@ -105,7 +90,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Stack(
                     children: [
-                      DisclaimerMsg(state: this, key: dialogKey),
                       Container(
                         height: sizeH(context) * .04,
                         child: StreamBuilder<List<HeWeather>>(

@@ -410,7 +410,7 @@ class _CtrlPlayUIState extends State<CtrlPlayUI> {
                     size: 22.0,
                     onTap: () async => dirAxis(context) == Orientation.landscape
                         ? portrait()
-                        : pop(context),
+                        : Navigator.pop(context),
                   ),
                 ),
               ),

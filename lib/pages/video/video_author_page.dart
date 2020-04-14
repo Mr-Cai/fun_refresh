@@ -268,7 +268,7 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                           color: makeStickyHeaderTextColor(shrinkOffset, true),
                         ),
                         onPressed: () {
-                          pop(context);
+                          Navigator.pop(context);
                         },
                       ),
                       Text(
@@ -410,7 +410,7 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     return InkWell(
       onTap: () {
         return snapshot.data.itemList[0].data.author.link.isEmpty
-            ? tip('暂无相关链接', context)
+            ? print('暂无链接')
             : pushName(
                 context,
                 web_view,

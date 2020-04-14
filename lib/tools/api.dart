@@ -9,13 +9,7 @@ const timeIs = 'https://time.is';
 const article = 'https://meiriyiwen.com';
 
 
-/// 服务声明
-// 海外
-const private1 = 'https://bit.ly/3adde';
-const guide1 = 'https://bit.ly/7dwoe';
-const agreement1 = 'https://bit.ly/32rkc';
-
-// 大陆
+/// 隐私协议
 const page = 'https://mr-cai.gitee.io/dev/html';
 const private = '$page/private';
 const guide = '$page/private_guide';

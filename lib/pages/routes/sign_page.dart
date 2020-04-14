@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fun_refresh/components/theme.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
+import 'package:fun_refresh/pages/routes/route_generator.dart';
+import 'package:fun_refresh/tools/api.dart';
 import '../../components/top_bar.dart';
 import '../../tools/global.dart';
 import 'package:toast/toast.dart';
+
+import '../export_page_pkg.dart';
 
 class SignPage extends StatefulWidget {
   @override
@@ -14,6 +20,8 @@ class _SignPageState extends State<SignPage> {
   final _phoneCtrl = TextEditingController();
   final _pwdCtrl = TextEditingController();
   final _scrollViewCtrl = ScrollController();
+
+  bool isExpand = false;
 
   @override
   void initState() {
@@ -26,13 +34,12 @@ class _SignPageState extends State<SignPage> {
   void dispose() {
     _phoneCtrl.dispose();
     _pwdCtrl.dispose();
-
     super.dispose();
   }
 
   void _scrollBTM() {
     _scrollViewCtrl.animateTo(
-      _scrollViewCtrl.position.maxScrollExtent,
+      _scrollViewCtrl.position.maxScrollExtent * .5,
       duration: Duration(microseconds: 555),
       curve: Curves.bounceInOut,
     );
@@ -42,7 +49,7 @@ class _SignPageState extends State<SignPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       controller: _scrollViewCtrl,
       child: ConstrainedBox(
         constraints: BoxConstraints(minHeight: 120.0),
@@ -61,15 +68,28 @@ class _SignPageState extends State<SignPage> {
           ),
           child: Column(
             children: [
-              menuIcon(context, icon: 'back'),
+              TopBar(
+                bgColor: Colors.transparent,
+                themeColor: Colors.white,
+                title: '登录 or 注册',
+                actions: [
+                  menuIcon(
+                    context,
+                    icon: 'info',
+                    color: Colors.white,
+                    size: 28.0,
+                    onTap: () {
+                      pushName(context, 'name', args: defaultArgs);
+                    },
+                  )
+                ],
+              ),
               Container(
-                margin: const EdgeInsets.only(
-                  bottom: 32.0,
-                ),
+                margin: const EdgeInsets.only(top: 72.0, bottom: 32.0),
                 child: ClipOval(
                   child: SvgPicture.asset(
                     path('user', 5),
-                    width: 64.0,
+                    width: 128.0,
                   ),
                 ),
               ),
@@ -152,30 +172,96 @@ class _SignPageState extends State<SignPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 32.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
-                      icon: SvgPicture.asset(path('google', 5)),
-                      onPressed: () {}),
-                  SizedBox(width: 8.0),
+                    icon: SvgPicture.asset(path('google', 5)),
+                    onPressed: () {},
+                  ),
                   IconButton(
                     icon: SvgPicture.asset(path('qq', 5)),
                     onPressed: () {},
                   ),
-                  SizedBox(width: 8.0),
                   IconButton(
                     iconSize: 24.0,
                     icon: SvgPicture.asset(path('wechat', 5)),
                     onPressed: () {},
                   ),
-                  SizedBox(width: 8.0),
                   IconButton(
                     icon: SvgPicture.asset(path('github', 5)),
                     onPressed: () {},
                   ),
                 ],
+              ),
+              SizedBox(height: 22.0),
+              isExpand
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          icon: SvgPicture.asset(
+                            path('finger_print', 5),
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          iconSize: 36.0,
+                          icon: Icon(
+                            Icons.face,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    )
+                  : Container(),
+              IconButton(
+                icon: Icon(
+                  isExpand
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    isExpand = !isExpand;
+                  });
+                },
+              ),
+              Spacer(),
+              Container(
+                margin: const EdgeInsets.only(bottom: 32.0),
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    freeTxT('登录即同意"趣刷"', color: Colors.white.withOpacity(0.9)),
+                    GestureDetector(
+                      onTap: () {
+                        pushName(
+                          context,
+                          web_view,
+                          args: {'url': agreement},
+                        );
+                      },
+                      child: freeTxT('《服务协议》', color: Colors.blue),
+                    ),
+                    freeTxT('和', color: Colors.white.withOpacity(0.9)),
+                    GestureDetector(
+                      onTap: () {
+                        pushName(
+                          context,
+                          web_view,
+                          args: {'url': private},
+                        );
+                      },
+                      child: freeTxT('《隐私政策》', color: Colors.blue),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

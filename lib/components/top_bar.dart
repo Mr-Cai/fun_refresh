@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/pages/export_page_pkg.dart';
 import '../tools/global.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
@@ -106,7 +105,7 @@ class _TopBarState extends State<TopBar> {
                 });
                 widget.isMenu
                     ? scaffoldKey.currentState.openDrawer()
-                    : pop(context);
+                    : Navigator.pop(context);
               },
             ),
           ),
@@ -126,7 +125,7 @@ Widget menuIcon(
   double left,
 }) {
   return InkWell(
-    onTap: onTap ?? () => pop(context),
+    onTap: onTap ?? () => Navigator.pop(context),
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     child: Container(

@@ -49,7 +49,7 @@ class _WebViewPageState extends State<WebViewPage> {
         title: title ?? '正在打开网页...',
         themeColor: Colors.white,
         isSafeArea: false,
-        titleSize: 18.0,
+        titleSize: 23.0,
       ),
       body: IndexedStack(
         index: stackToView,

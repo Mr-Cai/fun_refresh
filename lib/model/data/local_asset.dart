@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 const String disclaimerText = '''
-            🔏  服务协议与隐私政策
+                   🔏  服务协议与隐私政策
 👉 该软件使用到的视频、文字、音频、图片归版权所有人: 蔡凯歌。
 👉 未经您的同意开发者不会获取、共享您的个人信息。
 👉 您可以查询更正您的个人资料、注销个人资料。
@@ -39,7 +39,7 @@ List<String> get covers => [
       '$picHome/5e6e70e5e83c3a1e3a1b3462.jpg', // 俄罗斯方块(像素风)
       '$picHome/5e70d91fe83c3a1e3a4ab3f1.jpg', // 数独
       '$picHome/5e7108d9e83c3a1e3a65d279.png', // 宝石迷阵
-      'xxxx'
+      ''
     ];
 
 Map<String, String> get config {

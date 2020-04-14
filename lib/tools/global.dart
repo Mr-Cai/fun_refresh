@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toast/toast.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-bool isGoogleLoginSuccess = false;
+final disclaimer = 'disclaimer';
 
 final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
-
-final dialogPrefKey = 'disclaimer';
 
 void showSnackBar(String text) {
   final snackbar = SnackBar(
@@ -18,25 +16,6 @@ void showSnackBar(String text) {
   scaffoldKey.currentState.showSnackBar(snackbar);
 }
 
-void tip(
-  String txt,
-  BuildContext context, {
-  int gravity,
-  Color bgColor,
-  Color textColor,
-  double bgRadius,
-  Border border,
-}) {
-  Toast.show(
-    txt,
-    context,
-    gravity: gravity,
-    backgroundColor: bgColor,
-    textColor: textColor,
-    backgroundRadius: bgRadius,
-    border: border,
-  );
-}
 
 // 动态尺寸获取 $ <=> % ($50 == 50%)
 // 常用宽度:
@@ -149,4 +128,12 @@ void landscape({bool isHide}) {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]);
+}
+
+void requestPermission() async {
+  await [
+    Permission.sensors,
+    Permission.storage,
+    Permission.microphone,
+  ].request();
 }

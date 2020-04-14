@@ -233,69 +233,101 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
   }
 
   @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: () => pushName(context, profile),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () => pushName(context, sign),
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(12.0, 0.0, 8.0, 0.0),
+            width: widthAnim.value,
+            child: Row(
               children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(12.0, 0.0, 8.0, 0.0),
-                  width: widthAnim.value,
-                  child: Row(
-                    children: [
-                      ClipOval(
-                        child: Container(
-                          width: 68.0,
-                          height: 68.0,
-                          child: SvgPicture.asset(
-                            path('user', 5),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                      ),
-                      SizedBox(width: sizedBoxAnim.value),
-                      widthAnim.value >= widget.maxWidth
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                freeTxT('用户名', color: Colors.white),
-                                SizedBox(height: 8.0),
-                                freeTxT('user@gmail.com', color: Colors.white),
-                              ],
-                            )
-                          : Container(),
-                    ],
+                ClipOval(
+                  child: Container(
+                    width: 68.0,
+                    height: 68.0,
+                    child: SvgPicture.asset(
+                      path('user', 5),
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  clipBehavior: Clip.antiAlias,
                 ),
+                SizedBox(width: sizedBoxAnim.value),
+                widthAnim.value >= widget.maxWidth
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          freeTxT('用户名', color: Colors.white),
+                          SizedBox(height: 8.0),
+                          freeTxT('user@gmail.com', color: Colors.white),
+                        ],
+                      )
+                    : Container(),
               ],
             ),
-            SizedBox(height: 16.0),
-            widthAnim.value <= widget.minWidth
-                ? IconButton(
+          ),
+        ),
+        SizedBox(height: 16.0),
+        widthAnim.value <= widget.minWidth
+            ? Container(
+                margin: const EdgeInsets.only(left: 8.0),
+                alignment: Alignment.centerLeft,
+                child: DropdownButton(
+                  autofocus: true,
+                  items: [Icons.more_vert, Icons.more_vert, Icons.more_vert]
+                      .map(
+                        (value) => DropdownMenuItem(
+                          value: value,
+                          child: Icon(value),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {},
+                  underline: Container(),
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
+                ),
+              )
+            : InkWell(
+                onTap: () {
+                  widget.animationController.forward();
+                },
+                child: Container(
+                  height: sizeH(context) * .04,
+                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(16.0)),
+                  child: DropdownButton(
+                    autofocus: true,
+                    items: [Icons.more_vert, Icons.more_vert, Icons.more_vert]
+                        .map(
+                          (value) => DropdownMenuItem(
+                            value: value,
+                            child: Icon(value),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {},
+                    underline: Container(),
                     icon: Icon(
-                      Icons.more_vert,
+                      Icons.ac_unit,
                       color: Colors.white,
                       size: 28.0,
                     ),
-                    onPressed: () {},
-                  )
-                : Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    padding: const EdgeInsets.all(4.0),
-                    alignment: Alignment.centerRight,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(16.0)),
-                    child: Icon(Icons.ac_unit, color: Colors.white),
                   ),
-          ],
-        ),
-      );
+                ),
+              ),
+      ],
+    );
+  }
 }
 
 class DrawerItem extends StatefulWidget {

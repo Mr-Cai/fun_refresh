@@ -61,7 +61,24 @@ class _VideoPageState extends State<VideoPage> {
                       List.generate(snapshot.data.itemList.length, (index) {
                     if (snapshot.data.itemList[index].type == 'textCard' ||
                         snapshot.data.itemList[index].type == 'banner') {
-                      return Stack();
+                      return Container(
+                        margin: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: Stack(
+                            children: [
+                              Container(color: Colors.white),
+                              Align(
+                                child: netPic(
+                                  pic:
+                                      'https://pic.downk.cc/item/5e955f5cc2a9a83be5a0f7ce.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
                     }
                     return CoverTile(
                       data: snapshot.data.itemList[index].data.content.data,
