@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../tools/global.dart';
 
 import 'circle_floating_menu.dart';
 import 'floating_button.dart';
@@ -21,9 +20,7 @@ class FloatingMenuPage extends StatelessWidget {
             bottom: 10.0,
             child: CircleFloatingMenu(
               menuSelected: (index) {
-                scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('$index'),
-                ));
+                print('object $index');
               },
               floatingButton: FloatingButton(
                 color: Colors.green,

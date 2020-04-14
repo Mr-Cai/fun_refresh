@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fun_refresh/tools/global.dart';
 
 /// 文字样式
 // 默认黑色小字
@@ -10,21 +9,29 @@ blackTxT(String text) => Text(
       textScaleFactor: 0.8,
     );
 
-// 默认黑色细体
-slimTxT(String text, {double size, Color color, int normal, Function onTap}) =>
-    GestureDetector(
-      onTap: onTap,
-      child: Text(
-        text,
-        softWrap: true,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: color ?? Colors.black,
-          fontSize: size ?? 18.0,
-          fontWeight: normal != null ? FontWeight.normal : FontWeight.values[3],
-        ),
-      ),
-    );
+Widget freeTxT(
+  String text, {
+  double width = .1,
+  double height = .1,
+  int maxLines = 1,
+  bool isBold = false,
+  double size = 16.0,
+  bool isSlim = true,
+  Color color = Colors.black,
+  int fontValue = 2,
+}) {
+  return Text(
+    text,
+    maxLines: maxLines,
+    style: TextStyle(
+      fontSize: size,
+      color: color,
+      fontWeight: isBold
+          ? FontWeight.bold
+          : isSlim ? FontWeight.values[fontValue] : FontWeight.normal,
+    ),
+  );
+}
 
 final whiteTxT = TextStyle(color: Colors.white);
 
@@ -41,29 +48,3 @@ final drawerTxT1 = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.values[0],
 );
-
-/// 迷你微件
-// 关闭图标
-Widget get xClose {
-  return InkWell(
-    borderRadius: BorderRadius.circular(32.0),
-    onTap: () => scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text('不感兴趣?'),
-      backgroundColor: Colors.cyan[200],
-      duration: Duration(milliseconds: 666),
-      action: SnackBarAction(
-        label: '屏蔽关键词,减少推荐',
-        onPressed: () {},
-      ),
-    )),
-    child: Container(
-      width: 24.0,
-      height: 24.0,
-      child: Icon(
-        Icons.close,
-        color: Colors.black12,
-        size: 16.0,
-      ),
-    ),
-  );
-}

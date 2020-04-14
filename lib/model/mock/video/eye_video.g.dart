@@ -9,8 +9,8 @@ part of 'eye_video.dart';
 EyeVideo _$EyeVideoFromJson(Map<String, dynamic> json) {
   return EyeVideo(
     itemList: (json['itemList'] as List)
-        ?.map(
-            (e) => e == null ? null : Item.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : VideoTile.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     nextPageUrl: json['nextPageUrl'] as String,
   );
@@ -21,8 +21,8 @@ Map<String, dynamic> _$EyeVideoToJson(EyeVideo instance) => <String, dynamic>{
       'nextPageUrl': instance.nextPageUrl,
     };
 
-Item _$ItemFromJson(Map<String, dynamic> json) {
-  return Item(
+VideoTile _$VideoTileFromJson(Map<String, dynamic> json) {
+  return VideoTile(
     data: json['data'] == null
         ? null
         : Data.fromJson(json['data'] as Map<String, dynamic>),
@@ -30,7 +30,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
+Map<String, dynamic> _$VideoTileToJson(VideoTile instance) => <String, dynamic>{
       'data': instance.data,
       'type': instance.type,
     };
@@ -61,6 +61,7 @@ Map<String, dynamic> _$ContentToJson(Content instance) => <String, dynamic>{
 
 InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
   return InnerData(
+    json['releaseTime'] as num,
     id: json['id'] as int,
     title: json['title'] as String,
     author: json['author'] == null
@@ -72,6 +73,7 @@ InnerData _$InnerDataFromJson(Map<String, dynamic> json) {
     playUrl: json['playUrl'] as String,
     description: json['description'] as String,
     duration: json['duration'] as int,
+    date: json['date'] as num,
   );
 }
 
@@ -83,10 +85,14 @@ Map<String, dynamic> _$InnerDataToJson(InnerData instance) => <String, dynamic>{
       'cover': instance.cover,
       'playUrl': instance.playUrl,
       'duration': instance.duration,
+      'date': instance.date,
+      'releaseTime': instance.releaseTime,
     };
 
 Author _$AuthorFromJson(Map<String, dynamic> json) {
   return Author(
+    json['link'] as String,
+    id: json['id'] as int,
     icon: json['icon'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
@@ -94,8 +100,10 @@ Author _$AuthorFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$AuthorToJson(Author instance) => <String, dynamic>{
+      'id': instance.id,
       'icon': instance.icon,
       'name': instance.name,
+      'link': instance.link,
       'description': instance.description,
     };
 

@@ -1,0 +1,29 @@
+{
+    "itemList": [
+        {
+            "data": {
+                "id": "视频编号 int",
+                "title": "视频标题",
+                "description": "视频描述",
+                "author": {
+                    "link": "社交平台链接"
+                },
+                "cover": {
+                    "detail": "视频封面"
+                },
+                "playUrl": "播放链接",
+                "duration": "播放时长 int",
+                "releaseTime": "发布时间戳 num"
+            }
+        }
+    ],
+    "pgcInfo": {
+        "icon": "频道头像",
+        "name": "频道名",
+        "description": "频道描述",
+        "followCount": "订阅数 num",
+        "videoCount": "视频作品数 num",
+        "shareCount": "分享数 num",
+        "collectCount": "收藏数 num"
+    }
+}

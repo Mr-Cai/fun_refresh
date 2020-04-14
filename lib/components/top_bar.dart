@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/page/export_page_pkg.dart';
 import '../tools/global.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
@@ -14,6 +13,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.isMenu = false,
     this.isGradient,
     this.isSafeArea = true,
+    this.titleSize,
+    this.isLightBar = false,
   }) : super(key: key);
 
   final String title;
@@ -23,6 +24,8 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isMenu;
   final bool isGradient;
   final bool isSafeArea;
+  final double titleSize;
+  final bool isLightBar;
 
   @override
   State<StatefulWidget> createState() => _TopBarState();
@@ -65,12 +68,17 @@ class _TopBarState extends State<TopBar> {
       ),
       child: Stack(
         children: [
-          Align(
-            child: Text(
-              widget.title ?? '标题',
-              style: TextStyle(
-                fontSize: 24.0,
-                color: widget.themeColor ?? Colors.white,
+          Center(
+            child: Container(
+              alignment: Alignment.center,
+              width: sizeW(context) * .7,
+              child: Text(
+                widget.title ?? '标题',
+                style: TextStyle(
+                  fontSize: widget.titleSize ?? 24.0,
+                  color: widget.themeColor ?? Colors.white,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
@@ -93,11 +101,11 @@ class _TopBarState extends State<TopBar> {
               size: widget.isMenu ? 32.0 : 26.0,
               onTap: () {
                 setState(() {
-                  statusBar(status: 1);
+                  widget.isLightBar ? statusBar(status: 1) : statusBar();
                 });
                 widget.isMenu
                     ? scaffoldKey.currentState.openDrawer()
-                    : pop(context);
+                    : Navigator.pop(context);
               },
             ),
           ),
@@ -113,11 +121,15 @@ Widget menuIcon(
   Color color,
   Function onTap,
   double size,
+  double top,
+  double left,
 }) {
-  return GestureDetector(
-    onTap: onTap,
+  return InkWell(
+    onTap: onTap ?? () => Navigator.pop(context),
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     child: Container(
-      margin: const EdgeInsets.only(left: 16.0, top: 2.0),
+      margin: EdgeInsets.only(left: left ?? 16.0, top: top ?? 2.0),
       child: SvgPicture.asset(
         path('$icon', 5),
         color: color ?? Colors.black,

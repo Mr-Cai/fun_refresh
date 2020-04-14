@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fun_refresh/pages/export_page_pkg.dart';
 import '../model/mock/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
 import '../components/theme.dart';
-import '../model/i18n/i18n.dart';
-import '../page/routes/route_generator.dart';
+import '../pages/routes/route_generator.dart';
 import '../tools/global.dart';
 
 class CollaplseDrawer extends StatefulWidget {
@@ -29,22 +29,10 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   NavigationBloc bloc;
 
   List<ItemD> get drawerMenuItems => [
-        ItemD(
-          title: I18n.of(context).social,
-          iconPath: path('connection', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).mind,
-          iconPath: path('idea', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).reward,
-          iconPath: path('reward', 5),
-        ),
-        ItemD(
-          title: I18n.of(context).setting,
-          iconPath: path('settings', 5),
-        )
+        ItemD(title: '人脉', iconPath: path('connection', 5)),
+        ItemD(title: '想法', iconPath: path('idea', 5)),
+        ItemD(title: '奖励', iconPath: path('reward', 5)),
+        ItemD(title: '设置', iconPath: path('settings', 5))
       ];
 
   @override
@@ -245,77 +233,101 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
   }
 
   @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: () => pushName(context, profile),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () => pushName(context, sign),
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(12.0, 0.0, 8.0, 0.0),
+            width: widthAnim.value,
+            child: Row(
               children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(12.0, 0.0, 8.0, 0.0),
-                  width: widthAnim.value,
-                  child: Row(
-                    children: [
-                      ClipOval(
-                        child: Container(
-                          width: 68.0,
-                          height: 68.0,
-                          child: SvgPicture.asset(
-                            path('user', 5),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                      ),
-                      SizedBox(width: sizedBoxAnim.value),
-                      widthAnim.value >= widget.maxWidth
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    isGoogleLoginSuccess == false
-                                        ? I18n.of(context).userName
-                                        : googleUser.displayName,
-                                    style: whiteTxT),
-                                SizedBox(height: 8.0),
-                                Text(
-                                    isGoogleLoginSuccess == false
-                                        ? 'user@gmail.com'
-                                        : googleUser.email,
-                                    style: whiteTxT),
-                              ],
-                            )
-                          : Container(),
-                    ],
+                ClipOval(
+                  child: Container(
+                    width: 68.0,
+                    height: 68.0,
+                    child: SvgPicture.asset(
+                      path('user', 5),
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  clipBehavior: Clip.antiAlias,
                 ),
+                SizedBox(width: sizedBoxAnim.value),
+                widthAnim.value >= widget.maxWidth
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          freeTxT('用户名', color: Colors.white),
+                          SizedBox(height: 8.0),
+                          freeTxT('user@gmail.com', color: Colors.white),
+                        ],
+                      )
+                    : Container(),
               ],
             ),
-            SizedBox(height: 16.0),
-            widthAnim.value <= widget.minWidth
-                ? IconButton(
+          ),
+        ),
+        SizedBox(height: 16.0),
+        widthAnim.value <= widget.minWidth
+            ? Container(
+                margin: const EdgeInsets.only(left: 8.0),
+                alignment: Alignment.centerLeft,
+                child: DropdownButton(
+                  autofocus: true,
+                  items: [Icons.more_vert, Icons.more_vert, Icons.more_vert]
+                      .map(
+                        (value) => DropdownMenuItem(
+                          value: value,
+                          child: Icon(value),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {},
+                  underline: Container(),
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
+                ),
+              )
+            : InkWell(
+                onTap: () {
+                  widget.animationController.forward();
+                },
+                child: Container(
+                  height: sizeH(context) * .04,
+                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                      color: Colors.black26,
+                      borderRadius: BorderRadius.circular(16.0)),
+                  child: DropdownButton(
+                    autofocus: true,
+                    items: [Icons.more_vert, Icons.more_vert, Icons.more_vert]
+                        .map(
+                          (value) => DropdownMenuItem(
+                            value: value,
+                            child: Icon(value),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {},
+                    underline: Container(),
                     icon: Icon(
-                      Icons.more_vert,
+                      Icons.ac_unit,
                       color: Colors.white,
                       size: 28.0,
                     ),
-                    onPressed: () {},
-                  )
-                : Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    padding: const EdgeInsets.all(4.0),
-                    alignment: Alignment.centerRight,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(16.0)),
-                    child: Icon(Icons.ac_unit, color: Colors.white),
                   ),
-          ],
-        ),
-      );
+                ),
+              ),
+      ],
+    );
+  }
 }
 
 class DrawerItem extends StatefulWidget {

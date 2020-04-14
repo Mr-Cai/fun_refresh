@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../tools/global.dart';
-import '../model/i18n/i18n.dart';
-import '../model/i18n/lang_kv.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 
 class RadialMenu extends StatefulWidget {
@@ -124,20 +122,7 @@ class RadialAnimation extends StatelessWidget {
           path(icon, 5),
           width: iconWidth,
         ),
-        onPressed: () {
-          switch (index) {
-            case 0:
-              i18nKey.currentState.toggleLanguage(chinese);
-              break;
-            case 2:
-              i18nKey.currentState.toggleLanguage(english);
-              break;
-            case 3:
-              i18nKey.currentState.toggleLanguage(japanese);
-              break;
-            default:
-          }
-        },
+        onPressed: () {},
       ),
     );
   }

@@ -13,18 +13,18 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '9'
+    flutterVersionCode = '10'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.8'
+    flutterVersionName = '1.0.9'
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services'
+
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
@@ -35,10 +35,11 @@ android {
         abi {
             enable true
             reset()
-            // include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+            include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
             universalApk false
         }
     }
+
     compileSdkVersion 29
 
     sourceSets {
@@ -51,12 +52,11 @@ android {
 
     defaultConfig {
         applicationId "intelligent.fun_refresh"
-        minSdkVersion 22
+        minSdkVersion 16
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [TENCENT_APP_ID: "1109685869"]
     }
 
     signingConfigs {
@@ -77,9 +77,6 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             signingConfig signingConfigs.release
@@ -96,4 +93,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

@@ -6,13 +6,13 @@ class FloatingButton extends StatelessWidget {
   final double size;
   final double elevation;
 
-  const FloatingButton(
-      {Key key,
-      this.icon,
-      this.color = Colors.pinkAccent,
-      this.size,
-      this.elevation = 2.0})
-      : super(key: key);
+  const FloatingButton({
+    Key key,
+    this.icon,
+    this.color = Colors.pinkAccent,
+    this.size,
+    this.elevation = 2.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,11 @@ class FloatingButton extends StatelessWidget {
         color: color,
         boxShadow: [
           BoxShadow(
-              color: Colors.grey,
-              blurRadius: elevation,
-              offset: Offset(elevation, elevation),
-              spreadRadius: elevation)
+            color: Colors.grey,
+            blurRadius: elevation,
+            offset: Offset(elevation, elevation),
+            spreadRadius: elevation,
+          )
         ],
       ),
     );
