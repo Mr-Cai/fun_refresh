@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:fun_refresh/model/mock/extension/extension_app.dart';
 import 'package:fun_refresh/model/mock/video/eye_channel.dart';
 import 'package:fun_refresh/model/mock/video/eye_related.dart';
+import 'package:fun_refresh/model/mock/video/tiktok_hot_week.dart';
 import '../model/mock/video/eye_video.dart';
 import '../model/mock/weather/he_weather.dart';
 import '../tools/api.dart';
@@ -21,7 +22,7 @@ class NeTool {
   /// [queryParameters] 请求参数
   /// [response] 响应JSON
   Future<EyeVideo> pullEyeVideo() async {
-    final response = await Dio(options).get(
+    final Response<Map<String, Object>> response = await Dio(options).get(
       EYE_DAILY,
       queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'num': 100},
       options: Options(headers: {'User-Agent': POST_MAN}),
@@ -34,7 +35,7 @@ class NeTool {
   }
 
   Future<EyeRelated> pullEyeRelated({int id}) async {
-    final response = await Dio(options).get(
+    final Response<Map<String, Object>> response = await Dio(options).get(
       EYE_RELATED,
       queryParameters: {'deviceModel': 'GM1910', 'vc': 531, 'id': id},
       options: Options(headers: {'User-Agent': POST_MAN}),
@@ -47,7 +48,7 @@ class NeTool {
   }
 
   Future<EyeChannel> pullEyeChannel({int id}) async {
-    final response = await Dio(options).get(
+    final Response<Map<String, Object>> response = await Dio(options).get(
       EYE_CHANNEL,
       queryParameters: {
         'pgcId': id,
@@ -67,7 +68,7 @@ class NeTool {
   /// [queryParameters] 请求参数
   /// [response] 响应JSON
   Future<HeWeather> pullWeather(String requestUrl) async {
-    final response = await Dio().get(
+    final Response<Map<String, Object>> response = await Dio().get(
       requestUrl,
       queryParameters: {
         'location': '深圳',
@@ -95,7 +96,36 @@ class NeTool {
         return client;
       };
     }
-    final response = await dio.get<Map>('/$typeList');
+    final Response<Map<String, Object>> response = await dio.get('/$typeList');
     return ExtResponse.fromJson(response.data);
+  }
+
+  Future<List<String>> requestTikTokItemIDs() async {
+    RegExp regExp;
+    List<String> itemIDs = [];
+    String rawStr;
+    String itemID;
+
+    final Response<String> html = await dio.get(tiktokHotWeekHtml);
+
+    regExp = RegExp(r'https.*douyin.*\d', multiLine: true);
+
+    regExp.allMatches(html.data).forEach((element) async {
+      rawStr = html.data.substring(element.start, element.end);
+      itemID = rawStr.replaceAll(RegExp(r'h.*\/'), '');
+      itemID = itemID.replaceAll(RegExp(r'\?.*'), '');
+      itemIDs.add(itemID);
+    });
+    return itemIDs;
+  }
+
+  Future<TiktokHotWeek> requestTiktokWeekHot(String itemID) async {
+    Response<Map<String, Object>> response = await dio.get(
+      tiktokHotWeek,
+      queryParameters: {
+        'item_ids': itemID,
+      },
+    );
+    return TiktokHotWeek.fromJson(response.data);
   }
 }

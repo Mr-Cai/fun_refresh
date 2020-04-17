@@ -7,7 +7,9 @@ const picDemo = 'https://pic.downk.cc/item/5e81b04f504f4bcb041f58bd.jpg';
 const timeIs = 'https://time.is';
 // 每日一文
 const article = 'https://meiriyiwen.com';
-
+// 抖音一周热门
+const tiktokHotWeekHtml = 'https://www.kol.cn/26/article?type=week';
+const tiktokHotWeek = 'https://www.douyin.com/web/api/v2/aweme/iteminfo';
 
 /// 隐私协议
 const page = 'https://mr-cai.gitee.io/dev/html';

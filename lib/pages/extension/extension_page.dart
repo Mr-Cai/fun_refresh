@@ -21,6 +21,12 @@ class ExtensionPage extends StatefulWidget with NavigationState {
 
 class _ExtensionPageState extends State<ExtensionPage> {
   @override
+  void initState() {
+    statusBar();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(
@@ -231,6 +237,9 @@ class IconItem extends StatelessWidget {
     switch (indexOut) {
       case 0: // 火爆热搜
         switch (indexIn) {
+          case 0:
+            pushName(context, short_video);
+            break;
           case 1:
             pushName(context, girl);
             break;

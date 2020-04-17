@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/pages/extension/plugin/short_video_page.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
@@ -48,10 +49,12 @@ class RouteGenerator {
       // 插件APP
       case girl:
         return _skipRoute(GirlPage()); // 美女宝典
+      case girl:
+        return _skipRoute(GirlPage()); // 美女宝典
       case weather:
         return _skipRoute(WeatherPage()); // 天气
-      case weather_detail:
-        return _skipRoute(WeatherDetailPage()); // 天气详情
+      case short_video:
+        return _skipRoute(ShortVideoPage()); // 短视频
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }
@@ -68,7 +71,6 @@ Route _skipRoute(Widget page) {
     },
   );
 }
-
 
 Future pushName(BuildContext context, String name, {Object args}) {
   return Navigator.of(context).pushNamed(

@@ -55,6 +55,7 @@ const video_author = '/video_author'; // 视频作者
 const girl = '/girl'; // 美女宝典
 const weather = '/weather'; // 天气
 const weather_detail = '/weather_detail'; // 天气详情
+const short_video = '/short_video'; // 短视频
 
 // 小游戏
 const tetris = '/game_tetris'; // 俄罗斯方块(像素风)

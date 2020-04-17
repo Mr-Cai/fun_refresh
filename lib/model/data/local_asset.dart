@@ -39,7 +39,6 @@ List<String> get covers => [
       '$picHome/5e6e70e5e83c3a1e3a1b3462.jpg', // 俄罗斯方块(像素风)
       '$picHome/5e70d91fe83c3a1e3a4ab3f1.jpg', // 数独
       '$picHome/5e7108d9e83c3a1e3a65d279.png', // 宝石迷阵
-      ''
     ];
 
 Map<String, String> get config {

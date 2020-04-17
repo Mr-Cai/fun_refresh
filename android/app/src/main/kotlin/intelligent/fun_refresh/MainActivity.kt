@@ -15,9 +15,7 @@ import io.flutter.embedding.android.FlutterActivity
 class MainActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (SDK_INT >= N_MR1) {
-            addShortCutMenu()
-        }
+        if (SDK_INT >= N_MR1) addShortCutMenu()
     }
 
     @RequiresApi(N_MR1)

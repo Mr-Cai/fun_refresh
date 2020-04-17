@@ -217,6 +217,7 @@ ShapeBorder corner({double radius}) {
 }
 
 Future<void> showPrivacyDialog(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
   return showDialog(
     context: context,
     barrierColor: Colors.white,
@@ -308,7 +309,9 @@ Future<void> showPrivacyDialog(BuildContext context) async {
                   child: Material(
                     color: Colors.white,
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        await prefs.setBool(disclaimer, false);
+                        statusBar();
                         Navigator.pop(context);
                       },
                       child: Container(
@@ -335,5 +338,4 @@ Future<void> judgeShowPrivacy(BuildContext context) async {
     statusBar(isHide: true);
     showPrivacyDialog(context);
   }
-  await prefs.setBool(disclaimer, false);
 }

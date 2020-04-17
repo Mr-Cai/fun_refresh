@@ -1,0 +1,29 @@
+{
+    "item_list": [
+        {
+            "video": {
+                "play_addr": {
+                    "url_list": [
+                        "link0",
+                        "link1"
+                    ]
+                },
+                "dynamic_cover": {
+                    "url_list": [
+                        "cover0",
+                        "cover1",
+                        "cover2"
+                    ]
+                },
+                "origin_cover": {
+                    "url_list": [
+                        "cover0",
+                        "cover1",
+                        "cover2"
+                    ]
+                }
+            },
+            "desc": "视频描述"
+        }
+    ]
+}
