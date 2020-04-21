@@ -1,12 +1,11 @@
 /// 资源链接
 const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const picDemo = 'https://pic.downk.cc/item/5e81b04f504f4bcb041f58bd.jpg';
+const kugou = 'https://pic.downk.cc/item/5e9abfb2c2a9a83be5acf2e2.png';
+const gankGirlIcon = 'https://pic.downk.cc/item/5e9bbc22c2a9a83be59cde07.jpg';
+const bigBoobsIcon = 'https://pic.downk.cc/item/5e9bbc22c2a9a83be59cddec.jpg';
+const hotGirlIcon = 'https://pic.downk.cc/item/5e9bbe0bc2a9a83be59ee9b1.jpg';
 
-/// 网站
-// 时间校准
-const timeIs = 'https://time.is';
-// 每日一文
-const article = 'https://meiriyiwen.com';
 // 抖音一周热门
 const tiktokHotWeekHtml = 'https://www.kol.cn/26/article?type=week';
 const tiktokHotWeek = 'https://www.douyin.com/web/api/v2/aweme/iteminfo';
@@ -25,7 +24,7 @@ const agreement = '$page/agreement';
 ///   'date': 1565226000000,  时间戳(往期视频查询)
 ///   'num': 10  总页数
 /// }
-const POST_MAN = 'PostmanRuntime/7.16.1';
+const POST_MAN = 'PostmanRuntime/7.24.1';
 
 const CHROME =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36';
@@ -45,6 +44,9 @@ const EYE_CHANNEL = '/v3/pgc/videos';
 /// 和风天气 🌞
 const HE_WEATHER_BASE = 'https://free-api.heweather.net/s6/weather';
 
+/// 干货妹纸图
+const GIRL_GANK = 'https://gank.io/api/v2/data/category/Girl/type/Girl/page/';
+
 const weatherKey = '604c3a417ef24a61ac201b467a7ce55c'; // 和风天气密钥
 const now = '$HE_WEATHER_BASE/now'; // 今日天气
 const hourly = '$HE_WEATHER_BASE/hourly'; // 实时天气
@@ -53,7 +55,7 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
-const typeList = '5e834e883100006e00e64643';
+const typeList = '5e9c13c630000075000a7d62';
 
 /// 谷歌广告密钥
 // Android 正式

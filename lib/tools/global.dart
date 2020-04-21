@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,14 +12,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
-void showSnackBar(String text) {
-  final snackbar = SnackBar(
-    content: Text(text),
-    duration: Duration(milliseconds: 666),
-  );
-  scaffoldKey.currentState.showSnackBar(snackbar);
-}
-
+List<CameraDescription> cameras = [];
 
 // 动态尺寸获取 $ <=> % ($50 == 50%)
 // 常用宽度:
@@ -130,10 +127,23 @@ void landscape({bool isHide}) {
   ]);
 }
 
-void requestPermission() async {
-  await [
-    Permission.sensors,
-    Permission.storage,
-    Permission.microphone,
-  ].request();
+void requestPermission([Permission permission]) async {
+  await [permission].request();
+}
+
+Future<Size> getPicSize({@required pic}) {
+  final completer = Completer<Size>();
+  final image = Image(
+    image: CachedNetworkImageProvider(pic),
+  );
+  image.image.resolve(ImageConfiguration()).addListener(
+    ImageStreamListener(
+      (info, _) {
+        final netPic = info.image;
+        final size = Size(netPic.width.toDouble(), netPic.height.toDouble());
+        completer.complete(size);
+      },
+    ),
+  );
+  return completer.future;
 }

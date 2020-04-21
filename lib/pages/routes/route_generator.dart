@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/pages/extension/plugin/cloud_music.page.dart';
 import 'package:fun_refresh/pages/extension/plugin/short_video_page.dart';
 import '../export_page_pkg.dart';
 
@@ -55,6 +56,10 @@ class RouteGenerator {
         return _skipRoute(WeatherPage()); // 天气
       case short_video:
         return _skipRoute(ShortVideoPage()); // 短视频
+      case cloud_music:
+        return _skipRoute(CloudMusicPage()); // 云音乐
+      case vision:
+        return _skipRoute(VisionPage()); // 相机识别
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

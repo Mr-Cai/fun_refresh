@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/model/mock/extension/extension_app.dart';
-import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/net_tool.dart';
 import '../../components/theme.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
@@ -109,14 +108,41 @@ class _ExtensionPageState extends State<ExtensionPage> {
               autoStart: true,
               children: List.generate(
                 data.length ?? 0,
-                (index) => netPic(
-                  pic: data[index].pic,
-                  holder: flareAnim(context),
-                  errorH: Image.asset(
-                    path('404_error', 3),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                (index) {
+                  return InkWell(
+                    onTap: () {
+                      switch (index) {
+                        case 0:
+                          pushName(context, weather);
+                          break;
+                        case 1:
+                          pushName(context, vision);
+                          break;
+                        default:
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        netPic(
+                          pic: data[index].pic,
+                          holder: flareAnim(context),
+                          errorH: Image.asset(
+                            path('404_error', 3),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(8.0),
+                          alignment: Alignment.bottomRight,
+                          child: freeTxT(
+                            data[index].desc,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -148,9 +174,7 @@ class _ExtensionPageState extends State<ExtensionPage> {
               return IconItem(
                 indexOut: indexOut,
                 indexIn: indexIn,
-                icon: data[indexIn].pic,
-                title: data[indexIn].title,
-                desc: data[indexIn].desc,
+                data: data,
               );
             },
           ),
@@ -162,16 +186,12 @@ class _ExtensionPageState extends State<ExtensionPage> {
 
 class IconItem extends StatelessWidget {
   const IconItem({
-    this.icon,
-    this.title,
-    this.desc,
     @required this.indexOut,
     @required this.indexIn,
+    @required this.data,
   });
 
-  final String icon;
-  final String title;
-  final String desc;
+  final List<Data> data;
   final int indexIn;
   final int indexOut;
 
@@ -182,7 +202,7 @@ class IconItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(32.0),
       ),
       onTap: () {
-        toggleApp(context, indexOut: indexOut, indexIn: indexIn);
+        toggleApp(context, indexOut: indexOut, indexIn: indexIn, data: data);
       },
       child: Container(
         width: sizeW(context) * .4,
@@ -202,12 +222,12 @@ class IconItem extends StatelessWidget {
                 height: sizeW(context) * .3,
                 child: netPic(
                   fit: BoxFit.fill,
-                  pic: icon,
+                  pic: data[indexIn].pic,
                   holder: flareAnim(context),
                 ),
               ),
             ),
-            title == '' || title == null
+            data[indexIn].title == '' || data[indexIn].title == null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Container(
@@ -219,9 +239,9 @@ class IconItem extends StatelessWidget {
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      freeTxT(title),
+                      freeTxT(data[indexIn].title),
                       freeTxT(
-                        desc,
+                        data[indexIn].desc,
                         size: 15.0,
                         color: Colors.lightBlue,
                       ),
@@ -233,7 +253,12 @@ class IconItem extends StatelessWidget {
     );
   }
 
-  void toggleApp(BuildContext context, {@required int indexOut, int indexIn}) {
+  void toggleApp(
+    BuildContext context, {
+    @required int indexOut,
+    int indexIn,
+    @required List<Data> data,
+  }) {
     switch (indexOut) {
       case 0: // 火爆热搜
         switch (indexIn) {
@@ -243,8 +268,11 @@ class IconItem extends StatelessWidget {
           case 1:
             pushName(context, girl);
             break;
+          case 2:
+            pushName(context, cloud_music);
+            break;
           case 3:
-            pushName(context, web_view, args: {'url': article});
+            pushName(context, web_view, args: {'url': data[indexIn].link});
             break;
           default:
             pushName(context, null, args: defaultArgs);
@@ -256,10 +284,55 @@ class IconItem extends StatelessWidget {
             pushName(context, dinosaur_run);
             break;
           case 1:
-            pushName(context, web_view, args: {'url': timeIs});
+            pushName(context, web_view, args: {'url': data[indexIn].link});
             break;
           case 2:
-            pushName(context, web_view, args: {'url': article});
+            pushName(context, web_view, args: {'url': data[indexIn].link});
+            break;
+          default:
+            pushName(context, null, args: defaultArgs);
+        }
+        break;
+      case 2: // 最近更新
+      case 4: // 猜你喜欢
+      case 6: // 人气蹿升
+      case 7: // 发现精彩
+        switch (indexIn) {
+          case 0:
+            pushName(context, short_video);
+            break;
+          case 1:
+            pushName(context, cloud_music);
+            break;
+          case 2:
+            pushName(context, web_view, args: {'url': data[indexIn].link});
+            break;
+          default:
+            pushName(context, null, args: defaultArgs);
+        }
+        break;
+      case 5: // 休闲益智
+        switch (indexIn) {
+          case 0:
+            pushName(context, bejeweled);
+            break;
+          case 1:
+            pushName(context, sudoku);
+            break;
+          case 2:
+            pushName(context, flappy_bird);
+            break;
+          case 3:
+            pushName(context, snake);
+            break;
+          case 4:
+            pushName(context, tetris);
+            break;
+          case 5:
+            pushName(context, game2048);
+            break;
+          case 6:
+            pushName(context, dinosaur_run);
             break;
           default:
             pushName(context, null, args: defaultArgs);

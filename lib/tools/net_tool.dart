@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fun_refresh/model/mock/extension/extension_app.dart';
+import 'package:fun_refresh/model/mock/extension/plugin/girl_gank.dart';
 import 'package:fun_refresh/model/mock/video/eye_channel.dart';
 import 'package:fun_refresh/model/mock/video/eye_related.dart';
 import 'package:fun_refresh/model/mock/video/tiktok_hot_week.dart';
@@ -75,11 +77,7 @@ class NeTool {
         'key': weatherKey,
       },
     );
-    if (response.statusCode == 200) {
-      return HeWeather.fromJson(response.data);
-    } else {
-      throw Exception();
-    }
+    return HeWeather.fromJson(response.data);
   }
 
   /// 扩展小程序图标信息
@@ -105,11 +103,8 @@ class NeTool {
     List<String> itemIDs = [];
     String rawStr;
     String itemID;
-
     final Response<String> html = await dio.get(tiktokHotWeekHtml);
-
     regExp = RegExp(r'https.*douyin.*\d', multiLine: true);
-
     regExp.allMatches(html.data).forEach((element) async {
       rawStr = html.data.substring(element.start, element.end);
       itemID = rawStr.replaceAll(RegExp(r'h.*\/'), '');
@@ -127,5 +122,54 @@ class NeTool {
       },
     );
     return TiktokHotWeek.fromJson(response.data);
+  }
+
+  Future<List> requestMusic({@required int count}) async {
+    final Response<List> response = await dio.post(
+      'http://y.webzcz.cn/api.php',
+      data: FormData.fromMap({
+        'types': 'search',
+        'count': count,
+        'source': 'kugou',
+        'name': 'chillhop',
+        'pages': 1
+      }),
+      options: Options(
+        headers: {
+          'Content-Type':
+              'multipart/form-data; boundary=<calculated when request is sent>',
+          'Content-Length': '<calculated when request is sent>',
+          'User-Agent': POST_MAN
+        },
+      ),
+    );
+    return response.data;
+  }
+
+  Future<Map> searchMusic({@required String playID, String searchType}) async {
+    final Response<Map> response = await dio.post(
+      'http://y.webzcz.cn/api.php',
+      data: FormData.fromMap({
+        'types': 'url',
+        'id': playID,
+        'source': searchType ?? 'kugou',
+      }),
+      options: Options(
+        headers: {
+          'Content-Type':
+              'multipart/form-data; boundary=<calculated when request is sent>',
+          'Content-Length': '<calculated when request is sent>',
+          'User-Agent': POST_MAN
+        },
+      ),
+    );
+    return response.data;
+  }
+
+  Future<GirlGank> getGirlPicGank({int count, int page}) async {
+    final response = await Dio(
+      BaseOptions(baseUrl: GIRL_GANK),
+    ).get('$page/count/$count');
+    return GirlGank.fromJson(response.data);
   }
 }

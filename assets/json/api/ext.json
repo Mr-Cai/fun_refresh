@@ -42,7 +42,7 @@
                     "pic": "https://pic.downk.cc/item/5e834dfc504f4bcb044c6885.jpg",
                     "title": "精准时间",
                     "desc": "时间就是生命",
-                    "link": ""
+                    "link": "https://time.is"
                 },
                 {
                     "pic": "https://pic.downk.cc/item/5e7799285c560911290c4649.png",
@@ -80,15 +80,13 @@
             "data": [
                 {
                     "pic": "https://pic.downk.cc/item/5e78b2859dbe9d88c55a5a9d.png",
-                    "title": "天气"
+                    "title": "天气",
+                    "desc": "简约的UI"
                 },
                 {
                     "pic": "https://pic.downk.cc/item/5e78b3be9dbe9d88c55b2866.jpg",
-                    "title": "超级相机"
-                },
-                {
-                    "pic": "https://pic.downk.cc/item/5e78b9509dbe9d88c55e12b0.jpg",
-                    "title": "进化合成"
+                    "title": "超级相机",
+                    "desc": "扫二维码之类的"
                 }
             ]
         },
@@ -119,22 +117,46 @@
             "title": "休闲益智",
             "data": [
                 {
-                    "pic": "https://pic.downk.cc/item/5e8347f7504f4bcb04475207.png",
-                    "title": "短视频",
-                    "desc": "有大批漂亮小姐姐出没",
+                    "pic": "https://pic.downk.cc/item/5e7108d9e83c3a1e3a65d279.png",
+                    "title": "宝石迷阵",
+                    "desc": "经典消消乐玩法",
                     "link": ""
                 },
                 {
-                    "pic": "https://pic.downk.cc/item/5e8348f9504f4bcb044811e8.png",
-                    "title": "音乐",
-                    "desc": "Chillhop 放松音乐",
+                    "pic": "https://pic.downk.cc/item/5e70d91fe83c3a1e3a4ab3f1.jpg",
+                    "title": "数独",
+                    "desc": "无聊时练练脑子",
                     "link": ""
                 },
                 {
-                    "pic": "https://pic.downk.cc/item/5e7799285c560911290c4649.png",
-                    "title": "在线阅读",
-                    "desc": "每日精选文章",
-                    "link": "https://meiriyiwen.com"
+                    "pic": "https://pic.downk.cc/item/5e6f2d55e83c3a1e3a65ed53.jpg",
+                    "title": "飞翔的小鸟",
+                    "desc": "当年风靡全球的像素鸟",
+                    "link": ""
+                },
+                {
+                    "pic": "https://pic.downk.cc/item/5e6e058de83c3a1e3aef1326.png",
+                    "title": "贪吃蛇",
+                    "desc": "贪吃蛇像素风",
+                    "link": ""
+                },
+                {
+                    "pic": "https://pic.downk.cc/item/5e6e70e5e83c3a1e3a1b3462.jpg",
+                    "title": "俄罗斯方块",
+                    "desc": "俄罗斯方块像素风",
+                    "link": ""
+                },
+                {
+                    "pic": "https://pic.downk.cc/item/5e6e11d8e83c3a1e3af405d7.jpg",
+                    "title": "2048",
+                    "desc": "当年风靡全球的2048",
+                    "link": ""
+                },
+                {
+                    "pic": "https://pic.downk.cc/item/5e834d42504f4bcb044bd3fd.png",
+                    "title": "恐龙快跑",
+                    "desc": "Chrome像素小恐龙",
+                    "link": ""
                 }
             ]
         },

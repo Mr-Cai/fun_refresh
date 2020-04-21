@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_refresh/components/circle_floating_menu.dart';
-import 'package:fun_refresh/components/floating_button.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
@@ -51,33 +49,19 @@ class _HomePageState extends State<HomePage> {
                   return state as Widget;
                 },
               ),
-              floatingActionButton: Stack(
-                children: [
-                  CircleFloatingMenu(
-                    startAngle: degToRad(-160.0),
-                    endAngle: degToRad(-20.0),
-                    menuSelected: (index) {},
-                    floatingButton: FloatingButton(
-                      icon: Icons.add,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    subMenus: [
-                      FloatingButton(
-                        icon: Icons.widgets,
-                      ),
-                      FloatingButton(
-                        icon: Icons.translate,
-                      ),
-                    ],
-                  ),
-                ],
+              floatingActionButton: CircleAvatar(
+                radius: 18.0,
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                child: Center(
+                  child: Icon(Icons.add),
+                ),
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: AnchorBar(
                 notchedShape: CircularNotchedRectangle(),
                 items: _getNavItemsBTM,
-                notchMargin: 6.0,
                 onTabSelected: (index) => setState(() => _currentNav = index),
                 color: Colors.black54,
                 backgroundColor: Colors.white,

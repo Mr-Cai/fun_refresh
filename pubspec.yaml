@@ -27,7 +27,6 @@ dependencies: # 拓展插件集合 https://pub.dev
   overlay_support: ^1.0.3 # 全局覆盖通知
   soundpool: ^1.0.1 # 音效池
   vibration: ^1.2.4 # 震动器
-  flutter_speed_dial: ^1.2.5 # 动态Material主题
   flutter_colorpicker: ^0.3.2 # 颜色选择器
   cached_network_image: ^2.0.0 # 网络图片加载
   sensors: ^0.4.1+10 # 传感器
@@ -35,6 +34,10 @@ dependencies: # 拓展插件集合 https://pub.dev
   connectivity: ^0.4.8+2 # 网络状态监听
   photo_view: ^0.9.2 # 图片浏览
   rxdart: ^0.24.0-dev.1 # 异步Dart
+  audioplayers: ^0.15.1 # 音频播放
+  flutter_speed_dial: ^1.2.5 # 动画悬浮按钮
+  camera: ^0.5.7+4 # 相机
+
 
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试

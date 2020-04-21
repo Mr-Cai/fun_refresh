@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/top_bar.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -13,6 +14,8 @@ class PhotoViewPage extends StatefulWidget {
 
 class _PhotoViewPageState extends State<PhotoViewPage> {
   bool isSlide = false;
+  bool isHide = false;
+
   @override
   void initState() {
     statusBar(status: 1, isHide: true);
@@ -28,6 +31,10 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TopBar(
+        themeColor: isHide ? Colors.transparent : Colors.black,
+        title: '',
+      ),
       body: PhotoView(
         imageProvider: NetworkImage(
           widget.args['data'],
@@ -41,6 +48,22 @@ class _PhotoViewPageState extends State<PhotoViewPage> {
         loadingBuilder: (_, __) => Center(
           child: RefreshProgressIndicator(),
         ),
+        scaleStateChangedCallback: (state) {
+          setState(() {
+            switch (state) {
+              case PhotoViewScaleState.zoomedIn:
+              case PhotoViewScaleState.covering:
+              case PhotoViewScaleState.originalSize:
+                isHide = true;
+                break;
+              case PhotoViewScaleState.zoomedOut:
+                isHide = false;
+                break;
+              default:
+                isHide = false;
+            }
+          });
+        },
       ),
     );
   }

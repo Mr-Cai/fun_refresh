@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/components/top_bar.dart';
 import 'package:fun_refresh/model/mock/video/tiktok_hot_week.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:fun_refresh/tools/net_tool.dart';
@@ -12,36 +13,50 @@ class ShortVideoPage extends StatefulWidget {
 
 class _ShortVideoPageState extends State<ShortVideoPage> {
   List<String> itemIDs = [];
+
   @override
   void initState() {
     statusBar();
-    netool.requestTikTokItemIDs().then((value) => itemIDs.addAll(value));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TopBar(
+        title: '短视频',
+        themeColor: Colors.black,
+      ),
       body: StreamBuilder<List<TiktokHotWeek>>(
-        stream: Future.wait(
-          List.generate(
-            itemIDs.length ?? 0,
-            (index) => netool.requestTiktokWeekHot(itemIDs[index]),
-          ),
-        ).asStream(),
+        stream: requestTiktokWeekHot().asStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return ListView(
-              children: List.generate(
-                snapshot.data.length,
-                (index) {
-                  return VlogItem(response: snapshot.data[index]);
-                },
+            return RefreshIndicator(
+              onRefresh: () async {
+                return requestTiktokWeekHot();
+              },
+              child: ListView(
+                children: List.generate(
+                  snapshot.data.length,
+                  (index) {
+                    return VlogItem(response: snapshot.data[index]);
+                  },
+                ),
               ),
             );
           }
           return Center(child: flareAnim(context));
         },
+      ),
+    );
+  }
+
+  Future<List<TiktokHotWeek>> requestTiktokWeekHot() async {
+    await netool.requestTikTokItemIDs().then((value) => itemIDs.addAll(value));
+    return Future.wait(
+      List.generate(
+        itemIDs.length ?? 0,
+        (index) => netool.requestTiktokWeekHot(itemIDs[index]),
       ),
     );
   }
@@ -80,21 +95,25 @@ class _VlogItemState extends State<VlogItem> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: controller.value.aspectRatio,
-      child: Stack(
-        children: [
-          VideoPlayer(controller),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                controller.value.isPlaying
-                    ? controller.pause()
-                    : controller.play();
-              });
-            },
-          ),
-        ],
+    return Container(
+      width: sizeW(context),
+      height: sizeH(context),
+      child: AspectRatio(
+        aspectRatio: controller.value.aspectRatio,
+        child: Stack(
+          children: [
+            VideoPlayer(controller),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  controller.value.isPlaying
+                      ? controller.pause()
+                      : controller.play();
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

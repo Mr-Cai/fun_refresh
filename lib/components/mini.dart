@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
@@ -126,8 +130,14 @@ Widget bank(BuildContext context) {
   );
 }
 
-Widget assetPic({String pic, BoxFit fit}) {
-  return Image.asset(pic, fit: fit ?? BoxFit.fill);
+Widget assetPic({
+  String pic,
+  BoxFit fit,
+  bool isSvg = false,
+}) {
+  return isSvg
+      ? SvgPicture.asset(path(pic, 5))
+      : Image.asset(path(pic, 3), fit: fit ?? BoxFit.fill);
 }
 
 Widget netPic({
@@ -224,106 +234,109 @@ Future<void> showPrivacyDialog(BuildContext context) async {
     barrierDismissible: false,
     builder: (context) {
       return Center(
-        child: Stack(
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: flareAnim(context),
-            ),
-            Positioned(
-              top: sizeH(context) * .09,
-              left: sizeW(context) * .38,
-              child: Container(
-                width: sizeW(context) * .25,
-                height: sizeW(context) * .25,
-                child: SvgPicture.asset(
-                  path('ic_launcher', 5),
-                ),
+        child: Container(
+          height: sizeH(context) * .666,
+          child: Stack(
+            children: [
+              flareAnim(
+                context,
+                width: sizeW(context) * 1.8,
+                height: sizeH(context),
               ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: flareAnim(context),
-            ),
-            AlertDialog(
-              shape: corner(),
-              content: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: WillPopScope(
-                  onWillPop: () {
-                    return Future.value(false);
-                  },
-                  child: ListBody(
-                    children: [
-                      SelectableText(
-                        disclaimerText,
-                        scrollPhysics: BouncingScrollPhysics(),
-                      ),
-                      Wrap(
-                        runSpacing: 8.0,
+              CupertinoAlertDialog(
+                title: Center(child: freeTxT('服务协议与隐私政策')),
+                content: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: WillPopScope(
+                    onWillPop: () {
+                      return Future.value(false);
+                    },
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': agreement},
-                              );
-                            },
-                            child: freeTxT('《服务协议》', color: Colors.blue),
+                          SelectableText(
+                            '$disclaimerText',
+                            style: TextStyle(height: 1.4),
+                            textAlign: TextAlign.start,
+                            scrollPhysics: BouncingScrollPhysics(),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': private},
-                              );
-                            },
-                            child: freeTxT('《隐私政策》', color: Colors.blue),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': guide},
-                              );
-                            },
-                            child: freeTxT('《隐私保护指引》', color: Colors.blue),
+                          Wrap(
+                            spacing: 48.0,
+                            runAlignment: WrapAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': agreement},
+                                  );
+                                },
+                                child: freeTxT(
+                                  '《服务协议》',
+                                  color: Colors.blue,
+                                  size: 13.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': private},
+                                  );
+                                },
+                                child: freeTxT(
+                                  '《隐私政策》',
+                                  color: Colors.blue,
+                                  size: 13.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': guide},
+                                  );
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 12.0),
+                                  child: freeTxT(
+                                    '《隐私保护指引》',
+                                    color: Colors.blue,
+                                    size: 13.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: sizeW(context) * .25,
-                height: sizeW(context) * .25,
-                margin: EdgeInsets.only(bottom: sizeH(context) * .095),
-                child: ClipOval(
-                  child: Material(
-                    color: Colors.white,
-                    child: InkWell(
-                      onTap: () async {
-                        await prefs.setBool(disclaimer, false);
-                        statusBar();
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: freeTxT('我看过了', isBold: true, size: 28.0),
                       ),
                     ),
                   ),
                 ),
+                actions: [
+                  FlatButton(
+                    child: Text('同意并进入'),
+                    onPressed: () async {
+                      await prefs.setBool(disclaimer, false);
+                      statusBar();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('取消并退出'),
+                    onPressed: () {
+                      SystemNavigator.pop();
+                      exit(1);
+                    },
+                  ),
+                ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     },

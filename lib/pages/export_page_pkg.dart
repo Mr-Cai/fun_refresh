@@ -56,6 +56,8 @@ const girl = '/girl'; // 美女宝典
 const weather = '/weather'; // 天气
 const weather_detail = '/weather_detail'; // 天气详情
 const short_video = '/short_video'; // 短视频
+const cloud_music = '/cloud_music'; // 云音乐
+const vision = '/vision'; // 相机识别
 
 // 小游戏
 const tetris = '/game_tetris'; // 俄罗斯方块(像素风)
