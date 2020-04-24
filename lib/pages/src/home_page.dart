@@ -8,13 +8,13 @@ import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/collapse_drawer.dart';
 import '../../components/marquee.dart';
-import '../../model/mock/smash_model.dart';
-import '../../model/mock/weather/he_weather.dart';
+import '../../model/smash_model.dart';
+import '../../model/weather/he_weather.dart';
 import '../../tools/net_tool.dart';
 import '../../tools/api.dart';
 import '../../tools/global.dart';
 
-class HomePage extends StatefulWidget with NavigationState {
+class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   int _currentNav = 0;
   final _marqueeController = MarqueeController();
   Orientation orientation;
-  List<String> get navTexts => ['娱乐', '视频'];
 
   @override
   void initState() {
@@ -112,7 +111,7 @@ class _HomePageState extends State<HomePage> {
         NavItemBTM(iconPath: _currentNavIcon(1), text: _navTitleBTM(1))
       ];
 
-  String _navTitleBTM(index) => navTexts[index]; // 点击索引切换文字颜色
+  String _navTitleBTM(index) => ['娱乐', '插件'][index]; // 点击索引切换文字颜色
 
   String _currentNavIcon(currentIndex) => currentIndex == _currentNav
       ? navIcons[currentIndex][1]
@@ -120,6 +119,6 @@ class _HomePageState extends State<HomePage> {
 
   List<List<String>> get navIcons => [
         [path('confetti0', 5), path('confetti1', 5)],
-        [path('video0', 5), path('video1', 5)],
+        [path('plugin0', 5), path('plugin1', 5)],
       ];
 }

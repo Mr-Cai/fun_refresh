@@ -3,7 +3,7 @@ const LOCAL_SERVER = 'http://192.168.124.5/server'; // 本地服务器
 const picDemo = 'https://pic.downk.cc/item/5e81b04f504f4bcb041f58bd.jpg';
 const kugou = 'https://pic.downk.cc/item/5e9abfb2c2a9a83be5acf2e2.png';
 const gankGirlIcon = 'https://pic.downk.cc/item/5e9bbc22c2a9a83be59cde07.jpg';
-const bigBoobsIcon = 'https://pic.downk.cc/item/5e9bbc22c2a9a83be59cddec.jpg';
+const girlIcon = 'https://pic.downk.cc/item/5e9bbc22c2a9a83be59cddec.jpg';
 const hotGirlIcon = 'https://pic.downk.cc/item/5e9bbe0bc2a9a83be59ee9b1.jpg';
 
 // 抖音一周热门
@@ -55,7 +55,8 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
-const typeList = '5e9c13c630000075000a7d62';
+const confetti = '5ea182e93100000f001eeb7e';
+const plugins = '5ea15666320000680094b43d';
 
 /// 谷歌广告密钥
 // Android 正式

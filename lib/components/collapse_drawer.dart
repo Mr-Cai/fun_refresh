@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
-import '../model/mock/smash_model.dart';
+import '../model/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
 import '../components/theme.dart';

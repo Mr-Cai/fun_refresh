@@ -25,7 +25,12 @@ double sizeH(context) => MediaQuery.of(context).size.height;
 /// `type`: 文件类型
 /// 0:动画、1:音效、2:字体、3:图片、4:简谱、5:图标 ...
 /// `format`: 文件格式(每种文件都有默认格式, 也可自选格式)
-String path(String name, int type, {String format}) {
+String path(
+  String name,
+  int type, {
+  String format,
+  String append = '',
+}) {
   switch (type) {
     case 0:
       return 'assets/animations/$name.${format ?? 'flr'}';
@@ -37,7 +42,7 @@ String path(String name, int type, {String format}) {
       return 'assets/fonts/$name.${format ?? 'ttf'}';
       break;
     case 3:
-      return 'assets/images/$name.${format ?? 'png'}';
+      return 'assets/images/$append/$name.${format ?? 'png'}';
       break;
     case 4:
       return 'assets/json/$name.${format ?? 'json'}';

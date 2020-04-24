@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/pages/extension/plugin/cloud_music.page.dart';
-import 'package:fun_refresh/pages/extension/plugin/short_video_page.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
@@ -19,8 +17,6 @@ class RouteGenerator {
         return _skipRoute(RewardPage()); // 抽奖游戏页面
       case settings:
         return _skipRoute(SettingsPage(true)); // 设置页面
-      case chat:
-        return _skipRoute(ChatPage()); // 聊天页面
       case profile:
         return _skipRoute(ProfilePage(args: args)); // 个人信息页面
       case search:
@@ -29,10 +25,7 @@ class RouteGenerator {
         return _skipRoute(WebViewPage(args: args)); // 浏览器页面
       case photos:
         return _skipRoute(PhotoViewPage(args: args)); // 图片查看器
-      case video_detail:
-        return _skipRoute(VideoDetailPage(args: args)); // 视频详情
-      case video_author:
-        return _skipRoute(VideoAuthorPage(args: args)); // 视频作者
+      // 小游戏模块:
       case game2048:
         return _skipRoute(Game2048()); // 2048小游戏
       case tetris:
@@ -47,17 +40,13 @@ class RouteGenerator {
         return _skipRoute(SudokuGame()); // 数独
       case bejeweled:
         return _skipRoute(Bejeweled()); // 宝石迷阵
-      // 插件APP
+      // 插件APP:
       case girl:
         return _skipRoute(GirlPage()); // 美女宝典
       case girl:
         return _skipRoute(GirlPage()); // 美女宝典
       case weather:
         return _skipRoute(WeatherPage()); // 天气
-      case short_video:
-        return _skipRoute(ShortVideoPage()); // 短视频
-      case cloud_music:
-        return _skipRoute(CloudMusicPage()); // 云音乐
       case vision:
         return _skipRoute(VisionPage()); // 相机识别
       default:

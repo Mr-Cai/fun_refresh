@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_refresh/tools/global.dart';
+import 'package:fun_refresh/components/mini.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 
@@ -14,7 +14,7 @@ class _SocialPageState extends State<SocialPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TopBar(
-        title: '社交',
+        title: '人脉',
         themeColor: Colors.black,
         isMenu: true,
       ),
@@ -34,11 +34,12 @@ class SocialLogo extends StatelessWidget {
       top: 32.0,
       left: 32.0,
       child: ClipOval(
-        child: Image.asset(
-          path('header', 3, format: 'jpg'),
+        child: Container(
           width: 64.0,
           height: 64.0,
-          fit: BoxFit.cover,
+          child: netPic(
+            pic: 'https://api.superbed.cn/item/5ea227a5c2a9a83be5d609bd.jpg',
+          ),
         ),
       ),
     );
