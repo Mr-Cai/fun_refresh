@@ -76,7 +76,7 @@ class Tube extends PositionComponent
   void update(double t) {
     if (!_hasBeenOnScreen && isOnScreen) _hasBeenOnScreen = true;
     if (_hasBeenOnScreen && !isOnScreen) {
-      print("Moved");
+      print('Moved');
       this.ground.x = Singleton.instance.screenSize.width * 1.5;
       setY();
       crossedBird = false;

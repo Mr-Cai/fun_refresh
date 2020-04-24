@@ -101,7 +101,7 @@ class _GameSplashState extends State<GameSplash>
               children: <Widget>[
                 Container(
                     child: Text(
-                  'Level:  ${widget.level.index}',
+                  '关卡:  ${widget.level.index}',
                   style: TextStyle(fontSize: 24.0, color: Colors.white),
                 )),
                 SizedBox(height: 8.0),

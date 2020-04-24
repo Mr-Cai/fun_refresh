@@ -28,7 +28,7 @@ class Scorer extends PositionComponent
   void increase() {
     _score++;
     _render();
-    Flame.audio.play('point.wav');
+    Flame.audio.play('flappy_bird/point.wav');
   }
 
   void reset() {
@@ -38,7 +38,7 @@ class Scorer extends PositionComponent
 
   void _render() {
     var scoreStr = _score.toString();
-    var numberList = scoreStr.split("").reversed.toList();
+    var numberList = scoreStr.split('').reversed.toList();
     for (var i = numberList.length - 1; i >= 0; i--) {
       var number = numberList[i];
       if (i == 0) _oneDigitGround.sprite = _digits[number.toString()];
@@ -49,70 +49,70 @@ class Scorer extends PositionComponent
 
   void _initSprites(Image spriteImage) {
     _digits = HashMap.from({
-      "0": Sprite.fromImage(
+      '0': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.zeroNumberX,
         y: SpritesPostions.zeroNumberY,
       ),
-      "1": Sprite.fromImage(
+      '1': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.firstNumberX,
         y: SpritesPostions.firstNumberY,
       ),
-      "2": Sprite.fromImage(
+      '2': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.secondNumberX,
         y: SpritesPostions.secondNumberY,
       ),
-      "3": Sprite.fromImage(
+      '3': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.thirdNumberX,
         y: SpritesPostions.thirdNumberY,
       ),
-      "4": Sprite.fromImage(
+      '4': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.fourthNumberX,
         y: SpritesPostions.fourthNumberY,
       ),
-      "5": Sprite.fromImage(
+      '5': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.fifthNumberX,
         y: SpritesPostions.fifthNumberY,
       ),
-      "6": Sprite.fromImage(
+      '6': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.sixthNumberX,
         y: SpritesPostions.sixthNumberY,
       ),
-      "7": Sprite.fromImage(
+      '7': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.seventhNumberX,
         y: SpritesPostions.seventhNumberY,
       ),
-      "8": Sprite.fromImage(
+      '8': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
         x: SpritesPostions.eighthNumberX,
         y: SpritesPostions.eighthNumberY,
       ),
-      "9": Sprite.fromImage(
+      '9': Sprite.fromImage(
         spriteImage,
         width: SpriteDimensions.numberWidth,
         height: SpriteDimensions.numberHeight,
@@ -125,13 +125,13 @@ class Scorer extends PositionComponent
   void _renderDefaultView() {
     double defaultY = 80;
     var twoGroundX = (_screenSize.width - ComponentDimensions.numberWidth) / 2;
-    _twoDigitGround = ScorerGround(_digits["0"]);
+    _twoDigitGround = ScorerGround(_digits['0']);
     this._twoDigitGround.x = twoGroundX;
     this._twoDigitGround.y = defaultY;
-    _oneDigitGround = ScorerGround(_digits["0"]);
+    _oneDigitGround = ScorerGround(_digits['0']);
     this._oneDigitGround.x = _twoDigitGround.toRect().right + 5;
     this._oneDigitGround.y = defaultY;
-    _threeDigitGround = ScorerGround(_digits["0"]);
+    _threeDigitGround = ScorerGround(_digits['0']);
     this._threeDigitGround.x = twoGroundX - ComponentDimensions.numberWidth - 5;
     this._threeDigitGround.y = defaultY;
     this..add(_oneDigitGround)..add(_twoDigitGround)..add(_threeDigitGround);

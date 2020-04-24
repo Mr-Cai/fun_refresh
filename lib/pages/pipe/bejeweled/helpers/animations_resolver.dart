@@ -98,7 +98,7 @@ class AnimationsResolver {
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
-        if (level.grid[row][col] == "X") {
+        if (level.grid[row][col] == 'X') {
           _state[row][col] = -1;
           _types[row][col] = TileType.forbidden;
           _tiles[row][col] = null;
@@ -345,7 +345,7 @@ class AnimationsResolver {
   }
 
   //
-  // Counts the number of "holes" (= empty cells) in a column
+  // Counts the number of 'holes' (= empty cells) in a column
   // starting at a certain row
   //
   int _countNumberOfHolesAtColumStartingAtRow(int col, int row) {
@@ -364,7 +364,7 @@ class AnimationsResolver {
   //
   // Routine that checks if any avalanche effect could happen.
   // This happens when a tile reaches its destination but there is
-  // a "hole" in an adjacent column.
+  // a 'hole' in an adjacent column.
   //
   bool _processAvalanches(int col, int delay) {
     // Counter of moves caused by an avalanche effect
@@ -377,12 +377,12 @@ class AnimationsResolver {
     _avalanches[col].forEach((AvalancheTest avalancheTest) {
       final int row = avalancheTest.row;
 
-      // Count the number of "holes" on the left-hand side column
+      // Count the number of 'holes' on the left-hand side column
       final leftColHoles = leftCol
           ? _countNumberOfHolesAtColumStartingAtRow(col - 1, row - 1)
           : 0;
 
-      // Count the number of "holes" on the right-hand side column
+      // Count the number of 'holes' on the right-hand side column
       final rightColHoles = rightCol
           ? _countNumberOfHolesAtColumStartingAtRow(col + 1, row - 1)
           : 0;

@@ -12,21 +12,22 @@ class Audio {
   //
   static Future<dynamic> init() async {
     await player.loadAll([
-      'audio/swap.wav',
-      'audio/move_down.wav',
-      'audio/bomb.wav',
-      'audio/game_start.wav',
-      'audio/win.wav',
-      'audio/lost.wav',
+      'audio/bejeweled/swap.wav',
+      'audio/bejeweled/move_down.wav',
+      'audio/bejeweled/bomb.wav',
+      'audio/bejeweled/game_start.wav',
+      'audio/bejeweled/win.wav',
+      'audio/bejeweled/lost.wav',
     ]);
   }
+
   static play() async {
     AudioPlayer player = AudioPlayer();
-    await player.play('assets/audio/swap.wav', isLocal: true);
+    await player.play('assets/bejeweled/audio/swap.wav', isLocal: true);
   }
 
   static playAsset(AudioType audioType) {
-    player.play('audio/${describeEnum(audioType)}.wav');
+    player.play('audio/bejeweled/${describeEnum(audioType)}.wav');
   }
 }
 

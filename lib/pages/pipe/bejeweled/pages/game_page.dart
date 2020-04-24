@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fun_refresh/tools/global.dart';
 
 import '../animations/animation_chain.dart';
@@ -75,7 +75,7 @@ class _GamePageState extends State<GamePage>
     // Reset the objectives
     gameBloc.reset();
 
-    // Listen to "game over" notification
+    // Listen to 'game over' notification
     _gameOverSubscription = gameBloc.gameIsOver.listen(_onGameOver);
   }
 
@@ -88,6 +88,7 @@ class _GamePageState extends State<GamePage>
     _overlayEntryFromTile?.remove();
     _gameSplash?.remove();
     _controller?.dispose();
+    statusBar(isHide: false);
     super.dispose();
   }
 
@@ -105,15 +106,10 @@ class _GamePageState extends State<GamePage>
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              path(
-                'background',
-                3,
-                append: 'bejeweled/background',
-                format: 'jpg',
-              ),
-            ),
             fit: BoxFit.cover,
+            image: CachedNetworkImageProvider(
+              'https://pic.downk.cc/item/5ea27c35c2a9a83be5390023.jpg',
+            ),
           ),
         ),
         child: GestureDetector(
@@ -146,7 +142,7 @@ class _GamePageState extends State<GamePage>
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ShadowedText(
-          text: 'by Didier Boelens',
+          text: '',
           color: Colors.white,
           fontSize: 12.0,
           offset: Offset(1.0, 1.0),
@@ -329,7 +325,7 @@ class _GamePageState extends State<GamePage>
   }
 
   //
-  // The pointer has been moved since its last "start"
+  // The pointer has been moved since its last 'start'
   //
   void _onPanUpdate(DragUpdateDetails details) {
     if (!_allowGesture) return;
@@ -655,7 +651,7 @@ class _GamePageState extends State<GamePage>
                   pendingSequences--;
 
                   //
-                  // When all have finished, we need to "rebuild" the board,
+                  // When all have finished, we need to 'rebuild' the board,
                   // refresh the screen and yied the hand back
                   //
                   if (pendingSequences == 0) {

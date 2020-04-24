@@ -95,9 +95,9 @@ class GameBloc implements BlocBase {
   // Load the levels definitions from assets
   //
   _loadLevels() async {
-    String jsonContent = await rootBundle.loadString("assets/json/config/levels.json");
+    String jsonContent = await rootBundle.loadString('assets/json/config/levels.json');
     Map<dynamic, dynamic> list = json.decode(jsonContent);
-    enumerate(list["levels"] as List).forEach((levelItem){
+    enumerate(list['levels'] as List).forEach((levelItem){
       _levels.add(Level.fromJson(levelItem.value));
       _maxLevel++;
     });

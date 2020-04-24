@@ -13,7 +13,7 @@ class Objective extends Object {
 
   // Constructor
   Objective(String string){
-    List<String> parts = string.split(";");
+    List<String> parts = string.split(';');
     
     // Retrieve the type by its name (as a string)
     type = TileType.values.firstWhere((e)=> e.toString().split('.')[1] == parts[1]);
@@ -30,7 +30,7 @@ class Objective extends Object {
 
   //
   // Decrements the number of times this objective needs to be met.
-  // Once the objective has been reached, sets it to "completed"
+  // Once the objective has been reached, sets it to 'completed'
   // 
   void decrement(int value){
     count -= value;

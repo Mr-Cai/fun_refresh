@@ -427,7 +427,8 @@ class _DinosaurRunState extends State<DinosaurRun>
 
   Future<void> playAudio(String name) async {
     final pool = Soundpool();
-    int soundId = await rootBundle.load(path(name, 1)).then((data) {
+    int soundId =
+        await rootBundle.load(path(name, 1, append: 'dino_run')).then((data) {
       return pool.load(data);
     });
     await pool.play(soundId);

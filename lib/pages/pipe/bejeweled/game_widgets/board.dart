@@ -80,7 +80,7 @@ class _BoardState extends State<Board> {
         if (value != 0 && value != 6 && value != 9) {
           boxDecoration = BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/borders/border_$value.png'),
+                image: AssetImage('assets/images/bejeweled/borders/border_$value.png'),
                 fit: BoxFit.cover),
           );
         }

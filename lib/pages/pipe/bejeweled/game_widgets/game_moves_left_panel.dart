@@ -31,7 +31,7 @@ class GameMovesLeftPanel extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Level: ${level.index}',
+                '关卡: ${level.index}',
                 style: TextStyle(fontSize: 14.0, color: Colors.black,)
               ),
             ),

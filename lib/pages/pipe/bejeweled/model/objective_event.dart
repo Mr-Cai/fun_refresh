@@ -3,7 +3,7 @@ import '../model/tile.dart';
 ///
 /// ObjectiveEvent
 ///
-/// Event which is emitted each time a "potential" objective
+/// Event which is emitted each time a 'potential' objective
 /// (normal tile being removed, bomb that explodes...)
 /// 
 class ObjectiveEvent {

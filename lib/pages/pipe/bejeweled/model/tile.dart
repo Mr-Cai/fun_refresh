@@ -40,7 +40,7 @@ class Tile extends Object {
   }
 
   //
-  // Builds the tile in terms of "decoration" ( = image )
+  // Builds the tile in terms of 'decoration' ( = image )
   //
   void build({bool computePosition = true}){
     if (depth > 0 && type != TileType.wall){
@@ -53,7 +53,7 @@ class Tile extends Object {
               child: _buildDecoration(),
             ),
           ),
-          _buildDecoration('deco/ice_02.png'),
+          _buildDecoration('bejeweled/deco/ice_02.png'),
         ],
       );
     } else if (type == TileType.empty) {
@@ -67,33 +67,33 @@ class Tile extends Object {
     }
   }
 
-  Widget _buildDecoration([String path = ""]){
+  Widget _buildDecoration([String path = '']){
     String imageAsset = path;
-    if (imageAsset == ""){
+    if (imageAsset == ''){
       switch(type){
         case TileType.wall:
-          imageAsset = "deco/wall.png";
+          imageAsset = 'bejeweled/deco/wall.png';
           break;
 
         case TileType.bomb:
-          imageAsset = "bombs/mine.png";
+          imageAsset = 'bejeweled/bombs/mine.png';
           break;
 
         case TileType.flare:
-          imageAsset = "bombs/tnt.png";
+          imageAsset = 'bejeweled/bombs/tnt.png';
           break;
 
         case TileType.wrapped:
-          imageAsset = "tiles/multicolor.png";
+          imageAsset = 'bejeweled/tiles/multicolor.png';
           break;
 
         case TileType.fireball:
-          imageAsset = "bombs/rocket.png";
+          imageAsset = 'bejeweled/bombs/rocket.png';
           break;
 
         default:
           try {
-            imageAsset = "tiles/${describeEnum(type)}.png";
+            imageAsset = 'bejeweled/tiles/${describeEnum(type)}.png';
           } catch(e){
             return Container();
           }

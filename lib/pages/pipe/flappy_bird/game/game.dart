@@ -128,8 +128,8 @@ class FlappyBirdGame extends BaseGame {
 
   void gameOverAction() {
     if (status != GameStatus.gameOver) {
-      Flame.audio.play('hit.wav');
-      Flame.audio.play('die.wav');
+      Flame.audio.play('flappy_bird/hit.wav');
+      Flame.audio.play('flappy_bird/die.wav');
       status = GameStatus.gameOver;
       gameOver.ground.y =
           (Singleton.instance.screenSize.height - gameOver.ground.height) / 2;

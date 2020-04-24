@@ -57,7 +57,6 @@ flutter:  # 资源配置集合
     - assets/images/tetris/
     
     - assets/images/bejeweled/
-    - assets/images/bejeweled/background/
     - assets/images/bejeweled/bombs/
     - assets/images/bejeweled/borders/
     - assets/images/bejeweled/deco/
@@ -68,6 +67,10 @@ flutter:  # 资源配置集合
 
     # 音效
     - assets/audio/
+    - assets/audio/bejeweled/
+    - assets/audio/tetris/
+    - assets/audio/flappy_bird/
+    - assets/audio/dino_run/
     
     # 简谱
     - assets/json/

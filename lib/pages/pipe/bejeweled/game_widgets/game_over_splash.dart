@@ -76,7 +76,7 @@ class _GameOverSplashState extends State<GameOverSplash>
 
     Color darkColor = widget.success ? Colors.green[700] : Colors.red[700];
     Color lightColor = widget.success ? Colors.green : Colors.red;
-    String message = widget.success ? "You Win" : "Game Over";
+    String message = widget.success ? 'You Win' : 'Game Over';
 
     return AnimatedBuilder(
       animation: _animationAppear,

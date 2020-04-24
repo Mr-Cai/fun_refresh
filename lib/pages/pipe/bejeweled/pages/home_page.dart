@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/tools/global.dart';
 
 import '../animations/shine_effect.dart';
@@ -19,13 +21,13 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
-
+  AudioPlayer audioPlayer;
   @override
   void initState() {
-    super.initState();
+    play();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3500),
+      duration: const Duration(milliseconds: 1500),
     )..addListener(() {
         setState(() {});
       });
@@ -44,40 +46,29 @@ class _HomePageState extends State<HomePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.forward();
     });
+    super.initState();
   }
 
   @override
   void dispose() {
     _controller?.dispose();
+    statusBar();
+    audioPlayer.release();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     GameBloc gameBloc = BlocProvider.of<GameBloc>(context);
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    Size screenSize = mediaQueryData.size;
-    double levelsWidth = -100.0 +
-        ((mediaQueryData.orientation == Orientation.portrait)
-            ? screenSize.width
-            : screenSize.height);
-
+    statusBar(isHide: true);
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  path(
-                    'background2',
-                    3,
-                    append: 'bejeweled/background',
-                    format: 'jpg',
-                  ),
-                ),
-                fit: BoxFit.cover,
-              ),
+            width: sizeW(context),
+            height: sizeH(context),
+            child: netPic(
+              pic: 'https://pic.downk.cc/item/5ea27c35c2a9a83be539002f.jpg',
             ),
           ),
           Align(
@@ -85,7 +76,7 @@ class _HomePageState extends State<HomePage>
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ShadowedText(
-                text: 'by Didier Boelens',
+                text: '',
                 color: Colors.white,
                 fontSize: 12.0,
                 offset: Offset(1.0, 1.0),
@@ -97,9 +88,10 @@ class _HomePageState extends State<HomePage>
             child: AspectRatio(
               aspectRatio: 1.0,
               child: Container(
-                width: levelsWidth,
-                height: levelsWidth,
+                width: sizeW(context),
+                height: sizeH(context),
                 child: GridView.builder(
+                  physics: BouncingScrollPhysics(),
                   itemCount: gameBloc.numberOfLevels,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -110,10 +102,10 @@ class _HomePageState extends State<HomePage>
                       width: 80.0,
                       height: 60.0,
                       borderRadius: 50.0,
-                      text: 'Level ${index + 1}',
+                      text: '关卡 ${index + 1}',
                       onTap: () async {
                         Level newLevel = await gameBloc.setLevel(index + 1);
-
+                        audioPlayer.release();
                         // Open the Game page
                         Navigator.of(context).push(GamePage.route(newLevel));
                       },
@@ -129,7 +121,7 @@ class _HomePageState extends State<HomePage>
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: DoubleCurvedContainer(
-                width: screenSize.width - 60.0,
+                width: sizeW(context) - 60.0,
                 height: 150.0,
                 outerColor: Colors.blue[700],
                 innerColor: Colors.blue,
@@ -141,7 +133,7 @@ class _HomePageState extends State<HomePage>
                     Align(
                       alignment: Alignment.center,
                       child: ShadowedText(
-                        text: 'Flutter Crush',
+                        text: '宝石迷阵',
                         color: Colors.white,
                         fontSize: 26.0,
                         shadowOpacity: 1.0,
@@ -156,5 +148,11 @@ class _HomePageState extends State<HomePage>
         ],
       ),
     );
+  }
+
+  Future<int> play() async {
+    audioPlayer = AudioPlayer();
+    int result = await audioPlayer.play('https://www.joy127.com/url/6652.mp3');
+    return result;
   }
 }

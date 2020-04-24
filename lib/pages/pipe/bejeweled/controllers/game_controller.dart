@@ -96,7 +96,7 @@ class GameController {
   GameController({
     this.level,
   }) {
-    // Initialize the grid to the dimensions of the Level and fill it with "empty" tiles
+    // Initialize the grid to the dimensions of the Level and fill it with 'empty' tiles
     _grid = Array2d<Tile>(level.numberOfRows, level.numberOfCols,
         defaultValue: Tile(type: TileType.empty));
 

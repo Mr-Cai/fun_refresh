@@ -99,7 +99,7 @@ class Bird extends PositionComponent
   }
 
   void jump() {
-    Flame.audio.play('wing.wav');
+    Flame.audio.play('flappy_bird/wing.wav');
     status = BirdStatus.flying;
     _counter = 0;
     this.ground.angle = 0;

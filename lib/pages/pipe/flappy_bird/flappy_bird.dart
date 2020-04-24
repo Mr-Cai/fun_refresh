@@ -44,7 +44,7 @@ class _FlappyBirdState extends State<FlappyBird> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    var sprite = await Flame.images.loadAll(['sprite.png']);
+    var sprite = await Flame.images.loadAll(['flappy_bird/sprite.png']);
     var screenSize = await Flame.util.initialDimensions();
     Singleton.instance.screenSize = screenSize;
     game = FlappyBirdGame(sprite[0], screenSize);

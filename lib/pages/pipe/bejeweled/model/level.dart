@@ -30,10 +30,10 @@ class Level extends Object {
   double boardTop = 0.0;
 
   Level.fromJson(Map<String, dynamic> json)
-    : _index = json["level"],
-      _rows = json["rows"],
-      _cols = json["cols"],
-      _maxMoves = json["moves"]
+    : _index = json['level'],
+      _rows = json['rows'],
+      _cols = json['cols'],
+      _maxMoves = json['moves']
     {
       // Initialize the grid to the dimensions
       grid = Array2d(_rows, _cols);
@@ -46,14 +46,14 @@ class Level extends Object {
         //  the grid (bottom-up), we need to reverse the
         //  definition from the JSON file.
         //
-      enumerate((json["grid"] as List).reversed).forEach((row){
+      enumerate((json['grid'] as List).reversed).forEach((row){
         enumerate(row.value.split(',')).forEach((cell){
           grid[row.index][cell.index] = cell.value;
         });
       });
 
       // Retrieve the objectives
-      _objectives = (json["objective"] as List).map((item){
+      _objectives = (json['objective'] as List).map((item){
         return Objective(item);
       }).toList();
 
@@ -63,7 +63,7 @@ class Level extends Object {
 
   @override
   String toString(){
-    return "level: $index \n" + dumpArray2d(grid);
+    return 'level: $index \n' + dumpArray2d(grid);
   }
 
   int get numberOfRows => _rows;

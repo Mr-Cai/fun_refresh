@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// StreamMovesLeftCounter
 /// 
 /// Displays the number of moves left for the game.
-/// Listens to the "movesLeftCount" stream.
+/// Listens to the 'movesLeftCount' stream.
 ///
 class StreamMovesLeftCounter extends StatelessWidget {
   @override

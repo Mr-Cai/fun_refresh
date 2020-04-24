@@ -36,7 +36,7 @@ String path(
       return 'assets/animations/$name.${format ?? 'flr'}';
       break;
     case 1:
-      return 'assets/audio/$name.${format ?? 'mp3'}';
+      return 'assets/audio/$append/$name.${format ?? 'mp3'}';
       break;
     case 2:
       return 'assets/fonts/$name.${format ?? 'ttf'}';
