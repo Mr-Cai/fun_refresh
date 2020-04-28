@@ -8,7 +8,6 @@ export './pipe/confetti_page.dart';
 
 export './plugin/plugin_page.dart';
 export './plugin/note_page.dart';
-export './plugin/girl_page.dart';
 export './plugin/vision_page.dart';
 export './plugin/weather_page.dart';
 
@@ -43,7 +42,6 @@ const web_view = '/web_view'; // 浏览器
 const photos = '/photos'; // 图片缩放
 
 // 插件APP
-const girl = '/girl'; // 美女宝典
 const weather = '/weather'; // 天气
 const weather_detail = '/weather_detail'; // 天气详情
 const vision = '/vision'; // 相机识别

@@ -74,7 +74,6 @@ flutter:  # 资源配置集合
     
     # 简谱
     - assets/json/
-    - assets/json/api/
     - assets/json/config/
 
   fonts:

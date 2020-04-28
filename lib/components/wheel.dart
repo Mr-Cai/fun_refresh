@@ -43,7 +43,7 @@ class _RouletteState extends State<Roulette> {
           children: [
             SizedBox(height: 32),
             SpinningWheel(
-              Image.asset(path('wheel', 3)),
+              Image.asset(path('wheel', 3, append: 'reward_wheel')),
               width: 310,
               height: 310,
               initialSpinAngle: _generateRandomAngle(),
@@ -52,7 +52,8 @@ class _RouletteState extends State<Roulette> {
               dividers: 8,
               onUpdate: _dividerController.add,
               onEnd: _dividerController.add,
-              secondaryImage: Image.asset(path('pointer', 3)),
+              secondaryImage:
+                  Image.asset(path('pointer', 3, append: 'reward_wheel')),
               secondaryImageHeight: 110,
               secondaryImageWidth: 110,
               shouldStartOrStop: _wheelNotifier.stream,

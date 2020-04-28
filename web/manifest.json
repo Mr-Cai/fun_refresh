@@ -1,6 +1,6 @@
 {
-    "name": "fun_refresh_i",
-    "short_name": "fun_refresh_i",
+    "name": "fun_refresh",
+    "short_name": "fun_refresh",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",

@@ -73,43 +73,52 @@ Widget $ItemTile(
       if (route == null) return;
       pushName(context, route);
     },
-    child: Row(
-      children: [
-        Flexible(
-          flex: isSlim ? 1 : 7,
-          fit: FlexFit.tight,
-          child: Container(
-            margin: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                title ??
-                    Placeholder(
-                      fallbackHeight: 32.0,
-                      color: Colors.black,
-                      strokeWidth: 1.0,
-                    ),
-                subtitle ?? Container(),
-              ],
+    child: Container(
+      margin: EdgeInsets.symmetric(vertical: sizeH(context) * .015),
+      child: Row(
+        children: [
+          Flexible(
+            flex: isSlim ? 1 : 7,
+            fit: FlexFit.tight,
+            child: Container(
+              margin: const EdgeInsets.only(left: 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  title ??
+                      Placeholder(
+                        fallbackHeight: 32.0,
+                        color: Colors.black,
+                        strokeWidth: 1.0,
+                      ),
+                  subtitle ?? Container(),
+                ],
+              ),
             ),
           ),
-        ),
-        Flexible(
-          flex: isSlim == null ? 1 : isSlim ? 4 : 1,
-          fit: FlexFit.loose,
-          child: Row(
-            mainAxisAlignment: isSlim == null
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            children: [
-              Container(
-                child: tail ?? menuIcon(context, icon: 'next', size: 16.0),
-              ),
-            ],
-          ),
-        )
-      ],
+          Flexible(
+            flex: isSlim == null ? 1 : isSlim ? 4 : 1,
+            fit: FlexFit.loose,
+            child: Row(
+              mainAxisAlignment: isSlim == null
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: tail ??
+                      menuIcon(
+                        context,
+                        icon: 'next',
+                        size: 16.0,
+                        onTap: () {},
+                      ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     ),
   );
 }

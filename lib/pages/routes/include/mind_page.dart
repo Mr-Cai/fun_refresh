@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
-import 'package:fun_refresh/tools/global.dart';
+import 'package:fun_refresh/tools/api.dart';
 import 'package:intl/intl.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
@@ -55,12 +56,11 @@ class PostTile extends StatelessWidget {
         Row(
           children: [
             Container(
+              width: 64.0,
+              height: 64.0,
               margin: const EdgeInsets.all(12.0),
-              child: CircleAvatar(
-                radius: sizeW(context) * .08,
-                backgroundImage: AssetImage(
-                  path('header', 3, format: 'jpg'),
-                ),
+              child: ClipOval(
+                child: netPic(pic: dogSmile),
               ),
             ),
             Container(

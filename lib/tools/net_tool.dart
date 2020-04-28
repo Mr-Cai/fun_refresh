@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:fun_refresh/model/confetti/confetti_response.dart';
-import 'package:fun_refresh/model/plugin/girl_gank.dart';
 import 'package:fun_refresh/model/plugin/plugin_response.dart';
 import '../model/weather/he_weather.dart';
 import '../tools/api.dart';
@@ -59,10 +58,4 @@ class NeTool {
     return PluginResponse.fromJson(response.data);
   }
 
-  Future<GirlGank> getGirlPicGank({int count, int page}) async {
-    final response = await Dio(
-      BaseOptions(baseUrl: GIRL_GANK),
-    ).get('$page/count/$count');
-    return GirlGank.fromJson(response.data);
-  }
 }

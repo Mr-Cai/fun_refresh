@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.huawei.agconnect'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def keystoreProperties = new Properties()
@@ -52,7 +53,7 @@ android {
 
     defaultConfig {
         applicationId "intelligent.fun_refresh"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
@@ -94,4 +95,5 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.huawei.agconnect:agconnect-core:1.0.0.300'
 }

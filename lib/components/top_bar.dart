@@ -15,6 +15,9 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
     this.isSafeArea = true,
     this.titleSize,
     this.isLightBar = false,
+    this.isWidget = false,
+    this.titleWidget,
+    this.backEvent,
   }) : super(key: key);
 
   final String title;
@@ -26,6 +29,9 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isSafeArea;
   final double titleSize;
   final bool isLightBar;
+  final bool isWidget;
+  final Widget titleWidget;
+  final Function backEvent;
 
   @override
   State<StatefulWidget> createState() => _TopBarState();
@@ -72,14 +78,16 @@ class _TopBarState extends State<TopBar> {
             child: Container(
               alignment: Alignment.center,
               width: sizeW(context) * .7,
-              child: Text(
-                widget.title ?? '标题',
-                style: TextStyle(
-                  fontSize: widget.titleSize ?? 24.0,
-                  color: widget.themeColor ?? Colors.white,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
+              child: widget.isWidget == true
+                  ? widget.titleWidget ?? Container()
+                  : Text(
+                      widget.title ?? '标题',
+                      style: TextStyle(
+                        fontSize: widget.titleSize ?? 24.0,
+                        color: widget.themeColor ?? Colors.white,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
             ),
           ),
           Align(
@@ -103,9 +111,11 @@ class _TopBarState extends State<TopBar> {
                 setState(() {
                   widget.isLightBar ? statusBar(status: 1) : statusBar();
                 });
-                widget.isMenu
+                 widget.isMenu
                     ? scaffoldKey.currentState.openDrawer()
-                    : Navigator.pop(context);
+                    : widget.backEvent == null
+                        ? Navigator.pop(context)
+                        : widget.backEvent();
               },
             ),
           ),
@@ -125,7 +135,11 @@ Widget menuIcon(
   double left,
 }) {
   return InkWell(
-    onTap: onTap ?? () => Navigator.pop(context),
+    onTap: onTap == null
+        ? () {
+            Navigator.pop(context);
+          }
+        : onTap,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     child: Container(

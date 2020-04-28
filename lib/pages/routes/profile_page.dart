@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/components/mini.dart';
+import 'package:fun_refresh/tools/api.dart';
 import '../../components/top_bar.dart';
 import '../../pages/export_page_pkg.dart';
 import '../../tools/global.dart';
@@ -42,14 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.circular(sizeW(context)),
               ),
               margin: const EdgeInsets.only(bottom: 32.0),
-              child: ClipOval(
-                child: Image.asset(
-                  path('header', 3, format: 'jpg'),
-                  height: sizeW(context) / 2,
-                  width: sizeW(context) / 2,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: ClipOval(child: netPic(pic: dogSmile)),
             ),
             Text('网名'),
             Text('签名'),

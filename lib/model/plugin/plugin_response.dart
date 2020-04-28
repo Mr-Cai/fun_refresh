@@ -18,8 +18,9 @@ class PluginResponse {
 
 @JsonSerializable()
 class Item {
-  Item({this.desc, this.pic});
+  Item({this.name, this.desc, this.pic});
 
+  final String name;
   final String pic;
   final String desc;
 

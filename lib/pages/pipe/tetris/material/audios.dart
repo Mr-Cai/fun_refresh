@@ -49,7 +49,7 @@ class SoundState extends State<Sound> {
     _soundIds = Map();
     for (var value in _SOUNDS) {
       scheduleMicrotask(() async {
-        final data = await rootBundle.load('assets/audio/$value');
+        final data = await rootBundle.load('assets/audio/tetris/$value');
         _soundIds[value] = await _pool.load(data);
       });
     }

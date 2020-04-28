@@ -41,10 +41,6 @@ class RouteGenerator {
       case bejeweled:
         return _skipRoute(Bejeweled()); // 宝石迷阵
       // 插件APP:
-      case girl:
-        return _skipRoute(GirlPage()); // 美女宝典
-      case girl:
-        return _skipRoute(GirlPage()); // 美女宝典
       case weather:
         return _skipRoute(WeatherPage()); // 天气
       case vision:

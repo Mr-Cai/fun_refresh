@@ -307,27 +307,24 @@ class IconItem extends StatelessWidget {
       case 0: // 火爆热搜
         switch (indexIn) {
           case 0:
-            pushName(context, girl);
-            break;
-          case 1:
             pushName(context, dinosaur_run);
             break;
-          case 2:
+          case 1:
             pushName(context, bejeweled);
             break;
-          case 3:
+          case 2:
             pushName(context, sudoku);
             break;
-          case 4:
+          case 3:
             pushName(context, flappy_bird);
             break;
-          case 5:
+          case 4:
             pushName(context, snake);
             break;
-          case 6:
+          case 5:
             pushName(context, tetris);
             break;
-          case 7:
+          case 6:
             pushName(context, game2048);
             break;
           default:
