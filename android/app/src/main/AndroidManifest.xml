@@ -24,7 +24,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
+      
         <activity
             android:name="intelligent.fun_refresh.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

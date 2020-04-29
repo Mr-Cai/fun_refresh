@@ -57,5 +57,4 @@ class NeTool {
     final Response<Map<String, Object>> response = await dio.get('/$plugins');
     return PluginResponse.fromJson(response.data);
   }
-
 }

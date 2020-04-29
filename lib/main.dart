@@ -51,6 +51,16 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
 
   @override
   Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generator,
+        navigatorKey: ctxKey,
+      ),
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
