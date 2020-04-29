@@ -1,25 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../pages/export_page_pkg.dart';
 
-enum NavigationEvent { home, video, extend, social, mind, reward, setting }
+enum NavigationEvent {confetti, plugin, social, mind, reward, setting}
 
 class NavigationState {}
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   @override
-  NavigationState get initialState => ExtensionPage();
+  NavigationState get initialState => ConfettiPage();
 
   @override
   Stream<NavigationState> mapEventToState(NavigationEvent event) async* {
     switch (event) {
-      case NavigationEvent.home:
-        yield HomePage();
+      case NavigationEvent.confetti:
+        yield ConfettiPage();
         break;
-      case NavigationEvent.video:
-        yield VideoPage();
-        break;
-      case NavigationEvent.extend:
-        yield ExtensionPage();
+      case NavigationEvent.plugin:
+        yield PluginPage();
         break;
       case NavigationEvent.social:
         yield SocialPage();

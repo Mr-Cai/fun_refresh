@@ -80,7 +80,6 @@ class RadialAnimation extends StatelessWidget {
                 _buildButton(-135, icon: 'china', index: 0),
                 _buildButton(-90, icon: 'japan', index: 1),
                 _buildButton(-45, icon: 'us', index: 2),
-                // i18nKey.currentState.toggleLanguage(japanese)
                 Transform.scale(
                   scale: scale.value - 1.5,
                   child: CupertinoButton(

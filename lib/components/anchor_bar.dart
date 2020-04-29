@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/model/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
-import '../model/mock/smash_model.dart';
 
 class AnchorBar extends StatefulWidget {
   AnchorBar({
@@ -45,19 +45,13 @@ class _AnchorBarState extends State<AnchorBar> {
     setState(() {
       switch (index) {
         case 0:
-          navContext.add(NavigationEvent.game);
+          navContext.add(NavigationEvent.confetti);
           break;
         case 1:
-          navContext.add(NavigationEvent.video);
-          break;
-        case 2:
-          navContext.add(NavigationEvent.extend);
-          break;
-        case 3:
-          navContext.add(NavigationEvent.message);
+          navContext.add(NavigationEvent.plugin);
           break;
         default:
-          navContext.add(NavigationEvent.game);
+          navContext.add(NavigationEvent.confetti);
       }
       return _selectedIndex = index;
     });

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
@@ -70,43 +73,52 @@ Widget $ItemTile(
       if (route == null) return;
       pushName(context, route);
     },
-    child: Row(
-      children: [
-        Flexible(
-          flex: isSlim ? 1 : 7,
-          fit: FlexFit.tight,
-          child: Container(
-            margin: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                title ??
-                    Placeholder(
-                      fallbackHeight: 32.0,
-                      color: Colors.black,
-                      strokeWidth: 1.0,
-                    ),
-                subtitle ?? Container(),
-              ],
+    child: Container(
+      margin: EdgeInsets.symmetric(vertical: sizeH(context) * .015),
+      child: Row(
+        children: [
+          Flexible(
+            flex: isSlim ? 1 : 7,
+            fit: FlexFit.tight,
+            child: Container(
+              margin: const EdgeInsets.only(left: 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  title ??
+                      Placeholder(
+                        fallbackHeight: 32.0,
+                        color: Colors.black,
+                        strokeWidth: 1.0,
+                      ),
+                  subtitle ?? Container(),
+                ],
+              ),
             ),
           ),
-        ),
-        Flexible(
-          flex: isSlim == null ? 1 : isSlim ? 4 : 1,
-          fit: FlexFit.loose,
-          child: Row(
-            mainAxisAlignment: isSlim == null
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
-            children: [
-              Container(
-                child: tail ?? menuIcon(context, icon: 'next', size: 16.0),
-              ),
-            ],
-          ),
-        )
-      ],
+          Flexible(
+            flex: isSlim == null ? 1 : isSlim ? 4 : 1,
+            fit: FlexFit.loose,
+            child: Row(
+              mainAxisAlignment: isSlim == null
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: [
+                Container(
+                  child: tail ??
+                      menuIcon(
+                        context,
+                        icon: 'next',
+                        size: 16.0,
+                        onTap: () {},
+                      ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     ),
   );
 }
@@ -127,8 +139,14 @@ Widget bank(BuildContext context) {
   );
 }
 
-Widget assetPic({String pic, BoxFit fit}) {
-  return Image.asset(pic, fit: fit ?? BoxFit.fill);
+Widget assetPic({
+  String pic,
+  BoxFit fit,
+  bool isSvg = false,
+}) {
+  return isSvg
+      ? SvgPicture.asset(path(pic, 5))
+      : Image.asset(path(pic, 3), fit: fit ?? BoxFit.fill);
 }
 
 Widget netPic({
@@ -218,110 +236,116 @@ ShapeBorder corner({double radius}) {
 }
 
 Future<void> showPrivacyDialog(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
   return showDialog(
     context: context,
     barrierColor: Colors.white,
     barrierDismissible: false,
     builder: (context) {
       return Center(
-        child: Stack(
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: flareAnim(context),
-            ),
-            Positioned(
-              top: sizeH(context) * .09,
-              left: sizeW(context) * .38,
-              child: Container(
-                width: sizeW(context) * .25,
-                height: sizeW(context) * .25,
-                child: SvgPicture.asset(
-                  path('ic_launcher', 5),
-                ),
+        child: Container(
+          height: sizeH(context) * .666,
+          child: Stack(
+            children: [
+              flareAnim(
+                context,
+                width: sizeW(context) * 1.8,
+                height: sizeH(context),
               ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: flareAnim(context),
-            ),
-            AlertDialog(
-              shape: corner(),
-              content: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: WillPopScope(
-                  onWillPop: () {
-                    return Future.value(false);
-                  },
-                  child: ListBody(
-                    children: [
-                      SelectableText(
-                        disclaimerText,
-                        scrollPhysics: BouncingScrollPhysics(),
-                      ),
-                      Wrap(
-                        runSpacing: 8.0,
+              CupertinoAlertDialog(
+                title: Center(child: freeTxT('服务协议与隐私政策')),
+                content: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: WillPopScope(
+                    onWillPop: () {
+                      return Future.value(false);
+                    },
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': agreement},
-                              );
-                            },
-                            child: freeTxT('《服务协议》', color: Colors.blue),
+                          SelectableText(
+                            '$disclaimerText',
+                            style: TextStyle(height: 1.4),
+                            textAlign: TextAlign.start,
+                            scrollPhysics: BouncingScrollPhysics(),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': private},
-                              );
-                            },
-                            child: freeTxT('《隐私政策》', color: Colors.blue),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              pushName(
-                                context,
-                                web_view,
-                                args: {'url': guide},
-                              );
-                            },
-                            child: freeTxT('《隐私保护指引》', color: Colors.blue),
+                          Wrap(
+                            spacing: 48.0,
+                            runAlignment: WrapAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': agreement},
+                                  );
+                                },
+                                child: freeTxT(
+                                  '《服务协议》',
+                                  color: Colors.blue,
+                                  size: 13.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': private},
+                                  );
+                                },
+                                child: freeTxT(
+                                  '《隐私政策》',
+                                  color: Colors.blue,
+                                  size: 13.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  pushName(
+                                    context,
+                                    web_view,
+                                    args: {'url': guide},
+                                  );
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 12.0),
+                                  child: freeTxT(
+                                    '《隐私保护指引》',
+                                    color: Colors.blue,
+                                    size: 13.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: sizeW(context) * .25,
-                height: sizeW(context) * .25,
-                margin: EdgeInsets.only(bottom: sizeH(context) * .095),
-                child: ClipOval(
-                  child: Material(
-                    color: Colors.white,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: freeTxT('我看过了', isBold: true, size: 28.0),
                       ),
                     ),
                   ),
                 ),
+                actions: [
+                  FlatButton(
+                    child: Text('同意并进入'),
+                    onPressed: () async {
+                      await prefs.setBool(disclaimer, false);
+                      statusBar();
+                      Navigator.pop(context);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('取消并退出'),
+                    onPressed: () {
+                      SystemNavigator.pop();
+                      exit(1);
+                    },
+                  ),
+                ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     },
@@ -336,27 +360,4 @@ Future<void> judgeShowPrivacy(BuildContext context) async {
     statusBar(isHide: true);
     showPrivacyDialog(context);
   }
-  await prefs.setBool(disclaimer, false);
-}
-
-MobileAd createBannerAd() {
-  return BannerAd(
-    adUnitId: bannerUnit,
-    size: AdSize.smartBanner,
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {
-      print("BannerAd event $event");
-    },
-  );
-}
-
-NativeAd createNativeAd() {
-  return NativeAd(
-    adUnitId: nativeUnit,
-    factoryId: 'adFactoryExample',
-    targetingInfo: targetingInfo,
-    listener: (MobileAdEvent event) {
-      print("$NativeAd event $event");
-    },
-  );
 }

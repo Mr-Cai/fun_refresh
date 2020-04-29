@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_refresh/components/circle_floating_menu.dart';
-import 'package:fun_refresh/components/floating_button.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
@@ -10,13 +8,13 @@ import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/collapse_drawer.dart';
 import '../../components/marquee.dart';
-import '../../model/mock/smash_model.dart';
-import '../../model/mock/weather/he_weather.dart';
+import '../../model/smash_model.dart';
+import '../../model/weather/he_weather.dart';
 import '../../tools/net_tool.dart';
 import '../../tools/api.dart';
 import '../../tools/global.dart';
 
-class HomePage extends StatefulWidget with NavigationState {
+class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
@@ -25,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   int _currentNav = 0;
   final _marqueeController = MarqueeController();
   Orientation orientation;
-  List<String> get navTexts => ['娱乐', '视频'];
 
   @override
   void initState() {
@@ -51,33 +48,9 @@ class _HomePageState extends State<HomePage> {
                   return state as Widget;
                 },
               ),
-              floatingActionButton: Stack(
-                children: [
-                  CircleFloatingMenu(
-                    startAngle: degToRad(-160.0),
-                    endAngle: degToRad(-20.0),
-                    menuSelected: (index) {},
-                    floatingButton: FloatingButton(
-                      icon: Icons.add,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    subMenus: [
-                      FloatingButton(
-                        icon: Icons.widgets,
-                      ),
-                      FloatingButton(
-                        icon: Icons.translate,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: AnchorBar(
                 notchedShape: CircularNotchedRectangle(),
                 items: _getNavItemsBTM,
-                notchMargin: 6.0,
                 onTabSelected: (index) => setState(() => _currentNav = index),
                 color: Colors.black54,
                 backgroundColor: Colors.white,
@@ -128,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         NavItemBTM(iconPath: _currentNavIcon(1), text: _navTitleBTM(1))
       ];
 
-  String _navTitleBTM(index) => navTexts[index]; // 点击索引切换文字颜色
+  String _navTitleBTM(index) => ['娱乐', '插件'][index]; // 点击索引切换文字颜色
 
   String _currentNavIcon(currentIndex) => currentIndex == _currentNav
       ? navIcons[currentIndex][1]
@@ -136,6 +109,6 @@ class _HomePageState extends State<HomePage> {
 
   List<List<String>> get navIcons => [
         [path('confetti0', 5), path('confetti1', 5)],
-        [path('video0', 5), path('video1', 5)],
+        [path('plugin0', 5), path('plugin1', 5)],
       ];
 }

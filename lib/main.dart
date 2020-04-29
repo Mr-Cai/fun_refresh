@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
-import './tools/global.dart' show ctxKey, portrait, statusBar;
+import './tools/global.dart' show cameras, ctxKey, portrait, statusBar;
 import './pages/routes/route_generator.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(FunRefreshApp());
 }
 
@@ -48,11 +51,16 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      onGenerateRoute: RouteGenerator.generator,
-      navigatorKey: ctxKey,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generator,
+        navigatorKey: ctxKey,
+      ),
     );
   }
 }

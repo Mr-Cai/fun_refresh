@@ -1,4 +1,7 @@
-import 'package:firebase_admob/firebase_admob.dart';
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,13 +12,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>(); // 页面框架键
 
 final ctxKey = GlobalKey<NavigatorState>(); // 全局上下文
 
-void showSnackBar(String text) {
-  final snackbar = SnackBar(
-    content: Text(text),
-    duration: Duration(milliseconds: 666),
-  );
-  scaffoldKey.currentState.showSnackBar(snackbar);
-}
+List<CameraDescription> cameras = [];
 
 // 动态尺寸获取 $ <=> % ($50 == 50%)
 // 常用宽度:
@@ -28,19 +25,24 @@ double sizeH(context) => MediaQuery.of(context).size.height;
 /// `type`: 文件类型
 /// 0:动画、1:音效、2:字体、3:图片、4:简谱、5:图标 ...
 /// `format`: 文件格式(每种文件都有默认格式, 也可自选格式)
-String path(String name, int type, {String format}) {
+String path(
+  String name,
+  int type, {
+  String format,
+  String append = '',
+}) {
   switch (type) {
     case 0:
       return 'assets/animations/$name.${format ?? 'flr'}';
       break;
     case 1:
-      return 'assets/audio/$name.${format ?? 'mp3'}';
+      return 'assets/audio/$append/$name.${format ?? 'mp3'}';
       break;
     case 2:
       return 'assets/fonts/$name.${format ?? 'ttf'}';
       break;
     case 3:
-      return 'assets/images/$name.${format ?? 'png'}';
+      return 'assets/images/$append/$name.${format ?? 'png'}';
       break;
     case 4:
       return 'assets/json/$name.${format ?? 'json'}';
@@ -130,15 +132,23 @@ void landscape({bool isHide}) {
   ]);
 }
 
-void requestPermission() async {
-  await [
-    Permission.sensors,
-    Permission.storage,
-    Permission.microphone,
-  ].request();
+void requestPermission([Permission permission]) async {
+  await [permission].request();
 }
 
-final targetingInfo = MobileAdTargetingInfo(
-  childDirected: true,
-  nonPersonalizedAds: true,
-);
+Future<Size> getPicSize({@required pic}) {
+  final completer = Completer<Size>();
+  final image = Image(
+    image: CachedNetworkImageProvider(pic),
+  );
+  image.image.resolve(ImageConfiguration()).addListener(
+    ImageStreamListener(
+      (info, _) {
+        final netPic = info.image;
+        final size = Size(netPic.width.toDouble(), netPic.height.toDouble());
+        completer.complete(size);
+      },
+    ),
+  );
+  return completer.future;
+}
