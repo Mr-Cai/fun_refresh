@@ -15,8 +15,11 @@ class PluginPage extends StatefulWidget with NavigationState {
 }
 
 class _PluginPageState extends State<PluginPage> {
+  var words = List(); // 关键词列表
+  var filterWords = List(); // 筛选后列表
+
   String searchStr = '';
-  List<Object> words;
+
   Widget titleWidget;
 
   TextEditingController _filterTxTCtrl;
@@ -25,8 +28,7 @@ class _PluginPageState extends State<PluginPage> {
   bool isWidget = true;
   Function backEvent;
 
-  List filterNames = List();
-  List names = List();
+  String svgIcon = 'search';
 
   @override
   void initState() {
@@ -38,19 +40,20 @@ class _PluginPageState extends State<PluginPage> {
     buildTitle();
     _filterTxTCtrl = TextEditingController()
       ..addListener(() {
-        if (_filterTxTCtrl.text.isEmpty) {
-          searchStr = '';
-          filterNames = names;
-        } else {
-          setState(() {
+        setState(() {
+          if (_filterTxTCtrl.text.isEmpty) {
+            searchStr = '';
+            filterWords.addAll(words);
+          } else {
             searchStr = _filterTxTCtrl.text;
-          });
-        }
+          }
+        });
       });
     backEvent = () {
       setState(() {
         isMenu = true;
         buildTitle();
+        svgIcon = 'search';
       });
     };
   }
@@ -76,13 +79,14 @@ class _PluginPageState extends State<PluginPage> {
         backEvent: backEvent,
         titleWidget: titleWidget,
         actions: [
-          menuIcon(context, icon: 'search', onTap: () {
+          menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
             setState(() {
               titleWidget = TextFormField(
                 controller: _filterTxTCtrl,
                 cursorWidth: 1.0,
-                keyboardType: TextInputType.multiline,
+                keyboardType: TextInputType.text,
                 autofocus: true,
+                textInputAction: TextInputAction.search,
                 textCapitalization: TextCapitalization.words,
                 autocorrect: true,
                 cursorRadius: Radius.circular(2.0),
@@ -93,11 +97,19 @@ class _PluginPageState extends State<PluginPage> {
                   ),
                   contentPadding: const EdgeInsets.all(8.0),
                 ),
-                onChanged: (value) {
-                  print(value);
-                },
+                onChanged: (value) {},
               );
               isMenu = false;
+              if (svgIcon == 'close') {
+                svgIcon = 'search';
+                titleWidget = buildTitle();
+                isMenu = true;
+                filterWords = words;
+                _filterTxTCtrl.clear();
+              } else {
+                svgIcon = 'close';
+                isMenu = false;
+              }
             });
           }),
         ],
@@ -106,12 +118,17 @@ class _PluginPageState extends State<PluginPage> {
         stream: netool.pullPluginList().asStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if(searchStr.isNotEmpty) {
-              for (var item in filterNames) {
-                if (item['name']) {
-                  
+            if (searchStr.isNotEmpty) {
+              var tempList = List<String>();
+              for (var item in filterWords) {
+                if ('${item['name']}'
+                    .toLowerCase()
+                    .contains(searchStr.toLowerCase())) {
+                  tempList.add(item);
                 }
               }
+              filterWords = tempList;
+              words.shuffle();
             }
             return GridView(
               physics: BouncingScrollPhysics(),
@@ -122,7 +139,9 @@ class _PluginPageState extends State<PluginPage> {
                 crossAxisSpacing: 8.0,
               ),
               children: List.generate(
-                snapshot.data.pluginList.length,
+                filterWords.length == 0
+                    ? snapshot.data.pluginList.length
+                    : filterWords.length,
                 (index) => AppIcon(
                   item: snapshot.data.pluginList[index],
                   index: index,

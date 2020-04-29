@@ -48,16 +48,6 @@ class _HomePageState extends State<HomePage> {
                   return state as Widget;
                 },
               ),
-              floatingActionButton: CircleAvatar(
-                radius: 18.0,
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                child: Center(
-                  child: Icon(Icons.add),
-                ),
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: AnchorBar(
                 notchedShape: CircularNotchedRectangle(),
                 items: _getNavItemsBTM,
