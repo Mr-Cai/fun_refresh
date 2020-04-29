@@ -34,7 +34,10 @@ pubspec.lock
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
+**/android/.idea
+**/android/.settings
 **/android/captures/
+**/android/release/
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties

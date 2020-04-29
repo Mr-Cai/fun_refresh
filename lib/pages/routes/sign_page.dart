@@ -177,6 +177,10 @@ class _SignPageState extends State<SignPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
+                    icon: SvgPicture.asset(path('google', 5)),
+                    onPressed: () {},
+                  ),
+                  IconButton(
                     icon: SvgPicture.asset(path('qq', 5)),
                     onPressed: () {},
                   ),
