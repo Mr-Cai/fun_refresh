@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.huawei.agconnect'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def keystoreProperties = new Properties()
@@ -30,12 +31,13 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
+
 android {
     splits {  // 生成多架构apk
         abi {
             enable true
             reset()
-            include 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
             universalApk false
         }
     }

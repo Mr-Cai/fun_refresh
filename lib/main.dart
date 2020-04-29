@@ -61,6 +61,11 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
         onGenerateRoute: RouteGenerator.generator,
         navigatorKey: ctxKey,
       ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generator,
+      navigatorKey: ctxKey,
     );
   }
 }
