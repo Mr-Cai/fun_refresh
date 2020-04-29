@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '10'
+    flutterVersionCode = '11'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.9'
+    flutterVersionName = '1.1.0'
 }
 
 apply plugin: 'com.android.application'
@@ -37,10 +37,11 @@ android {
         abi {
             enable true
             reset()
-            // include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
             universalApk false
         }
     }
+
     compileSdkVersion 29
 
     sourceSets {
@@ -95,5 +96,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.huawei.agconnect:agconnect-core:1.0.0.300'
 }
