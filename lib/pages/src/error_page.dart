@@ -13,10 +13,17 @@ class ErrorPage extends StatefulWidget {
 }
 
 class _ErrorPageState extends State<ErrorPage> {
+  
   @override
   void initState() {
     statusBar();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    statusBar();
+    super.dispose();
   }
 
   @override

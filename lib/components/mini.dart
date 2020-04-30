@@ -66,15 +66,16 @@ Widget $ItemTile(
   Widget subtitle,
   Widget tail,
   String route,
+  Map args = defaultArgs,
   bool isSlim = false,
 }) {
   return InkWell(
     onTap: () {
       if (route == null) return;
-      pushName(context, route);
+      pushName(context, route, args: args);
     },
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: sizeH(context) * .015),
+      padding: EdgeInsets.symmetric(vertical: sizeH(context) * .012),
       child: Row(
         children: [
           Flexible(
@@ -111,7 +112,10 @@ Widget $ItemTile(
                         context,
                         icon: 'next',
                         size: 16.0,
-                        onTap: () {},
+                        onTap: () {
+                          if (route == null) return;
+                          pushName(context, route, args: args);
+                        },
                       ),
                 ),
               ],

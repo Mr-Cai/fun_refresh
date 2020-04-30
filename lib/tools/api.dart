@@ -31,3 +31,4 @@ const splashID = 0;
 /// 图片资源
 const picHome = 'https://pic.downk.cc/item';
 const dogSmile = '$picHome/5ea227a5c2a9a83be5d609bd.jpg';
+const dinoLogo = '$picHome/5e834d42504f4bcb044bd3fd.png';

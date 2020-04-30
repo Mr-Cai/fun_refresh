@@ -21,12 +21,28 @@ class ConfettiPage extends StatefulWidget with NavigationState {
 }
 
 class _ConfettiPageState extends State<ConfettiPage> {
-  ScrollController _controller = ScrollController();
+  final _controller = ScrollController();
   bool isShowTopBar = true;
+
+  var searchStr = '';
+  var svgIcon = 'search';
+
+  Widget titleWidget;
+
+  TextEditingController filterTxTCtrl;
+
+  bool isMenu = true;
+  bool isWidget = true;
+
+  Function backEvent;
+
+  var keyWords = List<Object>();
+  var filterWords = List<Object>();
 
   @override
   void initState() {
     statusBar();
+    initWidget();
     _controller.addListener(() async {
       if (_controller.position.userScrollDirection == ScrollDirection.forward) {
         setState(() {
@@ -57,8 +73,46 @@ class _ConfettiPageState extends State<ConfettiPage> {
       appBar: isShowTopBar
           ? TopBar(
               themeColor: Colors.black,
-              isMenu: true,
               title: '娱乐',
+              isMenu: isMenu,
+              isWidget: isWidget,
+              backEvent: backEvent,
+              titleWidget: titleWidget,
+              actions: [
+                menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
+                  setState(() {
+                    titleWidget = TextFormField(
+                      controller: filterTxTCtrl,
+                      cursorWidth: 1.0,
+                      keyboardType: TextInputType.text,
+                      autofocus: true,
+                      textInputAction: TextInputAction.search,
+                      textCapitalization: TextCapitalization.words,
+                      autocorrect: true,
+                      cursorRadius: Radius.circular(2.0),
+                      decoration: InputDecoration(
+                        hintText: '请输入你想要的小游戏...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        contentPadding: const EdgeInsets.all(8.0),
+                      ),
+                      onChanged: (value) {},
+                    );
+                    isMenu = false;
+                    if (svgIcon == 'close') {
+                      svgIcon = 'search';
+                      titleWidget = buildTitle();
+                      isMenu = true;
+                      filterWords = keyWords;
+                      filterTxTCtrl.clear();
+                    } else {
+                      svgIcon = 'close';
+                      isMenu = false;
+                    }
+                  });
+                }),
+              ],
             )
           : PreferredSize(
               preferredSize: Size.fromHeight(0.0),
@@ -68,6 +122,26 @@ class _ConfettiPageState extends State<ConfettiPage> {
         stream: pullRequest(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            var tempList = List<Object>();
+            for (var item in snapshot.data.typeList) {
+              tempList.add(item);
+            }
+            Future.delayed(Duration(milliseconds: 100), () {
+              setState(() {
+                keyWords = tempList;
+                filterWords = keyWords;
+              });
+            });
+            if (searchStr.isNotEmpty) {
+              var tempList = List<Object>();
+              for (var item in filterWords) {
+                if ('$item'.toLowerCase().contains(searchStr.toLowerCase())) {
+                  tempList.add(item);
+                }
+              }
+              filterWords = tempList;
+              keyWords.shuffle();
+            }
             return RefreshIndicator(
               onRefresh: () async {
                 setState(() {});
@@ -90,7 +164,9 @@ class _ConfettiPageState extends State<ConfettiPage> {
                       preferredSize: Size.fromHeight(sizeH(context) * .1),
                       child: InkWell(
                         child: Icon(Icons.remove_red_eye, size: 32.0),
-                        onTap: () {},
+                        onTap: () {
+                          pushName(context, vision);
+                        },
                         splashColor: Colors.white,
                         borderRadius: BorderRadius.circular(32.0),
                       ),
@@ -99,7 +175,9 @@ class _ConfettiPageState extends State<ConfettiPage> {
                   SliverList(
                     delegate: SliverChildListDelegate.fixed(
                       List.generate(
-                        snapshot.data.typeList.length ?? 0,
+                        snapshot.data.typeList.length == null
+                            ? 0
+                            : filterWords.length,
                         (index) {
                           if (index == 3) {
                             return _buildSwipper(
@@ -128,6 +206,38 @@ class _ConfettiPageState extends State<ConfettiPage> {
   }
 
   Stream<ConfettiResponse> pullRequest() => netool.pullExtAppData().asStream();
+
+  void initWidget() {
+    buildTitle();
+    filterTxTCtrl = TextEditingController()
+      ..addListener(() {
+        setState(() {
+          if (filterTxTCtrl.text.isEmpty) {
+            searchStr = '';
+            filterWords = keyWords;
+          } else {
+            searchStr = filterTxTCtrl.text;
+          }
+        });
+      });
+    backEvent = () {
+      setState(() {
+        isMenu = true;
+        buildTitle();
+        svgIcon = 'search';
+      });
+    };
+  }
+
+  Widget buildTitle() {
+    return titleWidget = Text(
+      '娱乐',
+      style: TextStyle(
+        fontSize: 24.0,
+        color: Colors.black,
+      ),
+    );
+  }
 
   Widget _buildSwipper(BuildContext context,
       {@required String title, List<Data> data}) {
@@ -208,7 +318,7 @@ class _ConfettiPageState extends State<ConfettiPage> {
           isSlim: true,
         ),
         Container(
-          height: sizeH(context) * .24,
+          height: sizeH(context) * .22,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: data.length ?? 0,

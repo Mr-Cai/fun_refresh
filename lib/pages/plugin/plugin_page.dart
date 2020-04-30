@@ -15,20 +15,20 @@ class PluginPage extends StatefulWidget with NavigationState {
 }
 
 class _PluginPageState extends State<PluginPage> {
-  var words = List(); // 关键词列表
-  var filterWords = List(); // 筛选后列表
-
-  String searchStr = '';
+  var searchStr = '';
+  var svgIcon = 'search';
 
   Widget titleWidget;
 
-  TextEditingController _filterTxTCtrl;
+  TextEditingController filterTxTCtrl;
 
   bool isMenu = true;
   bool isWidget = true;
+
   Function backEvent;
 
-  String svgIcon = 'search';
+  var keyWords = List<Item>();
+  var filterWords = List<Item>();
 
   @override
   void initState() {
@@ -36,16 +36,22 @@ class _PluginPageState extends State<PluginPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    filterTxTCtrl.dispose();
+    super.dispose();
+  }
+
   void initWidget() {
     buildTitle();
-    _filterTxTCtrl = TextEditingController()
+    filterTxTCtrl = TextEditingController()
       ..addListener(() {
         setState(() {
-          if (_filterTxTCtrl.text.isEmpty) {
+          if (filterTxTCtrl.text.isEmpty) {
             searchStr = '';
-            filterWords.addAll(words);
+            filterWords = keyWords;
           } else {
-            searchStr = _filterTxTCtrl.text;
+            searchStr = filterTxTCtrl.text;
           }
         });
       });
@@ -71,7 +77,6 @@ class _PluginPageState extends State<PluginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
       appBar: TopBar(
         themeColor: Colors.black,
         isMenu: isMenu,
@@ -82,7 +87,7 @@ class _PluginPageState extends State<PluginPage> {
           menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
             setState(() {
               titleWidget = TextFormField(
-                controller: _filterTxTCtrl,
+                controller: filterTxTCtrl,
                 cursorWidth: 1.0,
                 keyboardType: TextInputType.text,
                 autofocus: true,
@@ -104,8 +109,8 @@ class _PluginPageState extends State<PluginPage> {
                 svgIcon = 'search';
                 titleWidget = buildTitle();
                 isMenu = true;
-                filterWords = words;
-                _filterTxTCtrl.clear();
+                filterWords = keyWords;
+                filterTxTCtrl.clear();
               } else {
                 svgIcon = 'close';
                 isMenu = false;
@@ -118,17 +123,27 @@ class _PluginPageState extends State<PluginPage> {
         stream: netool.pullPluginList().asStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            var tempList = List<Item>();
+            for (var item in snapshot.data.pluginList) {
+              tempList.add(item);
+            }
+            Future.delayed(Duration(milliseconds: 100), () {
+              setState(() {
+                keyWords = tempList;
+                filterWords = keyWords;
+              });
+            });
             if (searchStr.isNotEmpty) {
-              var tempList = List<String>();
+              var tempList = List<Item>();
               for (var item in filterWords) {
-                if ('${item['name']}'
+                if ('${item.name}'
                     .toLowerCase()
                     .contains(searchStr.toLowerCase())) {
                   tempList.add(item);
                 }
               }
               filterWords = tempList;
-              words.shuffle();
+              keyWords.shuffle();
             }
             return GridView(
               physics: BouncingScrollPhysics(),
@@ -139,11 +154,11 @@ class _PluginPageState extends State<PluginPage> {
                 crossAxisSpacing: 8.0,
               ),
               children: List.generate(
-                filterWords.length == 0
-                    ? snapshot.data.pluginList.length
+                snapshot.data.pluginList.length == null
+                    ? 0
                     : filterWords.length,
                 (index) => AppIcon(
-                  item: snapshot.data.pluginList[index],
+                  item: filterWords[index],
                   index: index,
                 ),
               ),

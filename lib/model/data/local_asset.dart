@@ -36,7 +36,7 @@ final Map<int, String> labelsMap = {
   8: '100',
 };
 
-Map defaultArgs = {
+const Map defaultArgs = {
   'name': 'programmer',
   'anim': 'coding',
   'desc': '正在开发中...',

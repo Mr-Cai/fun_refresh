@@ -23,12 +23,15 @@ class _HomePageState extends State<HomePage> {
   int _currentNav = 0;
   final _marqueeController = MarqueeController();
   Orientation orientation;
+  bool isToggle = false;
+  InkWell centerFace;
 
   @override
   void initState() {
     statusBar();
     portrait();
     judgeShowPrivacy(context);
+    centerFace = initCenterFace(context);
     super.initState();
   }
 
@@ -48,8 +51,12 @@ class _HomePageState extends State<HomePage> {
                   return state as Widget;
                 },
               ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: centerFace,
               bottomNavigationBar: AnchorBar(
                 notchedShape: CircularNotchedRectangle(),
+                notchMargin: -3.0,
                 items: _getNavItemsBTM,
                 onTabSelected: (index) => setState(() => _currentNav = index),
                 color: Colors.black54,
@@ -96,6 +103,103 @@ class _HomePageState extends State<HomePage> {
           );
   }
 
+  Widget initCenterFace(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet<void>(
+            context: context,
+            builder: (context) {
+              return Container(
+                height: sizeH(context) * .12,
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 4.0),
+                      alignment: Alignment.topCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          freeTxT('我的'),
+                          Icon(
+                            Icons.favorite,
+                            color: Colors.redAccent,
+                          ),
+                          freeTxT(isToggle ? '历史' : '收藏'),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            top: 26.0, bottom: 4.0, left: 12.0),
+                        child: ListView.builder(
+                          itemCount: 12,
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return FavoriteItem(
+                              icon: isToggle ? dinoLogo : dogSmile,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          centerFace.onTap();
+                          setState(() {
+                            isToggle = !isToggle;
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(32.0),
+                        child: Container(
+                          margin: const EdgeInsets.all(3.0),
+                          child: Icon(Icons.transform),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
+      },
+      child: Container(
+        width: 50.0,
+        height: 50.0,
+        padding: const EdgeInsets.only(top: 6.0),
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 8.0, top: 3.0),
+              alignment: Alignment.centerLeft,
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 3.0,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10.0),
+              alignment: Alignment.center,
+              child: Icon(Icons.keyboard_arrow_up),
+            ),
+            Container(
+              padding: const EdgeInsets.only(right: 8.0, top: 3.0),
+              alignment: Alignment.centerRight,
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                radius: 3.0,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   List<NavItemBTM> get _getNavItemsBTM => [
         NavItemBTM(iconPath: _currentNavIcon(0), text: _navTitleBTM(0)),
         NavItemBTM(iconPath: _currentNavIcon(1), text: _navTitleBTM(1))
@@ -111,4 +215,24 @@ class _HomePageState extends State<HomePage> {
         [path('confetti0', 5), path('confetti1', 5)],
         [path('plugin0', 5), path('plugin1', 5)],
       ];
+}
+
+class FavoriteItem extends StatelessWidget {
+  const FavoriteItem({this.icon});
+
+  final String icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 64.0,
+      height: 64.0,
+      margin: const EdgeInsets.all(6.0),
+      child: ClipRRect(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        borderRadius: BorderRadius.circular(12.0),
+        child: netPic(pic: icon),
+      ),
+    );
+  }
 }
