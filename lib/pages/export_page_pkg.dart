@@ -45,6 +45,7 @@ const photos = '/photos'; // 图片缩放
 const weather = '/weather'; // 天气
 const weather_detail = '/weather_detail'; // 天气详情
 const vision = '/vision'; // 相机识别
+const reward_video = '/reward_video'; // 相机识别
 
 // 小游戏
 const tetris = '/game_tetris'; // 俄罗斯方块(像素风)

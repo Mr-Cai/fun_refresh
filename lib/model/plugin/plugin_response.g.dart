@@ -22,6 +22,7 @@ Map<String, dynamic> _$PluginResponseToJson(PluginResponse instance) =>
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item(
+    json['route'] as String,
     name: json['name'] as String,
     desc: json['desc'] as String,
     pic: json['pic'] as String,
@@ -32,4 +33,5 @@ Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'name': instance.name,
       'pic': instance.pic,
       'desc': instance.desc,
+      'route': instance.route,
     };

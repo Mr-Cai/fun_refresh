@@ -81,3 +81,31 @@ List<String> get settingTxT => [
       '清除缓存',
       '',
     ];
+
+Map<String, String> get configID {
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.android:
+      return {
+        'appID': '1109716769',
+        'splashID': '7020785136977336',
+        'bannerID': '9040882216019714',
+        'intersID': '2041008945668154',
+        'rewardID': '6021002701726334',
+        'nativeDIYID': '8041808915486340',
+        'nativeID': '7071115139492917',
+      };
+      break;
+    case TargetPlatform.iOS:
+      return {
+        'appID': '',
+        'splashID': '',
+        'bannerID': '',
+        'intersID': '',
+        'rewardID': '',
+        'nativeID': '',
+      };
+      break;
+    default:
+      return {'': ''};
+  }
+}

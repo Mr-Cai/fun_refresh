@@ -18,11 +18,12 @@ class PluginResponse {
 
 @JsonSerializable()
 class Item {
-  Item({this.name, this.desc, this.pic});
+  Item(this.route, {this.name, this.desc, this.pic});
 
   final String name;
   final String pic;
   final String desc;
+  final String route;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
   Map<String, dynamic> toJson(Item instance) => _$ItemToJson(instance);

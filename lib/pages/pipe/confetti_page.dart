@@ -36,8 +36,8 @@ class _ConfettiPageState extends State<ConfettiPage> {
 
   Function backEvent;
 
-  var keyWords = List<Object>();
-  var filterWords = List<Object>();
+  var keyWords = List<Data>();
+  var filterWords = List<Data>();
 
   @override
   void initState() {
@@ -122,8 +122,8 @@ class _ConfettiPageState extends State<ConfettiPage> {
         stream: pullRequest(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var tempList = List<Object>();
-            for (var item in snapshot.data.typeList) {
+            var tempList = List<Data>();
+            for (var item in snapshot.data.typeList[1].data) {
               tempList.add(item);
             }
             Future.delayed(Duration(milliseconds: 100), () {
@@ -133,7 +133,7 @@ class _ConfettiPageState extends State<ConfettiPage> {
               });
             });
             if (searchStr.isNotEmpty) {
-              var tempList = List<Object>();
+              var tempList = List<Data>();
               for (var item in filterWords) {
                 if ('$item'.toLowerCase().contains(searchStr.toLowerCase())) {
                   tempList.add(item);
@@ -318,7 +318,7 @@ class _ConfettiPageState extends State<ConfettiPage> {
           isSlim: true,
         ),
         Container(
-          height: sizeH(context) * .22,
+          height: sizeH(context) * .23,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: data.length ?? 0,
@@ -396,7 +396,7 @@ class IconItem extends StatelessWidget {
                       freeTxT(data[indexIn].title),
                       freeTxT(
                         data[indexIn].desc,
-                        size: 15.0,
+                        size: 13.0,
                         color: Colors.lightBlue,
                       ),
                     ],

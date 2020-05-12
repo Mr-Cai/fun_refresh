@@ -1,0 +1,16 @@
+{
+    "like_list": [
+        {
+            "pic": "图片",
+            "title": "标题",
+            "route": "跳转路由"
+        }
+    ],
+    "history_list": [
+        {
+            "pic": "图片",
+            "title": "标题",
+            "route": "跳转路由"
+        }
+    ]
+}

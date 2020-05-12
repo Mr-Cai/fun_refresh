@@ -93,6 +93,10 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: buildBanner(context),
+          )
         ],
       ),
     );

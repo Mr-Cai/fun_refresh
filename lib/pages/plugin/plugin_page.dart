@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/components/top_bar.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/model/event/drawer_nav_bloc.dart';
 import 'package:fun_refresh/model/plugin/plugin_response.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
@@ -181,15 +182,7 @@ class AppIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        switch (index) {
-          case 1:
-            pushName(context, weather);
-            break;
-          case 2:
-            pushName(context, vision);
-            break;
-          default:
-        }
+        pushName(context, item.route, args: defaultArgs);
       },
       child: Container(
         child: Column(

@@ -18,15 +18,7 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
 const confetti = '5ea2cf144f00006600d9f4e1';
-const plugins = '5ea59d113200001100ac279d';
-
-/// 腾讯广告
-// Android
-const appID = 1109716769;
-const bannerID = 0;
-const nativeID = 0;
-const intersID = 0;
-const splashID = 0;
+const plugins = '5ebaa3d83600006000f7e1dc';
 
 /// 图片资源
 const picHome = 'https://pic.downk.cc/item';

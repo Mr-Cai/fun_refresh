@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_refresh/pages/plugin/reward_page.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
@@ -45,6 +46,8 @@ class RouteGenerator {
         return _skipRoute(WeatherPage()); // 天气
       case vision:
         return _skipRoute(VisionPage()); // 相机识别
+      case reward_video:
+        return _skipRoute(RewardVideoPage()); // 相机识别
       default:
         return _skipRoute(ErrorPage(args: args)); // 出错页面
     }

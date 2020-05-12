@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
+import 'package:tencent_ad/tencent_ad.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/collapse_drawer.dart';
@@ -32,6 +34,21 @@ class _HomePageState extends State<HomePage> {
     portrait();
     judgeShowPrivacy(context);
     centerFace = initCenterFace(context);
+    TencentADPlugin.config(appID: '1109716769').then(
+      (_) => SplashAD(
+          posID: configID['splashID'],
+          callBack: (event, args) {
+            switch (event) {
+              case SplashADEvent.onNoAD:
+                statusBar(isHide: true);
+                break;
+              case SplashADEvent.onADDismissed:
+                statusBar();
+                break;
+              default:
+            }
+          }).showAD(),
+    );
     super.initState();
   }
 
@@ -121,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           freeTxT('我的'),
                           Icon(
-                            Icons.favorite,
+                            isToggle ? Icons.history : Icons.favorite,
                             color: Colors.redAccent,
                           ),
                           freeTxT(isToggle ? '历史' : '收藏'),

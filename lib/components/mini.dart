@@ -12,6 +12,7 @@ import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_ad/banner.dart';
 import '../tools/global.dart';
 
 Widget holderPage(
@@ -364,4 +365,30 @@ Future<void> judgeShowPrivacy(BuildContext context) async {
     statusBar(isHide: true);
     showPrivacyDialog(context);
   }
+}
+
+// 横幅广告示例
+Widget buildBanner(BuildContext context) {
+  final _adKey = GlobalKey<BannerADState>();
+  double height = 64.0;
+  return BannerAD(
+    posID: configID['bannerID'],
+    key: _adKey,
+    height: height,
+    callBack: (event, args) {
+      switch (event) {
+        case BannerEvent.onADClosed:
+        case BannerEvent.onADCloseOverlay:
+        case BannerEvent.onADLeftApplication:
+          _adKey.currentState.loadAD();
+          break;
+        case BannerEvent.onNoAD:
+          height = 0.0;
+          _adKey.currentState.closeAD();
+          break;
+        default:
+      }
+    },
+    refresh: true,
+  );
 }

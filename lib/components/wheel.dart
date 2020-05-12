@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/components/mini.dart';
 import '../model/data/field.dart';
 import '../tools/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,13 +40,13 @@ class _RouletteState extends State<Roulette> {
       ),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 32),
+            SizedBox(height: 72.0),
             SpinningWheel(
               Image.asset(path('wheel', 3, append: 'reward_wheel')),
-              width: 310,
-              height: 310,
+              width: sizeW(context) * .72,
+              height: sizeW(context) * .72,
               initialSpinAngle: _generateRandomAngle(),
               spinResistance: 0.6,
               canInteractWhileSpinning: false,
@@ -58,7 +59,7 @@ class _RouletteState extends State<Roulette> {
               secondaryImageWidth: 110,
               shouldStartOrStop: _wheelNotifier.stream,
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 8.0),
             FloatingActionButton.extended(
               heroTag: 'wheel',
               icon: SvgPicture.asset(
@@ -89,16 +90,15 @@ class _RouletteState extends State<Roulette> {
                 );
               },
             ),
-            SizedBox(height: 32),
             Stack(
               children: [
                 SvgPicture.asset(
                   path('coins_bag', 5),
-                  width: 128.0,
-                  height: 128.0,
+                  width: 120.0,
+                  height: 120.0,
                 ),
                 Positioned.fill(
-                  top: 32.0,
+                  top: 42.0,
                   child: StreamBuilder(
                       stream: _dividerController.stream.asBroadcastStream(),
                       builder: (context, snapshot) {
@@ -122,6 +122,7 @@ class _RouletteState extends State<Roulette> {
                 ),
               ],
             ),
+            buildBanner(context)
           ],
         ),
       ),
