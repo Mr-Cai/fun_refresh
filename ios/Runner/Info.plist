@@ -4,6 +4,10 @@
 <dict>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-9275143816186195~7941931675</string>
+	<key>NSCameraUsageDescription</key>
+	<string>我可以使用相机📷吗？</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>我可以使用麦克风🎤吗？</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -13,7 +17,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>fun_refresh</string>
+	<string>趣刷</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
