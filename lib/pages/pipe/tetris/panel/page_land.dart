@@ -34,13 +34,14 @@ class PageLand extends StatelessWidget {
                     Row(
                       children: [
                         Spacer(),
-                        FlatButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => DonationDialog());
-                            },
-                            child: Text(S.of(context).reward))
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => DonationDialog());
+                          },
+                          icon: SvgPicture.asset(path('reward', 5)),
+                        ),
                       ],
                     ),
                     Spacer(),

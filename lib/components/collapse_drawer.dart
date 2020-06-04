@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
+import 'package:fun_refresh/tools/api.dart';
 import '../model/smash_model.dart';
 import '../model/event/drawer_nav_bloc.dart';
 import '../components/radial_menu.dart';
@@ -12,6 +14,10 @@ import '../pages/routes/route_generator.dart';
 import '../tools/global.dart';
 
 class CollaplseDrawer extends StatefulWidget {
+  const CollaplseDrawer({this.callBack});
+
+  final Function(bool) callBack;
+
   @override
   State<StatefulWidget> createState() => _CollaplseDrawerState();
 }
@@ -21,7 +27,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
   double maxWidth = sizeW(ctxKey.currentContext) * 0.63; // 展开宽度
   double minWidth = sizeW(ctxKey.currentContext) * 0.22; // 折叠宽度
 
-  bool isCollapse = false; // 默认不展开
+  bool isCollapse = true; // 默认不展开
 
   AnimationController _animCtrl;
   Animation<double> _widthAnim;
@@ -37,6 +43,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 
   @override
   void initState() {
+    widget.callBack(true);
     _animCtrl =
         AnimationController(vsync: this, duration: Duration(milliseconds: 233));
     _widthAnim =
@@ -46,6 +53,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
 
   @override
   void dispose() {
+    widget.callBack(false);
     switch (currentIndex) {
       case 0:
         statusBar(status: 0);
@@ -146,7 +154,7 @@ class _CollaplseDrawerState extends State<CollaplseDrawer>
               onPressed: () {
                 setState(() {
                   isCollapse = !isCollapse;
-                  isCollapse ? _animCtrl.forward() : _animCtrl.reverse();
+                  isCollapse ? _animCtrl.reverse() : _animCtrl.forward();
                 });
               },
             ),
@@ -248,10 +256,7 @@ class _CustomDrawerHeaderState extends State<CustomDrawerHeader> {
                   child: Container(
                     width: 68.0,
                     height: 68.0,
-                    child: SvgPicture.asset(
-                      path('user', 5),
-                      fit: BoxFit.cover,
-                    ),
+                    child: netPic(pic: dogSmile),
                   ),
                   clipBehavior: Clip.antiAlias,
                 ),

@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flame/assets_cache.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/gestures.dart';
@@ -15,10 +16,21 @@ class FlappyBird extends StatefulWidget {
 class _FlappyBirdState extends State<FlappyBird> {
   FlappyBirdGame game;
 
+  final bannerAd = createBannerAd(size: AdSize.smartBanner);
+
+  @override
+  void initState() {
+    bannerAd
+      ..load()
+      ..show();
+    super.initState();
+  }
+
   @override
   void dispose() {
     game = null;
     statusBar();
+    bannerAd.dispose();
     super.dispose();
   }
 
@@ -49,9 +61,7 @@ class _FlappyBirdState extends State<FlappyBird> {
     Singleton.instance.screenSize = screenSize;
     game = FlappyBirdGame(sprite[0], screenSize);
 
-    Flame.util.addGestureRecognizer(
-      TapGestureRecognizer()..onTapDown = (event) => game.onTap(),
-    );
+    TapGestureRecognizer()..onTapDown = (event) => game.onTapCustom();
     return game;
   }
 }

@@ -35,8 +35,6 @@ Widget freeTxT(
 
 final whiteTxT = TextStyle(color: Colors.white);
 
-final dividerColor = Color(0xFFF1F2F7); // 分隔线颜色
-
 final drawerTxT0 = TextStyle(
   color: Colors.white70,
   fontSize: 20.0,
@@ -48,3 +46,6 @@ final drawerTxT1 = TextStyle(
   fontSize: 20.0,
   fontWeight: FontWeight.values[0],
 );
+
+/// 常用颜色
+final divColor = Color(0xFFF1F2F7); // 分隔线颜色

@@ -1,6 +1,6 @@
 name: fun_refresh # 项目名
 description: 趣刷 # 描述
-version: 1.2.0 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
+version: 1.3.0 # 当前版本号: 主.次.修(alphaNo.->betaNo.->rcNo.->stableNo.)
 
 environment: # 语言环境
   sdk: ">=2.7.0 <3.0.0"
@@ -25,7 +25,6 @@ dependencies: # 拓展插件集合 https://pub.dev
   flare_flutter:  # 2D闪光动画
   overlay_support:  # 全局覆盖通知
   soundpool:  # 音效池
-  vibration:  # 震动器
   flutter_colorpicker:  # 颜色选择器
   cached_network_image:  # 网络图片加载
   sensors:  # 传感器
@@ -36,8 +35,11 @@ dependencies: # 拓展插件集合 https://pub.dev
   audioplayers:  # 音频播放
   flutter_speed_dial:  # 动画悬浮按钮
   camera:  # 相机
-  tencent_ad: # 腾讯广告
-
+  firebase_admob: # 谷歌广告
+  flutter_native_admob: # 谷歌原生广告
+  path_provider: # 获取文件路径
+  package_info:  # 安装包详情
+  
 dev_dependencies: # 调试插件集合
   flutter_test: # 自动化测试
     sdk: flutter

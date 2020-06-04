@@ -1,12 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_admob/flutter_native_admob.dart';
+import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
 import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
 import 'package:intl/intl.dart';
-import 'package:tencent_ad/native_template.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
 
@@ -16,6 +19,19 @@ class MindPage extends StatefulWidget with NavigationState {
 }
 
 class _MindPageState extends State<MindPage> {
+  final _nativeCtrl = NativeAdmobController();
+
+  @override
+  void initState() {
+    Timer.periodic(
+      Duration(seconds: 30),
+      (timer) {
+        _nativeCtrl.reloadAd(forceRefresh: true);
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +45,35 @@ class _MindPageState extends State<MindPage> {
         physics: BouncingScrollPhysics(),
         itemCount: 30,
         itemBuilder: (context, index) {
-          if (index != 0 && index % 6 == 0) {
-            return NativeADWidget(posID: configID['nativeID']);
-          }
           return PostTile(index: index);
         },
         separatorBuilder: (context, index) {
+          if (index != 0 && index % 5 == 0) {
+            return Container(
+              height: 320.0,
+              color: Colors.white,
+              padding: const EdgeInsets.all(8.0),
+              child: NativeAdmob(
+                adUnitID: configID['nativeID'],
+                controller: _nativeCtrl,
+                type: NativeAdmobType.full,
+                loading: flareAnim(context),
+              ),
+            );
+          }
+          if (index != 0 && index % 6 == 0) {
+            return Container(
+              height: 72.0,
+              color: Colors.white,
+              padding: const EdgeInsets.all(8.0),
+              child: NativeAdmob(
+                adUnitID: configID['nativeID'],
+                controller: _nativeCtrl,
+                type: NativeAdmobType.banner,
+                loading: flareAnim(context),
+              ),
+            );
+          }
           return Divider(
             height: 8.0,
             color: Color(0xfff5f6f9),

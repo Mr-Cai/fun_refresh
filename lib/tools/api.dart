@@ -1,5 +1,8 @@
-/// 资源链接
-/// 
+/// 接口地址
+// local_host 'https://192.168.124.4';
+// remote_host 'https://funrefresh.com';
+const BASE_URL = 'https://funrefresh.com';
+
 /// 隐私协议
 const page = 'https://mr-cai.gitee.io/dev/html';
 const private = '$page/private';
@@ -18,7 +21,7 @@ const lifestyle = '$HE_WEATHER_BASE/lifestyle'; // 生活建议
 /// 扩展小程序
 const EXT_BASE = 'https://www.mocky.io/v2';
 const confetti = '5ea2cf144f00006600d9f4e1';
-const plugins = '5ebaa3d83600006000f7e1dc';
+const plugins = '5eca78be3000000d00a6cfe3';
 
 /// 图片资源
 const picHome = 'https://pic.downk.cc/item';

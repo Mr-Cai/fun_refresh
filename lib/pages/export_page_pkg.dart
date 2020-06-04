@@ -22,6 +22,7 @@ export './pipe/bejeweled/bejeweled.dart';
 export './routes/route_generator.dart';
 export './routes/search_panel.dart';
 export './routes/sign_page.dart';
+export './routes/register_page.dart';
 export './routes/profile_page.dart';
 
 export './routes/include/mind_page.dart';
@@ -30,7 +31,9 @@ export './routes/include/setting_page.dart';
 export './routes/include/social_page.dart';
 
 // 页面名称:
-const sign = '/sign'; // 注册登录
+const sign = '/sign'; // 登录
+const register = '/register'; // 注册
+
 const social = '/social'; // 社交
 const mind = '/mind'; // 想法
 const reward = '/reward'; // 奖励

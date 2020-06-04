@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:fun_refresh/components/mini.dart';
 import '../../model/confetti/confetti_response.dart';
 import 'package:fun_refresh/tools/net_tool.dart';
@@ -45,17 +46,21 @@ class _ConfettiPageState extends State<ConfettiPage> {
     initWidget();
     _controller.addListener(() async {
       if (_controller.position.userScrollDirection == ScrollDirection.forward) {
-        setState(() {
-          Future.delayed(Duration(milliseconds: 100), () {
-            isShowTopBar = true;
+        if (mounted) {
+          setState(() {
+            Future.delayed(Duration(milliseconds: 100), () {
+              isShowTopBar = true;
+            });
           });
-        });
+        }
       } else {
-        setState(() {
-          Future.delayed(Duration(milliseconds: 100), () {
-            isShowTopBar = false;
+        if (mounted) {
+          setState(() {
+            Future.delayed(Duration(milliseconds: 100), () {
+              isShowTopBar = false;
+            });
           });
-        });
+        }
       }
     });
     super.initState();
@@ -69,84 +74,88 @@ class _ConfettiPageState extends State<ConfettiPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: isShowTopBar
-          ? TopBar(
-              themeColor: Colors.black,
-              title: '娱乐',
-              isMenu: isMenu,
-              isWidget: isWidget,
-              backEvent: backEvent,
-              titleWidget: titleWidget,
-              actions: [
-                menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
-                  setState(() {
-                    titleWidget = TextFormField(
-                      controller: filterTxTCtrl,
-                      cursorWidth: 1.0,
-                      keyboardType: TextInputType.text,
-                      autofocus: true,
-                      textInputAction: TextInputAction.search,
-                      textCapitalization: TextCapitalization.words,
-                      autocorrect: true,
-                      cursorRadius: Radius.circular(2.0),
-                      decoration: InputDecoration(
-                        hintText: '请输入你想要的小游戏...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        contentPadding: const EdgeInsets.all(8.0),
-                      ),
-                      onChanged: (value) {},
-                    );
-                    isMenu = false;
-                    if (svgIcon == 'close') {
-                      svgIcon = 'search';
-                      titleWidget = buildTitle();
-                      isMenu = true;
-                      filterWords = keyWords;
-                      filterTxTCtrl.clear();
-                    } else {
-                      svgIcon = 'close';
-                      isMenu = false;
+    return RefreshIndicator(
+      onRefresh: () async {
+        HapticFeedback.lightImpact();
+      },
+      child: Scaffold(
+        appBar: isShowTopBar
+            ? TopBar(
+                themeColor: Colors.black,
+                title: '娱乐',
+                isMenu: isMenu,
+                isWidget: isWidget,
+                backEvent: backEvent,
+                titleWidget: titleWidget,
+                actions: [
+                  menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
+                    if (mounted) {
+                      setState(() {
+                        titleWidget = TextFormField(
+                          controller: filterTxTCtrl,
+                          cursorWidth: 1.0,
+                          keyboardType: TextInputType.text,
+                          autofocus: true,
+                          textInputAction: TextInputAction.search,
+                          textCapitalization: TextCapitalization.words,
+                          autocorrect: true,
+                          cursorRadius: Radius.circular(2.0),
+                          decoration: InputDecoration(
+                            hintText: '请输入你想要的小游戏...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            contentPadding: const EdgeInsets.all(8.0),
+                          ),
+                          onChanged: (value) {},
+                        );
+                        isMenu = false;
+                        if (svgIcon == 'close') {
+                          svgIcon = 'search';
+                          titleWidget = buildTitle();
+                          isMenu = true;
+                          filterWords = keyWords;
+                          filterTxTCtrl.clear();
+                        } else {
+                          svgIcon = 'close';
+                          isMenu = false;
+                        }
+                      });
                     }
-                  });
-                }),
-              ],
-            )
-          : PreferredSize(
-              preferredSize: Size.fromHeight(0.0),
-              child: Container(),
-            ),
-      body: StreamBuilder<ConfettiResponse>(
-        stream: pullRequest(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var tempList = List<Data>();
-            for (var item in snapshot.data.typeList[1].data) {
-              tempList.add(item);
-            }
-            Future.delayed(Duration(milliseconds: 100), () {
-              setState(() {
-                keyWords = tempList;
-                filterWords = keyWords;
-              });
-            });
-            if (searchStr.isNotEmpty) {
+                  }),
+                ],
+              )
+            : PreferredSize(
+                preferredSize: Size.fromHeight(0.0),
+                child: Container(),
+              ),
+        body: StreamBuilder<ConfettiResponse>(
+          stream: pullRequest(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
               var tempList = List<Data>();
-              for (var item in filterWords) {
-                if ('$item'.toLowerCase().contains(searchStr.toLowerCase())) {
-                  tempList.add(item);
-                }
+              for (var item in snapshot.data.typeList[1].data) {
+                tempList.add(item);
               }
-              filterWords = tempList;
-              keyWords.shuffle();
-            }
-            return RefreshIndicator(
-              onRefresh: () async {
-                setState(() {});
-              },
-              child: CustomScrollView(
+              Future.delayed(Duration(milliseconds: 100), () {
+                if (mounted) {
+                  setState(() {
+                    keyWords = tempList;
+                    filterWords = keyWords;
+                  });
+                }
+              });
+              if (searchStr.isNotEmpty) {
+                var tempList = List<Data>();
+                for (var item in filterWords) {
+                  if ('$item'.toLowerCase().contains(searchStr.toLowerCase())) {
+                    tempList.add(item);
+                  }
+                }
+                filterWords = tempList;
+                keyWords.shuffle();
+              }
+              return CustomScrollView(
                 physics: BouncingScrollPhysics(),
                 controller: _controller,
                 slivers: [
@@ -196,11 +205,11 @@ class _ConfettiPageState extends State<ConfettiPage> {
                     ),
                   ),
                 ],
-              ),
-            );
-          }
-          return flareAnim(context, height: sizeH(context));
-        },
+              );
+            }
+            return flareAnim(context, height: sizeH(context));
+          },
+        ),
       ),
     );
   }
@@ -211,21 +220,25 @@ class _ConfettiPageState extends State<ConfettiPage> {
     buildTitle();
     filterTxTCtrl = TextEditingController()
       ..addListener(() {
-        setState(() {
-          if (filterTxTCtrl.text.isEmpty) {
-            searchStr = '';
-            filterWords = keyWords;
-          } else {
-            searchStr = filterTxTCtrl.text;
-          }
-        });
+        if (mounted) {
+          setState(() {
+            if (filterTxTCtrl.text.isEmpty) {
+              searchStr = '';
+              filterWords = keyWords;
+            } else {
+              searchStr = filterTxTCtrl.text;
+            }
+          });
+        }
       });
     backEvent = () {
-      setState(() {
-        isMenu = true;
-        buildTitle();
-        svgIcon = 'search';
-      });
+      if (mounted) {
+        setState(() {
+          isMenu = true;
+          buildTitle();
+          svgIcon = 'search';
+        });
+      }
     };
   }
 

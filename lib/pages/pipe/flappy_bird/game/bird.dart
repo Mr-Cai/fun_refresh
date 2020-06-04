@@ -62,6 +62,7 @@ class Bird extends PositionComponent
     this.ground.y = y;
   }
 
+  @override
   void update(double t) {
     if (status == BirdStatus.flying) {
       _counter++;
@@ -84,6 +85,7 @@ class Bird extends PositionComponent
       }
       this.ground.update(t);
     }
+    super.update(t);
   }
 
   double getSpeedRatio(BirdFlyingStatus flyingStatus, int counter) {

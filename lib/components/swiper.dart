@@ -18,7 +18,6 @@ class SwiperController extends ChangeNotifier {
   int get index => _state._getRealIndex();
 
   /// Current page index
-  double get page => _state._pageController.page;
 
   /// Scroll offset
   double get offset => _state._pageController.offset;
@@ -204,6 +203,7 @@ class Swiper extends StatefulWidget {
     this.circular = false,
     this.reverse = false,
     this.indicatorAlignment = AlignmentDirectional.bottomCenter,
+    this.physics,
     @required this.children,
   })  : childCount = children.length,
         super(key: key) {
@@ -230,6 +230,7 @@ class Swiper extends StatefulWidget {
     this.circular = false,
     this.reverse = false,
     this.indicatorAlignment = AlignmentDirectional.bottomCenter,
+    this.physics,
   })  : children = null,
         _itemCount = childCount + ((circular && childCount > 1) ? 2 : 0),
         super(key: key);
@@ -291,6 +292,8 @@ class Swiper extends StatefulWidget {
   List<Widget> children;
   int _itemCount;
 
+  final ScrollPhysics physics;
+
   @override
   State<StatefulWidget> createState() => _SwiperState();
 }
@@ -333,7 +336,6 @@ class _SwiperState extends State<Swiper>
   }
 
   void _init() {
-    //_pageController.
     _stopped = !widget.autoStart;
     _circular = widget._itemCount != widget.childCount;
     _pageController?.dispose();
@@ -454,6 +456,7 @@ class _SwiperState extends State<Swiper>
     var children = <Widget>[];
     if (widget.itemBuilder == null) {
       children.add(PageView(
+        physics: widget.physics,
         key: ValueKey(_pageController.initialPage),
         scrollDirection: widget.direction,
         reverse: widget.reverse,

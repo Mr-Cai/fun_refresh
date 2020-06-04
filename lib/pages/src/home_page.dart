@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
-import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
-import 'package:tencent_ad/tencent_ad.dart';
 import '../../model/event/drawer_nav_bloc.dart';
 import '../../components/anchor_bar.dart';
 import '../../components/collapse_drawer.dart';
@@ -27,6 +26,14 @@ class _HomePageState extends State<HomePage> {
   Orientation orientation;
   bool isToggle = false;
   InkWell centerFace;
+  bool isDrawerOpen = false;
+
+  void drawerCallBack(bool isOpen) {
+    boolValueBloc.toggle(!isOpen);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      setState(() => isDrawerOpen = isOpen);
+    });
+  }
 
   @override
   void initState() {
@@ -34,21 +41,7 @@ class _HomePageState extends State<HomePage> {
     portrait();
     judgeShowPrivacy(context);
     centerFace = initCenterFace(context);
-    TencentADPlugin.config(appID: '1109716769').then(
-      (_) => SplashAD(
-          posID: configID['splashID'],
-          callBack: (event, args) {
-            switch (event) {
-              case SplashADEvent.onNoAD:
-                statusBar(isHide: true);
-                break;
-              case SplashADEvent.onADDismissed:
-                statusBar();
-                break;
-              default:
-            }
-          }).showAD(),
-    );
+    checkUpdateVersion();
     super.initState();
   }
 
@@ -62,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: Colors.white,
-              drawer: CollaplseDrawer(),
+              drawer: CollaplseDrawer(callBack: drawerCallBack),
               body: BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
                   return state as Widget;
@@ -123,6 +116,7 @@ class _HomePageState extends State<HomePage> {
   Widget initCenterFace(BuildContext context) {
     return InkWell(
       onTap: () {
+        HapticFeedback.selectionClick();
         showModalBottomSheet<void>(
             context: context,
             builder: (context) {
@@ -184,6 +178,7 @@ class _HomePageState extends State<HomePage> {
               );
             });
       },
+      onLongPress: () {},
       child: Container(
         width: 50.0,
         height: 50.0,

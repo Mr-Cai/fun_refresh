@@ -107,11 +107,11 @@ class _TopBarState extends State<TopBar> {
               icon: widget.isMenu ? 'finger_print' : 'back',
               color: widget.themeColor,
               size: widget.isMenu ? 32.0 : 26.0,
-              onTap: () {
+              onTap: () async {
                 setState(() {
                   widget.isLightBar ? statusBar(status: 1) : statusBar();
                 });
-                 widget.isMenu
+                return widget.isMenu
                     ? scaffoldKey.currentState.openDrawer()
                     : widget.backEvent == null
                         ? Navigator.pop(context)
@@ -133,6 +133,7 @@ Widget menuIcon(
   double size,
   double top,
   double left,
+  double right,
 }) {
   return InkWell(
     onTap: onTap == null
@@ -143,7 +144,11 @@ Widget menuIcon(
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     child: Container(
-      margin: EdgeInsets.only(left: left ?? 16.0, top: top ?? 2.0),
+      margin: EdgeInsets.only(
+        left: left ?? 16.0,
+        top: top ?? 2.0,
+        right: right ?? 0.0,
+      ),
       child: SvgPicture.asset(
         path('$icon', 5),
         color: color ?? Colors.black,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../generated/i18n.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:fun_refresh/tools/global.dart';
 import '../income/donation_dialog.dart';
 import '../tetris.dart';
 import '../panel/controller.dart';
@@ -19,16 +20,18 @@ class PagePortrait extends StatelessWidget {
           padding: MediaQuery.of(context).padding,
           child: Column(
             children: [
+              SizedBox(height: 12.0),
               Row(
                 children: [
                   Spacer(),
-                  FlatButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => DonationDialog());
-                      },
-                      child: Text(S.of(context).reward))
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => DonationDialog());
+                    },
+                    icon: SvgPicture.asset(path('reward', 5)),
+                  ),
                 ],
               ),
               Spacer(),

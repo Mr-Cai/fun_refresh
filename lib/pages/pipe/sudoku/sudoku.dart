@@ -1,8 +1,11 @@
 import 'dart:developer' as dev;
 import 'dart:math';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
+import 'package:fun_refresh/tools/global.dart';
 
 void main() => runApp(SudokuGame());
 
@@ -46,12 +49,42 @@ class _SudokuPageState extends State<SudokuPage> {
   Orientation orientation;
   Size size;
 
+  BannerAd createBannerAd({AdSize size}) {
+    return BannerAd(
+      adUnitId: configID['bannerID'],
+      size: size ?? AdSize.banner,
+      listener: (MobileAdEvent event) {
+        print('横幅广告事件监听: $event');
+      },
+    );
+  }
+
+  BannerAd bannerAdUp;
+  BannerAd bannerAdDown;
+
   @override
   void initState() {
     initSudokuTable();
     initTableFixed();
     SystemChrome.setEnabledSystemUIOverlays([]);
+    bannerAdUp = createBannerAd(size: AdSize.largeBanner);
+    bannerAdUp
+      ..load()
+      ..show(anchorType: AnchorType.top, anchorOffset: 120.0);
+
+    bannerAdDown = createBannerAd(size: AdSize.largeBanner);
+    bannerAdDown
+      ..load()
+      ..show(anchorType: AnchorType.bottom, anchorOffset: 110.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bannerAdUp.dispose();
+    bannerAdDown.dispose();
+    statusBar();
+    super.dispose();
   }
 
   void initSudokuTable() {
@@ -112,14 +145,6 @@ class _SudokuPageState extends State<SudokuPage> {
     subTableBottomRight.setValue(row: 1, col: 0, value: 5, enableMove: false);
     subTableBottomRight.setValue(row: 1, col: 2, value: 1, enableMove: false);
     subTableBottomRight.setValue(row: 2, col: 0, value: 3, enableMove: false);
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays([
-      SystemUiOverlay.top,
-    ]);
-    super.dispose();
   }
 
   @override

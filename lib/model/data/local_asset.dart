@@ -55,26 +55,6 @@ List<String> get covers => [
       '$picHome/5e7108d9e83c3a1e3a65d279.png', // 宝石迷阵
     ];
 
-Map<String, String> get config {
-  return defaultTargetPlatform == TargetPlatform.android
-      ? {
-          'appID': '1109716769',
-          'bannerID': '9040882216019714',
-          'nativeID': '8040483237917481',
-          'intersID': '7080080247106780',
-          'splashID': '7020785136977336',
-          'bgPic': 'intelligent.fun_refresh:mipmap-xhdpi/white.jpg'
-        }
-      : {
-          'appID': '',
-          'bannerID': '',
-          'nativeID': '',
-          'intersID': '',
-          'splashID': '',
-          'bgPic': 'LaunchImage'
-        };
-}
-
 List<String> get settingTxT => [
       '账号设置',
       '版本更新',
@@ -86,23 +66,20 @@ Map<String, String> get configID {
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
       return {
-        'appID': '1109716769',
-        'splashID': '7020785136977336',
-        'bannerID': '9040882216019714',
-        'intersID': '2041008945668154',
-        'rewardID': '6021002701726334',
-        'nativeDIYID': '8041808915486340',
-        'nativeID': '7071115139492917',
+        'appID': 'ca-app-pub-9275143816186195~6439219109',
+        'bannerID': 'ca-app-pub-9275143816186195/7092152699',
+        'intersID': 'ca-app-pub-9275143816186195/1089851125',
+        'rewardID': 'ca-app-pub-9275143816186195/3111888542',
+        'nativeID': 'ca-app-pub-9275143816186195/3759443157',
       };
       break;
     case TargetPlatform.iOS:
       return {
-        'appID': '',
-        'splashID': '',
-        'bannerID': '',
-        'intersID': '',
-        'rewardID': '',
-        'nativeID': '',
+        'appID': 'ca-app-pub-9275143816186195~7941931675',
+        'bannerID': 'ca-app-pub-9275143816186195/1376523322',
+        'intersID': 'ca-app-pub-9275143816186195/1184951634',
+        'rewardID': 'ca-app-pub-9275143816186195/8871869967',
+        'nativeID': 'ca-app-pub-9275143816186195/3072748372',
       };
       break;
     default:

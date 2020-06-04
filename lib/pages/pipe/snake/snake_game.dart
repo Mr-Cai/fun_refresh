@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -16,19 +17,21 @@ class _SnakeGameState extends State<SnakeGame> {
   @override
   void initState() {
     landscape();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 3), () {
       setState(() {
         index = 1;
       });
     });
     super.initState();
   }
+
   @override
   void dispose() {
     portrait();
     statusBar();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -60,19 +63,42 @@ class _SnakeGameState extends State<SnakeGame> {
 
 class SnakeHomeState extends State<SnakeHome>
     with SingleTickerProviderStateMixin {
-  //final Color _controllerBK = Colors.black26;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Animation<double> animation;
   AnimationController controller;
 
+  int _coins = 0;
+
+  bool loaded = false;
+
   @override
   void initState() {
-    super.initState();
-    //_blockNum = 50;
     controller =
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
     animation = Tween<double>(begin: 0, end: 300).animate(controller);
-    //controller.forward();
+
+    loadRewardAd().catchError((e) {
+      print('🍎🍎🍎 激励视频报错: $e');
+    }).then(
+      (value) => setState(() => loaded = value),
+    );
+
+    RewardedVideoAd.instance.listener = (event, {rewardAmount, rewardType}) {
+      if (event == RewardedVideoAdEvent.rewarded) {
+        statusBar(isHide: true);
+        setState(() {
+          _coins += rewardAmount;
+          print('🍎🍎🍎 $_coins');
+        });
+      }
+      if (event == RewardedVideoAdEvent.closed) {
+        statusBar(isHide: true);
+        loadRewardAd().catchError((e) => print('🍎🍎🍎 激励视频报错: $e')).then(
+              (value) => setState(() => loaded = value),
+            );
+      }
+    };
+    super.initState();
   }
 
   @override
@@ -235,8 +261,6 @@ class SnakeHomeState extends State<SnakeHome>
             borderRadius: BorderRadius.circular(20.0)),
         child: Stack(
           children: [
-            // Positioned(
-            //     left: 0.0, top: 0.0, child: Icon(Icons.fiber_new)),
             Center(
               child:
                   Text('最高分: ${gameState.highScore}\n得分: ${gameState.score}'),
@@ -255,7 +279,6 @@ class SnakeHomeState extends State<SnakeHome>
 
   Container colorOptionLeading(int colorValue, double size) {
     return Container(
-        //color: Color(colorValue),
         width: size,
         height: size,
         decoration: BoxDecoration(
@@ -392,8 +415,7 @@ class SnakeHomeState extends State<SnakeHome>
     super.dispose();
   }
 
-  StatefulWidget _buildMainPanel(
-      BuildContext context, double width, double height) {
+  Widget _buildMainPanel(BuildContext context, double width, double height) {
     double tmp = width - height;
     double size = tmp > height ? height : tmp;
     size -= 5.0;

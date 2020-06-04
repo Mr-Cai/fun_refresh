@@ -44,6 +44,7 @@ class Bottom extends PositionComponent
         x, y, _screenSize.width, ComponentDimensions.bottomHeight);
   }
 
+  @override
   void update(double t) {
     if (status == BottomStatus.moving) {
       this.firstGround.x -= t * Speed.groundSpeed;
@@ -57,6 +58,7 @@ class Bottom extends PositionComponent
         this.secondGround.x = this.firstGround.x + this.firstGround.width;
       }
     }
+    super.update(t);
   }
 
   void move() {

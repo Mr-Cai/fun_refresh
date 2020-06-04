@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_refresh/components/mini.dart';
 import '../model/data/field.dart';
 import '../tools/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,7 +58,6 @@ class _RouletteState extends State<Roulette> {
               secondaryImageWidth: 110,
               shouldStartOrStop: _wheelNotifier.stream,
             ),
-            SizedBox(height: 8.0),
             FloatingActionButton.extended(
               heroTag: 'wheel',
               icon: SvgPicture.asset(
@@ -98,7 +96,7 @@ class _RouletteState extends State<Roulette> {
                   height: 120.0,
                 ),
                 Positioned.fill(
-                  top: 42.0,
+                  top: 44.0,
                   child: StreamBuilder(
                       stream: _dividerController.stream.asBroadcastStream(),
                       builder: (context, snapshot) {
@@ -122,7 +120,7 @@ class _RouletteState extends State<Roulette> {
                 ),
               ],
             ),
-            buildBanner(context)
+            SizedBox(height: 4.0),
           ],
         ),
       ),

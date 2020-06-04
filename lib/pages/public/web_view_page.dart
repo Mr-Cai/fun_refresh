@@ -78,11 +78,11 @@ class _WebViewPageState extends State<WebViewPage> {
             },
             javascriptChannels: [
               JavascriptChannel(
-                name: 'toast',
+                name: 'tip',
                 onMessageReceived: (msg) {
                   log(msg.message, name: '😎');
                   if (msg.message == 'end') {
-                    Toast.show('已阅读完毕', context, duration: 2);
+                    Toast.show('已阅读完毕', context);
                   }
                 },
               ),

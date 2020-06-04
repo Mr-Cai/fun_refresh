@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/tools/global.dart';
 
@@ -22,6 +23,9 @@ class _HomePageState extends State<HomePage>
   AnimationController _controller;
   Animation _animation;
   AudioPlayer audioPlayer;
+
+  final bannerAd = createBannerAd(size: AdSize.mediumRectangle);
+
   @override
   void initState() {
     play();
@@ -29,7 +33,7 @@ class _HomePageState extends State<HomePage>
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )..addListener(() {
-        setState(() {});
+        if (mounted) setState(() {});
       });
 
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -46,6 +50,9 @@ class _HomePageState extends State<HomePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.forward();
     });
+    bannerAd
+      ..load()
+      ..show(anchorOffset: 380.0);
     super.initState();
   }
 
@@ -54,6 +61,7 @@ class _HomePageState extends State<HomePage>
     _controller?.dispose();
     statusBar();
     audioPlayer.release();
+    if (mounted) bannerAd.dispose();
     super.dispose();
   }
 
@@ -63,24 +71,12 @@ class _HomePageState extends State<HomePage>
     statusBar(isHide: true);
     return Scaffold(
       body: Stack(
-        children: <Widget>[
+        children: [
           Container(
             width: sizeW(context),
             height: sizeH(context),
             child: netPic(
               pic: 'https://pic.downk.cc/item/5ea27c35c2a9a83be539002f.jpg',
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ShadowedText(
-                text: '',
-                color: Colors.white,
-                fontSize: 12.0,
-                offset: Offset(1.0, 1.0),
-              ),
             ),
           ),
           Align(
@@ -108,6 +104,11 @@ class _HomePageState extends State<HomePage>
                         audioPlayer.release();
                         // Open the Game page
                         Navigator.of(context).push(GamePage.route(newLevel));
+                        try {
+                          if (mounted) bannerAd?.dispose();
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                     );
                   },
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage>
                 outerColor: Colors.blue[700],
                 innerColor: Colors.blue,
                 child: Stack(
-                  children: <Widget>[
+                  children: [
                     ShineEffect(
                       offset: Offset(100.0, 100.0),
                     ),

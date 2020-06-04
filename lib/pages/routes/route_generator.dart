@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/pages/plugin/reward_page.dart';
+import 'package:fun_refresh/pages/routes/register_page.dart';
 import '../export_page_pkg.dart';
 
 class RouteGenerator {
@@ -9,7 +10,9 @@ class RouteGenerator {
       case '/':
         return _skipRoute(HomePage()); // 主页面
       case sign:
-        return _skipRoute(SignPage()); // 注册登录页面
+        return _skipRoute(SignPage()); // 登录页面
+      case register:
+        return _skipRoute(RegisterPage()); // 注册页面
       case social:
         return _skipRoute(SocialPage()); // 社交人脉页面
       case mind:

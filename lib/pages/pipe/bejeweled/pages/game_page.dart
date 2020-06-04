@@ -68,7 +68,6 @@ class _GamePageState extends State<GamePage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     // Now that the context is available, retrieve the gameBloc
     gameBloc = BlocProvider.of<GameBloc>(context);
 
@@ -95,7 +94,6 @@ class _GamePageState extends State<GamePage>
   @override
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.close),

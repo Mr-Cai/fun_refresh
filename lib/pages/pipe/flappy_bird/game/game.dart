@@ -1,6 +1,8 @@
 import 'dart:ui';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
 import '../flappy_bird.dart';
 import '../game/bird.dart';
 import '../game/bottom.dart';
@@ -29,6 +31,17 @@ class FlappyBirdGame extends BaseGame {
   GameStatus status = GameStatus.waiting;
   double xTubeOffset = 220;
   double xTubeStart = Singleton.instance.screenSize.width * 1.5;
+
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+      adUnitId: configID['intersID'],
+      listener: (MobileAdEvent event) {
+        print('🍎🍎🍎$event');
+      },
+    );
+  }
+
+  InterstitialAd _interstitialAd;
 
   FlappyBirdGame(Image spriteImage, Size screenSize) {
     _spriteImage = spriteImage;
@@ -134,6 +147,9 @@ class FlappyBirdGame extends BaseGame {
       gameOver.ground.y =
           (Singleton.instance.screenSize.height - gameOver.ground.height) / 2;
     }
+    _interstitialAd?.dispose();
+    _interstitialAd = createInterstitialAd()..load();
+    _interstitialAd?.show();
   }
 
   bool checkIfBirdCrossedTube(Tube tube) {
@@ -150,7 +166,7 @@ class FlappyBirdGame extends BaseGame {
     return false;
   }
 
-  void onTap() {
+  void onTapCustom() {
     switch (status) {
       case GameStatus.waiting:
         status = GameStatus.playing;

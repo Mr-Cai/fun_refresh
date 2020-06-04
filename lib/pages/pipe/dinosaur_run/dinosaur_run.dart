@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_refresh/tools/global.dart';
@@ -91,14 +92,16 @@ class _DinosaurRunState extends State<DinosaurRun>
   int score = 0;
   int maxScore = 0;
 
+  final bannerAd = createBannerAd(size: AdSize.leaderboard);
+
+  int _coins = 0;
+
+  bool loaded = false;
+
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
+    landscape();
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     _layoutWidth = mediaQuery.size.width; // 默认宽度为屏幕宽
 
@@ -109,6 +112,34 @@ class _DinosaurRunState extends State<DinosaurRun>
       Location(Cloud.getWrapSize(), _layoutWidth, 20),
     ];
     initAnim();
+
+    bannerAd
+      ..load()
+      ..show();
+
+    loadRewardAd().catchError((e) {
+      print('🍎🍎🍎 激励视频报错: $e');
+    }).then(
+      (value) => setState(() => loaded = value),
+    );
+
+    RewardedVideoAd.instance.listener = (event, {rewardAmount, rewardType}) {
+      if (event == RewardedVideoAdEvent.rewarded) {
+        statusBar(isHide: true);
+        _gameState = GameState.INIT;
+        setState(() {
+          _coins += rewardAmount;
+          print('🍎🍎🍎 $_coins');
+        });
+      }
+      if (event == RewardedVideoAdEvent.closed) {
+        statusBar(isHide: true);
+        _gameState = GameState.INIT;
+        loadRewardAd().catchError((e) => print('🍎🍎🍎 激励视频报错: $e')).then(
+              (value) => setState(() => loaded = value),
+            );
+      }
+    };
   }
 
   void initAnim() {
@@ -330,6 +361,21 @@ class _DinosaurRunState extends State<DinosaurRun>
             ),
           ),
         ),
+        Container(
+          margin: const EdgeInsets.only(top: 28.0),
+          alignment: Alignment.topCenter,
+          child: Offstage(
+            offstage: _gameState != GameState.GAMEOVER,
+            child: Text(
+              '游戏${'\t' * 6}结束',
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 48,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -375,16 +421,35 @@ class _DinosaurRunState extends State<DinosaurRun>
                 ),
               ),
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.bottomCenter,
                 child: Offstage(
                   offstage: _gameState != GameState.GAMEOVER,
-                  child: Text(
-                    '游戏\t\t结束',
-                    style: TextStyle(
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                    ),
+                  child: Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '观看广告重新开始',
+                            style: TextStyle(
+                              color: primaryColor,
+                              fontWeight: FontWeight.values[0],
+                              fontSize: 24,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 4.0,
+                              left: 8.0,
+                            ),
+                            child: Icon(
+                              Icons.refresh,
+                              color: primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -421,6 +486,10 @@ class _DinosaurRunState extends State<DinosaurRun>
       case GameState.GAMEOVER:
         _gameState = GameState.INIT;
         tap(details);
+        await RewardedVideoAd.instance.show().catchError((e) {
+          print('🍎🍎🍎 激励视频报错: $e');
+        });
+        setState(() => loaded = false);
         break;
     }
   }
@@ -458,6 +527,7 @@ class _DinosaurRunState extends State<DinosaurRun>
     _moveAnim.dispose();
     statusBar();
     portrait();
+    if (mounted) bannerAd.dispose();
     super.dispose();
   }
 }

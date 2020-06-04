@@ -1,6 +1,9 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/components/top_bar.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'mycolor.dart';
 import 'tile.dart';
 import 'grid.dart';
@@ -20,6 +23,14 @@ class _Game2048State extends State<Game2048> {
   int score = 0;
   bool isgameOver = false;
   bool isgameWon = false;
+
+  int _coins = 0;
+
+  MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    childDirected: false,
+  );
+
+  bool loaded = false;
 
   List<Widget> getGrid(double width, double height) {
     List<Widget> grids = [];
@@ -145,6 +156,9 @@ class _Game2048State extends State<Game2048> {
         setState(() {
           isgameOver = true;
         });
+        RewardedVideoAd.instance.show().catchError((e) {
+          print('🍎🍎🍎 激励视频报错: $e');
+        });
       }
 
       bool gamewon = isGameWon(grid);
@@ -159,14 +173,47 @@ class _Game2048State extends State<Game2048> {
     }
   }
 
+  final bannerAd = createBannerAd(size: AdSize.mediumRectangle);
+
   @override
   void initState() {
     grid = blankGrid();
     gridNew = blankGrid();
     addNumber(grid, gridNew);
     addNumber(grid, gridNew);
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    bannerAd
+      ..load()
+      ..show();
+    statusBar(isHide: true);
+    loadRewardAd().catchError((e) {
+      print('🍎🍎🍎 激励视频报错: $e');
+    }).then(
+      (value) => setState(() => loaded = value),
+    );
+
+    RewardedVideoAd.instance.listener = (event, {rewardAmount, rewardType}) {
+      if (event == RewardedVideoAdEvent.rewarded) {
+        statusBar(isHide: true);
+        setState(() {
+          _coins += rewardAmount;
+          print('🍎🍎🍎 $_coins');
+        });
+      }
+      if (event == RewardedVideoAdEvent.closed) {
+        statusBar(isHide: true);
+        loadRewardAd().catchError((e) => print('🍎🍎🍎 激励视频报错: $e')).then(
+              (value) => setState(() => loaded = value),
+            );
+      }
+    };
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bannerAd.dispose();
+    statusBar();
+    super.dispose();
   }
 
   Future<String> getHighScore() async {
@@ -188,17 +235,42 @@ class _Game2048State extends State<Game2048> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'StarJedi'),
       home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            '2048',
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+        appBar: PreferredSize(
+          preferredSize: Size.square(72.0),
+          child: Column(
+            children: [
+              Container(
+                height: 8.0,
+                color: Color(MyColor.gridBackground),
+              ),
+              AppBar(
+                leading: Transform.scale(
+                  scale: 0.6,
+                  child: menuIcon(
+                    context,
+                    icon: 'back',
+                    color: Colors.white,
+                  ),
+                ),
+                elevation: 0.0,
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                title: Text(
+                  '2048',
+                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Color(MyColor.gridBackground),
+              ),
+              Container(
+                height: 8.0,
+                color: Color(MyColor.gridBackground),
+              ),
+            ],
           ),
-          backgroundColor: Color(MyColor.gridBackground),
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(18.0),
             child: Column(
               children: [
                 Padding(
@@ -209,18 +281,14 @@ class _Game2048State extends State<Game2048> {
                       borderRadius: BorderRadius.circular(20.0),
                       color: Color(MyColor.gridBackground),
                     ),
-                    height: 82.0,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 2.0),
-                          child: Text(
-                            '得分',
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                color: Colors.white70,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          '得分',
+                          style: TextStyle(
+                              fontSize: 22.0,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.bold),
                         ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 10.0),
@@ -253,6 +321,7 @@ class _Game2048State extends State<Game2048> {
                             children: getGrid(gridWidth, gridHeight),
                           ),
                           onVerticalDragEnd: (DragEndDetails details) {
+                            HapticFeedback.lightImpact();
                             //primaryVelocity -ve up +ve down
                             if (details.primaryVelocity < 0) {
                               handleGesture(0);
@@ -261,6 +330,7 @@ class _Game2048State extends State<Game2048> {
                             }
                           },
                           onHorizontalDragEnd: (details) {
+                            HapticFeedback.lightImpact();
                             //-ve right, +ve left
                             if (details.primaryVelocity > 0) {
                               handleGesture(2);

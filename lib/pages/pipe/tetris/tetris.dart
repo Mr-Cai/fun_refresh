@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fun_refresh/tools/global.dart';
 import './gamer/gamer.dart';
 import './generated/i18n.dart';
 import './material/audios.dart';
@@ -17,10 +19,27 @@ class Tetris extends StatefulWidget {
 }
 
 class _TetrisState extends State<Tetris> {
+  final bannerAd = createBannerAd(size: AdSize.smartBanner);
+
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    statusBar(isHide: true);
+    bannerAd
+      ..load()
+      ..show(anchorOffset: 240.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    bannerAd?.dispose();
+    super.dispose();
   }
 
   @override

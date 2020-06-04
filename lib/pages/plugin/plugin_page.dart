@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/components/theme.dart';
@@ -8,6 +9,7 @@ import 'package:fun_refresh/model/data/local_asset.dart';
 import 'package:fun_refresh/model/event/drawer_nav_bloc.dart';
 import 'package:fun_refresh/model/plugin/plugin_response.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
+import 'package:fun_refresh/tools/global.dart';
 import 'package:fun_refresh/tools/net_tool.dart';
 
 class PluginPage extends StatefulWidget with NavigationState {
@@ -31,8 +33,13 @@ class _PluginPageState extends State<PluginPage> {
   var keyWords = List<Item>();
   var filterWords = List<Item>();
 
+  final bannerAd = createBannerAd(size: AdSize.smartBanner);
+
   @override
   void initState() {
+    bannerAd
+      ..load()
+      ..show(anchorOffset: 60.0);
     initWidget();
     super.initState();
   }
@@ -40,6 +47,7 @@ class _PluginPageState extends State<PluginPage> {
   @override
   void dispose() {
     filterTxTCtrl.dispose();
+    bannerAd.dispose();
     super.dispose();
   }
 
@@ -47,21 +55,25 @@ class _PluginPageState extends State<PluginPage> {
     buildTitle();
     filterTxTCtrl = TextEditingController()
       ..addListener(() {
-        setState(() {
-          if (filterTxTCtrl.text.isEmpty) {
-            searchStr = '';
-            filterWords = keyWords;
-          } else {
-            searchStr = filterTxTCtrl.text;
-          }
-        });
+        if (mounted) {
+          setState(() {
+            if (filterTxTCtrl.text.isEmpty) {
+              searchStr = '';
+              filterWords = keyWords;
+            } else {
+              searchStr = filterTxTCtrl.text;
+            }
+          });
+        }
       });
     backEvent = () {
-      setState(() {
-        isMenu = true;
-        buildTitle();
-        svgIcon = 'search';
-      });
+      if (mounted) {
+        setState(() {
+          isMenu = true;
+          buildTitle();
+          svgIcon = 'search';
+        });
+      }
     };
   }
 
@@ -86,37 +98,39 @@ class _PluginPageState extends State<PluginPage> {
         titleWidget: titleWidget,
         actions: [
           menuIcon(context, size: 26.0, icon: svgIcon, onTap: () {
-            setState(() {
-              titleWidget = TextFormField(
-                controller: filterTxTCtrl,
-                cursorWidth: 1.0,
-                keyboardType: TextInputType.text,
-                autofocus: true,
-                textInputAction: TextInputAction.search,
-                textCapitalization: TextCapitalization.words,
-                autocorrect: true,
-                cursorRadius: Radius.circular(2.0),
-                decoration: InputDecoration(
-                  hintText: '请输入你想要的插件...',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+            if (mounted) {
+              setState(() {
+                titleWidget = TextFormField(
+                  controller: filterTxTCtrl,
+                  cursorWidth: 1.0,
+                  keyboardType: TextInputType.text,
+                  autofocus: true,
+                  textInputAction: TextInputAction.search,
+                  textCapitalization: TextCapitalization.words,
+                  autocorrect: true,
+                  cursorRadius: Radius.circular(2.0),
+                  decoration: InputDecoration(
+                    hintText: '请输入你想要的插件...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    contentPadding: const EdgeInsets.all(8.0),
                   ),
-                  contentPadding: const EdgeInsets.all(8.0),
-                ),
-                onChanged: (value) {},
-              );
-              isMenu = false;
-              if (svgIcon == 'close') {
-                svgIcon = 'search';
-                titleWidget = buildTitle();
-                isMenu = true;
-                filterWords = keyWords;
-                filterTxTCtrl.clear();
-              } else {
-                svgIcon = 'close';
+                  onChanged: (value) {},
+                );
                 isMenu = false;
-              }
-            });
+                if (svgIcon == 'close') {
+                  svgIcon = 'search';
+                  titleWidget = buildTitle();
+                  isMenu = true;
+                  filterWords = keyWords;
+                  filterTxTCtrl.clear();
+                } else {
+                  svgIcon = 'close';
+                  isMenu = false;
+                }
+              });
+            }
           }),
         ],
       ),
@@ -129,10 +143,12 @@ class _PluginPageState extends State<PluginPage> {
               tempList.add(item);
             }
             Future.delayed(Duration(milliseconds: 100), () {
-              setState(() {
-                keyWords = tempList;
-                filterWords = keyWords;
-              });
+              if (mounted) {
+                setState(() {
+                  keyWords = tempList;
+                  filterWords = keyWords;
+                });
+              }
             });
             if (searchStr.isNotEmpty) {
               var tempList = List<Item>();
@@ -146,21 +162,30 @@ class _PluginPageState extends State<PluginPage> {
               filterWords = tempList;
               keyWords.shuffle();
             }
-            return GridView(
-              physics: BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(12.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-              ),
-              children: List.generate(
-                snapshot.data.pluginList.length == null
-                    ? 0
-                    : filterWords.length,
-                (index) => AppIcon(
-                  item: filterWords[index],
-                  index: index,
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints.tight(
+                  Size.fromHeight(
+                    sizeH(context) * .7,
+                  ),
+                ),
+                child: GridView(
+                  physics: BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(12.0),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                  ),
+                  children: List.generate(
+                    snapshot.data.pluginList.length == null
+                        ? 0
+                        : filterWords.length,
+                    (index) => AppIcon(
+                      item: filterWords[index],
+                      index: index,
+                    ),
+                  ),
                 ),
               ),
             );

@@ -3,11 +3,11 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fun_refresh/pages/routes/route_generator.dart';
 import 'package:fun_refresh/tools/global.dart';
-import 'package:vibration/vibration.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +22,6 @@ class GameState with ChangeNotifier {
   bool _playFlag = false;
   bool _initFlag = true;
   bool _menuFlag = false;
-  bool _vibration = true;
   bool _launchIconFlag = false;
   List<List<int>> _data;
   Queue _queue1 = Queue();
@@ -398,10 +397,13 @@ class GameState with ChangeNotifier {
         });
     switch (option) {
       case '返回':
-        //_initGame();
-        //notifyListeners();
+        _initGame();
+        notifyListeners();
         break;
       case '重新开始':
+        RewardedVideoAd.instance.show().catchError((e) {
+          print('🍎🍎🍎 激励视频报错: $e');
+        });
         setConfig(context);
         break;
       case '快速开始':
@@ -530,26 +532,12 @@ class GameState with ChangeNotifier {
     });
   }
 
-  void _buttonFeedback() {
-    if (_vibration == false) {
-      return;
-    }
-    if (Vibration.hasVibrator() != null) {
-      if (Vibration.hasAmplitudeControl() != null) {
-        Vibration.vibrate(duration: 100, amplitude: 80);
-      } else {
-        Vibration.vibrate(duration: 100);
-      }
-    }
-  }
-
   void upButton(String player) {
     switch (_playerNum) {
       case 1:
         if (_direction1 == _moveMap['LEFT'] ||
             _direction1 == _moveMap['RIGHT']) {
           _direction1 = _moveMap['UP'];
-          _buttonFeedback();
         }
         break;
       case 2:
@@ -575,7 +563,6 @@ class GameState with ChangeNotifier {
         if (_direction1 == _moveMap['LEFT'] ||
             _direction1 == _moveMap['RIGHT']) {
           _direction1 = _moveMap['DOWN'];
-          _buttonFeedback();
         }
         break;
       case 2:
@@ -600,7 +587,6 @@ class GameState with ChangeNotifier {
       case 1:
         if (_direction1 == _moveMap['UP'] || _direction1 == _moveMap['DOWN']) {
           _direction1 = _moveMap['LEFT'];
-          _buttonFeedback();
         }
         break;
       case 2:
@@ -625,7 +611,6 @@ class GameState with ChangeNotifier {
       case 1:
         if (_direction1 == _moveMap['UP'] || _direction1 == _moveMap['DOWN']) {
           _direction1 = _moveMap['RIGHT'];
-          _buttonFeedback();
         }
         break;
       case 2:
@@ -646,6 +631,7 @@ class GameState with ChangeNotifier {
   }
 
   void clickButton(IconData icon, String player) {
+    HapticFeedback.lightImpact();
     if (icon == Icons.arrow_drop_up) {
       upButton(player);
     } else if (icon == Icons.arrow_drop_down) {

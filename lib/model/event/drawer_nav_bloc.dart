@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../pages/export_page_pkg.dart';
 
-enum NavigationEvent {confetti, plugin, social, mind, reward, setting}
+enum NavigationEvent { confetti, plugin, social, mind, reward, setting }
 
 class NavigationState {}
 

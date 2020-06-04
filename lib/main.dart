@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
 import './tools/global.dart' show cameras, ctxKey, portrait, statusBar;
 import './pages/routes/route_generator.dart';
@@ -56,11 +57,19 @@ class _FunRefreshAppState extends State<FunRefreshApp> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        onGenerateRoute: RouteGenerator.generator,
-        navigatorKey: ctxKey,
-      ),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          onGenerateRoute: RouteGenerator.generator,
+          navigatorKey: ctxKey,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('zh', 'CH'),
+            const Locale('en', 'US')
+          ]),
     );
   }
 }

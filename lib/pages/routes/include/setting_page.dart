@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_native_admob/flutter_native_admob.dart';
+import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:fun_refresh/components/mini.dart';
 import 'package:fun_refresh/pages/export_page_pkg.dart';
 import 'package:fun_refresh/tools/api.dart';
 import 'package:fun_refresh/tools/global.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:toast/toast.dart';
 import '../../../model/event/drawer_nav_bloc.dart';
 import '../../../components/top_bar.dart';
-import '../../../model/data/local_asset.dart' show defaultArgs, settingTxT;
+import '../../../model/data/local_asset.dart'
+    show configID, defaultArgs, settingTxT;
 import '../../../components/theme.dart';
 
 class SettingsPage extends StatefulWidget with NavigationState {
@@ -18,22 +26,17 @@ class SettingsPage extends StatefulWidget with NavigationState {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  String _cacheSize = '';
   @override
   void initState() {
-    statusBar(status: 1);
+    _loadCache();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    statusBar(status: 1);
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: dividerColor,
+      backgroundColor: divColor,
       appBar: TopBar(
         title: '设置',
         isSafeArea: false,
@@ -57,17 +60,52 @@ class _SettingsPageState extends State<SettingsPage> {
           ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              $HLine(),
-              ItemTile(index: 0, isTrail: true),
-              $HLine(),
-              ItemTile(index: 1, isTrail: true),
-              ItemTile(index: 2, isTrail: true),
-              $HLine(),
-              _buildBTN(),
+              ItemTile(
+                index: 0,
+                arrow: true,
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                },
+                event: () {
+                  HapticFeedback.selectionClick();
+                },
+              ),
+              ItemTile(index: 1, arrow: true),
+              divLine(),
+              ItemTile(
+                index: 2,
+                arrow: true,
+                icon: Icons.refresh,
+                onTap: () async {
+                  _clearCache();
+                  HapticFeedback.selectionClick();
+                },
+                label: freeTxT(_cacheSize),
+                event: () async {
+                  _loadCache(isToast: true);
+                  HapticFeedback.vibrate();
+                },
+              ),
+              exitBTN(),
             ],
           ),
           Align(
-            alignment: Alignment(0.0, 0.8),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 72.0,
+              color: Colors.white,
+              padding: const EdgeInsets.all(8.0),
+              child: NativeAdmob(
+                adUnitID: configID['nativeID'],
+                type: NativeAdmobType.banner,
+                loading: flareAnim(context),
+                controller: NativeAdmobController()
+                  ..reloadAd(forceRefresh: true),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment(0.0, 0.78),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -93,16 +131,12 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: buildBanner(context),
-          )
         ],
       ),
     );
   }
 
-  Widget _buildBTN() {
+  Widget exitBTN() {
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: FlatButton(
@@ -124,36 +158,150 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+  Future<void> _loadCache({bool isToast = false}) async {
+    Directory tempDir = await getTemporaryDirectory();
+    double value = await _computeCacheSize(tempDir);
+    setState(() {
+      _cacheSize = _renderSize(value);
+      if (isToast) {
+        Toast.show(
+          '正在更新缓存: ${_renderSize(value)}',
+          context,
+          gravity: Toast.CENTER,
+          backgroundColor: Colors.orange,
+        );
+      }
+    });
+  }
+
+  Future<double> _computeCacheSize(FileSystemEntity file) async {
+    if (file is File) {
+      int length = await file.length();
+      return double.parse('$length');
+    }
+    if (file is Directory) {
+      final List<FileSystemEntity> fileEntities = file.listSync();
+      double total = 0;
+      if (fileEntities != null) {
+        for (var item in fileEntities) {
+          total += await _computeCacheSize(item);
+        }
+        return total;
+      }
+      return 0;
+    }
+    return 0.0;
+  }
+
+  String _renderSize(double value) {
+    if (null == value) return '0';
+
+    final unitArr = [
+      '\rB',
+      '\rK',
+      '\rM',
+      '\rG',
+    ];
+
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+
+    String size = value.toStringAsFixed(2);
+    return size += unitArr[index];
+  }
+
+  void _clearCache() async {
+    try {
+      Directory tempDir = await getTemporaryDirectory();
+      await delDir(tempDir);
+      await _loadCache();
+      Toast.show(
+        '清除缓存成功',
+        context,
+        gravity: Toast.CENTER,
+        backgroundColor: Colors.orange,
+      );
+    } catch (e) {
+      Toast.show('清除缓存失败 \n$e', context,
+          gravity: Toast.CENTER, backgroundColor: Colors.orange);
+    }
+  }
+
+  Future<void> delDir(FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await delDir(child);
+      }
+    }
+    await file.delete();
+  }
 }
 
 class ItemTile extends StatelessWidget {
-  const ItemTile({this.onTap, this.isTrail, this.index});
+  const ItemTile({
+    this.onTap,
+    this.arrow,
+    this.index,
+    this.label,
+    this.event,
+    this.icon,
+  });
 
   final Function onTap;
-  final bool isTrail;
+  final bool arrow;
   final int index;
+  final Widget label;
+  final Function event;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap ?? () {},
-      child: Container(
-        color: Colors.white,
-        child: ListTile(
-          dense: true,
-          leading: Text(
-            settingTxT[index],
-            style: TextStyle(fontSize: 18.0),
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          child: ListTile(
+            dense: true,
+            leading: InkWell(
+              onTap: onTap,
+              child: Container(
+                width: sizeW(context) * .6,
+                height: 42.0,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  settingTxT[index],
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 8.0),
+                  child: label ?? Container(),
+                ),
+              ],
+            ),
+            trailing: arrow == true
+                ? InkWell(
+                    onTap: event,
+                    child: Icon(
+                      icon ?? Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                      size: 22.0,
+                    ),
+                  )
+                : null,
           ),
-          trailing: isTrail == true
-              ? Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.grey.withOpacity(0.5),
-                  size: 18.0,
-                )
-              : null,
         ),
-      ),
+        divLine(color: divColor, height: 2.0)
+      ],
     );
   }
 }

@@ -73,6 +73,7 @@ class Tube extends PositionComponent
     setY();
   }
 
+  @override
   void update(double t) {
     if (!_hasBeenOnScreen && isOnScreen) _hasBeenOnScreen = true;
     if (_hasBeenOnScreen && !isOnScreen) {
@@ -83,6 +84,7 @@ class Tube extends PositionComponent
       _hasBeenOnScreen = false;
     }
     this.ground.x -= t * Speed.groundSpeed;
+    super.update(t);
   }
 
   void setY() {

@@ -2,8 +2,12 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fun_refresh/model/data/local_asset.dart';
+import 'package:fun_refresh/model/event/bloc_provider.dart';
+import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 final disclaimer = 'disclaimer';
@@ -152,3 +156,51 @@ Future<Size> getPicSize({@required pic}) {
   );
   return completer.future;
 }
+
+// BloC Provider
+final boolValueBloc = BoolValueBloc();
+
+// 广告接收过滤
+final targetingInfo = MobileAdTargetingInfo(
+  childDirected: false,
+);
+
+// 横幅广告
+final BannerAd bannerAd = createBannerAd();
+
+MobileAd createBannerAd({AdSize size}) {
+  return BannerAd(
+    adUnitId: configID['bannerID'],
+    size: size ?? AdSize.banner,
+    listener: (MobileAdEvent event) {
+      print('横幅广告事件监听: $event');
+    },
+  );
+}
+
+// 激励视频
+Future<bool> loadRewardAd() {
+  return RewardedVideoAd.instance.load(
+    adUnitId: configID['rewardID'],
+    targetingInfo: targetingInfo,
+  );
+}
+
+// 检测更新
+
+void checkUpdateVersion() async {
+  // final apk = '';
+  // final ipa = '';
+  final packageInfo = await PackageInfo.fromPlatform();
+  print(packageInfo.appName);
+  print(packageInfo.buildNumber);
+  print(packageInfo.version);
+  print(packageInfo.packageName);
+}
+
+
+/* 
+
+https://www.wandoujia.com/apps/8104783/download/dot?ch=detail_normal_dl
+
+ */

@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "36796961709",
+    "firebase_url": "https://fun-refresh-flutter.firebaseio.com",
+    "project_id": "fun-refresh-flutter",
+    "storage_bucket": "fun-refresh-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36796961709:android:10621f963f7e68cf",
+        "android_client_info": {
+          "package_name": "intelligent.fun_refresh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36796961709-ivj9r0n3fqcct2vlckvkjgoflm9o8kh7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "intelligent.fun_refresh",
+            "certificate_hash": "7d3792606da502f0f0d4e7616c81776b4f18fceb"
+          }
+        },
+        {
+          "client_id": "36796961709-41ndlvrpmmc3mdtc6vobhe4dro57o5dc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "intelligent.fun_refresh",
+            "certificate_hash": "80f0ccc9f05bef1009ac11ec1060b8ea736959b1"
+          }
+        },
+        {
+          "client_id": "36796961709-tcptuuj7826e8daom9f70pkcq8otles7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCPbk8TxW5xrVVnZtJt87j6JmIShj3FrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36796961709-as4uovje1g40c4q319kmaa68dvmck444.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "36796961709-j5k4lhj61aectajjn16g0vcnvqelo6a0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "intelligent.funRefresh"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9275143816186195~6439219109"
+    }
+  ],
+  "configuration_version": "1"
+}
